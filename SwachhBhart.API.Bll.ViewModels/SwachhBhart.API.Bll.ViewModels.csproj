@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6F95F3BC-0771-4FAD-BA7D-16C2A2F9C618}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SwachhBhart.API.Bll.ViewModels</RootNamespace>
+    <AssemblyName>SwachhBhart.API.Bll.ViewModels</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Desktop\WheelsAppy.CMS\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AttendanceGridVM.cs" />
+    <Compile Include="BigVQREmployeeAttendenceVM.cs" />
+    <Compile Include="BigVQrEmployeeVM.cs" />
+    <Compile Include="BigVQRHPDVM.cs" />
+    <Compile Include="BigVQrworkhistorydetails.cs" />
+    <Compile Include="Citizen\CitizenMobileDetails.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="CMSB\CMSBAreaVM.cs" />
+    <Compile Include="CMSB\CMSBCommonVM.cs" />
+    <Compile Include="CMSB\CMSBComplaintVM.cs" />
+    <Compile Include="CMSB\CMSBDashBoardVM.cs" />
+    <Compile Include="CMSB\CMSBDistrictVM.cs" />
+    <Compile Include="CMSB\CMSBDumpYardDetailsVM.cs" />
+    <Compile Include="CMSB\CMSBEmployee.cs" />
+    <Compile Include="CMSB\CMSBEmployeeDetailsVM.cs" />
+    <Compile Include="CMSB\CMSBGarbagePointDetailsVM.cs" />
+    <Compile Include="CMSB\CMSBGrabageCollectionVM.cs" />
+    <Compile Include="CMSB\CMSBHouseDetailsVM.cs" />
+    <Compile Include="CMSB\CMSBHouseLocationOnMap.cs" />
+    <Compile Include="CMSB\CMSBLocationVM.cs" />
+    <Compile Include="CMSB\CMSBPointGarbageCollectionVM.cs" />
+    <Compile Include="CMSB\CMSBStatesVM.cs" />
+    <Compile Include="CMSB\CMSBTalukaVM.cs" />
+    <Compile Include="CMSB\CMSBUserLocationMapVM.cs" />
+    <Compile Include="CMSB\CMSBWardVM.cs" />
+    <Compile Include="CMSB\CMSBWardZoneVM.cs" />
+    <Compile Include="CMSB\CMSBZoneVM.cs" />
+    <Compile Include="CMSB\CMSBEmplyeeIdelGrid.cs" />
+    <Compile Include="CMSB\CMSBEmpolyeeSummaryGrid.cs" />
+    <Compile Include="CollectionResult.cs" />
+    <Compile Include="DumpYardPointDetailsVM.cs" />
+    <Compile Include="EmployeeVM.cs" />
+    <Compile Include="Games\SBGameAnswerTypeVM.cs" />
+    <Compile Include="Games\SBGamePlayerDetailsVM.cs" />
+    <Compile Include="Games\SBGamePlayerVM.cs" />
+    <Compile Include="Games\SBGamesQuestionVM.cs" />
+    <Compile Include="Games\SBGamesVM.cs" />
+    <Compile Include="GarbagePointDetailsVM.cs" />
+    <Compile Include="GPHousedetailsVM.cs" />
+    <Compile Include="HouseDetailsVM.cs" />
+    <Compile Include="AHouseGarbageCollectionVM.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Result.cs" />
+    <Compile Include="SBAAttendenceSettingsGridRow.cs" />
+    <Compile Include="SBAdmin.cs" />
+    <Compile Include="SBArea.cs" />
+    <Compile Include="SBAUserlocation.cs" />
+    <Compile Include="SBDashboardVM.cs" />
+    <Compile Include="SBGarbageCollectionView.cs" />
+    <Compile Include="SBUser.cs" />
+    <Compile Include="SBUserAttendence.cs" />
+    <Compile Include="SBUserAttendenceView.cs" />
+    <Compile Include="SBUserLocation.cs" />
+    <Compile Include="SBUserView.cs" />
+    <Compile Include="SBVehicleType.cs" />
+    <Compile Include="SBWorkDetails.cs" />
+    <Compile Include="SBWorkDetailsHistory.cs" />
+    <Compile Include="SyncResult.cs" />
+    <Compile Include="WasteManagement\GarbageCategoryVM.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SwachhBharatAPI.Dal.DataContexts\SwachhBharatAPI.Dal.DataContexts.csproj">
+      <Project>{bfbfaa22-368d-4c16-ab81-181f98615da1}</Project>
+      <Name>SwachhBharatAPI.Dal.DataContexts</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

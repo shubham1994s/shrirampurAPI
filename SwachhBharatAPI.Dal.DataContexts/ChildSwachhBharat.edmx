@@ -1,0 +1,2349 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DevSwachhBharatNagpurModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BinLatLong">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="lat" Type="nvarchar" MaxLength="500" />
+          <Property Name="long" Type="nvarchar" MaxLength="500" />
+          <Property Name="Distance" Type="nvarchar(max)" />
+          <Property Name="Temp" Type="nvarchar" MaxLength="500" />
+          <Property Name="S1" Type="varchar" MaxLength="500" />
+          <Property Name="S2" Type="varchar" MaxLength="500" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Daily_Attendance">
+          <Key>
+            <PropertyRef Name="daID" />
+          </Key>
+          <Property Name="daID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" />
+          <Property Name="startLat" Type="nvarchar" MaxLength="500" />
+          <Property Name="startLong" Type="nvarchar" MaxLength="500" />
+          <Property Name="endLat" Type="nchar" MaxLength="10" />
+          <Property Name="endLong" Type="nchar" MaxLength="10" />
+          <Property Name="startTime" Type="nvarchar" MaxLength="200" />
+          <Property Name="endTime" Type="nvarchar" MaxLength="200" />
+          <Property Name="daDate" Type="date" />
+          <Property Name="daEndDate" Type="date" />
+          <Property Name="vtId" Type="nchar" MaxLength="10" />
+          <Property Name="daStartNote" Type="nvarchar(max)" />
+          <Property Name="daEndNote" Type="nvarchar(max)" />
+          <Property Name="vehicleNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="batteryStatus" Type="varchar" MaxLength="20" />
+          <Property Name="totalKm" Type="int" />
+          <Property Name="OutbatteryStatus" Type="varchar" MaxLength="20" />
+          <Property Name="EmployeeType" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="DeviceDetails">
+          <Key>
+            <PropertyRef Name="DeviceDetailId" />
+          </Key>
+          <Property Name="DeviceDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeviceID" Type="nvarchar(max)" />
+          <Property Name="FCMID" Type="nvarchar(max)" />
+          <Property Name="DeviceType" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReferenceID" Type="nvarchar" MaxLength="50" />
+          <Property Name="InstallDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DumpYardDetails">
+          <Key>
+            <PropertyRef Name="dyId" />
+          </Key>
+          <Property Name="dyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dyName" Type="nvarchar" MaxLength="200" />
+          <Property Name="dyNameMar" Type="nvarchar" MaxLength="200" />
+          <Property Name="dyLat" Type="nvarchar" MaxLength="500" />
+          <Property Name="dyLong" Type="nvarchar" MaxLength="500" />
+          <Property Name="dyQRCode" Type="nvarchar(max)" />
+          <Property Name="zoneId" Type="int" />
+          <Property Name="wardId" Type="int" />
+          <Property Name="areaId" Type="int" />
+          <Property Name="ReferanceId" Type="nvarchar" MaxLength="200" />
+          <Property Name="dyAddress" Type="nvarchar(max)" />
+          <Property Name="lastModifiedDate" Type="datetime" />
+          <Property Name="userId" Type="int" />
+        </EntityType>
+        <EntityType Name="GamePlayerDetails">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlayerId" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="Score" Type="int" />
+          <Property Name="DeviceId" Type="nvarchar" MaxLength="500" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="GameId" Type="int" />
+        </EntityType>
+        <EntityType Name="GarbageCollectionDetails">
+          <Key>
+            <PropertyRef Name="gcId" />
+          </Key>
+          <Property Name="gcId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" />
+          <Property Name="houseId" Type="int" />
+          <Property Name="gpId" Type="int" />
+          <Property Name="gcDate" Type="datetime" />
+          <Property Name="Lat" Type="nvarchar" MaxLength="500" />
+          <Property Name="Long" Type="nvarchar" MaxLength="500" />
+          <Property Name="gcImage" Type="nvarchar(max)" />
+          <Property Name="gcQRcode" Type="nvarchar(max)" />
+          <Property Name="gpBeforImage" Type="nvarchar(max)" />
+          <Property Name="gpAfterImage" Type="nvarchar(max)" />
+          <Property Name="gcType" Type="int" />
+          <Property Name="vehicleNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="note" Type="nvarchar(max)" />
+          <Property Name="locAddresss" Type="nvarchar(max)" />
+          <Property Name="garbageType" Type="int" />
+          <Property Name="modified" Type="datetime" />
+          <Property Name="dyId" Type="int" />
+          <Property Name="totalGcWeight" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="totalDryWeight" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="totalWetWeight" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="batteryStatus" Type="varchar" MaxLength="20" />
+          <Property Name="Distance" Type="float" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="RFIDTagId" Type="nvarchar" MaxLength="255" />
+          <Property Name="RFIDReaderId" Type="nvarchar" MaxLength="255" />
+          <Property Name="SourceId" Type="int" />
+          <Property Name="OutbatteryStatus" Type="varchar" MaxLength="20" />
+          <Property Name="WasteType" Type="varchar" MaxLength="10" />
+          <Property Name="EmployeeType" Type="varchar" MaxLength="10" />
+          <Property Name="LWId" Type="int" />
+          <Property Name="SSId" Type="int" />
+        </EntityType>
+        <EntityType Name="GarbagePointDetails">
+          <Key>
+            <PropertyRef Name="gpId" />
+          </Key>
+          <Property Name="gpId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="gpName" Type="nvarchar" MaxLength="200" />
+          <Property Name="gpNameMar" Type="nvarchar" MaxLength="200" />
+          <Property Name="gpLat" Type="nvarchar" MaxLength="500" />
+          <Property Name="gpLong" Type="nvarchar" MaxLength="500" />
+          <Property Name="qrCode" Type="nvarchar(max)" />
+          <Property Name="zoneId" Type="int" />
+          <Property Name="wardId" Type="int" />
+          <Property Name="areaId" Type="int" />
+          <Property Name="ReferanceId" Type="nvarchar" MaxLength="200" />
+          <Property Name="gpAddress" Type="nvarchar(max)" />
+          <Property Name="modified" Type="datetime" />
+          <Property Name="userId" Type="int" />
+        </EntityType>
+        <EntityType Name="GramCleaningComplient">
+          <Key>
+            <PropertyRef Name="CleaningComplientId" />
+          </Key>
+          <Property Name="CleaningComplientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Place" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ward_No." Type="nvarchar" MaxLength="100" />
+          <Property Name="Details" Type="nvarchar(max)" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Number" Type="numeric" Precision="13" Scale="0" />
+          <Property Name="Email" Type="nvarchar" MaxLength="200" />
+          <Property Name="Address" Type="nvarchar" MaxLength="550" />
+          <Property Name="Tip" Type="nchar" MaxLength="200" />
+          <Property Name="Image" Type="nvarchar" MaxLength="200" />
+          <Property Name="Lat_Log" Type="nvarchar(max)" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="languageId" Type="int" />
+          <Property Name="status" Type="nvarchar" MaxLength="200" />
+          <Property Name="userId" Type="nvarchar(max)" />
+          <Property Name="status_description" Type="nvarchar(max)" />
+          <Property Name="status_image_url" Type="nvarchar(max)" />
+          <Property Name="ref_id" Type="nvarchar" MaxLength="200" />
+          <Property Name="Type" Type="int" />
+        </EntityType>
+        <EntityType Name="HouseMaster">
+          <Key>
+            <PropertyRef Name="houseId" />
+          </Key>
+          <Property Name="houseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="houseNumber" Type="nvarchar" MaxLength="500" />
+          <Property Name="houseOwner" Type="varchar" MaxLength="200" />
+          <Property Name="houseOwnerMar" Type="nvarchar" MaxLength="200" />
+          <Property Name="houseOwnerMobile" Type="nvarchar" MaxLength="200" />
+          <Property Name="houseAddress" Type="nvarchar" MaxLength="500" />
+          <Property Name="houseLat" Type="nvarchar" MaxLength="500" />
+          <Property Name="houseLong" Type="nvarchar" MaxLength="500" />
+          <Property Name="houseQRCode" Type="nvarchar(max)" />
+          <Property Name="ZoneId" Type="int" />
+          <Property Name="AreaId" Type="int" />
+          <Property Name="WardNo" Type="int" />
+          <Property Name="ReferanceId" Type="nvarchar" MaxLength="350" />
+          <Property Name="modified" Type="datetime" />
+          <Property Name="userId" Type="int" />
+          <Property Name="FCMID" Type="varchar" MaxLength="500" />
+          <Property Name="lastModifiedEntry" Type="datetime" />
+          <Property Name="RFIDTagId" Type="nvarchar" MaxLength="255" />
+          <Property Name="WasteType" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="LiquidWasteDetails">
+          <Key>
+            <PropertyRef Name="LWId" />
+          </Key>
+          <Property Name="LWId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LWName" Type="nvarchar" MaxLength="200" />
+          <Property Name="LWNameMar" Type="nvarchar" MaxLength="200" />
+          <Property Name="LWLat" Type="nvarchar" MaxLength="500" />
+          <Property Name="LWLong" Type="nvarchar" MaxLength="500" />
+          <Property Name="LWQRCode" Type="nvarchar(max)" />
+          <Property Name="zoneId" Type="int" />
+          <Property Name="wardId" Type="int" />
+          <Property Name="areaId" Type="int" />
+          <Property Name="ReferanceId" Type="nvarchar" MaxLength="200" />
+          <Property Name="LWAddreLW" Type="nvarchar(max)" />
+          <Property Name="lastModifiedDate" Type="datetime" />
+          <Property Name="userId" Type="int" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="locId" />
+          </Key>
+          <Property Name="locId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" />
+          <Property Name="datetime" Type="datetime" />
+          <Property Name="lat" Type="nvarchar" MaxLength="500" />
+          <Property Name="long" Type="nvarchar" MaxLength="500" />
+          <Property Name="address" Type="nvarchar(max)" />
+          <Property Name="area" Type="nvarchar" MaxLength="500" />
+          <Property Name="type" Type="int" />
+          <Property Name="batteryStatus" Type="varchar" MaxLength="20" />
+          <Property Name="Distnace" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="IsOffline" Type="bit" />
+          <Property Name="ReferanceID" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="RFIDTagId" Type="nvarchar" MaxLength="255" />
+          <Property Name="RFIDReaderId" Type="nvarchar" MaxLength="255" />
+          <Property Name="SourceId" Type="int" />
+          <Property Name="EmployeeType" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Qr_Employee_Daily_Attendance">
+          <Key>
+            <PropertyRef Name="qrEmpDaId" />
+          </Key>
+          <Property Name="qrEmpDaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="qrEmpId" Type="int" />
+          <Property Name="startLat" Type="nvarchar" MaxLength="500" />
+          <Property Name="startLong" Type="nvarchar" MaxLength="500" />
+          <Property Name="endLat" Type="nchar" MaxLength="10" />
+          <Property Name="endLong" Type="nchar" MaxLength="10" />
+          <Property Name="startTime" Type="nvarchar" MaxLength="200" />
+          <Property Name="endTime" Type="nvarchar" MaxLength="200" />
+          <Property Name="startDate" Type="date" />
+          <Property Name="endDate" Type="date" />
+          <Property Name="startNote" Type="nvarchar(max)" />
+          <Property Name="endNote" Type="nvarchar(max)" />
+          <Property Name="batteryStatus" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Qr_Location">
+          <Key>
+            <PropertyRef Name="locId" />
+          </Key>
+          <Property Name="locId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="empId" Type="int" />
+          <Property Name="datetime" Type="datetime" />
+          <Property Name="lat" Type="nvarchar" MaxLength="500" />
+          <Property Name="long" Type="nvarchar" MaxLength="500" />
+          <Property Name="address" Type="nvarchar(max)" />
+          <Property Name="area" Type="nvarchar" MaxLength="500" />
+          <Property Name="type" Type="int" />
+          <Property Name="batteryStatus" Type="varchar" MaxLength="20" />
+          <Property Name="Distnace" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="IsOffline" Type="bit" />
+          <Property Name="ReferanceID" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="QrEmployeeMaster">
+          <Key>
+            <PropertyRef Name="qrEmpId" />
+          </Key>
+          <Property Name="qrEmpId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="appId" Type="int" />
+          <Property Name="qrEmpName" Type="nvarchar" MaxLength="500" />
+          <Property Name="qrEmpNameMar" Type="nvarchar" MaxLength="200" />
+          <Property Name="qrEmpLoginId" Type="nvarchar" MaxLength="200" />
+          <Property Name="qrEmpPassword" Type="nvarchar" MaxLength="100" />
+          <Property Name="qrEmpMobileNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="qrEmpAddress" Type="nvarchar" MaxLength="200" />
+          <Property Name="type" Type="nvarchar" MaxLength="50" />
+          <Property Name="typeId" Type="int" />
+          <Property Name="userEmployeeNo" Type="nvarchar" MaxLength="250" />
+          <Property Name="imoNo" Type="nvarchar(max)" />
+          <Property Name="bloodGroup" Type="nvarchar" MaxLength="500" />
+          <Property Name="isActive" Type="bit" />
+          <Property Name="target" Type="varchar" MaxLength="250" />
+          <Property Name="lastModifyDate" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.SauchalayAddress' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SauchalayAddress">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SauchalayID" Type="nvarchar" MaxLength="100" />
+          <Property Name="Address" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="Lat" Type="nvarchar" MaxLength="500" />
+          <Property Name="Long" Type="nvarchar" MaxLength="500" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="1000" />
+          <Property Name="QrImageUrl" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="StreetSweepingDetails">
+          <Key>
+            <PropertyRef Name="SSId" />
+          </Key>
+          <Property Name="SSId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SSName" Type="nvarchar" MaxLength="200" />
+          <Property Name="SSNameMar" Type="nvarchar" MaxLength="200" />
+          <Property Name="SSLat" Type="nvarchar" MaxLength="500" />
+          <Property Name="SSLong" Type="nvarchar" MaxLength="500" />
+          <Property Name="SSQRCode" Type="nvarchar(max)" />
+          <Property Name="zoneId" Type="int" />
+          <Property Name="wardId" Type="int" />
+          <Property Name="areaId" Type="int" />
+          <Property Name="ReferanceId" Type="nvarchar" MaxLength="200" />
+          <Property Name="SSAddress" Type="nvarchar(max)" />
+          <Property Name="lastModifiedDate" Type="datetime" />
+          <Property Name="userId" Type="int" />
+        </EntityType>
+        <EntityType Name="TeritoryMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Area" Type="nvarchar" MaxLength="250" />
+          <Property Name="AreaMar" Type="nvarchar" MaxLength="50" />
+          <Property Name="wardId" Type="int" />
+        </EntityType>
+        <EntityType Name="UserMaster">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userName" Type="nvarchar" MaxLength="500" />
+          <Property Name="userNameMar" Type="nvarchar" MaxLength="200" />
+          <Property Name="userLoginId" Type="nvarchar" MaxLength="200" />
+          <Property Name="userPassword" Type="nvarchar" MaxLength="100" />
+          <Property Name="userMobileNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="userAddress" Type="nvarchar" MaxLength="200" />
+          <Property Name="userProfileImage" Type="nvarchar" MaxLength="500" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="userEmployeeNo" Type="nvarchar" MaxLength="250" />
+          <Property Name="userDesignation" Type="nvarchar(max)" />
+          <Property Name="imoNo" Type="nvarchar(max)" />
+          <Property Name="bloodGroup" Type="nvarchar" MaxLength="250" />
+          <Property Name="isActive" Type="bit" />
+          <Property Name="gcTarget" Type="varchar" MaxLength="250" />
+          <Property Name="EmployeeType" Type="varchar" MaxLength="10" />
+          <Property Name="imoNo2" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="VehicleType">
+          <Key>
+            <PropertyRef Name="vtId" />
+          </Key>
+          <Property Name="vtId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="300" />
+          <Property Name="descriptionMar" Type="nvarchar" MaxLength="300" />
+          <Property Name="isActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="WardNumber">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WardNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="zoneId" Type="int" />
+        </EntityType>
+        <EntityType Name="WM_Garbage_Details">
+          <Key>
+            <PropertyRef Name="GarbageDetailsID" />
+          </Key>
+          <Property Name="GarbageDetailsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubCategoryID" Type="int" />
+          <Property Name="Weight" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="Source" Type="int" />
+          <Property Name="gdDate" Type="datetime" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="WM_Garbage_Sales">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubCategoryID" Type="int" />
+          <Property Name="PartyName" Type="nvarchar" MaxLength="500" />
+          <Property Name="SalesWeight" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="WM_Garbage_Summary">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubCategoryID" Type="int" />
+          <Property Name="TotalWeight" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="WM_GarbageCategory">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Category" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="WM_GarbageSubCategory">
+          <Key>
+            <PropertyRef Name="SubCategoryID" />
+          </Key>
+          <Property Name="SubCategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubCategory" Type="nvarchar" MaxLength="50" />
+          <Property Name="CategoryID" Type="int" />
+        </EntityType>
+        <EntityType Name="ZoneMaster">
+          <Key>
+            <PropertyRef Name="zoneId" />
+          </Key>
+          <Property Name="zoneId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_GetHouseNumber' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_GetHouseNumber">
+          <Key>
+            <PropertyRef Name="houseId" />
+          </Key>
+          <Property Name="houseId" Type="int" Nullable="false" />
+          <Property Name="houseNumber" Type="nvarchar" MaxLength="500" />
+          <Property Name="ReferanceId" Type="nvarchar" MaxLength="350" />
+          <Property Name="AreaId" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotification' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_MsgNotification">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userName" Type="nvarchar" MaxLength="500" />
+          <Property Name="userNameMar" Type="nvarchar" MaxLength="200" />
+          <Property Name="userLoginId" Type="nvarchar" MaxLength="200" />
+          <Property Name="userPassword" Type="nvarchar" MaxLength="100" />
+          <Property Name="userMobileNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="userAddress" Type="nvarchar" MaxLength="200" />
+          <Property Name="userProfileImage" Type="nvarchar" MaxLength="500" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="userEmployeeNo" Type="nvarchar" MaxLength="250" />
+          <Property Name="userDesignation" Type="nvarchar(max)" />
+          <Property Name="imoNo" Type="nvarchar(max)" />
+          <Property Name="bloodGroup" Type="nvarchar" MaxLength="250" />
+          <Property Name="isActive" Type="bit" />
+          <Property Name="gcTarget" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <Function Name="CollecctionArea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="int" Mode="In" />
+        </Function>
+        <Function Name="CurrentAllUserLocation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="CurrentAllUserLocationUserIDWise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetAttendenceDetailsTotal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="int" Mode="In" />
+          <Parameter Name="year" Type="int" Mode="In" />
+          <Parameter Name="month" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetAttendenceDetailsTotalLiquid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="int" Mode="In" />
+          <Parameter Name="year" Type="int" Mode="In" />
+          <Parameter Name="month" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetAttendenceDetailsTotalStreet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="int" Mode="In" />
+          <Parameter Name="year" Type="int" Mode="In" />
+          <Parameter Name="month" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetGarbageCountDetailsHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="int" Mode="In" />
+          <Parameter Name="year" Type="int" Mode="In" />
+          <Parameter Name="month" Type="int" Mode="In" />
+          <Parameter Name="day" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetGarbageCountDetailsTotal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="int" Mode="In" />
+          <Parameter Name="year" Type="int" Mode="In" />
+          <Parameter Name="month" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetMobile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="areaId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetQrWorkHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="int" Mode="In" />
+          <Parameter Name="year" Type="int" Mode="In" />
+          <Parameter Name="month" Type="int" Mode="In" />
+        </Function>
+        <Function Name="HouseDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="HouseDetails_ReferanceId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ReferanceId" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="PointDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_area" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_Dashboard_Details" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_DistanceCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sLat" Type="float" Mode="In" />
+          <Parameter Name="sLong" Type="float" Mode="In" />
+          <Parameter Name="dLat" Type="float" Mode="In" />
+          <Parameter Name="dLong" Type="float" Mode="In" />
+        </Function>
+        <Function Name="SP_DumpYardDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_EmployeeSummary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="from" Type="date" Mode="In" />
+          <Parameter Name="to" Type="date" Mode="In" />
+          <Parameter Name="userid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_EmployeeTarget" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fdate" Type="date" Mode="In" />
+          <Parameter Name="tdate" Type="date" Mode="In" />
+          <Parameter Name="userid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_GarbageCollection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="appId" Type="int" Mode="In" />
+          <Parameter Name="userid" Type="int" Mode="In" />
+          <Parameter Name="fdate" Type="date" Mode="In" />
+          <Parameter Name="tdate" Type="date" Mode="In" />
+          <Parameter Name="ZoneId" Type="int" Mode="In" />
+          <Parameter Name="AreaId" Type="int" Mode="In" />
+          <Parameter Name="WardNo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_HouseOnMapDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="gcDate" Type="datetime" Mode="In" />
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="ZoneId" Type="int" Mode="In" />
+          <Parameter Name="AreaId" Type="int" Mode="In" />
+          <Parameter Name="WardNo" Type="int" Mode="In" />
+          <Parameter Name="GarbageType" Type="int" Mode="In" />
+          <Parameter Name="FilterType" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_HousePointDumpDetails_Scanify" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ReferenceId" Type="nvarchar" Mode="In" />
+          <Parameter Name="gcType" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_IdelTime" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="int" Mode="In" />
+          <Parameter Name="fdate" Type="date" Mode="In" />
+          <Parameter Name="tdate" Type="date" Mode="In" />
+        </Function>
+        <Function Name="sp_Locationdata" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fdate" Type="date" Mode="In" />
+          <Parameter Name="tdate" Type="date" Mode="In" />
+        </Function>
+        <Function Name="SP_TotalHouseCollection_Count" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="gcdate" Type="date" Mode="In" />
+        </Function>
+        <Function Name="SP_UserLatLongDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userid" Type="int" Mode="In" />
+          <Parameter Name="typeId" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="DevSwachhBharatNagpurModelStoreContainer">
+          <EntitySet Name="BinLatLong" EntityType="Self.BinLatLong" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Daily_Attendance" EntityType="Self.Daily_Attendance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeviceDetails" EntityType="Self.DeviceDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DumpYardDetails" EntityType="Self.DumpYardDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GamePlayerDetails" EntityType="Self.GamePlayerDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GarbageCollectionDetails" EntityType="Self.GarbageCollectionDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GarbagePointDetails" EntityType="Self.GarbagePointDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GramCleaningComplient" EntityType="Self.GramCleaningComplient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HouseMaster" EntityType="Self.HouseMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LiquidWasteDetails" EntityType="Self.LiquidWasteDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Qr_Employee_Daily_Attendance" EntityType="Self.Qr_Employee_Daily_Attendance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Qr_Location" EntityType="Self.Qr_Location" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QrEmployeeMaster" EntityType="Self.QrEmployeeMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StreetSweepingDetails" EntityType="Self.StreetSweepingDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TeritoryMaster" EntityType="Self.TeritoryMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserMaster" EntityType="Self.UserMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehicleType" EntityType="Self.VehicleType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WardNumber" EntityType="Self.WardNumber" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WM_Garbage_Details" EntityType="Self.WM_Garbage_Details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WM_Garbage_Sales" EntityType="Self.WM_Garbage_Sales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WM_Garbage_Summary" EntityType="Self.WM_Garbage_Summary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WM_GarbageCategory" EntityType="Self.WM_GarbageCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WM_GarbageSubCategory" EntityType="Self.WM_GarbageSubCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ZoneMaster" EntityType="Self.ZoneMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SauchalayAddress" EntityType="Self.SauchalayAddress" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SauchalayAddress].[Id] AS [Id], 
+    [SauchalayAddress].[SauchalayID] AS [SauchalayID], 
+    [SauchalayAddress].[Address] AS [Address], 
+    [SauchalayAddress].[CreatedDate] AS [CreatedDate], 
+    [SauchalayAddress].[Lat] AS [Lat], 
+    [SauchalayAddress].[Long] AS [Long], 
+    [SauchalayAddress].[Name] AS [Name], 
+    [SauchalayAddress].[ImageUrl] AS [ImageUrl], 
+    [SauchalayAddress].[QrImageUrl] AS [QrImageUrl], 
+    [SauchalayAddress].[Mobile] AS [Mobile]
+    FROM [dbo].[SauchalayAddress] AS [SauchalayAddress]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Vw_GetHouseNumber" EntityType="Self.Vw_GetHouseNumber" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_GetHouseNumber].[houseId] AS [houseId], 
+    [Vw_GetHouseNumber].[houseNumber] AS [houseNumber], 
+    [Vw_GetHouseNumber].[ReferanceId] AS [ReferanceId], 
+    [Vw_GetHouseNumber].[AreaId] AS [AreaId]
+    FROM [dbo].[Vw_GetHouseNumber] AS [Vw_GetHouseNumber]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Vw_MsgNotification" EntityType="Self.Vw_MsgNotification" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_MsgNotification].[userId] AS [userId], 
+    [Vw_MsgNotification].[userName] AS [userName], 
+    [Vw_MsgNotification].[userNameMar] AS [userNameMar], 
+    [Vw_MsgNotification].[userLoginId] AS [userLoginId], 
+    [Vw_MsgNotification].[userPassword] AS [userPassword], 
+    [Vw_MsgNotification].[userMobileNumber] AS [userMobileNumber], 
+    [Vw_MsgNotification].[userAddress] AS [userAddress], 
+    [Vw_MsgNotification].[userProfileImage] AS [userProfileImage], 
+    [Vw_MsgNotification].[Type] AS [Type], 
+    [Vw_MsgNotification].[userEmployeeNo] AS [userEmployeeNo], 
+    [Vw_MsgNotification].[userDesignation] AS [userDesignation], 
+    [Vw_MsgNotification].[imoNo] AS [imoNo], 
+    [Vw_MsgNotification].[bloodGroup] AS [bloodGroup], 
+    [Vw_MsgNotification].[isActive] AS [isActive], 
+    [Vw_MsgNotification].[gcTarget] AS [gcTarget]
+    FROM [dbo].[Vw_MsgNotification] AS [Vw_MsgNotification]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DevSwachhBharatNagpurModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DevSwachhBharatNagpurEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="sp_area" ReturnType="Collection(DevSwachhBharatNagpurModel.sp_area_Result)" />
+          <FunctionImport Name="CollecctionArea" ReturnType="Collection(DevSwachhBharatNagpurModel.CollecctionArea_Result)">
+          <Parameter Name="type" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CurrentAllUserLocation" ReturnType="Collection(DevSwachhBharatNagpurModel.CurrentAllUserLocation_Result)" />
+          <EntitySet Name="GramCleaningComplients" EntityType="DevSwachhBharatNagpurModel.GramCleaningComplient" />
+          <EntitySet Name="TeritoryMasters" EntityType="DevSwachhBharatNagpurModel.TeritoryMaster" />
+          <EntitySet Name="VehicleTypes" EntityType="DevSwachhBharatNagpurModel.VehicleType" />
+          <EntitySet Name="WardNumbers" EntityType="DevSwachhBharatNagpurModel.WardNumber" />
+          <EntitySet Name="ZoneMasters" EntityType="DevSwachhBharatNagpurModel.ZoneMaster" />
+          <EntitySet Name="GarbagePointDetails" EntityType="DevSwachhBharatNagpurModel.GarbagePointDetail" />
+          <FunctionImport Name="GetMobile" ReturnType="Collection(DevSwachhBharatNagpurModel.GetMobile_Result)">
+          <Parameter Name="areaId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Dashboard_Details" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_Dashboard_Details_Result)" />
+          <FunctionImport Name="SP_GarbageCollection" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_GarbageCollection_Result)">
+            <Parameter Name="appId" Mode="In" Type="Int32" />
+            <Parameter Name="userid" Mode="In" Type="Int32" />
+            <Parameter Name="fdate" Mode="In" Type="DateTime" />
+            <Parameter Name="tdate" Mode="In" Type="DateTime" />
+            <Parameter Name="ZoneId" Mode="In" Type="Int32" />
+            <Parameter Name="AreaId" Mode="In" Type="Int32" />
+            <Parameter Name="WardNo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="DumpYardDetails" EntityType="DevSwachhBharatNagpurModel.DumpYardDetail" />
+          <FunctionImport Name="SP_DumpYardDetails" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_DumpYardDetails_Result)" />
+          <FunctionImport Name="SP_DistanceCount" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_DistanceCount_Result)">
+            <Parameter Name="sLat" Mode="In" Type="Double" />
+            <Parameter Name="sLong" Mode="In" Type="Double" />
+            <Parameter Name="dLat" Mode="In" Type="Double" />
+            <Parameter Name="dLong" Mode="In" Type="Double" />
+          </FunctionImport>
+          <FunctionImport Name="HouseDetails" ReturnType="Collection(DevSwachhBharatNagpurModel.HouseDetails_Result)" />
+          <FunctionImport Name="PointDetails" ReturnType="Collection(DevSwachhBharatNagpurModel.PointDetails_Result)" />
+          <EntitySet Name="Qr_Employee_Daily_Attendance" EntityType="DevSwachhBharatNagpurModel.Qr_Employee_Daily_Attendance" />
+          <FunctionImport Name="GetAttendenceDetailsTotal" ReturnType="Collection(DevSwachhBharatNagpurModel.GetAttendenceDetailsTotal_Result)">
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+            <Parameter Name="year" Mode="In" Type="Int32" />
+            <Parameter Name="month" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CurrentAllUserLocationUserIDWise" ReturnType="Collection(DevSwachhBharatNagpurModel.CurrentAllUserLocationUserIDWise_Result)">
+          <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="QrEmployeeMasters" EntityType="DevSwachhBharatNagpurModel.QrEmployeeMaster" />
+          <FunctionImport Name="GetQrWorkHistory" ReturnType="Collection(DevSwachhBharatNagpurModel.GetQrWorkHistory_Result)">
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+            <Parameter Name="year" Mode="In" Type="Int32" />
+            <Parameter Name="month" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_IdelTime" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_IdelTime_Result)">
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+            <Parameter Name="fdate" Mode="In" Type="DateTime" />
+            <Parameter Name="tdate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="SP_EmployeeSummary" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_EmployeeSummary_Result)">
+            <Parameter Name="from" Mode="In" Type="DateTime" />
+            <Parameter Name="to" Mode="In" Type="DateTime" />
+            <Parameter Name="userid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_EmployeeTarget" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_EmployeeTarget_Result)">
+            <Parameter Name="fdate" Mode="In" Type="DateTime" />
+            <Parameter Name="tdate" Mode="In" Type="DateTime" />
+            <Parameter Name="userid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="BinLatLongs" EntityType="DevSwachhBharatNagpurModel.BinLatLong" />
+          <FunctionImport Name="SP_HousePointDumpDetails_Scanify" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_HousePointDumpDetails_Scanify_Result)">
+            <Parameter Name="ReferenceId" Mode="In" Type="String" />
+            <Parameter Name="gcType" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="HouseMasters" EntityType="DevSwachhBharatNagpurModel.HouseMaster" />
+          <FunctionImport Name="HouseDetails_ReferanceId" ReturnType="Collection(DevSwachhBharatNagpurModel.HouseDetails_ReferanceId_Result)">
+          <Parameter Name="ReferanceId" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="DeviceDetails" EntityType="DevSwachhBharatNagpurModel.DeviceDetail" />
+          <EntitySet Name="Qr_Location" EntityType="DevSwachhBharatNagpurModel.Qr_Location" />
+          <FunctionImport Name="SP_UserLatLongDetail" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_UserLatLongDetail_Result)">
+            <Parameter Name="userid" Mode="In" Type="Int32" />
+            <Parameter Name="typeId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_HouseOnMapDetails" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_HouseOnMapDetails_Result)">
+            <Parameter Name="gcDate" Mode="In" Type="DateTime" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="ZoneId" Mode="In" Type="Int32" />
+            <Parameter Name="AreaId" Mode="In" Type="Int32" />
+            <Parameter Name="WardNo" Mode="In" Type="Int32" />
+            <Parameter Name="GarbageType" Mode="In" Type="Int32" />
+            <Parameter Name="FilterType" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Locations" EntityType="DevSwachhBharatNagpurModel.Location" />
+          <EntitySet Name="GamePlayerDetails" EntityType="DevSwachhBharatNagpurModel.GamePlayerDetail" />
+          <FunctionImport Name="SP_TotalHouseCollection_Count" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_TotalHouseCollection_Count_Result)">
+          <Parameter Name="gcdate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <EntitySet Name="WM_GarbageCategory" EntityType="DevSwachhBharatNagpurModel.WM_GarbageCategory" />
+          <EntitySet Name="WM_GarbageSubCategory" EntityType="DevSwachhBharatNagpurModel.WM_GarbageSubCategory" />
+          <EntitySet Name="WM_Garbage_Summary" EntityType="DevSwachhBharatNagpurModel.WM_Garbage_Summary" />
+          <FunctionImport Name="GetGarbageCountDetailsTotal" ReturnType="Collection(DevSwachhBharatNagpurModel.GetGarbageCountDetailsTotal_Result)">
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+            <Parameter Name="year" Mode="In" Type="Int32" />
+            <Parameter Name="month" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetGarbageCountDetailsHistory" ReturnType="Collection(DevSwachhBharatNagpurModel.GetGarbageCountDetailsHistory_Result)">
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+            <Parameter Name="year" Mode="In" Type="Int32" />
+            <Parameter Name="month" Mode="In" Type="Int32" />
+            <Parameter Name="day" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="SauchalayAddresses" EntityType="DevSwachhBharatNagpurModel.SauchalayAddress" />
+          <EntitySet Name="WM_Garbage_Details" EntityType="DevSwachhBharatNagpurModel.WM_Garbage_Details" />
+          <EntitySet Name="Vw_GetHouseNumber" EntityType="DevSwachhBharatNagpurModel.Vw_GetHouseNumber" />
+          <EntitySet Name="Daily_Attendance" EntityType="DevSwachhBharatNagpurModel.Daily_Attendance" />
+          <FunctionImport Name="sp_MsgNotification" ReturnType="Collection(DevSwachhBharatNagpurModel.sp_MsgNotification_Result)">
+          <Parameter Name="starttime" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Locationdata" ReturnType="Collection(DevSwachhBharatNagpurModel.sp_Locationdata_Result)">
+            <Parameter Name="fdate" Mode="In" Type="DateTime" />
+            <Parameter Name="tdate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <EntitySet Name="WM_Garbage_Sales" EntityType="DevSwachhBharatNagpurModel.WM_Garbage_Sales" />
+          <EntitySet Name="UserMasters" EntityType="DevSwachhBharatNagpurModel.UserMaster" />
+          <EntitySet Name="Vw_MsgNotification" EntityType="DevSwachhBharatNagpurModel.Vw_MsgNotification" />
+          <EntitySet Name="LiquidWasteDetails" EntityType="DevSwachhBharatNagpurModel.LiquidWasteDetail" />
+          <EntitySet Name="StreetSweepingDetails" EntityType="DevSwachhBharatNagpurModel.StreetSweepingDetail" />
+          <EntitySet Name="GarbageCollectionDetails" EntityType="DevSwachhBharatNagpurModel.GarbageCollectionDetail" />
+          <FunctionImport Name="GetAttendenceDetailsTotalLiquid" ReturnType="Collection(DevSwachhBharatNagpurModel.GetAttendenceDetailsTotalLiquid_Result)">
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+            <Parameter Name="year" Mode="In" Type="Int32" />
+            <Parameter Name="month" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetAttendenceDetailsTotalStreet" ReturnType="Collection(DevSwachhBharatNagpurModel.GetAttendenceDetailsTotalStreet_Result)">
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+            <Parameter Name="year" Mode="In" Type="Int32" />
+            <Parameter Name="month" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="sp_area_Result">
+          <Property Type="String" Name="area" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="CollecctionArea_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Area" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="AreaMar" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="CurrentAllUserLocation_Result">
+          <Property Type="Int32" Name="userid" Nullable="true" />
+          <Property Type="String" Name="userName" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="datetime" Nullable="true" Precision="23" />
+          <Property Type="String" Name="lat" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="long" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="address" Nullable="true" />
+          <Property Type="String" Name="area" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="userMobileNumber" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <EntityType Name="GramCleaningComplient">
+          <Key>
+            <PropertyRef Name="CleaningComplientId" />
+          </Key>
+          <Property Name="CleaningComplientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Place" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ward_No_" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="Decimal" Precision="13" Scale="0" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="Tip" Type="String" MaxLength="200" FixedLength="true" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Lat_Log" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="languageId" Type="Int32" />
+          <Property Name="status" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="userId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="status_description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="status_image_url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ref_id" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
+        </EntityType>
+        <EntityType Name="TeritoryMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Area" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="AreaMar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="wardId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="VehicleType">
+          <Key>
+            <PropertyRef Name="vtId" />
+          </Key>
+          <Property Name="vtId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="descriptionMar" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="isActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="WardNumber">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WardNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="zoneId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ZoneMaster">
+          <Key>
+            <PropertyRef Name="zoneId" />
+          </Key>
+          <Property Name="zoneId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="GarbagePointDetail">
+          <Key>
+            <PropertyRef Name="gpId" />
+          </Key>
+          <Property Name="gpId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="gpName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="gpNameMar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="gpLat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="gpLong" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="qrCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="zoneId" Type="Int32" />
+          <Property Name="wardId" Type="Int32" />
+          <Property Name="areaId" Type="Int32" />
+          <Property Name="ReferanceId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="gpAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="modified" Type="DateTime" Precision="3" />
+          <Property Name="userId" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="GetMobile_Result">
+          <Property Type="String" Name="mob" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="SP_Dashboard_Details_Result">
+          <Property Type="Int32" Name="TotalAttandence" Nullable="true" />
+          <Property Type="Int32" Name="TotalHouse" Nullable="true" />
+          <Property Type="Int32" Name="TotalPoint" Nullable="true" />
+          <Property Type="Int32" Name="TotalDump" Nullable="true" />
+          <Property Type="Int32" Name="TodayAttandence" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_GarbageCollection_Result" >
+          <Property Type="Int32" Name="gcId" Nullable="false" />
+          <Property Type="DateTime" Name="gcDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="userId" Nullable="true" />
+          <Property Type="String" Name="userName" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="houseId" Nullable="true" />
+          <Property Type="String" Name="houseOwner" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ReferanceId" Nullable="true" MaxLength="350" />
+          <Property Type="String" Name="locAddresss" Nullable="true" />
+          <Property Type="String" Name="vehicleNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="note" Nullable="true" />
+          <Property Type="String" Name="gpBeforImage" Nullable="true" />
+          <Property Type="String" Name="gpAfterImage" Nullable="true" />
+          <Property Type="Int32" Name="garbageType" Nullable="true" />
+          <Property Type="String" Name="batteryStatus" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <EntityType Name="DumpYardDetail">
+          <Key>
+            <PropertyRef Name="dyId" />
+          </Key>
+          <Property Name="dyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dyName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="dyNameMar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="dyLat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="dyLong" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="dyQRCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="zoneId" Type="Int32" />
+          <Property Name="wardId" Type="Int32" />
+          <Property Name="areaId" Type="Int32" />
+          <Property Name="ReferanceId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="dyAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="lastModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="userId" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="SP_DumpYardDetails_Result">
+          <Property Type="Int32" Name="dyId" Nullable="false" />
+          <Property Type="String" Name="ReferanceId" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="NameMar" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Images" Nullable="false" />
+          <Property Type="String" Name="Zone" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="Ward" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Area" Nullable="false" MaxLength="250" />
+          <Property Type="String" Name="Address" Nullable="false" />
+          <Property Type="String" Name="dyLat" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="dyLong" Nullable="false" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="SP_DistanceCount_Result">
+          <Property Type="Decimal" Name="Distance_in_KM" Nullable="true" Precision="10" Scale="6" />
+          <Property Type="Decimal" Name="Distance_in_meters" Nullable="true" Precision="10" Scale="6" />
+        </ComplexType>
+        <ComplexType Name="HouseDetails_Result">
+          <Property Type="Int32" Name="houseId" Nullable="false" />
+          <Property Type="String" Name="ReferanceId" Nullable="true" MaxLength="350" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Images" Nullable="false" />
+          <Property Type="String" Name="Zone" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="Ward" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Area" Nullable="false" MaxLength="250" />
+          <Property Type="String" Name="HouseNumber" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="MobileNumber" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Address" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="NameMar" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="houseLat" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="houseLong" Nullable="false" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="PointDetails_Result">
+          <Property Type="Int32" Name="gpId" Nullable="false" />
+          <Property Type="String" Name="ReferanceId" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="NameMar" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Images" Nullable="false" />
+          <Property Type="String" Name="Zone" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="Ward" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Area" Nullable="false" MaxLength="250" />
+          <Property Type="String" Name="Address" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Qr_Employee_Daily_Attendance">
+          <Key>
+            <PropertyRef Name="qrEmpDaId" />
+          </Key>
+          <Property Name="qrEmpDaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="qrEmpId" Type="Int32" />
+          <Property Name="startLat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="startLong" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="endLat" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="endLong" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="startTime" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="endTime" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="startDate" Type="DateTime" Precision="0" />
+          <Property Name="endDate" Type="DateTime" Precision="0" />
+          <Property Name="startNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="endNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="batteryStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="GetAttendenceDetailsTotal_Result">
+          <Property Type="DateTime" Name="day" Nullable="true" />
+          <Property Type="Int32" Name="userid" Nullable="true" />
+          <Property Type="Int32" Name="HouseCollection" Nullable="true" />
+          <Property Type="Int32" Name="PointCollection" Nullable="true" />
+          <Property Type="Int32" Name="DumpYardCollection" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="CurrentAllUserLocationUserIDWise_Result">
+          <Property Type="Int32" Name="userid" Nullable="true" />
+          <Property Type="String" Name="userName" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="datetime" Nullable="true" Precision="23" />
+          <Property Type="String" Name="lat" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="long" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="address" Nullable="true" />
+          <Property Type="String" Name="area" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="userMobileNumber" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <EntityType Name="QrEmployeeMaster">
+          <Key>
+            <PropertyRef Name="qrEmpId" />
+          </Key>
+          <Property Name="qrEmpId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="appId" Type="Int32" />
+          <Property Name="qrEmpName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="qrEmpNameMar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="qrEmpLoginId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="qrEmpPassword" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="qrEmpMobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="qrEmpAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="typeId" Type="Int32" />
+          <Property Name="userEmployeeNo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="imoNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="bloodGroup" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="isActive" Type="Boolean" />
+          <Property Name="target" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="lastModifyDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <ComplexType Name="GetQrWorkHistory_Result">
+          <Property Type="String" Name="Day" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="UserId" Nullable="true" />
+          <Property Type="Int32" Name="HouseCollection" Nullable="true" />
+          <Property Type="Int32" Name="PointCollection" Nullable="true" />
+          <Property Type="Int32" Name="DumpYardCollection" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_IdelTime_Result">
+          <Property Type="Int32" Name="userId" Nullable="false" />
+          <Property Type="String" Name="userName" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="date" Nullable="true" />
+          <Property Type="String" Name="StartTime" Nullable="true" MaxLength="7" />
+          <Property Type="String" Name="LastTime" Nullable="true" MaxLength="7" />
+          <Property Type="Int32" Name="IdelTime" Nullable="true" />
+          <Property Type="String" Name="StartAddress" Nullable="true" />
+          <Property Type="String" Name="address" Nullable="true" />
+          <Property Type="String" Name="StarLat" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="StartLog" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="lat" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="long" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="SP_EmployeeSummary_Result">
+          <Property Type="String" Name="StartTime" Nullable="true" MaxLength="8" />
+          <Property Type="String" Name="EndTime" Nullable="true" MaxLength="8" />
+          <Property Type="DateTime" Name="Startdate" Nullable="true" />
+          <Property Type="Int32" Name="Totalhousecollection" Nullable="true" />
+          <Property Type="String" Name="userName" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="userId" Nullable="false" />
+          <Property Type="DateTime" Name="Enddate" Nullable="true" />
+          <Property Type="String" Name="BatteryStatus" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="Totaldumpyard" Nullable="true" />
+          <Property Type="Decimal" Name="Totaldistance" Nullable="true" Precision="38" Scale="2" />
+          </ComplexType>
+        <ComplexType Name="SP_EmployeeTarget_Result">
+          <Property Type="Int32" Name="userId" Nullable="true" />
+          <Property Type="DateTime" Name="fromDate" Nullable="true" />
+          <Property Type="DateTime" Name="ToDate" Nullable="true" />
+          <Property Type="String" Name="userName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="gcTarget" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="Count" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="BinLatLong">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="lat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="long" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Distance" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Temp" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="S1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="S2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <ComplexType Name="SP_HousePointDumpDetails_Scanify_Result">
+          <Property Type="Int32" Name="houseId" Nullable="false" />
+          <Property Type="String" Name="ReferanceId" Nullable="true" MaxLength="350" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="NameMar" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Images" Nullable="false" />
+          <Property Type="String" Name="Zone" Nullable="false" MaxLength="500" />
+          <Property Type="Int32" Name="zoneId" Nullable="false" />
+          <Property Type="String" Name="Ward" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="WardNoId" Nullable="false" />
+          <Property Type="String" Name="Area" Nullable="false" MaxLength="250" />
+          <Property Type="Int32" Name="AreaId" Nullable="false" />
+          <Property Type="String" Name="HouseNumber" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="MobileNumber" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Address" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="Lat" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="Long" Nullable="false" MaxLength="500" />
+        </ComplexType>
+        <EntityType Name="HouseMaster">
+          <Key>
+            <PropertyRef Name="houseId" />
+          </Key>
+          <Property Name="houseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="houseNumber" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="houseOwner" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="houseOwnerMar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="houseOwnerMobile" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="houseAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="houseLat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="houseLong" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="houseQRCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ZoneId" Type="Int32" />
+          <Property Name="AreaId" Type="Int32" />
+          <Property Name="WardNo" Type="Int32" />
+          <Property Name="ReferanceId" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="modified" Type="DateTime" Precision="3" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="FCMID" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="lastModifiedEntry" Type="DateTime" Precision="3" />
+          <Property Name="RFIDTagId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="WasteType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="HouseDetails_ReferanceId_Result">
+          <Property Type="Int32" Name="houseId" Nullable="false" />
+          <Property Type="String" Name="ReferanceId" Nullable="true" MaxLength="350" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="NameMar" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Images" Nullable="false" />
+          <Property Type="String" Name="Zone" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="Ward" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Area" Nullable="false" MaxLength="250" />
+          <Property Type="String" Name="HouseNumber" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="MobileNumber" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Address" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="houseLat" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="houseLong" Nullable="false" MaxLength="500" />
+        </ComplexType>
+        <EntityType Name="DeviceDetail">
+          <Key>
+            <PropertyRef Name="DeviceDetailId" />
+          </Key>
+          <Property Name="DeviceDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeviceID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FCMID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DeviceType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReferenceID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InstallDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Qr_Location">
+          <Key>
+            <PropertyRef Name="locId" />
+          </Key>
+          <Property Name="locId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="empId" Type="Int32" />
+          <Property Name="datetime" Type="DateTime" Precision="3" />
+          <Property Name="lat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="long" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="area" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="type" Type="Int32" />
+          <Property Name="batteryStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Distnace" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="IsOffline" Type="Boolean" />
+          <Property Name="ReferanceID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <ComplexType Name="SP_UserLatLongDetail_Result">
+          <Property Type="Int32" Name="locId" Nullable="false" />
+          <Property Type="Int32" Name="userId" Nullable="true" />
+          <Property Type="DateTime" Name="datetime" Nullable="true" Precision="23" />
+          <Property Type="String" Name="lat" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="long" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="address" Nullable="true" />
+          <Property Type="String" Name="area" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="type" Nullable="true" />
+          <Property Type="String" Name="batteryStatus" Nullable="true" MaxLength="20" />
+          <Property Type="Decimal" Name="Distnace" Nullable="true" Precision="6" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="SP_HouseOnMapDetails_Result">
+          <Property Type="Int32" Name="houseId" Nullable="false" />
+          <Property Type="String" Name="ReferanceId" Nullable="true" MaxLength="350" />
+          <Property Type="Int32" Name="userId" Nullable="true" />
+          <Property Type="String" Name="houseNumber" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="houseOwner" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="houseOwnerMobile" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="houseAddress" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="garbageType" Nullable="true" />
+          <Property Type="DateTime" Name="gcDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="houseLat" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="houseLong" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="locId" />
+          </Key>
+          <Property Name="locId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="datetime" Type="DateTime" Precision="3" />
+          <Property Name="lat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="long" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="area" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="type" Type="Int32" />
+          <Property Name="batteryStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Distnace" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="IsOffline" Type="Boolean" />
+          <Property Name="ReferanceID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="RFIDTagId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="RFIDReaderId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SourceId" Type="Int32" />
+          <Property Name="EmployeeType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="GamePlayerDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlayerId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GameId" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Score" Type="Int32" />
+          <Property Name="DeviceId" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+        </EntityType>
+        <ComplexType Name="SP_TotalHouseCollection_Count_Result">
+          <Property Type="Int32" Name="TotalHouseCount" Nullable="true" />
+          <Property Type="Int32" Name="MixedCount" Nullable="true" />
+          <Property Type="Int32" Name="BifurgatedCount" Nullable="true" />
+          <Property Type="Int32" Name="NotCollected" Nullable="true" />
+          <Property Type="Int32" Name="NotSpecified" Nullable="true" />
+          <Property Type="Decimal" Name="GcWeightCount" Nullable="false" Precision="38" Scale="2" />
+          <Property Type="Decimal" Name="DryWeightCount" Nullable="false" Precision="38" Scale="2" />
+          <Property Type="Decimal" Name="WetWeightCount" Nullable="false" Precision="38" Scale="2" />
+          <Property Type="Decimal" Name="TotalGcWeightCount" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="Decimal" Name="TotalDryWeightCount" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="Decimal" Name="TotalWetWeightCount" Nullable="true" Precision="38" Scale="2" />
+        </ComplexType>
+        <EntityType Name="WM_GarbageCategory">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="WM_GarbageSubCategory">
+          <Key>
+            <PropertyRef Name="SubCategoryID" />
+          </Key>
+          <Property Name="SubCategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="WM_Garbage_Summary">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubCategoryID" Type="Int32" />
+          <Property Name="TotalWeight" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <ComplexType Name="GetGarbageCountDetailsTotal_Result">
+          <Property Type="Int32" Name="UserId" Nullable="true" />
+          <Property Type="DateTime" Name="Date" Nullable="true" />
+          <Property Type="Int32" Name="GarbageCount" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetGarbageCountDetailsHistory_Result">
+          <Property Type="Int32" Name="UserId" Nullable="true" />
+          <Property Type="DateTime" Name="Date" Nullable="true" />
+          <Property Type="Int32" Name="GarbageDetailsID" Nullable="true" />
+          <Property Type="Int32" Name="GarbageSubCategoryID" Nullable="true" />
+          <Property Type="String" Name="GarbageSubCategory" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Category" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Weight" Nullable="true" Precision="18" Scale="4" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <EntityType Name="SauchalayAddress">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SauchalayID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Lat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Long" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ImageUrl" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="QrImageUrl" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="WM_Garbage_Details">
+          <Key>
+            <PropertyRef Name="GarbageDetailsID" />
+          </Key>
+          <Property Name="GarbageDetailsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubCategoryID" Type="Int32" />
+          <Property Name="Weight" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="Source" Type="Int32" />
+          <Property Name="gdDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Vw_GetHouseNumber">
+          <Key>
+            <PropertyRef Name="houseId" />
+          </Key>
+          <Property Name="houseId" Type="Int32" Nullable="false" />
+          <Property Name="houseNumber" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ReferanceId" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="AreaId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Daily_Attendance">
+          <Key>
+            <PropertyRef Name="daID" />
+          </Key>
+          <Property Name="daID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="startLat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="startLong" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="endLat" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="endLong" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="startTime" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="endTime" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="daDate" Type="DateTime" Precision="0" />
+          <Property Name="daEndDate" Type="DateTime" Precision="0" />
+          <Property Name="vtId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="daStartNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="daEndNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="vehicleNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="batteryStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="totalKm" Type="Int32" />
+          <Property Name="OutbatteryStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="sp_MsgNotification_Result">
+          <Property Type="Int32" Name="userId" Nullable="false" />
+          <Property Type="String" Name="userName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="userNameMar" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="userLoginId" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="userPassword" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="userMobileNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="userAddress" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="userProfileImage" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Type" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="userEmployeeNo" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="userDesignation" Nullable="true" />
+          <Property Type="String" Name="imoNo" Nullable="true" />
+          <Property Type="String" Name="bloodGroup" Nullable="true" MaxLength="250" />
+          <Property Type="Boolean" Name="isActive" Nullable="true" />
+          <Property Type="String" Name="gcTarget" Nullable="true" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="sp_Locationdata_Result">
+          <Property Type="Int32" Name="userId" Nullable="true" />
+          <Property Type="Int32" Name="locId" Nullable="false" />
+          <Property Type="String" Name="userName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="date" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="times" Nullable="true" MaxLength="8" />
+          <Property Type="String" Name="lat" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="long" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="address" Nullable="true" />
+          <Property Type="DateTime" Name="CompareDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="userMobile" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="vehicleNumber" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <EntityType Name="WM_Garbage_Sales">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubCategoryID" Type="Int32" />
+          <Property Name="PartyName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SalesWeight" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="UserMaster">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="userNameMar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="userLoginId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="userPassword" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="userMobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="userAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="userProfileImage" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userEmployeeNo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="userDesignation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="imoNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="bloodGroup" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="isActive" Type="Boolean" />
+          <Property Name="gcTarget" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="imoNo2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Vw_MsgNotification">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="userNameMar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="userLoginId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="userPassword" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="userMobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="userAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="userProfileImage" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userEmployeeNo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="userDesignation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="imoNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="bloodGroup" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="isActive" Type="Boolean" />
+          <Property Name="gcTarget" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="LiquidWasteDetail">
+          <Key>
+            <PropertyRef Name="LWId" />
+          </Key>
+          <Property Name="LWId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LWName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LWNameMar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LWLat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LWLong" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LWQRCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="zoneId" Type="Int32" />
+          <Property Name="wardId" Type="Int32" />
+          <Property Name="areaId" Type="Int32" />
+          <Property Name="ReferanceId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LWAddreLW" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="lastModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="userId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="StreetSweepingDetail">
+          <Key>
+            <PropertyRef Name="SSId" />
+          </Key>
+          <Property Name="SSId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SSName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SSNameMar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SSLat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SSLong" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SSQRCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="zoneId" Type="Int32" />
+          <Property Name="wardId" Type="Int32" />
+          <Property Name="areaId" Type="Int32" />
+          <Property Name="ReferanceId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SSAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="lastModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="userId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="GarbageCollectionDetail">
+          <Key>
+            <PropertyRef Name="gcId" />
+          </Key>
+          <Property Name="gcId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="houseId" Type="Int32" />
+          <Property Name="gpId" Type="Int32" />
+          <Property Name="gcDate" Type="DateTime" Precision="3" />
+          <Property Name="Lat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Long" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="gcImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="gcQRcode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="gpBeforImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="gpAfterImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="gcType" Type="Int32" />
+          <Property Name="vehicleNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="locAddresss" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="garbageType" Type="Int32" />
+          <Property Name="modified" Type="DateTime" Precision="3" />
+          <Property Name="dyId" Type="Int32" />
+          <Property Name="totalGcWeight" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="totalDryWeight" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="totalWetWeight" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="batteryStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Distance" Type="Double" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="RFIDTagId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="RFIDReaderId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SourceId" Type="Int32" />
+          <Property Name="OutbatteryStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="WasteType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="LWId" Type="Int32" />
+          <Property Name="SSId" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="GetAttendenceDetailsTotalLiquid_Result">
+          <Property Type="DateTime" Name="day" Nullable="true" />
+          <Property Type="Int32" Name="userid" Nullable="true" />
+          <Property Type="Int32" Name="LiquidCollection" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAttendenceDetailsTotalStreet_Result">
+          <Property Type="DateTime" Name="day" Nullable="true" />
+          <Property Type="Int32" Name="userid" Nullable="true" />
+          <Property Type="Int32" Name="StreetCollection" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DevSwachhBharatNagpurModelStoreContainer" CdmEntityContainer="DevSwachhBharatNagpurEntities">
+          <FunctionImportMapping FunctionImportName="sp_area" FunctionName="DevSwachhBharatNagpurModel.Store.sp_area" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.sp_area_Result">
+                <ScalarProperty Name="area" ColumnName="area" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CollecctionArea" FunctionName="DevSwachhBharatNagpurModel.Store.CollecctionArea">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.CollecctionArea_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="AreaMar" ColumnName="AreaMar" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CurrentAllUserLocation" FunctionName="DevSwachhBharatNagpurModel.Store.CurrentAllUserLocation">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.CurrentAllUserLocation_Result">
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="long" ColumnName="long" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="userMobileNumber" ColumnName="userMobileNumber" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="GramCleaningComplients">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.GramCleaningComplient">
+              <MappingFragment StoreEntitySet="GramCleaningComplient">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ref_id" ColumnName="ref_id" />
+                <ScalarProperty Name="status_image_url" ColumnName="status_image_url" />
+                <ScalarProperty Name="status_description" ColumnName="status_description" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="languageId" ColumnName="languageId" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Lat_Log" ColumnName="Lat_Log" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Tip" ColumnName="Tip" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="Ward_No_" ColumnName="Ward_No." />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="CleaningComplientId" ColumnName="CleaningComplientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TeritoryMasters">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.TeritoryMaster">
+              <MappingFragment StoreEntitySet="TeritoryMaster">
+                <ScalarProperty Name="wardId" ColumnName="wardId" />
+                <ScalarProperty Name="AreaMar" ColumnName="AreaMar" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehicleTypes">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.VehicleType">
+              <MappingFragment StoreEntitySet="VehicleType">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="descriptionMar" ColumnName="descriptionMar" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="vtId" ColumnName="vtId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WardNumbers">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.WardNumber">
+              <MappingFragment StoreEntitySet="WardNumber">
+                <ScalarProperty Name="zoneId" ColumnName="zoneId" />
+                <ScalarProperty Name="WardNo" ColumnName="WardNo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ZoneMasters">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.ZoneMaster">
+              <MappingFragment StoreEntitySet="ZoneMaster">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="zoneId" ColumnName="zoneId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GarbagePointDetails">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.GarbagePointDetail">
+              <MappingFragment StoreEntitySet="GarbagePointDetails">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="modified" ColumnName="modified" />
+                <ScalarProperty Name="gpAddress" ColumnName="gpAddress" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="areaId" ColumnName="areaId" />
+                <ScalarProperty Name="wardId" ColumnName="wardId" />
+                <ScalarProperty Name="zoneId" ColumnName="zoneId" />
+                <ScalarProperty Name="qrCode" ColumnName="qrCode" />
+                <ScalarProperty Name="gpLong" ColumnName="gpLong" />
+                <ScalarProperty Name="gpLat" ColumnName="gpLat" />
+                <ScalarProperty Name="gpNameMar" ColumnName="gpNameMar" />
+                <ScalarProperty Name="gpName" ColumnName="gpName" />
+                <ScalarProperty Name="gpId" ColumnName="gpId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetMobile" FunctionName="DevSwachhBharatNagpurModel.Store.GetMobile" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.GetMobile_Result">
+                <ScalarProperty Name="mob" ColumnName="mob" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Dashboard_Details" FunctionName="DevSwachhBharatNagpurModel.Store.SP_Dashboard_Details">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_Dashboard_Details_Result">
+                <ScalarProperty Name="TotalAttandence" ColumnName="TotalAttandence" />
+                <ScalarProperty Name="TotalHouse" ColumnName="TotalHouse" />
+                <ScalarProperty Name="TotalPoint" ColumnName="TotalPoint" />
+                <ScalarProperty Name="TotalDump" ColumnName="TotalDump" />
+                <ScalarProperty Name="TodayAttandence" ColumnName="TodayAttandence" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_GarbageCollection" FunctionName="DevSwachhBharatNagpurModel.Store.SP_GarbageCollection" >
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_GarbageCollection_Result" >
+                <ScalarProperty Name="gcId" ColumnName="gcId" />
+                <ScalarProperty Name="gcDate" ColumnName="gcDate" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="houseId" ColumnName="houseId" />
+                <ScalarProperty Name="houseOwner" ColumnName="houseOwner" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="locAddresss" ColumnName="locAddresss" />
+                <ScalarProperty Name="vehicleNumber" ColumnName="vehicleNumber" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="gpBeforImage" ColumnName="gpBeforImage" />
+                <ScalarProperty Name="gpAfterImage" ColumnName="gpAfterImage" />
+                <ScalarProperty Name="garbageType" ColumnName="garbageType" />
+                <ScalarProperty Name="batteryStatus" ColumnName="batteryStatus" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="DumpYardDetails">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.DumpYardDetail">
+              <MappingFragment StoreEntitySet="DumpYardDetails">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="lastModifiedDate" ColumnName="lastModifiedDate" />
+                <ScalarProperty Name="dyAddress" ColumnName="dyAddress" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="areaId" ColumnName="areaId" />
+                <ScalarProperty Name="wardId" ColumnName="wardId" />
+                <ScalarProperty Name="zoneId" ColumnName="zoneId" />
+                <ScalarProperty Name="dyQRCode" ColumnName="dyQRCode" />
+                <ScalarProperty Name="dyLong" ColumnName="dyLong" />
+                <ScalarProperty Name="dyLat" ColumnName="dyLat" />
+                <ScalarProperty Name="dyNameMar" ColumnName="dyNameMar" />
+                <ScalarProperty Name="dyName" ColumnName="dyName" />
+                <ScalarProperty Name="dyId" ColumnName="dyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_DumpYardDetails" FunctionName="DevSwachhBharatNagpurModel.Store.SP_DumpYardDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_DumpYardDetails_Result">
+                <ScalarProperty Name="dyId" ColumnName="dyId" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="NameMar" ColumnName="NameMar" />
+                <ScalarProperty Name="Images" ColumnName="Images" />
+                <ScalarProperty Name="Zone" ColumnName="Zone" />
+                <ScalarProperty Name="Ward" ColumnName="Ward" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="dyLat" ColumnName="dyLat" />
+                <ScalarProperty Name="dyLong" ColumnName="dyLong" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_DistanceCount" FunctionName="DevSwachhBharatNagpurModel.Store.SP_DistanceCount">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_DistanceCount_Result">
+                <ScalarProperty Name="Distance_in_KM" ColumnName="Distance_in_KM" />
+                <ScalarProperty Name="Distance_in_meters" ColumnName="Distance_in_meters" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="HouseDetails" FunctionName="DevSwachhBharatNagpurModel.Store.HouseDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.HouseDetails_Result">
+                <ScalarProperty Name="houseId" ColumnName="houseId" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Images" ColumnName="Images" />
+                <ScalarProperty Name="Zone" ColumnName="Zone" />
+                <ScalarProperty Name="Ward" ColumnName="Ward" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="HouseNumber" ColumnName="HouseNumber" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="NameMar" ColumnName="NameMar" />
+                <ScalarProperty Name="houseLat" ColumnName="houseLat" />
+                <ScalarProperty Name="houseLong" ColumnName="houseLong" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PointDetails" FunctionName="DevSwachhBharatNagpurModel.Store.PointDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.PointDetails_Result">
+                <ScalarProperty Name="gpId" ColumnName="gpId" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="NameMar" ColumnName="NameMar" />
+                <ScalarProperty Name="Images" ColumnName="Images" />
+                <ScalarProperty Name="Zone" ColumnName="Zone" />
+                <ScalarProperty Name="Ward" ColumnName="Ward" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Qr_Employee_Daily_Attendance">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.Qr_Employee_Daily_Attendance">
+              <MappingFragment StoreEntitySet="Qr_Employee_Daily_Attendance">
+                <ScalarProperty Name="batteryStatus" ColumnName="batteryStatus" />
+                <ScalarProperty Name="endNote" ColumnName="endNote" />
+                <ScalarProperty Name="startNote" ColumnName="startNote" />
+                <ScalarProperty Name="endDate" ColumnName="endDate" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="endTime" ColumnName="endTime" />
+                <ScalarProperty Name="startTime" ColumnName="startTime" />
+                <ScalarProperty Name="endLong" ColumnName="endLong" />
+                <ScalarProperty Name="endLat" ColumnName="endLat" />
+                <ScalarProperty Name="startLong" ColumnName="startLong" />
+                <ScalarProperty Name="startLat" ColumnName="startLat" />
+                <ScalarProperty Name="qrEmpId" ColumnName="qrEmpId" />
+                <ScalarProperty Name="qrEmpDaId" ColumnName="qrEmpDaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetAttendenceDetailsTotal" FunctionName="DevSwachhBharatNagpurModel.Store.GetAttendenceDetailsTotal">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.GetAttendenceDetailsTotal_Result">
+                <ScalarProperty Name="day" ColumnName="day" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="HouseCollection" ColumnName="HouseCollection" />
+                <ScalarProperty Name="PointCollection" ColumnName="PointCollection" />
+                <ScalarProperty Name="DumpYardCollection" ColumnName="DumpYardCollection" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CurrentAllUserLocationUserIDWise" FunctionName="DevSwachhBharatNagpurModel.Store.CurrentAllUserLocationUserIDWise">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.CurrentAllUserLocationUserIDWise_Result">
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="long" ColumnName="long" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="userMobileNumber" ColumnName="userMobileNumber" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="QrEmployeeMasters">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.QrEmployeeMaster">
+              <MappingFragment StoreEntitySet="QrEmployeeMaster">
+                <ScalarProperty Name="lastModifyDate" ColumnName="lastModifyDate" />
+                <ScalarProperty Name="target" ColumnName="target" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="bloodGroup" ColumnName="bloodGroup" />
+                <ScalarProperty Name="imoNo" ColumnName="imoNo" />
+                <ScalarProperty Name="userEmployeeNo" ColumnName="userEmployeeNo" />
+                <ScalarProperty Name="typeId" ColumnName="typeId" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="qrEmpAddress" ColumnName="qrEmpAddress" />
+                <ScalarProperty Name="qrEmpMobileNumber" ColumnName="qrEmpMobileNumber" />
+                <ScalarProperty Name="qrEmpPassword" ColumnName="qrEmpPassword" />
+                <ScalarProperty Name="qrEmpLoginId" ColumnName="qrEmpLoginId" />
+                <ScalarProperty Name="qrEmpNameMar" ColumnName="qrEmpNameMar" />
+                <ScalarProperty Name="qrEmpName" ColumnName="qrEmpName" />
+                <ScalarProperty Name="appId" ColumnName="appId" />
+                <ScalarProperty Name="qrEmpId" ColumnName="qrEmpId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetQrWorkHistory" FunctionName="DevSwachhBharatNagpurModel.Store.GetQrWorkHistory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.GetQrWorkHistory_Result">
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="HouseCollection" ColumnName="HouseCollection" />
+                <ScalarProperty Name="PointCollection" ColumnName="PointCollection" />
+                <ScalarProperty Name="DumpYardCollection" ColumnName="DumpYardCollection" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_IdelTime" FunctionName="DevSwachhBharatNagpurModel.Store.SP_IdelTime">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_IdelTime_Result">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="LastTime" ColumnName="LastTime" />
+                <ScalarProperty Name="IdelTime" ColumnName="IdelTime" />
+                <ScalarProperty Name="StartAddress" ColumnName="StartAddress" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="StarLat" ColumnName="StarLat" />
+                <ScalarProperty Name="StartLog" ColumnName="StartLog" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="long" ColumnName="long" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_EmployeeSummary" FunctionName="DevSwachhBharatNagpurModel.Store.SP_EmployeeSummary">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_EmployeeSummary_Result">
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="Startdate" ColumnName="Startdate" />
+                <ScalarProperty Name="Totalhousecollection" ColumnName="Totalhousecollection" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="Enddate" ColumnName="Enddate" />
+                <ScalarProperty Name="BatteryStatus" ColumnName="BatteryStatus" />
+                <ScalarProperty Name="Totaldumpyard" ColumnName="Totaldumpyard" />
+                <ScalarProperty Name="Totaldistance" ColumnName="Totaldistance" />
+                </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_EmployeeTarget" FunctionName="DevSwachhBharatNagpurModel.Store.SP_EmployeeTarget">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_EmployeeTarget_Result">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="fromDate" ColumnName="fromDate" />
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="gcTarget" ColumnName="gcTarget" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="BinLatLongs">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.BinLatLong">
+              <MappingFragment StoreEntitySet="BinLatLong">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="S2" ColumnName="S2" />
+                <ScalarProperty Name="S1" ColumnName="S1" />
+                <ScalarProperty Name="Temp" ColumnName="Temp" />
+                <ScalarProperty Name="Distance" ColumnName="Distance" />
+                <ScalarProperty Name="long" ColumnName="long" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_HousePointDumpDetails_Scanify" FunctionName="DevSwachhBharatNagpurModel.Store.SP_HousePointDumpDetails_Scanify">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_HousePointDumpDetails_Scanify_Result">
+                <ScalarProperty Name="houseId" ColumnName="houseId" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="NameMar" ColumnName="NameMar" />
+                <ScalarProperty Name="Images" ColumnName="Images" />
+                <ScalarProperty Name="Zone" ColumnName="Zone" />
+                <ScalarProperty Name="zoneId" ColumnName="zoneId" />
+                <ScalarProperty Name="Ward" ColumnName="Ward" />
+                <ScalarProperty Name="WardNoId" ColumnName="WardNoId" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="HouseNumber" ColumnName="HouseNumber" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Lat" ColumnName="Lat" />
+                <ScalarProperty Name="Long" ColumnName="Long" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="HouseMasters">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.HouseMaster">
+              <MappingFragment StoreEntitySet="HouseMaster">
+                <ScalarProperty Name="WasteType" ColumnName="WasteType" />
+                <ScalarProperty Name="RFIDTagId" ColumnName="RFIDTagId" />
+                <ScalarProperty Name="lastModifiedEntry" ColumnName="lastModifiedEntry" />
+                <ScalarProperty Name="FCMID" ColumnName="FCMID" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="modified" ColumnName="modified" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="WardNo" ColumnName="WardNo" />
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="ZoneId" ColumnName="ZoneId" />
+                <ScalarProperty Name="houseQRCode" ColumnName="houseQRCode" />
+                <ScalarProperty Name="houseLong" ColumnName="houseLong" />
+                <ScalarProperty Name="houseLat" ColumnName="houseLat" />
+                <ScalarProperty Name="houseAddress" ColumnName="houseAddress" />
+                <ScalarProperty Name="houseOwnerMobile" ColumnName="houseOwnerMobile" />
+                <ScalarProperty Name="houseOwnerMar" ColumnName="houseOwnerMar" />
+                <ScalarProperty Name="houseOwner" ColumnName="houseOwner" />
+                <ScalarProperty Name="houseNumber" ColumnName="houseNumber" />
+                <ScalarProperty Name="houseId" ColumnName="houseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="HouseDetails_ReferanceId" FunctionName="DevSwachhBharatNagpurModel.Store.HouseDetails_ReferanceId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.HouseDetails_ReferanceId_Result">
+                <ScalarProperty Name="houseId" ColumnName="houseId" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="NameMar" ColumnName="NameMar" />
+                <ScalarProperty Name="Images" ColumnName="Images" />
+                <ScalarProperty Name="Zone" ColumnName="Zone" />
+                <ScalarProperty Name="Ward" ColumnName="Ward" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="HouseNumber" ColumnName="HouseNumber" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="houseLat" ColumnName="houseLat" />
+                <ScalarProperty Name="houseLong" ColumnName="houseLong" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="DeviceDetails">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.DeviceDetail">
+              <MappingFragment StoreEntitySet="DeviceDetails">
+                <ScalarProperty Name="InstallDate" ColumnName="InstallDate" />
+                <ScalarProperty Name="ReferenceID" ColumnName="ReferenceID" />
+                <ScalarProperty Name="DeviceType" ColumnName="DeviceType" />
+                <ScalarProperty Name="FCMID" ColumnName="FCMID" />
+                <ScalarProperty Name="DeviceID" ColumnName="DeviceID" />
+                <ScalarProperty Name="DeviceDetailId" ColumnName="DeviceDetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Qr_Location">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.Qr_Location">
+              <MappingFragment StoreEntitySet="Qr_Location">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ReferanceID" ColumnName="ReferanceID" />
+                <ScalarProperty Name="IsOffline" ColumnName="IsOffline" />
+                <ScalarProperty Name="Distnace" ColumnName="Distnace" />
+                <ScalarProperty Name="batteryStatus" ColumnName="batteryStatus" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="long" ColumnName="long" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="empId" ColumnName="empId" />
+                <ScalarProperty Name="locId" ColumnName="locId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_UserLatLongDetail" FunctionName="DevSwachhBharatNagpurModel.Store.SP_UserLatLongDetail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_UserLatLongDetail_Result">
+                <ScalarProperty Name="locId" ColumnName="locId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="long" ColumnName="long" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="batteryStatus" ColumnName="batteryStatus" />
+                <ScalarProperty Name="Distnace" ColumnName="Distnace" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_HouseOnMapDetails" FunctionName="DevSwachhBharatNagpurModel.Store.SP_HouseOnMapDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_HouseOnMapDetails_Result">
+                <ScalarProperty Name="houseId" ColumnName="houseId" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="houseNumber" ColumnName="houseNumber" />
+                <ScalarProperty Name="houseOwner" ColumnName="houseOwner" />
+                <ScalarProperty Name="houseOwnerMobile" ColumnName="houseOwnerMobile" />
+                <ScalarProperty Name="houseAddress" ColumnName="houseAddress" />
+                <ScalarProperty Name="garbageType" ColumnName="garbageType" />
+                <ScalarProperty Name="gcDate" ColumnName="gcDate" />
+                <ScalarProperty Name="houseLat" ColumnName="houseLat" />
+                <ScalarProperty Name="houseLong" ColumnName="houseLong" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.Location">
+              <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="EmployeeType" ColumnName="EmployeeType" />
+                <ScalarProperty Name="SourceId" ColumnName="SourceId" />
+                <ScalarProperty Name="RFIDReaderId" ColumnName="RFIDReaderId" />
+                <ScalarProperty Name="RFIDTagId" ColumnName="RFIDTagId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ReferanceID" ColumnName="ReferanceID" />
+                <ScalarProperty Name="IsOffline" ColumnName="IsOffline" />
+                <ScalarProperty Name="Distnace" ColumnName="Distnace" />
+                <ScalarProperty Name="batteryStatus" ColumnName="batteryStatus" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="long" ColumnName="long" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="locId" ColumnName="locId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GamePlayerDetails">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.GamePlayerDetail">
+              <MappingFragment StoreEntitySet="GamePlayerDetails">
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="GameId" ColumnName="GameId" />
+                <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_TotalHouseCollection_Count" FunctionName="DevSwachhBharatNagpurModel.Store.SP_TotalHouseCollection_Count">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_TotalHouseCollection_Count_Result">
+                <ScalarProperty Name="TotalHouseCount" ColumnName="TotalHouseCount" />
+                <ScalarProperty Name="MixedCount" ColumnName="MixedCount" />
+                <ScalarProperty Name="BifurgatedCount" ColumnName="BifurgatedCount" />
+                <ScalarProperty Name="NotCollected" ColumnName="NotCollected" />
+                <ScalarProperty Name="NotSpecified" ColumnName="NotSpecified" />
+                <ScalarProperty Name="GcWeightCount" ColumnName="GcWeightCount" />
+                <ScalarProperty Name="DryWeightCount" ColumnName="DryWeightCount" />
+                <ScalarProperty Name="WetWeightCount" ColumnName="WetWeightCount" />
+                <ScalarProperty Name="TotalGcWeightCount" ColumnName="TotalGcWeightCount" />
+                <ScalarProperty Name="TotalDryWeightCount" ColumnName="TotalDryWeightCount" />
+                <ScalarProperty Name="TotalWetWeightCount" ColumnName="TotalWetWeightCount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="WM_GarbageCategory">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.WM_GarbageCategory">
+              <MappingFragment StoreEntitySet="WM_GarbageCategory">
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WM_GarbageSubCategory">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.WM_GarbageSubCategory">
+              <MappingFragment StoreEntitySet="WM_GarbageSubCategory">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="SubCategory" ColumnName="SubCategory" />
+                <ScalarProperty Name="SubCategoryID" ColumnName="SubCategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WM_Garbage_Summary">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.WM_Garbage_Summary">
+              <MappingFragment StoreEntitySet="WM_Garbage_Summary">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="TotalWeight" ColumnName="TotalWeight" />
+                <ScalarProperty Name="SubCategoryID" ColumnName="SubCategoryID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetGarbageCountDetailsTotal" FunctionName="DevSwachhBharatNagpurModel.Store.GetGarbageCountDetailsTotal">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.GetGarbageCountDetailsTotal_Result">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="GarbageCount" ColumnName="GarbageCount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetGarbageCountDetailsHistory" FunctionName="DevSwachhBharatNagpurModel.Store.GetGarbageCountDetailsHistory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.GetGarbageCountDetailsHistory_Result">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="GarbageDetailsID" ColumnName="GarbageDetailsID" />
+                <ScalarProperty Name="GarbageSubCategoryID" ColumnName="GarbageSubCategoryID" />
+                <ScalarProperty Name="GarbageSubCategory" ColumnName="GarbageSubCategory" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="SauchalayAddresses">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.SauchalayAddress">
+              <MappingFragment StoreEntitySet="SauchalayAddress">
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="QrImageUrl" ColumnName="QrImageUrl" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Long" ColumnName="Long" />
+                <ScalarProperty Name="Lat" ColumnName="Lat" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="SauchalayID" ColumnName="SauchalayID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WM_Garbage_Details">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.WM_Garbage_Details">
+              <MappingFragment StoreEntitySet="WM_Garbage_Details">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="gdDate" ColumnName="gdDate" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="SubCategoryID" ColumnName="SubCategoryID" />
+                <ScalarProperty Name="GarbageDetailsID" ColumnName="GarbageDetailsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_GetHouseNumber">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.Vw_GetHouseNumber">
+              <MappingFragment StoreEntitySet="Vw_GetHouseNumber">
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="houseNumber" ColumnName="houseNumber" />
+                <ScalarProperty Name="houseId" ColumnName="houseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Daily_Attendance">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.Daily_Attendance">
+              <MappingFragment StoreEntitySet="Daily_Attendance">
+                <ScalarProperty Name="EmployeeType" ColumnName="EmployeeType" />
+                <ScalarProperty Name="OutbatteryStatus" ColumnName="OutbatteryStatus" />
+                <ScalarProperty Name="totalKm" ColumnName="totalKm" />
+                <ScalarProperty Name="batteryStatus" ColumnName="batteryStatus" />
+                <ScalarProperty Name="vehicleNumber" ColumnName="vehicleNumber" />
+                <ScalarProperty Name="daEndNote" ColumnName="daEndNote" />
+                <ScalarProperty Name="daStartNote" ColumnName="daStartNote" />
+                <ScalarProperty Name="vtId" ColumnName="vtId" />
+                <ScalarProperty Name="daEndDate" ColumnName="daEndDate" />
+                <ScalarProperty Name="daDate" ColumnName="daDate" />
+                <ScalarProperty Name="endTime" ColumnName="endTime" />
+                <ScalarProperty Name="startTime" ColumnName="startTime" />
+                <ScalarProperty Name="endLong" ColumnName="endLong" />
+                <ScalarProperty Name="endLat" ColumnName="endLat" />
+                <ScalarProperty Name="startLong" ColumnName="startLong" />
+                <ScalarProperty Name="startLat" ColumnName="startLat" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="daID" ColumnName="daID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_Locationdata" FunctionName="DevSwachhBharatNagpurModel.Store.sp_Locationdata">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.sp_Locationdata_Result">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="locId" ColumnName="locId" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="times" ColumnName="times" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="long" ColumnName="long" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="CompareDate" ColumnName="CompareDate" />
+                <ScalarProperty Name="userMobile" ColumnName="userMobile" />
+                <ScalarProperty Name="vehicleNumber" ColumnName="vehicleNumber" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="WM_Garbage_Sales">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.WM_Garbage_Sales">
+              <MappingFragment StoreEntitySet="WM_Garbage_Sales">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="SalesWeight" ColumnName="SalesWeight" />
+                <ScalarProperty Name="PartyName" ColumnName="PartyName" />
+                <ScalarProperty Name="SubCategoryID" ColumnName="SubCategoryID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserMasters">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.UserMaster">
+              <MappingFragment StoreEntitySet="UserMaster">
+                <ScalarProperty Name="imoNo2" ColumnName="imoNo2" />
+                <ScalarProperty Name="EmployeeType" ColumnName="EmployeeType" />
+                <ScalarProperty Name="gcTarget" ColumnName="gcTarget" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="bloodGroup" ColumnName="bloodGroup" />
+                <ScalarProperty Name="imoNo" ColumnName="imoNo" />
+                <ScalarProperty Name="userDesignation" ColumnName="userDesignation" />
+                <ScalarProperty Name="userEmployeeNo" ColumnName="userEmployeeNo" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="userProfileImage" ColumnName="userProfileImage" />
+                <ScalarProperty Name="userAddress" ColumnName="userAddress" />
+                <ScalarProperty Name="userMobileNumber" ColumnName="userMobileNumber" />
+                <ScalarProperty Name="userPassword" ColumnName="userPassword" />
+                <ScalarProperty Name="userLoginId" ColumnName="userLoginId" />
+                <ScalarProperty Name="userNameMar" ColumnName="userNameMar" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_MsgNotification">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.Vw_MsgNotification">
+              <MappingFragment StoreEntitySet="Vw_MsgNotification">
+                <ScalarProperty Name="gcTarget" ColumnName="gcTarget" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="bloodGroup" ColumnName="bloodGroup" />
+                <ScalarProperty Name="imoNo" ColumnName="imoNo" />
+                <ScalarProperty Name="userDesignation" ColumnName="userDesignation" />
+                <ScalarProperty Name="userEmployeeNo" ColumnName="userEmployeeNo" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="userProfileImage" ColumnName="userProfileImage" />
+                <ScalarProperty Name="userAddress" ColumnName="userAddress" />
+                <ScalarProperty Name="userMobileNumber" ColumnName="userMobileNumber" />
+                <ScalarProperty Name="userPassword" ColumnName="userPassword" />
+                <ScalarProperty Name="userLoginId" ColumnName="userLoginId" />
+                <ScalarProperty Name="userNameMar" ColumnName="userNameMar" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LiquidWasteDetails">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.LiquidWasteDetail">
+              <MappingFragment StoreEntitySet="LiquidWasteDetails">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="lastModifiedDate" ColumnName="lastModifiedDate" />
+                <ScalarProperty Name="LWAddreLW" ColumnName="LWAddreLW" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="areaId" ColumnName="areaId" />
+                <ScalarProperty Name="wardId" ColumnName="wardId" />
+                <ScalarProperty Name="zoneId" ColumnName="zoneId" />
+                <ScalarProperty Name="LWQRCode" ColumnName="LWQRCode" />
+                <ScalarProperty Name="LWLong" ColumnName="LWLong" />
+                <ScalarProperty Name="LWLat" ColumnName="LWLat" />
+                <ScalarProperty Name="LWNameMar" ColumnName="LWNameMar" />
+                <ScalarProperty Name="LWName" ColumnName="LWName" />
+                <ScalarProperty Name="LWId" ColumnName="LWId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StreetSweepingDetails">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.StreetSweepingDetail">
+              <MappingFragment StoreEntitySet="StreetSweepingDetails">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="lastModifiedDate" ColumnName="lastModifiedDate" />
+                <ScalarProperty Name="SSAddress" ColumnName="SSAddress" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="areaId" ColumnName="areaId" />
+                <ScalarProperty Name="wardId" ColumnName="wardId" />
+                <ScalarProperty Name="zoneId" ColumnName="zoneId" />
+                <ScalarProperty Name="SSQRCode" ColumnName="SSQRCode" />
+                <ScalarProperty Name="SSLong" ColumnName="SSLong" />
+                <ScalarProperty Name="SSLat" ColumnName="SSLat" />
+                <ScalarProperty Name="SSNameMar" ColumnName="SSNameMar" />
+                <ScalarProperty Name="SSName" ColumnName="SSName" />
+                <ScalarProperty Name="SSId" ColumnName="SSId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GarbageCollectionDetails">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.GarbageCollectionDetail">
+              <MappingFragment StoreEntitySet="GarbageCollectionDetails">
+                <ScalarProperty Name="SSId" ColumnName="SSId" />
+                <ScalarProperty Name="LWId" ColumnName="LWId" />
+                <ScalarProperty Name="EmployeeType" ColumnName="EmployeeType" />
+                <ScalarProperty Name="WasteType" ColumnName="WasteType" />
+                <ScalarProperty Name="OutbatteryStatus" ColumnName="OutbatteryStatus" />
+                <ScalarProperty Name="SourceId" ColumnName="SourceId" />
+                <ScalarProperty Name="RFIDReaderId" ColumnName="RFIDReaderId" />
+                <ScalarProperty Name="RFIDTagId" ColumnName="RFIDTagId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Distance" ColumnName="Distance" />
+                <ScalarProperty Name="batteryStatus" ColumnName="batteryStatus" />
+                <ScalarProperty Name="totalWetWeight" ColumnName="totalWetWeight" />
+                <ScalarProperty Name="totalDryWeight" ColumnName="totalDryWeight" />
+                <ScalarProperty Name="totalGcWeight" ColumnName="totalGcWeight" />
+                <ScalarProperty Name="dyId" ColumnName="dyId" />
+                <ScalarProperty Name="modified" ColumnName="modified" />
+                <ScalarProperty Name="garbageType" ColumnName="garbageType" />
+                <ScalarProperty Name="locAddresss" ColumnName="locAddresss" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="vehicleNumber" ColumnName="vehicleNumber" />
+                <ScalarProperty Name="gcType" ColumnName="gcType" />
+                <ScalarProperty Name="gpAfterImage" ColumnName="gpAfterImage" />
+                <ScalarProperty Name="gpBeforImage" ColumnName="gpBeforImage" />
+                <ScalarProperty Name="gcQRcode" ColumnName="gcQRcode" />
+                <ScalarProperty Name="gcImage" ColumnName="gcImage" />
+                <ScalarProperty Name="Long" ColumnName="Long" />
+                <ScalarProperty Name="Lat" ColumnName="Lat" />
+                <ScalarProperty Name="gcDate" ColumnName="gcDate" />
+                <ScalarProperty Name="gpId" ColumnName="gpId" />
+                <ScalarProperty Name="houseId" ColumnName="houseId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="gcId" ColumnName="gcId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetAttendenceDetailsTotalLiquid" FunctionName="DevSwachhBharatNagpurModel.Store.GetAttendenceDetailsTotalLiquid">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.GetAttendenceDetailsTotalLiquid_Result">
+                <ScalarProperty Name="day" ColumnName="day" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="LiquidCollection" ColumnName="LiquidCollection" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAttendenceDetailsTotalStreet" FunctionName="DevSwachhBharatNagpurModel.Store.GetAttendenceDetailsTotalStreet">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.GetAttendenceDetailsTotalStreet_Result">
+                <ScalarProperty Name="day" ColumnName="day" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="StreetCollection" ColumnName="StreetCollection" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

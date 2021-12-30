@@ -1,0 +1,85 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwachhBharatAPI", "SwachhBharatAPI\SwachhBharatAPI.csproj", "{75FA9FBC-91BE-4A50-90FF-57D96BE23D71}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.Presentation Layer", "1.Presentation Layer", "{95AF414B-6252-4D2B-9F50-BFE92A12790A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.Business Layer", "2.Business Layer", "{1608F7F1-DBC1-4388-A7D0-83AB5B7839DF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.DataAcess Layer", "3.DataAcess Layer", "{0BA7F224-BBE7-467D-8016-1C30460A6962}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwachhBharatAPI.Dal.DataContexts", "SwachhBharatAPI.Dal.DataContexts\SwachhBharatAPI.Dal.DataContexts.csproj", "{BFBFAA22-368D-4C16-AB81-181F98615DA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwachhBharat.API.Bll.Repository", "SwachhBharat.API.Bll.Repository\SwachhBharat.API.Bll.Repository.csproj", "{8A99EB81-8BF4-4B53-947D-3323BA7A306E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwachhBhart.API.Bll.ViewModels", "SwachhBhart.API.Bll.ViewModels\SwachhBhart.API.Bll.ViewModels.csproj", "{6F95F3BC-0771-4FAD-BA7D-16C2A2F9C618}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwachhBharat.API.Bll.Services", "SwachhBharat.API.Bll.Services\SwachhBharat.API.Bll.Services.csproj", "{C7B6C9A3-77D4-4F9D-B9B0-A524D81BE49C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{75FA9FBC-91BE-4A50-90FF-57D96BE23D71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75FA9FBC-91BE-4A50-90FF-57D96BE23D71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75FA9FBC-91BE-4A50-90FF-57D96BE23D71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75FA9FBC-91BE-4A50-90FF-57D96BE23D71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFBFAA22-368D-4C16-AB81-181F98615DA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFBFAA22-368D-4C16-AB81-181F98615DA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFBFAA22-368D-4C16-AB81-181F98615DA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFBFAA22-368D-4C16-AB81-181F98615DA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A99EB81-8BF4-4B53-947D-3323BA7A306E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A99EB81-8BF4-4B53-947D-3323BA7A306E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A99EB81-8BF4-4B53-947D-3323BA7A306E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A99EB81-8BF4-4B53-947D-3323BA7A306E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F95F3BC-0771-4FAD-BA7D-16C2A2F9C618}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F95F3BC-0771-4FAD-BA7D-16C2A2F9C618}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F95F3BC-0771-4FAD-BA7D-16C2A2F9C618}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F95F3BC-0771-4FAD-BA7D-16C2A2F9C618}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7B6C9A3-77D4-4F9D-B9B0-A524D81BE49C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7B6C9A3-77D4-4F9D-B9B0-A524D81BE49C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7B6C9A3-77D4-4F9D-B9B0-A524D81BE49C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7B6C9A3-77D4-4F9D-B9B0-A524D81BE49C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{75FA9FBC-91BE-4A50-90FF-57D96BE23D71} = {95AF414B-6252-4D2B-9F50-BFE92A12790A}
+		{BFBFAA22-368D-4C16-AB81-181F98615DA1} = {0BA7F224-BBE7-467D-8016-1C30460A6962}
+		{8A99EB81-8BF4-4B53-947D-3323BA7A306E} = {1608F7F1-DBC1-4388-A7D0-83AB5B7839DF}
+		{6F95F3BC-0771-4FAD-BA7D-16C2A2F9C618} = {1608F7F1-DBC1-4388-A7D0-83AB5B7839DF}
+		{C7B6C9A3-77D4-4F9D-B9B0-A524D81BE49C} = {1608F7F1-DBC1-4388-A7D0-83AB5B7839DF}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 6
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://dev.azure.com/devappynitty
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = SwachhBharatAPI.Dal.DataContexts\\SwachhBharatAPI.Dal.DataContexts.csproj
+		SccProjectTopLevelParentUniqueName1 = SwachhBharatAPI.sln
+		SccProjectName1 = SwachhBharatAPI.Dal.DataContexts
+		SccLocalPath1 = SwachhBharatAPI.Dal.DataContexts
+		SccProjectUniqueName2 = SwachhBharat.API.Bll.Repository\\SwachhBharat.API.Bll.Repository.csproj
+		SccProjectTopLevelParentUniqueName2 = SwachhBharatAPI.sln
+		SccProjectName2 = SwachhBharat.API.Bll.Repository
+		SccLocalPath2 = SwachhBharat.API.Bll.Repository
+		SccProjectUniqueName3 = SwachhBharat.API.Bll.Services\\SwachhBharat.API.Bll.Services.csproj
+		SccProjectTopLevelParentUniqueName3 = SwachhBharatAPI.sln
+		SccProjectName3 = SwachhBharat.API.Bll.Services
+		SccLocalPath3 = SwachhBharat.API.Bll.Services
+		SccProjectUniqueName4 = SwachhBharatAPI\\SwachhBharatAPI.csproj
+		SccProjectTopLevelParentUniqueName4 = SwachhBharatAPI.sln
+		SccProjectName4 = SwachhBharatAPI
+		SccLocalPath4 = SwachhBharatAPI
+		SccProjectUniqueName5 = SwachhBhart.API.Bll.ViewModels\\SwachhBhart.API.Bll.ViewModels.csproj
+		SccProjectTopLevelParentUniqueName5 = SwachhBharatAPI.sln
+		SccProjectName5 = SwachhBhart.API.Bll.ViewModels
+		SccLocalPath5 = SwachhBhart.API.Bll.ViewModels
+	EndGlobalSection
+EndGlobal

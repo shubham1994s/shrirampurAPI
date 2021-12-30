@@ -1,0 +1,804 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DevSwachhBharatMainModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AdminContact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Position" Type="nvarchar" MaxLength="500" />
+          <Property Name="MobileNumber" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="AppConnection">
+          <Key>
+            <PropertyRef Name="AppConnectionId" />
+          </Key>
+          <Property Name="AppConnectionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AppId" Type="int" Nullable="false" />
+          <Property Name="DataSource" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="InitialCatalog" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="UserId" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AppDetails">
+          <Key>
+            <PropertyRef Name="AppId" />
+          </Key>
+          <Property Name="AppId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AppName" Type="nvarchar" MaxLength="100" />
+          <Property Name="AppName_mar" Type="nvarchar" MaxLength="100" />
+          <Property Name="State" Type="int" />
+          <Property Name="Tehsil" Type="int" />
+          <Property Name="District" Type="int" />
+          <Property Name="EmailId" Type="nvarchar" MaxLength="100" />
+          <Property Name="website" Type="nvarchar" MaxLength="100" />
+          <Property Name="Android_GCM_pushNotification_Key" Type="varchar" MaxLength="150" />
+          <Property Name="IsProduction" Type="bit" />
+          <Property Name="baseImageUrlCMS" Type="nvarchar" MaxLength="255" />
+          <Property Name="baseImageUrl" Type="nvarchar" MaxLength="255" />
+          <Property Name="AboutThumbnailURL" Type="nvarchar" MaxLength="1000" />
+          <Property Name="AboutAppynity" Type="nvarchar" MaxLength="50" />
+          <Property Name="AboutTeamDetail" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactUsTeamMember" Type="nvarchar" MaxLength="50" />
+          <Property Name="HomeSplash" Type="nvarchar" MaxLength="50" />
+          <Property Name="FAQ" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactUs" Type="nvarchar" MaxLength="50" />
+          <Property Name="basePath" Type="nvarchar" MaxLength="40" />
+          <Property Name="yoccContact" Type="nvarchar(max)" />
+          <Property Name="Type" Type="nchar" MaxLength="20" />
+          <Property Name="Logo" Type="nvarchar(max)" />
+          <Property Name="Latitude" Type="nvarchar(max)" />
+          <Property Name="Logitude" Type="nvarchar(max)" />
+          <Property Name="UserProfile" Type="nvarchar" MaxLength="200" />
+          <Property Name="Collection" Type="nvarchar" MaxLength="200" />
+          <Property Name="HouseQRCode" Type="nvarchar" MaxLength="220" />
+          <Property Name="PointQRCode" Type="nvarchar" MaxLength="220" />
+          <Property Name="HousePDF" Type="nvarchar" MaxLength="550" />
+          <Property Name="PointPDF" Type="nvarchar" MaxLength="550" />
+          <Property Name="Grampanchayat_Pro" Type="nvarchar(max)" />
+          <Property Name="AppVersion" Type="nvarchar" MaxLength="500" />
+          <Property Name="ForceUpdate" Type="bit" />
+          <Property Name="APIHit" Type="int" />
+          <Property Name="NewFeatures" Type="bit" />
+          <Property Name="ReportEnable" Type="bit" />
+          <Property Name="DumpYardQRCode" Type="nvarchar" MaxLength="250" />
+          <Property Name="DumpYardPDF" Type="nvarchar" MaxLength="250" />
+          <Property Name="GramPanchyatAppID" Type="int" />
+          <Property Name="YoccClientID" Type="int" />
+          <Property Name="YoccFeddbackLink" Type="nvarchar" MaxLength="250" />
+          <Property Name="YoccDndLink" Type="nvarchar" MaxLength="250" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="LanguageId" Type="int" />
+          <Property Name="MsgForBroadcast" Type="nvarchar" MaxLength="1000" />
+          <Property Name="MsgForNotSpecified" Type="nvarchar" MaxLength="1000" />
+          <Property Name="MsgForMixed" Type="nvarchar" MaxLength="1000" />
+          <Property Name="MsgForSegregated" Type="nvarchar" MaxLength="1000" />
+          <Property Name="MsgForNotReceived" Type="nvarchar" MaxLength="1000" />
+          <Property Name="IsScanNear" Type="bit" />
+        </EntityType>
+        <EntityType Name="AppVersion">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AppID" Type="int" />
+          <Property Name="ForceUpdateAdmin" Type="bit" />
+          <Property Name="AppVersionAdmin" Type="nvarchar" MaxLength="150" />
+          <Property Name="ForceUpdateGame" Type="bit" />
+          <Property Name="AppVersionGame" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Loginuser" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="BinMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="DeviceId" Type="nvarchar" MaxLength="50" />
+          <Property Name="AppId" Type="int" />
+          <Property Name="AppName" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="country_states">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="country_name" Type="nvarchar" MaxLength="90" />
+          <Property Name="state_name" Type="nvarchar" MaxLength="250" />
+          <Property Name="state_name_mar" Type="nvarchar" MaxLength="250" />
+          <Property Name="state_3_code" Type="nvarchar" MaxLength="3" />
+          <Property Name="state_2_code" Type="nvarchar" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="Game_AnswerType">
+          <Key>
+            <PropertyRef Name="AnswerTypeId" />
+          </Key>
+          <Property Name="AnswerTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AnswerType" Type="nvarchar" MaxLength="50" />
+          <Property Name="AnswerTypeMar" Type="nvarchar" MaxLength="50" />
+          <Property Name="AnswerTypeHindi" Type="nvarchar" MaxLength="50" />
+          <Property Name="GameMasterID" Type="int" />
+        </EntityType>
+        <EntityType Name="Game_Slogan">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Slogan" Type="nvarchar" MaxLength="500" />
+          <Property Name="SloganMar" Type="nvarchar" MaxLength="500" />
+          <Property Name="SloganHindi" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="GameDetails">
+          <Key>
+            <PropertyRef Name="GameDetailsID" />
+          </Key>
+          <Property Name="GameDetailsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="500" />
+          <Property Name="RightAnswerID" Type="int" />
+          <Property Name="Point" Type="int" />
+          <Property Name="GameMasterID" Type="int" />
+          <Property Name="SloganID" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Created" Type="datetime" />
+        </EntityType>
+        <EntityType Name="GameMaster">
+          <Key>
+            <PropertyRef Name="GameId" />
+          </Key>
+          <Property Name="GameId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GameName" Type="nvarchar" MaxLength="100" />
+          <Property Name="GameNameMar" Type="nvarchar" MaxLength="100" />
+          <Property Name="GameNameHindi" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="GamePlayerDetails">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlayerId" Type="nvarchar" MaxLength="50" />
+          <Property Name="GameId" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="Score" Type="int" />
+          <Property Name="DeviceId" Type="nvarchar" MaxLength="500" />
+          <Property Name="Created" Type="datetime" />
+        </EntityType>
+        <EntityType Name="GoogelHitDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="API" Type="nvarchar(max)" />
+          <Property Name="EmailId" Type="nvarchar(max)" />
+          <Property Name="Date" Type="date" />
+          <Property Name="hit" Type="int" />
+        </EntityType>
+        <EntityType Name="GoogleAPIDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="GoogleAPI" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="RFID_Master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReaderID" Type="nvarchar" MaxLength="100" />
+          <Property Name="TagID" Type="nvarchar" MaxLength="100" />
+          <Property Name="AppID" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="state_districts">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="state_id" Type="int" Nullable="false" />
+          <Property Name="district_name" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="district_name_mar" Type="nvarchar" MaxLength="450" />
+        </EntityType>
+        <EntityType Name="tehsil">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="250" />
+          <Property Name="name_mar" Type="nvarchar" MaxLength="250" />
+          <Property Name="latitude" Type="nvarchar" MaxLength="20" />
+          <Property Name="longitude" Type="nvarchar" MaxLength="20" />
+          <Property Name="state" Type="int" />
+          <Property Name="district" Type="int" />
+        </EntityType>
+        <EntityType Name="UserInApps">
+          <Key>
+            <PropertyRef Name="UserInAppsID" />
+          </Key>
+          <Property Name="UserInAppsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="AppId" Type="int" Nullable="false" />
+          <Property Name="subscriptionId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="DevSwachhBharatMainModelStoreContainer">
+          <EntitySet Name="AdminContact" EntityType="Self.AdminContact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AppConnection" EntityType="Self.AppConnection" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AppDetails" EntityType="Self.AppDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AppVersion" EntityType="Self.AppVersion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BinMaster" EntityType="Self.BinMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="country_states" EntityType="Self.country_states" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Game_AnswerType" EntityType="Self.Game_AnswerType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Game_Slogan" EntityType="Self.Game_Slogan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GameDetails" EntityType="Self.GameDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GameMaster" EntityType="Self.GameMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GamePlayerDetails" EntityType="Self.GamePlayerDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GoogelHitDetails" EntityType="Self.GoogelHitDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GoogleAPIDetails" EntityType="Self.GoogleAPIDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RFID_Master" EntityType="Self.RFID_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="state_districts" EntityType="Self.state_districts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tehsil" EntityType="Self.tehsil" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserInApps" EntityType="Self.UserInApps" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DevSwachhBharatMainModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DevSwachhBharatMainEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="GoogleAPIDetails" EntityType="DevSwachhBharatMainModel.GoogleAPIDetail" />
+          <EntitySet Name="GoogelHitDetails" EntityType="DevSwachhBharatMainModel.GoogelHitDetail" />
+          <EntitySet Name="AdminContacts" EntityType="DevSwachhBharatMainModel.AdminContact" />
+          <EntitySet Name="AspNetUsers" EntityType="DevSwachhBharatMainModel.AspNetUser" />
+          <EntitySet Name="UserInApps" EntityType="DevSwachhBharatMainModel.UserInApp" />
+          <EntitySet Name="country_states" EntityType="DevSwachhBharatMainModel.country_states" />
+          <EntitySet Name="state_districts" EntityType="DevSwachhBharatMainModel.state_districts" />
+          <EntitySet Name="tehsils" EntityType="DevSwachhBharatMainModel.tehsil" />
+          <EntitySet Name="BinMasters" EntityType="DevSwachhBharatMainModel.BinMaster" />
+          <EntitySet Name="Game_AnswerType" EntityType="DevSwachhBharatMainModel.Game_AnswerType" />
+          <EntitySet Name="Game_Slogan" EntityType="DevSwachhBharatMainModel.Game_Slogan" />
+          <EntitySet Name="GameDetails" EntityType="DevSwachhBharatMainModel.GameDetail" />
+          <EntitySet Name="GameMasters" EntityType="DevSwachhBharatMainModel.GameMaster" />
+          <EntitySet Name="GamePlayerDetails" EntityType="DevSwachhBharatMainModel.GamePlayerDetail" />
+          <EntitySet Name="RFID_Master" EntityType="DevSwachhBharatMainModel.RFID_Master" />
+          <EntitySet Name="AppConnections" EntityType="DevSwachhBharatMainModel.AppConnection" />
+          <EntitySet Name="AppVersions" EntityType="DevSwachhBharatMainModel.AppVersion" />
+          <EntitySet Name="AppDetails" EntityType="DevSwachhBharatMainModel.AppDetail" />
+        </EntityContainer>
+        <EntityType Name="GoogleAPIDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="GoogleAPI" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="GoogelHitDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="API" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmailId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="hit" Type="Int32" />
+        </EntityType>
+        <EntityType Name="AdminContact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Position" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Loginuser" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserInApp">
+          <Key>
+            <PropertyRef Name="UserInAppsID" />
+          </Key>
+          <Property Name="UserInAppsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="AppId" Type="Int32" Nullable="false" />
+          <Property Name="subscriptionId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="country_states">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="country_name" Type="String" MaxLength="90" FixedLength="false" Unicode="true" />
+          <Property Name="state_name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="state_name_mar" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="state_3_code" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="state_2_code" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="state_districts">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="state_id" Type="Int32" Nullable="false" />
+          <Property Name="district_name" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="district_name_mar" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tehsil">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="name_mar" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="latitude" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="longitude" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="state" Type="Int32" />
+          <Property Name="district" Type="Int32" />
+        </EntityType>
+        <EntityType Name="BinMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="DeviceId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AppId" Type="Int32" />
+          <Property Name="AppName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Game_AnswerType">
+          <Key>
+            <PropertyRef Name="AnswerTypeId" />
+          </Key>
+          <Property Name="AnswerTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AnswerType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AnswerTypeMar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GameMasterID" Type="Int32" />
+          <Property Name="AnswerTypeHindi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Game_Slogan">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Slogan" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SloganMar" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SloganHindi" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="GameDetail">
+          <Key>
+            <PropertyRef Name="GameDetailsID" />
+          </Key>
+          <Property Name="GameDetailsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImageUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="RightAnswerID" Type="Int32" />
+          <Property Name="Point" Type="Int32" />
+          <Property Name="GameMasterID" Type="Int32" />
+          <Property Name="SloganID" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="GameMaster">
+          <Key>
+            <PropertyRef Name="GameId" />
+          </Key>
+          <Property Name="GameId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GameName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GameNameMar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GameNameHindi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="GamePlayerDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlayerId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GameId" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Score" Type="Int32" />
+          <Property Name="DeviceId" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="RFID_Master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ReaderID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TagID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AppID" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="AppConnection">
+          <Key>
+            <PropertyRef Name="AppConnectionId" />
+          </Key>
+          <Property Name="AppConnectionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppId" Type="Int32" Nullable="false" />
+          <Property Name="DataSource" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="InitialCatalog" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="AppVersion">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppID" Type="Int32" />
+          <Property Name="ForceUpdateAdmin" Type="Boolean" />
+          <Property Name="AppVersionAdmin" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ForceUpdateGame" Type="Boolean" />
+          <Property Name="AppVersionGame" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AppDetail">
+          <Key>
+            <PropertyRef Name="AppId" />
+          </Key>
+          <Property Name="AppId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AppName_mar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="Int32" />
+          <Property Name="Tehsil" Type="Int32" />
+          <Property Name="District" Type="Int32" />
+          <Property Name="EmailId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="website" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Android_GCM_pushNotification_Key" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="IsProduction" Type="Boolean" />
+          <Property Name="baseImageUrlCMS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="baseImageUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AboutThumbnailURL" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="AboutAppynity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AboutTeamDetail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactUsTeamMember" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HomeSplash" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FAQ" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactUs" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="basePath" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="yoccContact" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Logitude" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserProfile" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Collection" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="HouseQRCode" Type="String" MaxLength="220" FixedLength="false" Unicode="true" />
+          <Property Name="PointQRCode" Type="String" MaxLength="220" FixedLength="false" Unicode="true" />
+          <Property Name="HousePDF" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="PointPDF" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="Grampanchayat_Pro" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AppVersion" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ForceUpdate" Type="Boolean" />
+          <Property Name="APIHit" Type="Int32" />
+          <Property Name="NewFeatures" Type="Boolean" />
+          <Property Name="ReportEnable" Type="Boolean" />
+          <Property Name="DumpYardQRCode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DumpYardPDF" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="GramPanchyatAppID" Type="Int32" />
+          <Property Name="YoccClientID" Type="Int32" />
+          <Property Name="YoccFeddbackLink" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="YoccDndLink" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="LanguageId" Type="Int32" />
+          <Property Name="MsgForBroadcast" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="MsgForNotSpecified" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="MsgForMixed" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="MsgForSegregated" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="MsgForNotReceived" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="IsScanNear" Type="Boolean" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DevSwachhBharatMainModelStoreContainer" CdmEntityContainer="DevSwachhBharatMainEntities">
+          <EntitySetMapping Name="GoogleAPIDetails">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.GoogleAPIDetail">
+              <MappingFragment StoreEntitySet="GoogleAPIDetails">
+                <ScalarProperty Name="GoogleAPI" ColumnName="GoogleAPI" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GoogelHitDetails">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.GoogelHitDetail">
+              <MappingFragment StoreEntitySet="GoogelHitDetails">
+                <ScalarProperty Name="hit" ColumnName="hit" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="API" ColumnName="API" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdminContacts">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.AdminContact">
+              <MappingFragment StoreEntitySet="AdminContact">
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Loginuser" ColumnName="Loginuser" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserInApps">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.UserInApp">
+              <MappingFragment StoreEntitySet="UserInApps">
+                <ScalarProperty Name="subscriptionId" ColumnName="subscriptionId" />
+                <ScalarProperty Name="AppId" ColumnName="AppId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserInAppsID" ColumnName="UserInAppsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="country_states">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.country_states">
+              <MappingFragment StoreEntitySet="country_states">
+                <ScalarProperty Name="state_2_code" ColumnName="state_2_code" />
+                <ScalarProperty Name="state_3_code" ColumnName="state_3_code" />
+                <ScalarProperty Name="state_name_mar" ColumnName="state_name_mar" />
+                <ScalarProperty Name="state_name" ColumnName="state_name" />
+                <ScalarProperty Name="country_name" ColumnName="country_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="state_districts">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.state_districts">
+              <MappingFragment StoreEntitySet="state_districts">
+                <ScalarProperty Name="district_name_mar" ColumnName="district_name_mar" />
+                <ScalarProperty Name="district_name" ColumnName="district_name" />
+                <ScalarProperty Name="state_id" ColumnName="state_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tehsils">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.tehsil">
+              <MappingFragment StoreEntitySet="tehsil">
+                <ScalarProperty Name="district" ColumnName="district" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="name_mar" ColumnName="name_mar" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BinMasters">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.BinMaster">
+              <MappingFragment StoreEntitySet="BinMaster">
+                <ScalarProperty Name="AppName" ColumnName="AppName" />
+                <ScalarProperty Name="AppId" ColumnName="AppId" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Game_AnswerType">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.Game_AnswerType">
+              <MappingFragment StoreEntitySet="Game_AnswerType">
+                <ScalarProperty Name="AnswerTypeHindi" ColumnName="AnswerTypeHindi" />
+                <ScalarProperty Name="GameMasterID" ColumnName="GameMasterID" />
+                <ScalarProperty Name="AnswerTypeMar" ColumnName="AnswerTypeMar" />
+                <ScalarProperty Name="AnswerType" ColumnName="AnswerType" />
+                <ScalarProperty Name="AnswerTypeId" ColumnName="AnswerTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Game_Slogan">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.Game_Slogan">
+              <MappingFragment StoreEntitySet="Game_Slogan">
+                <ScalarProperty Name="SloganHindi" ColumnName="SloganHindi" />
+                <ScalarProperty Name="SloganMar" ColumnName="SloganMar" />
+                <ScalarProperty Name="Slogan" ColumnName="Slogan" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GameDetails">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.GameDetail">
+              <MappingFragment StoreEntitySet="GameDetails">
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="SloganID" ColumnName="SloganID" />
+                <ScalarProperty Name="GameMasterID" ColumnName="GameMasterID" />
+                <ScalarProperty Name="Point" ColumnName="Point" />
+                <ScalarProperty Name="RightAnswerID" ColumnName="RightAnswerID" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="GameDetailsID" ColumnName="GameDetailsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GameMasters">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.GameMaster">
+              <MappingFragment StoreEntitySet="GameMaster">
+                <ScalarProperty Name="GameNameHindi" ColumnName="GameNameHindi" />
+                <ScalarProperty Name="GameNameMar" ColumnName="GameNameMar" />
+                <ScalarProperty Name="GameName" ColumnName="GameName" />
+                <ScalarProperty Name="GameId" ColumnName="GameId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GamePlayerDetails">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.GamePlayerDetail">
+              <MappingFragment StoreEntitySet="GamePlayerDetails">
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="GameId" ColumnName="GameId" />
+                <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RFID_Master">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.RFID_Master">
+              <MappingFragment StoreEntitySet="RFID_Master">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="AppID" ColumnName="AppID" />
+                <ScalarProperty Name="TagID" ColumnName="TagID" />
+                <ScalarProperty Name="ReaderID" ColumnName="ReaderID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppConnections">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.AppConnection">
+              <MappingFragment StoreEntitySet="AppConnection">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="InitialCatalog" ColumnName="InitialCatalog" />
+                <ScalarProperty Name="DataSource" ColumnName="DataSource" />
+                <ScalarProperty Name="AppId" ColumnName="AppId" />
+                <ScalarProperty Name="AppConnectionId" ColumnName="AppConnectionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppVersions">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.AppVersion">
+              <MappingFragment StoreEntitySet="AppVersion">
+                <ScalarProperty Name="AppVersionGame" ColumnName="AppVersionGame" />
+                <ScalarProperty Name="ForceUpdateGame" ColumnName="ForceUpdateGame" />
+                <ScalarProperty Name="AppVersionAdmin" ColumnName="AppVersionAdmin" />
+                <ScalarProperty Name="ForceUpdateAdmin" ColumnName="ForceUpdateAdmin" />
+                <ScalarProperty Name="AppID" ColumnName="AppID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppDetails">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.AppDetail">
+              <MappingFragment StoreEntitySet="AppDetails">
+                <ScalarProperty Name="IsScanNear" ColumnName="IsScanNear" />
+                <ScalarProperty Name="MsgForNotReceived" ColumnName="MsgForNotReceived" />
+                <ScalarProperty Name="MsgForSegregated" ColumnName="MsgForSegregated" />
+                <ScalarProperty Name="MsgForMixed" ColumnName="MsgForMixed" />
+                <ScalarProperty Name="MsgForNotSpecified" ColumnName="MsgForNotSpecified" />
+                <ScalarProperty Name="MsgForBroadcast" ColumnName="MsgForBroadcast" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="YoccDndLink" ColumnName="YoccDndLink" />
+                <ScalarProperty Name="YoccFeddbackLink" ColumnName="YoccFeddbackLink" />
+                <ScalarProperty Name="YoccClientID" ColumnName="YoccClientID" />
+                <ScalarProperty Name="GramPanchyatAppID" ColumnName="GramPanchyatAppID" />
+                <ScalarProperty Name="DumpYardPDF" ColumnName="DumpYardPDF" />
+                <ScalarProperty Name="DumpYardQRCode" ColumnName="DumpYardQRCode" />
+                <ScalarProperty Name="ReportEnable" ColumnName="ReportEnable" />
+                <ScalarProperty Name="NewFeatures" ColumnName="NewFeatures" />
+                <ScalarProperty Name="APIHit" ColumnName="APIHit" />
+                <ScalarProperty Name="ForceUpdate" ColumnName="ForceUpdate" />
+                <ScalarProperty Name="AppVersion" ColumnName="AppVersion" />
+                <ScalarProperty Name="Grampanchayat_Pro" ColumnName="Grampanchayat_Pro" />
+                <ScalarProperty Name="PointPDF" ColumnName="PointPDF" />
+                <ScalarProperty Name="HousePDF" ColumnName="HousePDF" />
+                <ScalarProperty Name="PointQRCode" ColumnName="PointQRCode" />
+                <ScalarProperty Name="HouseQRCode" ColumnName="HouseQRCode" />
+                <ScalarProperty Name="Collection" ColumnName="Collection" />
+                <ScalarProperty Name="UserProfile" ColumnName="UserProfile" />
+                <ScalarProperty Name="Logitude" ColumnName="Logitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="yoccContact" ColumnName="yoccContact" />
+                <ScalarProperty Name="basePath" ColumnName="basePath" />
+                <ScalarProperty Name="ContactUs" ColumnName="ContactUs" />
+                <ScalarProperty Name="FAQ" ColumnName="FAQ" />
+                <ScalarProperty Name="HomeSplash" ColumnName="HomeSplash" />
+                <ScalarProperty Name="ContactUsTeamMember" ColumnName="ContactUsTeamMember" />
+                <ScalarProperty Name="AboutTeamDetail" ColumnName="AboutTeamDetail" />
+                <ScalarProperty Name="AboutAppynity" ColumnName="AboutAppynity" />
+                <ScalarProperty Name="AboutThumbnailURL" ColumnName="AboutThumbnailURL" />
+                <ScalarProperty Name="baseImageUrl" ColumnName="baseImageUrl" />
+                <ScalarProperty Name="baseImageUrlCMS" ColumnName="baseImageUrlCMS" />
+                <ScalarProperty Name="IsProduction" ColumnName="IsProduction" />
+                <ScalarProperty Name="Android_GCM_pushNotification_Key" ColumnName="Android_GCM_pushNotification_Key" />
+                <ScalarProperty Name="website" ColumnName="website" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="District" ColumnName="District" />
+                <ScalarProperty Name="Tehsil" ColumnName="Tehsil" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="AppName_mar" ColumnName="AppName_mar" />
+                <ScalarProperty Name="AppName" ColumnName="AppName" />
+                <ScalarProperty Name="AppId" ColumnName="AppId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

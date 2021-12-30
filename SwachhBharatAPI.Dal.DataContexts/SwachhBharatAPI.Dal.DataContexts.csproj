@@ -1,0 +1,365 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BFBFAA22-368D-4C16-AB81-181F98615DA1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SwachhBharatAPI.Dal.DataContexts</RootNamespace>
+    <AssemblyName>SwachhBharatAPI.Dal.DataContexts</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdminContact.cs">
+      <DependentUpon>MainSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppConnection.cs">
+      <DependentUpon>MainSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppDetail.cs">
+      <DependentUpon>MainSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppVersion.cs">
+      <DependentUpon>MainSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUser.cs">
+      <DependentUpon>MainSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BinLatLong.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BinMaster.cs">
+      <DependentUpon>MainSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChildSwachhBharat.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChildSwachhBharat.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChildSwachhBharat.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChildSwachhBharat.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChildSwachhBharat.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Class1.cs" />
+    <Compile Include="CollecctionArea_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="country_states.cs">
+      <DependentUpon>MainSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CurrentAllUserLocationUserIDWise_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CurrentAllUserLocation_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Daily_Attendance.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceDetail.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DumpYardDetail.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GameDetail.cs">
+      <DependentUpon>MainSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GameMaster.cs">
+      <DependentUpon>MainSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GamePlayerDetail.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Game_AnswerType.cs">
+      <DependentUpon>MainSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Game_Slogan.cs">
+      <DependentUpon>MainSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GarbageCollectionDetail.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GarbagePointDetail.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetAttendenceDetailsTotalLiquid_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetAttendenceDetailsTotalStreet_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetAttendenceDetailsTotal_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetGarbageCountDetailsHistory_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetGarbageCountDetailsTotal_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetMobile_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetQrWorkHistory_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GoogelHitDetail.cs">
+      <DependentUpon>MainSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GoogleAPIDetail.cs">
+      <DependentUpon>MainSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GramCleaningComplient.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HouseDetails_ReferanceId_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HouseDetails_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HouseMaster.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LiquidWasteDetail.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Location.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainSwachhBharat.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MainSwachhBharat.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainSwachhBharat.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MainSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainSwachhBharat.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MainSwachhBharat.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="PointDetails_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QrEmployeeMaster.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Qr_Employee_Daily_Attendance.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Qr_Location.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RFID_Master.cs">
+      <DependentUpon>MainSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SauchalayAddress.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_area_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_Dashboard_Details_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_DistanceCount_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_DumpYardDetails_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_EmployeeSummary_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_EmployeeTarget_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GarbageCollection_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_HouseOnMapDetails_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_HousePointDumpDetails_Scanify_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_IdelTime_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_Locationdata_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_MsgNotification_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_TotalHouseCollection_Count_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_UserLatLongDetail_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="state_districts.cs">
+      <DependentUpon>MainSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StreetSweepingDetail.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SwachhBharatAppConnection.cs" />
+    <Compile Include="tehsil.cs">
+      <DependentUpon>MainSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TeritoryMaster.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserInApp.cs">
+      <DependentUpon>MainSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserMaster.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VehicleType.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vw_GetHouseNumber.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vw_MsgNotification.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WardNumber.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WM_GarbageCategory.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WM_GarbageSubCategory.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WM_Garbage_Details.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WM_Garbage_Sales.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WM_Garbage_Summary.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ZoneMaster.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="MainSwachhBharat.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MainSwachhBharat.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="ChildSwachhBharat.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ChildSwachhBharat.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ChildSwachhBharat.edmx.diagram">
+      <DependentUpon>ChildSwachhBharat.edmx</DependentUpon>
+    </None>
+    <None Include="MainSwachhBharat.edmx.diagram">
+      <DependentUpon>MainSwachhBharat.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ChildSwachhBharat.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ChildSwachhBharat.edmx</DependentUpon>
+      <LastGenOutput>ChildSwachhBharat.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ChildSwachhBharat.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ChildSwachhBharat.edmx</DependentUpon>
+      <LastGenOutput>ChildSwachhBharat.cs</LastGenOutput>
+    </Content>
+    <Content Include="MainSwachhBharat.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MainSwachhBharat.edmx</DependentUpon>
+      <LastGenOutput>MainSwachhBharat.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="MainSwachhBharat.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MainSwachhBharat.edmx</DependentUpon>
+      <LastGenOutput>MainSwachhBharat.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
