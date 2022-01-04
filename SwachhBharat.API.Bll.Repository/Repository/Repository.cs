@@ -4926,6 +4926,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         }
 
+
         private CollectionSyncResult SaveDumpCollectionSyncForNormal(SBGarbageCollectionView obj, int AppId, int type)
         {
 
@@ -5810,7 +5811,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         span = newTime.Subtract(oldTime);
                     }
 
-                    if (gcd == null || span.Minutes >= 10)
+                    if (gcd == null)
                     {
                         GarbageCollectionDetail objdata = new GarbageCollectionDetail();
                         objdata.userId = obj.userId;
@@ -6073,14 +6074,14 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                 try
                 {
-                    var gcd = db.GarbageCollectionDetails.Where(c => c.userId == obj.userId && c.LWId == dydetails.SSId && EntityFunctions.TruncateTime(c.gcDate) == EntityFunctions.TruncateTime(Dateeee)).OrderByDescending(c => c.gcDate).FirstOrDefault();
+                    var gcd = db.GarbageCollectionDetails.Where(c => c.userId == obj.userId && c.SSId == dydetails.SSId && EntityFunctions.TruncateTime(c.gcDate) == EntityFunctions.TruncateTime(Dateeee)).OrderByDescending(c => c.gcDate).FirstOrDefault();
                     if (gcd != null)
                     {
                         oldTime = gcd.gcDate.Value;
                         span = newTime.Subtract(oldTime);
                     }
 
-                    if (gcd == null || span.Minutes >= 10)
+                    if (gcd == null)
                     {
                         GarbageCollectionDetail objdata = new GarbageCollectionDetail();
                         objdata.userId = obj.userId;
@@ -7187,18 +7188,18 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     {
                         try
                         {
-                            var dump = db.DumpYardDetails.Where(c => c.dyId == x.dyId).FirstOrDefault();
-                            housnum = dump.ReferanceId;
+                            var Liquid = db.LiquidWasteDetails.Where(c => c.LWId == x.LWId).FirstOrDefault();
+                            housnum = Liquid.ReferanceId;
                             if (languageId == 1)
                             {
-                                Name = checkNull(dump.dyName);
-                                area = db.TeritoryMasters.Where(c => c.Id == dump.areaId).FirstOrDefault().Area;
+                                Name = checkNull(Liquid.LWName);
+                                area = db.TeritoryMasters.Where(c => c.Id == Liquid.areaId).FirstOrDefault().Area;
                                 // housnum = point.gpId.ToString();
                             }
                             else
                             {
-                                Name = checkNull(dump.dyNameMar);
-                                area = db.TeritoryMasters.Where(c => c.Id == dump.areaId).FirstOrDefault().AreaMar;
+                                Name = checkNull(Liquid.LWNameMar);
+                                area = db.TeritoryMasters.Where(c => c.Id == Liquid.areaId).FirstOrDefault().AreaMar;
                                 //       housnum = point.gpId.ToString();
                             }
                         }
@@ -7214,18 +7215,18 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     {
                         try
                         {
-                            var dump = db.DumpYardDetails.Where(c => c.dyId == x.dyId).FirstOrDefault();
-                            housnum = dump.ReferanceId;
+                            var Street = db.StreetSweepingDetails.Where(c => c.SSId == x.SSId).FirstOrDefault();
+                            housnum = Street.ReferanceId;
                             if (languageId == 1)
                             {
-                                Name = checkNull(dump.dyName);
-                                area = db.TeritoryMasters.Where(c => c.Id == dump.areaId).FirstOrDefault().Area;
+                                Name = checkNull(Street.SSName);
+                                area = db.TeritoryMasters.Where(c => c.Id == Street.areaId).FirstOrDefault().Area;
                                 // housnum = point.gpId.ToString();
                             }
                             else
                             {
-                                Name = checkNull(dump.dyNameMar);
-                                area = db.TeritoryMasters.Where(c => c.Id == dump.areaId).FirstOrDefault().AreaMar;
+                                Name = checkNull(Street.SSNameMar);
+                                area = db.TeritoryMasters.Where(c => c.Id == Street.areaId).FirstOrDefault().AreaMar;
                                 //       housnum = point.gpId.ToString();
                             }
                         }
