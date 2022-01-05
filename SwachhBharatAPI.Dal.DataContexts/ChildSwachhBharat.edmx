@@ -69,6 +69,7 @@
           <Property Name="dyAddress" Type="nvarchar(max)" />
           <Property Name="lastModifiedDate" Type="datetime" />
           <Property Name="userId" Type="int" />
+          <Property Name="EmployeeType" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="GamePlayerDetails">
           <Key>
@@ -677,11 +678,6 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Parameter Name="UserId" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="QrEmployeeMasters" EntityType="DevSwachhBharatNagpurModel.QrEmployeeMaster" />
-          <FunctionImport Name="GetQrWorkHistory" ReturnType="Collection(DevSwachhBharatNagpurModel.GetQrWorkHistory_Result)">
-            <Parameter Name="userId" Mode="In" Type="Int32" />
-            <Parameter Name="year" Mode="In" Type="Int32" />
-            <Parameter Name="month" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="SP_IdelTime" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_IdelTime_Result)">
             <Parameter Name="userId" Mode="In" Type="Int32" />
             <Parameter Name="fdate" Mode="In" Type="DateTime" />
@@ -763,6 +759,11 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
             <Parameter Name="month" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetAttendenceDetailsTotalStreet" ReturnType="Collection(DevSwachhBharatNagpurModel.GetAttendenceDetailsTotalStreet_Result)">
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+            <Parameter Name="year" Mode="In" Type="Int32" />
+            <Parameter Name="month" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetQrWorkHistory" ReturnType="Collection(DevSwachhBharatNagpurModel.GetQrWorkHistory_Result)">
             <Parameter Name="userId" Mode="In" Type="Int32" />
             <Parameter Name="year" Mode="In" Type="Int32" />
             <Parameter Name="month" Mode="In" Type="Int32" />
@@ -907,6 +908,7 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Name="dyAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="lastModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="userId" Type="Int32" />
+          <Property Name="EmployeeType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <ComplexType Name="SP_DumpYardDetails_Result">
           <Property Type="Int32" Name="dyId" Nullable="false" />
@@ -1007,13 +1009,6 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Name="target" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="lastModifyDate" Type="DateTime" Precision="3" />
         </EntityType>
-        <ComplexType Name="GetQrWorkHistory_Result">
-          <Property Type="String" Name="Day" Nullable="true" MaxLength="30" />
-          <Property Type="Int32" Name="UserId" Nullable="true" />
-          <Property Type="Int32" Name="HouseCollection" Nullable="true" />
-          <Property Type="Int32" Name="PointCollection" Nullable="true" />
-          <Property Type="Int32" Name="DumpYardCollection" Nullable="true" />
-        </ComplexType>
         <ComplexType Name="SP_IdelTime_Result">
           <Property Type="Int32" Name="userId" Nullable="false" />
           <Property Type="String" Name="userName" Nullable="true" MaxLength="500" />
@@ -1485,6 +1480,15 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Type="Int32" Name="userid" Nullable="true" />
           <Property Type="Int32" Name="StreetCollection" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="GetQrWorkHistory_Result">
+          <Property Type="String" Name="Day" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="UserId" Nullable="true" />
+          <Property Type="Int32" Name="HouseCollection" Nullable="true" />
+          <Property Type="Int32" Name="PointCollection" Nullable="true" />
+          <Property Type="Int32" Name="DumpYardCollection" Nullable="true" />
+          <Property Type="Int32" Name="LiquidCollection" Nullable="true" />
+          <Property Type="Int32" Name="StreetCollection" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1646,6 +1650,7 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <EntitySetMapping Name="DumpYardDetails">
             <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.DumpYardDetail">
               <MappingFragment StoreEntitySet="DumpYardDetails">
+                <ScalarProperty Name="EmployeeType" ColumnName="EmployeeType" />
                 <ScalarProperty Name="userId" ColumnName="userId" />
                 <ScalarProperty Name="lastModifiedDate" ColumnName="lastModifiedDate" />
                 <ScalarProperty Name="dyAddress" ColumnName="dyAddress" />
@@ -1787,17 +1792,6 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GetQrWorkHistory" FunctionName="DevSwachhBharatNagpurModel.Store.GetQrWorkHistory">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.GetQrWorkHistory_Result">
-                <ScalarProperty Name="Day" ColumnName="Day" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="HouseCollection" ColumnName="HouseCollection" />
-                <ScalarProperty Name="PointCollection" ColumnName="PointCollection" />
-                <ScalarProperty Name="DumpYardCollection" ColumnName="DumpYardCollection" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="SP_IdelTime" FunctionName="DevSwachhBharatNagpurModel.Store.SP_IdelTime">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_IdelTime_Result">
@@ -2319,6 +2313,19 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
               <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.GetAttendenceDetailsTotalStreet_Result">
                 <ScalarProperty Name="day" ColumnName="day" />
                 <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="StreetCollection" ColumnName="StreetCollection" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetQrWorkHistory" FunctionName="DevSwachhBharatNagpurModel.Store.GetQrWorkHistory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.GetQrWorkHistory_Result">
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="HouseCollection" ColumnName="HouseCollection" />
+                <ScalarProperty Name="PointCollection" ColumnName="PointCollection" />
+                <ScalarProperty Name="DumpYardCollection" ColumnName="DumpYardCollection" />
+                <ScalarProperty Name="LiquidCollection" ColumnName="LiquidCollection" />
                 <ScalarProperty Name="StreetCollection" ColumnName="StreetCollection" />
               </ComplexTypeMapping>
             </ResultMapping>

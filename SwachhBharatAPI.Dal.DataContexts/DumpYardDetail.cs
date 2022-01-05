@@ -27,5 +27,6 @@ namespace SwachhBharatAPI.Dal.DataContexts
         public string dyAddress { get; set; }
         public Nullable<System.DateTime> lastModifiedDate { get; set; }
         public Nullable<int> userId { get; set; }
+        public string EmployeeType { get; set; }
     }
 }

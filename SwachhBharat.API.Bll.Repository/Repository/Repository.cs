@@ -1522,16 +1522,28 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 {
                     List<SyncResult> result = new List<SyncResult>();
                     var distCount = "";
-
+                 
                     if (typeId == 0)
                     {
                         foreach (var x in obj)
                         {
+                            //DateTime Dateeee = Convert.ToDateTime(x.datetime);
+                            //DateTime newTime = Dateeee;
+                            //DateTime oldTime;
+                            //TimeSpan span = TimeSpan.Zero;
+                            //var gcd = db.Locations.Where(c => c.userId == x.userId && EntityFunctions.TruncateTime(c.datetime) == EntityFunctions.TruncateTime(Dateeee)).OrderByDescending(c => c.locId).FirstOrDefault();
+                            //if (gcd != null)
+                            //{
+                            //    oldTime = gcd.datetime.Value;
+                            //    span = newTime.Subtract(oldTime);
+                            //}
 
-                            var IsSameRecordLocation = db.Locations.Where(c => c.userId == x.userId && c.datetime == x.datetime).FirstOrDefault();
+                            //if (gcd == null || span.Minutes >= 10)
+                           
+                            var IsSameRecord_Location = db.Locations.Where(c => c.userId == x.userId && c.datetime == x.datetime).FirstOrDefault();
 
-                            if (IsSameRecordLocation == null)
-                            {
+                             if (IsSameRecord_Location == null)
+                               { 
                                 var u = db.UserMasters.Where(c => c.userId == x.userId);
 
                                 DateTime Offlinedate = Convert.ToDateTime(x.datetime);
@@ -6336,9 +6348,21 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                     if (typeId == 0 || typeId == 2)
                     {
-                        var IsSameRecordLocation = db.Locations.Where(c => c.userId == obj.userId && c.datetime == Dateeee).FirstOrDefault();
+                     //   DateTime Dateeee = Convert.ToDateTime(x.datetime);
+                        DateTime newTime = Dateeee;
+                        DateTime oldTime;
+                        TimeSpan span = TimeSpan.Zero;
+                        var gcd = db.Locations.Where(c => c.userId == obj.userId && EntityFunctions.TruncateTime(c.datetime) == EntityFunctions.TruncateTime(Dateeee)).OrderByDescending(c => c.locId).FirstOrDefault();
+                        if (gcd != null)
+                        {
+                            oldTime = gcd.datetime.Value;
+                            span = newTime.Subtract(oldTime);
+                        }
 
-                        if (IsSameRecordLocation == null)
+                        if (gcd == null || span.Minutes >= 10)
+                        //    var IsSameRecordLocation = db.Locations.Where(c => c.userId == obj.userId && c.datetime == Dateeee).FirstOrDefault();
+
+                        //if (IsSameRecordLocation == null)
                         {
                             var u = db.UserMasters.Where(c => c.userId == obj.userId);
 
@@ -10480,6 +10504,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         houseCollection = checkIntNull(x.HouseCollection.ToString()),
                         pointCollection = checkIntNull(x.PointCollection.ToString()),
                         DumpYardCollection = checkIntNull(x.DumpYardCollection.ToString()),
+                        LiquidCollection=checkIntNull(x.LiquidCollection.ToString()),
+                        StreetCollection = checkIntNull(x.StreetCollection.ToString()),
                     });
                 }
 
