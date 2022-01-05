@@ -10561,6 +10561,30 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                     });
                 }
+                var data3 = db.LiquidWasteDetails.Where(c => EntityFunctions.TruncateTime(c.lastModifiedDate) == EntityFunctions.TruncateTime(date) && c.userId == userId).ToList();
+                foreach (var z in data3)
+                {
+                    obj.Add(new BigVQrworkhistorydetails()
+                    {
+                        Date = Convert.ToDateTime(z.lastModifiedDate).ToString("MM/dd/yyyy"),
+                        time = Convert.ToDateTime(z.lastModifiedDate).ToString("HH:mm"),
+                        LiquidNo = z.ReferanceId,
+                        type = 4
+
+                    });
+                }
+                var data4 = db.StreetSweepingDetails.Where(c => EntityFunctions.TruncateTime(c.lastModifiedDate) == EntityFunctions.TruncateTime(date) && c.userId == userId).ToList();
+                foreach (var z in data4)
+                {
+                    obj.Add(new BigVQrworkhistorydetails()
+                    {
+                        Date = Convert.ToDateTime(z.lastModifiedDate).ToString("MM/dd/yyyy"),
+                        time = Convert.ToDateTime(z.lastModifiedDate).ToString("HH:mm"),
+                        StreetNo = z.ReferanceId,
+                        type = 5
+
+                    });
+                }
                 return obj.OrderBy(c => c.Date).OrderBy(c => c.time).ToList();
 
             }
