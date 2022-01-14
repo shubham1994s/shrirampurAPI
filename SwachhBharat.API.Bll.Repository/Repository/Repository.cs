@@ -1513,7 +1513,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         //}
         #endregion
 
-        public List<SyncResult> SaveUserLocation(List<SBUserLocation> obj, int AppId, string batteryStatus, int typeId)
+        public List<SyncResult> SaveUserLocation(List<SBUserLocation> obj, int AppId, string batteryStatus, int typeId,string EmpType)
         {
             DevSwachhBharatMainEntities dbMain = new DevSwachhBharatMainEntities();
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
@@ -1531,19 +1531,19 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             DateTime newTime = Dateeee;
                             DateTime oldTime;
                             TimeSpan span = TimeSpan.Zero;
-                            var gcd = db.Locations.Where(c => c.userId == x.userId && EntityFunctions.TruncateTime(c.datetime) == EntityFunctions.TruncateTime(Dateeee)).OrderByDescending(c => c.locId).FirstOrDefault();
+                            var gcd = db.Locations.Where(c => c.userId == x.userId && c.type==null && EntityFunctions.TruncateTime(c.datetime) == EntityFunctions.TruncateTime(Dateeee)).OrderByDescending(c => c.locId).FirstOrDefault();
                             if (gcd != null)
                             {
                                 oldTime = gcd.datetime.Value;
                                 span = newTime.Subtract(oldTime);
                             }
 
-                            if (gcd == null || span.Minutes >= 10)
-                            { 
-                                //var IsSameRecord_Location = db.Locations.Where(c => c.userId == x.userId && c.datetime == x.datetime).FirstOrDefault();
+                            if (gcd == null || span.Minutes >= 9)
+                            {
+                            //    var IsSameRecord_Location = db.Locations.Where(c => c.userId == x.userId && c.datetime == x.datetime).FirstOrDefault();
 
-                                // if (IsSameRecord_Location == null)
-                                //   { 
+                            //if (IsSameRecord_Location == null)
+                            //{
                                 var u = db.UserMasters.Where(c => c.userId == x.userId);
 
                                 DateTime Offlinedate = Convert.ToDateTime(x.datetime);
@@ -1601,7 +1601,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                         distCount = dist.Distance_in_KM.ToString();
                                     }
 
-
+                                    if(EmpType=="N")
+                                    {
+                                        EmpType = null;
+                                    }
 
                                     db.Locations.Add(new Location()
                                     {
@@ -1614,6 +1617,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                         batteryStatus = batteryStatus,
                                         Distnace = Convert.ToDecimal(distCount),
                                         CreatedDate = DateTime.Now,
+                                        EmployeeType=EmpType,
                                     });
                                     db.SaveChanges();
                                 }
@@ -6348,19 +6352,19 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                     if (typeId == 0 || typeId == 2)
                     {
-                     //   DateTime Dateeee = Convert.ToDateTime(x.datetime);
+                      
                         DateTime newTime = Dateeee;
                         DateTime oldTime;
                         TimeSpan span = TimeSpan.Zero;
-                        var gcd = db.Locations.Where(c => c.userId == obj.userId && EntityFunctions.TruncateTime(c.datetime) == EntityFunctions.TruncateTime(Dateeee)).OrderByDescending(c => c.locId).FirstOrDefault();
+                        var gcd = db.Locations.Where(c => c.userId == obj.userId && c.type==null && EntityFunctions.TruncateTime(c.datetime) == EntityFunctions.TruncateTime(Dateeee)).OrderByDescending(c => c.locId).FirstOrDefault();
                         if (gcd != null)
                         {
                             oldTime = gcd.datetime.Value;
                             span = newTime.Subtract(oldTime);
                         }
 
-                        if (gcd == null || span.Minutes >= 10)
-                        //    var IsSameRecordLocation = db.Locations.Where(c => c.userId == obj.userId && c.datetime == Dateeee).FirstOrDefault();
+                        if (gcd == null || span.Minutes >= 9)
+                          //  var IsSameRecordLocation = db.Locations.Where(c => c.userId == obj.userId && c.datetime == Dateeee).FirstOrDefault();
 
                         //if (IsSameRecordLocation == null)
                         {
@@ -7086,7 +7090,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     {
                         date = Convert.ToDateTime(x.day).ToString("MM-dd-yyy"),
                         LiquidCollection = checkIntNull(x.LiquidCollection.ToString()),
-                      
+                        DumpYardCollection = checkIntNull(x.DumpYardCollection.ToString()),
+
                     });
                 }
 
@@ -7108,7 +7113,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     {
                         date = Convert.ToDateTime(x.day).ToString("MM-dd-yyy"),
                         StreetCollection = checkIntNull(x.StreetCollection.ToString()),
-
+                        DumpYardCollection = checkIntNull(x.DumpYardCollection.ToString()),
                     });
                 }
 

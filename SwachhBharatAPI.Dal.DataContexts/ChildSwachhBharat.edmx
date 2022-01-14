@@ -753,17 +753,17 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <EntitySet Name="LiquidWasteDetails" EntityType="DevSwachhBharatNagpurModel.LiquidWasteDetail" />
           <EntitySet Name="StreetSweepingDetails" EntityType="DevSwachhBharatNagpurModel.StreetSweepingDetail" />
           <EntitySet Name="GarbageCollectionDetails" EntityType="DevSwachhBharatNagpurModel.GarbageCollectionDetail" />
+          <FunctionImport Name="GetQrWorkHistory" ReturnType="Collection(DevSwachhBharatNagpurModel.GetQrWorkHistory_Result)">
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+            <Parameter Name="year" Mode="In" Type="Int32" />
+            <Parameter Name="month" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="GetAttendenceDetailsTotalLiquid" ReturnType="Collection(DevSwachhBharatNagpurModel.GetAttendenceDetailsTotalLiquid_Result)">
             <Parameter Name="userId" Mode="In" Type="Int32" />
             <Parameter Name="year" Mode="In" Type="Int32" />
             <Parameter Name="month" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetAttendenceDetailsTotalStreet" ReturnType="Collection(DevSwachhBharatNagpurModel.GetAttendenceDetailsTotalStreet_Result)">
-            <Parameter Name="userId" Mode="In" Type="Int32" />
-            <Parameter Name="year" Mode="In" Type="Int32" />
-            <Parameter Name="month" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="GetQrWorkHistory" ReturnType="Collection(DevSwachhBharatNagpurModel.GetQrWorkHistory_Result)">
             <Parameter Name="userId" Mode="In" Type="Int32" />
             <Parameter Name="year" Mode="In" Type="Int32" />
             <Parameter Name="month" Mode="In" Type="Int32" />
@@ -1470,16 +1470,6 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Name="LWId" Type="Int32" />
           <Property Name="SSId" Type="Int32" />
         </EntityType>
-        <ComplexType Name="GetAttendenceDetailsTotalLiquid_Result">
-          <Property Type="DateTime" Name="day" Nullable="true" />
-          <Property Type="Int32" Name="userid" Nullable="true" />
-          <Property Type="Int32" Name="LiquidCollection" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="GetAttendenceDetailsTotalStreet_Result">
-          <Property Type="DateTime" Name="day" Nullable="true" />
-          <Property Type="Int32" Name="userid" Nullable="true" />
-          <Property Type="Int32" Name="StreetCollection" Nullable="true" />
-        </ComplexType>
         <ComplexType Name="GetQrWorkHistory_Result">
           <Property Type="String" Name="Day" Nullable="true" MaxLength="30" />
           <Property Type="Int32" Name="UserId" Nullable="true" />
@@ -1488,6 +1478,18 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Type="Int32" Name="DumpYardCollection" Nullable="true" />
           <Property Type="Int32" Name="LiquidCollection" Nullable="true" />
           <Property Type="Int32" Name="StreetCollection" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAttendenceDetailsTotalLiquid_Result">
+          <Property Type="DateTime" Name="day" Nullable="true" />
+          <Property Type="Int32" Name="userid" Nullable="true" />
+          <Property Type="Int32" Name="LiquidCollection" Nullable="true" />
+          <Property Type="Int32" Name="DumpYardCollection" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAttendenceDetailsTotalStreet_Result">
+          <Property Type="DateTime" Name="day" Nullable="true" />
+          <Property Type="Int32" Name="userid" Nullable="true" />
+          <Property Type="Int32" Name="StreetCollection" Nullable="true" />
+          <Property Type="Int32" Name="DumpYardCollection" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2299,24 +2301,6 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GetAttendenceDetailsTotalLiquid" FunctionName="DevSwachhBharatNagpurModel.Store.GetAttendenceDetailsTotalLiquid">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.GetAttendenceDetailsTotalLiquid_Result">
-                <ScalarProperty Name="day" ColumnName="day" />
-                <ScalarProperty Name="userid" ColumnName="userid" />
-                <ScalarProperty Name="LiquidCollection" ColumnName="LiquidCollection" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetAttendenceDetailsTotalStreet" FunctionName="DevSwachhBharatNagpurModel.Store.GetAttendenceDetailsTotalStreet">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.GetAttendenceDetailsTotalStreet_Result">
-                <ScalarProperty Name="day" ColumnName="day" />
-                <ScalarProperty Name="userid" ColumnName="userid" />
-                <ScalarProperty Name="StreetCollection" ColumnName="StreetCollection" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetQrWorkHistory" FunctionName="DevSwachhBharatNagpurModel.Store.GetQrWorkHistory">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.GetQrWorkHistory_Result">
@@ -2327,6 +2311,26 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
                 <ScalarProperty Name="DumpYardCollection" ColumnName="DumpYardCollection" />
                 <ScalarProperty Name="LiquidCollection" ColumnName="LiquidCollection" />
                 <ScalarProperty Name="StreetCollection" ColumnName="StreetCollection" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAttendenceDetailsTotalLiquid" FunctionName="DevSwachhBharatNagpurModel.Store.GetAttendenceDetailsTotalLiquid">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.GetAttendenceDetailsTotalLiquid_Result">
+                <ScalarProperty Name="day" ColumnName="day" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="LiquidCollection" ColumnName="LiquidCollection" />
+                <ScalarProperty Name="DumpYardCollection" ColumnName="DumpYardCollection" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAttendenceDetailsTotalStreet" FunctionName="DevSwachhBharatNagpurModel.Store.GetAttendenceDetailsTotalStreet">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.GetAttendenceDetailsTotalStreet_Result">
+                <ScalarProperty Name="day" ColumnName="day" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="StreetCollection" ColumnName="StreetCollection" />
+                <ScalarProperty Name="DumpYardCollection" ColumnName="DumpYardCollection" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

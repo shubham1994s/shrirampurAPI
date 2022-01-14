@@ -18,7 +18,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         SBUserView GetUser(int appId,int userId , int typeId);
         List<SBVehicleType> GetVehicle(int appId);
         //List<SyncResult> SaveUserLocation(List<SBUserLocation> obj, int AppId, string batteryStatus);
-        List<SyncResult> SaveUserLocation(List<SBUserLocation> obj, int AppId, string batteryStatus,int typeId);
+        List<SyncResult> SaveUserLocation(List<SBUserLocation> obj, int AppId, string batteryStatus,int typeId,string EmpType);
         //List<SyncResult> SaveUserAttendence(List<SBUserAttendence> obj, int AppId,int type, string batteryStatus);
         Result SaveUserAttendence(SBUserAttendence obj, int AppId, int type, string batteryStatus);
         List<SyncResult1> SaveUserAttendenceOffline(List<SBUserAttendence> obj, int AppId,string cdate,string EmpType);

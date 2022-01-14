@@ -22,6 +22,7 @@ namespace SwachhBharatAPI.Dal.DataContexts
         {
         }
 
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -372,6 +373,23 @@ namespace SwachhBharatAPI.Dal.DataContexts
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Locationdata_Result>("sp_Locationdata", fdateParameter, tdateParameter);
         }
     
+        public virtual ObjectResult<GetQrWorkHistory_Result> GetQrWorkHistory(Nullable<int> userId, Nullable<int> year, Nullable<int> month)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(int));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("month", month) :
+                new ObjectParameter("month", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetQrWorkHistory_Result>("GetQrWorkHistory", userIdParameter, yearParameter, monthParameter);
+        }
+    
         public virtual ObjectResult<GetAttendenceDetailsTotalLiquid_Result> GetAttendenceDetailsTotalLiquid(Nullable<int> userId, Nullable<int> year, Nullable<int> month)
         {
             var userIdParameter = userId.HasValue ?
@@ -404,23 +422,6 @@ namespace SwachhBharatAPI.Dal.DataContexts
                 new ObjectParameter("month", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAttendenceDetailsTotalStreet_Result>("GetAttendenceDetailsTotalStreet", userIdParameter, yearParameter, monthParameter);
-        }
-    
-        public virtual ObjectResult<GetQrWorkHistory_Result> GetQrWorkHistory(Nullable<int> userId, Nullable<int> year, Nullable<int> month)
-        {
-            var userIdParameter = userId.HasValue ?
-                new ObjectParameter("userId", userId) :
-                new ObjectParameter("userId", typeof(int));
-    
-            var yearParameter = year.HasValue ?
-                new ObjectParameter("year", year) :
-                new ObjectParameter("year", typeof(int));
-    
-            var monthParameter = month.HasValue ?
-                new ObjectParameter("month", month) :
-                new ObjectParameter("month", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetQrWorkHistory_Result>("GetQrWorkHistory", userIdParameter, yearParameter, monthParameter);
         }
     }
 }
