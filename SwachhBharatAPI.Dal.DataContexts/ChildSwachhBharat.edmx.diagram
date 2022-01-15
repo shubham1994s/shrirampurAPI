@@ -33,6 +33,8 @@
         <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.LiquidWasteDetail" Width="1.5" PointX="15.75" PointY="0.75" />
         <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.StreetSweepingDetail" Width="1.5" PointX="0.75" PointY="15.75" />
         <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.GarbageCollectionDetail" Width="1.5" PointX="5.375" PointY="14.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.Vw_GetLiquidNumber" Width="1.5" PointX="15.375" PointY="5.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.Vw_GetStreetNumber" Width="1.5" PointX="7.375" PointY="15.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

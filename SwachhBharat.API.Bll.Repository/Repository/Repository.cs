@@ -7579,9 +7579,29 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         }
 
-        public List<SBArea> GetCollectionArea(int AppId, int type)
+        public List<SBArea> GetCollectionArea(int AppId, int type,string EmpType)
         {
+            List<SBArea> obj = new List<SBArea>();
 
+            if (EmpType == "N")
+            {
+                obj = GetCollectionAreaForNormal(AppId,type);
+            }
+            if (EmpType == "L")
+            {
+                obj = GetCollectionAreaForLiquid(AppId, type);
+            }
+            if (EmpType == "S")
+            {
+                obj = GetCollectionAreaForStreet(AppId, type);
+            }   
+            return obj;
+
+        }
+
+
+        public List<SBArea> GetCollectionAreaForNormal(int AppId, int type)
+        {
             List<SBArea> obj = new List<SBArea>();
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
             {
@@ -7593,72 +7613,84 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     obj.Add(new SBArea()
                     {
                         id = x.Id,
-                        area = checkNull( x.Area).Trim(),
-                        areaMar = checkNull( x.AreaMar).Trim()
+                        area = checkNull(x.Area).Trim(),
+                        areaMar = checkNull(x.AreaMar).Trim()
                     });
                 }
 
             }
             return obj;
-
         }
-        //public List<HouseDetailsVM> GetAreaHouse(int AppId, int areaId)
-        //{
 
-        //    List<HouseDetailsVM> obj = new List<HouseDetailsVM>();
-        //    using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
-        //    {
-        //       var data = db.HouseMasters.Where(c => c.AreaId == areaId).ToList();
+        public List<SBArea> GetCollectionAreaForLiquid(int AppId, int type)
+        {
+            List<SBArea> obj = new List<SBArea>();
+            using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
+            {
+                var data = db.CollecctionAreaForLiquid(type).ToList();
 
-        //        if (AppId == 1003)
-        //        {
-        //            foreach (var x in data)
-        //            {
-        //                var gObj = db.GarbageCollectionDetails.Where(c => System.Data.Entity.Core.Objects.EntityFunctions.TruncateTime(c.gcDate) == System.Data.Entity.Core.Objects.EntityFunctions.TruncateTime(DateTime.Now) & c.houseId == x.houseId).FirstOrDefault();
-        //                if (gObj == null)
-        //                {
-        //                    obj.Add(new HouseDetailsVM()
-        //                    {
-        //                        houseid = x.ReferanceId,
-        //                        houseNumber = x.ReferanceId,
-        //                    });
-        //                }
+                foreach (var x in data)
+                {
 
-        //            }
-        //        }
-        //        else
-        //        {
+                    obj.Add(new SBArea()
+                    {
+                        id = x.Id,
+                        area = checkNull(x.Area).Trim(),
+                        areaMar = checkNull(x.AreaMar).Trim()
+                    });
+                }
 
-        //            foreach (var x in data)
-        //            {
-        //                var gObj = db.GarbageCollectionDetails.Where(c => System.Data.Entity.Core.Objects.EntityFunctions.TruncateTime(c.gcDate) == System.Data.Entity.Core.Objects.EntityFunctions.TruncateTime(DateTime.Now) & c.houseId == x.houseId).FirstOrDefault();
-        //                if (gObj == null)
-        //                {
-        //                    string HouseN = "";
-        //                    if (x.houseNumber == null || x.houseNumber == "")
-        //                    {
-        //                        HouseN = x.ReferanceId;
-        //                    }
-        //                    else { HouseN = x.houseNumber; }
-        //                    obj.Add(new HouseDetailsVM()
-        //                    {
-        //                        houseid = x.ReferanceId,
-        //                        houseNumber = HouseN,
+            }
+            return obj;
+        }
 
-        //                    });
-        //                }
-        //            }
+        public List<SBArea> GetCollectionAreaForStreet(int AppId, int type)
+        {
+            List<SBArea> obj = new List<SBArea>();
+            using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
+            {
+                var data = db.CollecctionAreaForStreet(type).ToList();
 
-        //        }
+                foreach (var x in data)
+                {
 
-        //    }
-        //    return obj;
+                    obj.Add(new SBArea()
+                    {
+                        id = x.Id,
+                        area = checkNull(x.Area).Trim(),
+                        areaMar = checkNull(x.AreaMar).Trim()
+                    });
+                }
 
-        //}
+            }
+            return obj;
+        }
 
-        public List<HouseDetailsVM> GetAreaHouse(int AppId, int areaId)
+
+
+        public List<HouseDetailsVM> GetAreaHouse(int AppId, int areaId, string EmpType)
         {
 
+            List<HouseDetailsVM> obj = new List<HouseDetailsVM>();
+            if (EmpType == "N")
+            {
+                obj = GetAreaHouseForNormal(AppId, areaId);
+            }
+            if (EmpType == "L")
+            {
+                obj = GetAreaHouseForLiquid(AppId, areaId);
+            }
+            if (EmpType == "S")
+            {
+                obj = GetAreaHousForStreet(AppId, areaId);
+            }
+           
+            return obj;
+
+        }
+
+        public List<HouseDetailsVM> GetAreaHouseForNormal(int AppId, int areaId)
+        {
             List<HouseDetailsVM> obj = new List<HouseDetailsVM>();
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
             {
@@ -7697,8 +7729,92 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
             }
             return obj;
-
         }
+
+           public List<HouseDetailsVM> GetAreaHouseForLiquid(int AppId, int areaId)
+        {
+            List<HouseDetailsVM> obj = new List<HouseDetailsVM>();
+            using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
+            {
+                var data = db.Vw_GetLiquidNumber.Where(c => c.AreaId == areaId).ToList();
+                if (AppId == 1003)
+                {
+                    foreach (var x in data)
+                    {
+
+                        obj.Add(new HouseDetailsVM()
+                        {
+                            houseid = x.ReferanceId,
+                            houseNumber = x.ReferanceId,
+                        });
+                    }
+                }
+                else
+                {
+
+                    foreach (var x in data)
+                    {
+                        string HouseN = "";
+                        //if (x.houseNumber == null || x.houseNumber == "")
+                        //{
+                        //    HouseN = x.ReferanceId;
+                        //}
+                        //else { HouseN = x.houseNumber; }
+                        obj.Add(new HouseDetailsVM()
+                        {
+                            houseid = x.ReferanceId,
+                            houseNumber = x.ReferanceId,
+
+                        });
+                    }
+                }
+
+            }
+            return obj;
+        }
+
+        public List<HouseDetailsVM> GetAreaHousForStreet(int AppId, int areaId)
+        {
+            List<HouseDetailsVM> obj = new List<HouseDetailsVM>();
+            using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
+            {
+                var data = db.Vw_GetStreetNumber.Where(c => c.AreaId == areaId).ToList();
+                if (AppId == 1003)
+                {
+                    foreach (var x in data)
+                    {
+
+                        obj.Add(new HouseDetailsVM()
+                        {
+                            houseid = x.ReferanceId,
+                            houseNumber = x.ReferanceId,
+                        });
+                    }
+                }
+                else
+                {
+
+                    foreach (var x in data)
+                    {
+                        string HouseN = "";
+                        //if (x.houseNumber == null || x.houseNumber == "")
+                        //{
+                        //    HouseN = x.ReferanceId;
+                        //}
+                        //else { HouseN = x.houseNumber; }
+                        obj.Add(new HouseDetailsVM()
+                        {
+                            houseid = x.ReferanceId,
+                            houseNumber = x.ReferanceId,
+
+                        });
+                    }
+                }
+
+            }
+            return obj;
+        }
+
 
         public List<GarbagePointDetailsVM> GetAreaPoint(int AppId, int areaId)
         {

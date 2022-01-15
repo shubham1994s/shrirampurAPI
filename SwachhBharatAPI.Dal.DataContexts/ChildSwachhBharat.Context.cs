@@ -22,7 +22,6 @@ namespace SwachhBharatAPI.Dal.DataContexts
         {
         }
 
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -56,6 +55,8 @@ namespace SwachhBharatAPI.Dal.DataContexts
         public virtual DbSet<LiquidWasteDetail> LiquidWasteDetails { get; set; }
         public virtual DbSet<StreetSweepingDetail> StreetSweepingDetails { get; set; }
         public virtual DbSet<GarbageCollectionDetail> GarbageCollectionDetails { get; set; }
+        public virtual DbSet<Vw_GetLiquidNumber> Vw_GetLiquidNumber { get; set; }
+        public virtual DbSet<Vw_GetStreetNumber> Vw_GetStreetNumber { get; set; }
     
         public virtual ObjectResult<sp_area_Result> sp_area()
         {
@@ -422,6 +423,24 @@ namespace SwachhBharatAPI.Dal.DataContexts
                 new ObjectParameter("month", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAttendenceDetailsTotalStreet_Result>("GetAttendenceDetailsTotalStreet", userIdParameter, yearParameter, monthParameter);
+        }
+    
+        public virtual ObjectResult<CollecctionAreaForLiquid_Result> CollecctionAreaForLiquid(Nullable<int> type)
+        {
+            var typeParameter = type.HasValue ?
+                new ObjectParameter("type", type) :
+                new ObjectParameter("type", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CollecctionAreaForLiquid_Result>("CollecctionAreaForLiquid", typeParameter);
+        }
+    
+        public virtual ObjectResult<CollecctionAreaForStreet_Result> CollecctionAreaForStreet(Nullable<int> type)
+        {
+            var typeParameter = type.HasValue ?
+                new ObjectParameter("type", type) :
+                new ObjectParameter("type", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CollecctionAreaForStreet_Result>("CollecctionAreaForStreet", typeParameter);
         }
     }
 }

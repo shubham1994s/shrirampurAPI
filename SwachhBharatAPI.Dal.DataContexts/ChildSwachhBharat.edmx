@@ -437,6 +437,26 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_GetHouseNu
           <Property Name="AreaId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_GetLiquidNumber' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_GetLiquidNumber">
+          <Key>
+            <PropertyRef Name="LWId" />
+          </Key>
+          <Property Name="LWId" Type="int" Nullable="false" />
+          <Property Name="ReferanceId" Type="nvarchar" MaxLength="200" />
+          <Property Name="AreaId" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_GetStreetNumber' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_GetStreetNumber">
+          <Key>
+            <PropertyRef Name="SSId" />
+          </Key>
+          <Property Name="SSId" Type="int" Nullable="false" />
+          <Property Name="ReferanceId" Type="nvarchar" MaxLength="200" />
+          <Property Name="AreaId" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotification' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_MsgNotification">
           <Key>
@@ -459,6 +479,12 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Name="gcTarget" Type="varchar" MaxLength="250" />
         </EntityType>
         <Function Name="CollecctionArea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="int" Mode="In" />
+        </Function>
+        <Function Name="CollecctionAreaForLiquid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="int" Mode="In" />
+        </Function>
+        <Function Name="CollecctionAreaForStreet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="type" Type="int" Mode="In" />
         </Function>
         <Function Name="CurrentAllUserLocation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -608,6 +634,20 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
     [Vw_GetHouseNumber].[ReferanceId] AS [ReferanceId], 
     [Vw_GetHouseNumber].[AreaId] AS [AreaId]
     FROM [dbo].[Vw_GetHouseNumber] AS [Vw_GetHouseNumber]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Vw_GetLiquidNumber" EntityType="Self.Vw_GetLiquidNumber" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_GetLiquidNumber].[LWId] AS [LWId], 
+    [Vw_GetLiquidNumber].[ReferanceId] AS [ReferanceId], 
+    [Vw_GetLiquidNumber].[AreaId] AS [AreaId]
+    FROM [dbo].[Vw_GetLiquidNumber] AS [Vw_GetLiquidNumber]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Vw_GetStreetNumber" EntityType="Self.Vw_GetStreetNumber" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_GetStreetNumber].[SSId] AS [SSId], 
+    [Vw_GetStreetNumber].[ReferanceId] AS [ReferanceId], 
+    [Vw_GetStreetNumber].[AreaId] AS [AreaId]
+    FROM [dbo].[Vw_GetStreetNumber] AS [Vw_GetStreetNumber]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Vw_MsgNotification" EntityType="Self.Vw_MsgNotification" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -767,6 +807,14 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
             <Parameter Name="userId" Mode="In" Type="Int32" />
             <Parameter Name="year" Mode="In" Type="Int32" />
             <Parameter Name="month" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Vw_GetLiquidNumber" EntityType="DevSwachhBharatNagpurModel.Vw_GetLiquidNumber" />
+          <EntitySet Name="Vw_GetStreetNumber" EntityType="DevSwachhBharatNagpurModel.Vw_GetStreetNumber" />
+          <FunctionImport Name="CollecctionAreaForLiquid" ReturnType="Collection(DevSwachhBharatNagpurModel.CollecctionAreaForLiquid_Result)">
+            <Parameter Name="type" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CollecctionAreaForStreet" ReturnType="Collection(DevSwachhBharatNagpurModel.CollecctionAreaForStreet_Result)">
+            <Parameter Name="type" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_area_Result">
@@ -1490,6 +1538,34 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Type="Int32" Name="userid" Nullable="true" />
           <Property Type="Int32" Name="StreetCollection" Nullable="true" />
           <Property Type="Int32" Name="DumpYardCollection" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="Vw_GetLiquidNumber">
+          <Key>
+            <PropertyRef Name="LWId" />
+          </Key>
+          <Property Name="LWId" Type="Int32" Nullable="false" />
+          <Property Name="ReferanceId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AreaId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Vw_GetStreetNumber">
+          <Key>
+            <PropertyRef Name="SSId" />
+          </Key>
+          <Property Name="SSId" Type="Int32" Nullable="false" />
+          <Property Name="ReferanceId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AreaId" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="CollecctionAreaForLiquid_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Area" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="AreaMar" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="wardId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="CollecctionAreaForStreet_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Area" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="AreaMar" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="wardId" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2331,6 +2407,44 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
                 <ScalarProperty Name="userid" ColumnName="userid" />
                 <ScalarProperty Name="StreetCollection" ColumnName="StreetCollection" />
                 <ScalarProperty Name="DumpYardCollection" ColumnName="DumpYardCollection" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Vw_GetLiquidNumber">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.Vw_GetLiquidNumber">
+              <MappingFragment StoreEntitySet="Vw_GetLiquidNumber">
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="LWId" ColumnName="LWId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_GetStreetNumber">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.Vw_GetStreetNumber">
+              <MappingFragment StoreEntitySet="Vw_GetStreetNumber">
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="SSId" ColumnName="SSId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CollecctionAreaForLiquid" FunctionName="DevSwachhBharatNagpurModel.Store.CollecctionAreaForLiquid">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.CollecctionAreaForLiquid_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="AreaMar" ColumnName="AreaMar" />
+                <ScalarProperty Name="wardId" ColumnName="wardId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CollecctionAreaForStreet" FunctionName="DevSwachhBharatNagpurModel.Store.CollecctionAreaForStreet">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.CollecctionAreaForStreet_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="AreaMar" ColumnName="AreaMar" />
+                <ScalarProperty Name="wardId" ColumnName="wardId" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
