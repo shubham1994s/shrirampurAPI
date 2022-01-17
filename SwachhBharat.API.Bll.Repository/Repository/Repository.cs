@@ -1104,7 +1104,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     var obj = db.UserMasters.Where(c => c.userId == userId).FirstOrDefault();
                     if (obj != null)
                     {
-                        user.type = obj.Type;
+                        user.type = obj.EmployeeType;
                         user.typeId = obj.Type == null ? 0 : int.Parse(obj.Type);
                         user.userId = obj.userEmployeeNo;
                         user.name = checkNull(obj.userName);
