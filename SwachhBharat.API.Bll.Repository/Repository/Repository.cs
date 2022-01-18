@@ -4245,8 +4245,16 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             if (IsExist == true)
                             {
 
-                                var gcd = db.GarbageCollectionDetails.Where(c => c.houseId == house.houseId && EntityFunctions.TruncateTime(c.gcDate) == EntityFunctions.TruncateTime(Dateeee)).FirstOrDefault();
-
+                                var gcd = db.GarbageCollectionDetails.Where(c => c.houseId == house.houseId && c.userId ==obj.userId && EntityFunctions.TruncateTime(c.gcDate) == EntityFunctions.TruncateTime(Dateeee)).FirstOrDefault();
+                            if(gcd==null)
+                            {
+                                result.ID = obj.OfflineID;
+                                result.message = "This house id already scanned."; result.messageMar = "हे घर आयडी आधीच स्कॅन केले आहे.";
+                                result.status = "error";
+                                return result;
+                            }
+                            if (gcd != null)
+                            { 
                                 if (Dateeee > gcd.gcDate)
                                 {
                                     gcd.gcType = obj.gcType;
@@ -4326,7 +4334,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                 db.SaveChanges();
 
                             }
-                            else
+                        }
+                        else
                             {
                                 if (house != null)
                                 {
