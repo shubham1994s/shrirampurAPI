@@ -4322,7 +4322,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                 loc.userId = objdata.userId;
                                 loc.type = 1;
                                 loc.Distnace = obj.Distance;
-                                //loc.IsOffline = obj.IsOffline;
+                                loc.IsOffline = obj.IsOffline;
 
                                 if (!string.IsNullOrEmpty(obj.houseId))
                                 {
@@ -4384,7 +4384,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                 loc.userId = objdata.userId;
                                 loc.type = 1;
                                 loc.Distnace = obj.Distance;
-                                //loc.IsOffline = obj.IsOffline;
+                                loc.IsOffline = obj.IsOffline;
                                 if (!string.IsNullOrEmpty(obj.houseId))
                                 {
                                     loc.ReferanceID = obj.houseId;
