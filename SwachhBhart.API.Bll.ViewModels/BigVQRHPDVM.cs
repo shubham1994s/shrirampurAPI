@@ -27,6 +27,8 @@ namespace SwachhBhart.API.Bll.ViewModels
         public int wardNo { get; set; }
         public string mobileno { get; set; }
         public string OfflineId { get; set; }
+
+        public string wastetype { get; set; }
         public DateTime date { get; set; }
 
     }

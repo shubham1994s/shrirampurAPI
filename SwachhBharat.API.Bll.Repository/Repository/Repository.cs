@@ -192,91 +192,91 @@ namespace SwachhBharat.API.Bll.Repository.Repository
     
          public string Address(string location)
          {
-            try
-            {
-                string API = "";               
-                var hitdetails = dbMain.GoogelHitDetails.Where(c => c.Date == EntityFunctions.TruncateTime(DateTime.Now) && c.hit < 1300).FirstOrDefault();
-                if (hitdetails == null)
-                {
-                    GoogelHitDetail data = dbMain.GoogelHitDetails.Where(c => c.Date != EntityFunctions.TruncateTime(DateTime.Now)).FirstOrDefault();
-                    data.Date = DateTime.Now;
-                    data.hit = 1;
-                    dbMain.SaveChanges();
+            //    try
+            //    {
+            //        string API = "";               
+            //        var hitdetails = dbMain.GoogelHitDetails.Where(c => c.Date == EntityFunctions.TruncateTime(DateTime.Now) && c.hit < 1300).FirstOrDefault();
+            //        if (hitdetails == null)
+            //        {
+            //            GoogelHitDetail data = dbMain.GoogelHitDetails.Where(c => c.Date != EntityFunctions.TruncateTime(DateTime.Now)).FirstOrDefault();
+            //            data.Date = DateTime.Now;
+            //            data.hit = 1;
+            //            dbMain.SaveChanges();
 
-                }
-                else {
-                    API = hitdetails.API;
-                    GoogelHitDetail data = dbMain.GoogelHitDetails.Where(c => c.Id == hitdetails.Id).FirstOrDefault();
-                    data.Date = DateTime.Now;
-                    data.hit = hitdetails.hit + 1;
-                    dbMain.SaveChanges();
+            //        }
+            //        else {
+            //            API = hitdetails.API;
+            //            GoogelHitDetail data = dbMain.GoogelHitDetails.Where(c => c.Id == hitdetails.Id).FirstOrDefault();
+            //            data.Date = DateTime.Now;
+            //            data.hit = hitdetails.hit + 1;
+            //            dbMain.SaveChanges();
 
-                }                
-              if (location != string.Empty && location != null)
-            {
-                string lat = null, log = null;
-                string[] arr = new string[2];
-                arr = location.Split(',');
-                lat = arr[0];
-                log = arr[1];
-                XmlDocument doc = new XmlDocument();
-                string Address = "";
+            //        }                
+            //      if (location != string.Empty && location != null)
+            //    {
+            //        string lat = null, log = null;
+            //        string[] arr = new string[2];
+            //        arr = location.Split(',');
+            //        lat = arr[0];
+            //        log = arr[1];
+            //        XmlDocument doc = new XmlDocument();
+            //        string Address = "";
 
-                //doc.Load("http://maps.googleapis.com/maps/api/geocode/xml?latlng=" + lat + "," + log + "& sensor=false");
-                doc.Load("https://maps.googleapis.com/maps/api/geocode/xml?latlng=" + lat + "," + log + "&sensor=false&key=" + API);
+            //        //doc.Load("http://maps.googleapis.com/maps/api/geocode/xml?latlng=" + lat + "," + log + "& sensor=false");
+            //        doc.Load("https://maps.googleapis.com/maps/api/geocode/xml?latlng=" + lat + "," + log + "&sensor=false&key=" + API);
 
-                XmlNode element = doc.SelectSingleNode("//GeocodeResponse/status");
-                    var d = dbMain.AdminContacts.ToList();
-                    string hmob = d.Where(c => c.Id == 1).FirstOrDefault().MobileNumber;
-                    if (element.InnerText == "OVER_QUERY_LIMIT")
+            //        XmlNode element = doc.SelectSingleNode("//GeocodeResponse/status");
+            //            var d = dbMain.AdminContacts.ToList();
+            //            string hmob = d.Where(c => c.Id == 1).FirstOrDefault().MobileNumber;
+            //            if (element.InnerText == "OVER_QUERY_LIMIT")
 
-                {                     
-                    sendSMS("API Cross limit", hmob);
-                    return "";
-                }
+            //        {                     
+            //            sendSMS("API Cross limit", hmob);
+            //            return "";
+            //        }
 
-                if (element.InnerText == "REQUEST_DENIED")
-                {
-                    sendSMS("API Not working", hmob);
-                    return "";
-                }
+            //        if (element.InnerText == "REQUEST_DENIED")
+            //        {
+            //            sendSMS("API Not working", hmob);
+            //            return "";
+            //        }
 
 
-                if (element.InnerText == "ZERO_RESULTS")
-                {
-                        return "";
-                }
-                else
-                {
-                    XmlNode xnList1;
-                    try
-                    {
-                        xnList1 = doc.SelectSingleNode("//GeocodeResponse/result/formatted_address");
-                    }
-                    catch
-                    {
+            //        if (element.InnerText == "ZERO_RESULTS")
+            //        {
+            //                return "";
+            //        }
+            //        else
+            //        {
+            //            XmlNode xnList1;
+            //            try
+            //            {
+            //                xnList1 = doc.SelectSingleNode("//GeocodeResponse/result/formatted_address");
+            //            }
+            //            catch
+            //            {
 
-                        xnList1 = null;
-                       return "";
-                        }
-                    if (xnList1 != null)
-                    {
-                        Address = xnList1.InnerText;
-                    }
-                    else
-                    {
-                        Address = "";
-                    }
-                }
-                return Address;
-            }
-            else
-            {
-                return "";
-            }
-        }
-            catch  { return ""; }
-
+            //                xnList1 = null;
+            //               return "";
+            //                }
+            //            if (xnList1 != null)
+            //            {
+            //                Address = xnList1.InnerText;
+            //            }
+            //            else
+            //            {
+            //                Address = "";
+            //            }
+            //        }
+            //        return Address;
+            //    }
+            //    else
+            //    {
+            //        return "";
+            //    }
+            //}
+            //    catch  { return ""; }
+            return "";
         }
 
         private double distance(double lat1, double lon1, double lat2, double lon2, char unit)
@@ -342,6 +342,29 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                HttpWebRequest myReq = (HttpWebRequest)WebRequest.Create("https://www.smsjust.com/sms/user/urlsms.php?username=ycagent&pass=yocc@5095&senderid=BIGVCL&dest_mobileno=" + MobilNumber + "&message=" + sms + "%20&response=Y");
 
               //  HttpWebRequest myReq = (HttpWebRequest)WebRequest.Create("https://www.smsjust.com/sms/user/urlsms.php?username=artiyocc&pass=123456&senderid=BIGVCL&dest_mobileno=" + MobilNumber + "&message=" + sms + "%20&response=Y");
+
+                //Get response from Ozeki NG SMS Gateway Server and read the answer
+                HttpWebResponse myResp = (HttpWebResponse)myReq.GetResponse();
+                System.IO.StreamReader respStreamReader = new System.IO.StreamReader(myResp.GetResponseStream());
+                string responseString = respStreamReader.ReadToEnd();
+                respStreamReader.Close();
+                myResp.Close();
+            }
+            catch { }
+
+        }
+
+        public void sendSMSNgp(string sms, string MobilNumber)
+        {
+            try
+            {
+                //HttpWebRequest myReq = (HttpWebRequest)WebRequest.Create("https://www.smsjust.com/sms/user/urlsms.php?username=ycagent&pass=yocc@5095&senderid=YOCCAG&dest_mobileno=" + MobilNumber + "&msgtype=UNI&message=" + sms + "&response=Y");
+                //HttpWebRequest myReq = (HttpWebRequest)WebRequest.Create("https://www.smsjust.com/sms/user/urlsms.php?username=ycagent&pass=yocc@5095&senderid=YOCCAG&dest_mobileno=" + MobilNumber + "&message=" + sms + "&response=Y");
+                //HttpWebRequest myReq = (HttpWebRequest)WebRequest.Create("https://www.smsjust.com/sms/user/urlsms.php?username=artiyocc&pass=123456&senderid=BIGVCL&dest_mobileno=" + MobilNumber + "&msgtype=UNI&message="+ sms + "%20&response=Y");
+
+                //HttpWebRequest myReq = (HttpWebRequest)WebRequest.Create("https://www.smsjust.com/sms/user/urlsms.php?username=ycagent&pass=yocc@5095&senderid=BIGVCL&dest_mobileno=" + MobilNumber + "&message=" + sms + "%20&response=Y");
+
+                HttpWebRequest myReq = (HttpWebRequest)WebRequest.Create("https://www.smsjust.com/sms/user/urlsms.php?username=artiyocc&pass=123456&senderid=BIGVCL&dest_mobileno=" + MobilNumber + "&message=" + sms + "%20&response=Y");
 
                 //Get response from Ozeki NG SMS Gateway Server and read the answer
                 HttpWebResponse myResp = (HttpWebResponse)myReq.GetResponse();
@@ -10257,6 +10280,11 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                     house.houseOwnerMobile = obj.mobileno;
                                 }
 
+                                if ((string.IsNullOrEmpty(obj.wastetype)) == false)
+                                {
+                                house.WasteType = obj.wastetype;
+                                }
+
                             //////////////////////////////////////////////////////////////////
                             obj.date = DateTime.Now;
                             db.Qr_Location.Add(FillLocationDetails(obj, AppId, false));
@@ -10638,6 +10666,15 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         }
                         if (item.gcType == 1)
                         {
+                            string houseid1 = item.ReferanceId;
+                            string[] houseList = houseid1.Split(',');
+
+                            if (houseList.Length > 1)
+                            {
+                                item.ReferanceId = houseList[0];
+                                item.wastetype = houseList[1];
+
+                            }
                             var house = db.HouseMasters.Where(x => x.ReferanceId == item.ReferanceId).FirstOrDefault();
                             if (house != null)
                             {
@@ -11255,8 +11292,11 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     string msg = "Your OTP is " + otp + ". Do not Share it with anyone by any means. This is confidential and to be used by you only. BIGVCL";
 
                     sendSMS(msg, _Mobile);
-
-                    obj.Status = "Success";
+                    if(AppId==3068)
+                    {
+                        sendSMSNgp(msg, _Mobile);
+                    }
+                        obj.Status = "Success";
                     obj.OTP = otp;
                     obj.Message = "OTP sent successfully.";
                     obj.MessageMar = "ओटीपी यशस्वीरित्या पाठवले.";
