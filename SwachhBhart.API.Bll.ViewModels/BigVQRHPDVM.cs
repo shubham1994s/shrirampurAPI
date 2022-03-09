@@ -29,6 +29,8 @@ namespace SwachhBhart.API.Bll.ViewModels
         public string OfflineId { get; set; }
 
         public string wastetype { get; set; }
+
+        public string QRCodeImage { get; set; }
         public DateTime date { get; set; }
 
     }

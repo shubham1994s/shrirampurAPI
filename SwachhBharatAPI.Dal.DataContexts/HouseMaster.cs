@@ -33,5 +33,6 @@ namespace SwachhBharatAPI.Dal.DataContexts
         public Nullable<System.DateTime> lastModifiedEntry { get; set; }
         public string RFIDTagId { get; set; }
         public string WasteType { get; set; }
+        public string QRCodeImage { get; set; }
     }
 }
