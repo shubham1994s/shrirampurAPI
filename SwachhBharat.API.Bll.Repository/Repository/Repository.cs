@@ -1662,9 +1662,19 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     {
                         foreach (var x in obj)
                         {
-                            var IsSameRecordQr_Location = db.Qr_Location.Where(c => c.empId == x.userId && c.datetime == x.datetime).FirstOrDefault();
 
-                            if (IsSameRecordQr_Location == null)
+                            DateTime newTime = x.datetime;
+                            DateTime oldTime;
+                            TimeSpan span = TimeSpan.Zero;
+                            var IsSameRecordQr_Location = db.Qr_Location.Where(c => c.empId == x.userId && c.type == null && EntityFunctions.TruncateTime(c.datetime) == EntityFunctions.TruncateTime(x.datetime)).OrderByDescending(c => c.locId).FirstOrDefault();
+                            if (IsSameRecordQr_Location != null)
+                            {
+                                oldTime = IsSameRecordQr_Location.datetime.Value;
+                                span = newTime.Subtract(oldTime);
+                            }
+
+                            if (IsSameRecordQr_Location == null || span.Minutes >= 9)
+                          
                             {
                                 var u = db.QrEmployeeMasters.Where(c => c.qrEmpId == x.userId);
 
@@ -6452,9 +6462,21 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     }
                     else if (typeId == 1)
                     {
-                        var IsSameRecordQr_Location = db.Locations.Where(c => c.userId == obj.userId && c.datetime == Dateeee).FirstOrDefault();
+                        DateTime newTime = Dateeee;
+                        DateTime oldTime;
+                        TimeSpan span = TimeSpan.Zero;
+                        var IsSameRecordQr_Location = db.Qr_Location.Where(c => c.empId == obj.userId && c.type == null && EntityFunctions.TruncateTime(c.datetime) == EntityFunctions.TruncateTime(Dateeee)).OrderByDescending(c => c.locId).FirstOrDefault();
+                        if (IsSameRecordQr_Location != null)
+                        {
+                            oldTime = IsSameRecordQr_Location.datetime.Value;
+                            span = newTime.Subtract(oldTime);
+                        }
 
-                        if (IsSameRecordQr_Location == null)
+                        if (IsSameRecordQr_Location == null || span.Minutes >= 9)
+
+                        //    var IsSameRecordQr_Location = db.Locations.Where(c => c.userId == obj.userId && c.datetime == Dateeee).FirstOrDefault();
+
+                     //   if (IsSameRecordQr_Location == null)
                         {
                             var u = db.QrEmployeeMasters.Where(c => c.qrEmpId == obj.userId);
 
