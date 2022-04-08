@@ -9983,6 +9983,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         {
             Result result = new Result();
             var appdetails = dbMain.AppDetails.Where(c => c.AppId == AppId).FirstOrDefault();
+
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
             {
                 try
@@ -10108,7 +10109,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             //////////////////////////////////////////////////////////////////
                             obj.date = DateTime.Now;
                             obj.ReferanceId = referanceid;
-                           
+
                             db.Qr_Location.Add(FillLocationDetails(obj, AppId, false));
                             //////////////////////////////////////////////////////////////////
 
@@ -10126,33 +10127,33 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                     }
                     if (gcType == 3)
+                    {
+                        var dump = db.DumpYardDetails.Where(x => x.ReferanceId == referanceid).FirstOrDefault();
+                        if (dump != null)
                         {
-                            var dump = db.DumpYardDetails.Where(x => x.ReferanceId == referanceid).FirstOrDefault();
-                            if (dump != null)
+                            if ((string.IsNullOrEmpty(obj.name)) == false)
                             {
-                                if ((string.IsNullOrEmpty(obj.name)) == false) 
-                                {
-                                    dump.dyName = obj.name;
-                                }
-                                if ((string.IsNullOrEmpty(obj.namemar)) == false)
-                                {
-                                    dump.dyNameMar = obj.namemar;
-                                }
-                                if ((string.IsNullOrEmpty(obj.Address)) == false)
-                                {
-                                    dump.dyAddress = obj.Address;
-                                }
-                                if ((string.IsNullOrEmpty(obj.Lat)) == false)
-                                {
-                                    dump.dyLat = obj.Lat;
-                                }
-                                if ((string.IsNullOrEmpty(obj.Long)) == false)
-                                {
-                                    dump.dyLong = obj.Long;
-                                }
-                                
-                                dump.lastModifiedDate = DateTime.Now;
-                            
+                                dump.dyName = obj.name;
+                            }
+                            if ((string.IsNullOrEmpty(obj.namemar)) == false)
+                            {
+                                dump.dyNameMar = obj.namemar;
+                            }
+                            if ((string.IsNullOrEmpty(obj.Address)) == false)
+                            {
+                                dump.dyAddress = obj.Address;
+                            }
+                            if ((string.IsNullOrEmpty(obj.Lat)) == false)
+                            {
+                                dump.dyLat = obj.Lat;
+                            }
+                            if ((string.IsNullOrEmpty(obj.Long)) == false)
+                            {
+                                dump.dyLong = obj.Long;
+                            }
+
+                            dump.lastModifiedDate = DateTime.Now;
+
 
                             if (obj.areaId > 0 && (string.IsNullOrEmpty(obj.areaId.ToString())) == false)
                             {
@@ -10181,48 +10182,48 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             //////////////////////////////////////////////////////////////////
 
                             db.SaveChanges();
-                                result.status = "success";
-                                result.message = "Uploaded successfully";
-                                result.messageMar = "सबमिट यशस्वी";
-                            }
-                            else
-                            {
-                                result.status = "error";
-                                result.message = "Invalid Dump Yard ID";
-                                result.messageMar = "अवैध डंप यार्ड आयडी ";
-                            }
-
+                            result.status = "success";
+                            result.message = "Uploaded successfully";
+                            result.messageMar = "सबमिट यशस्वी";
+                        }
+                        else
+                        {
+                            result.status = "error";
+                            result.message = "Invalid Dump Yard ID";
+                            result.messageMar = "अवैध डंप यार्ड आयडी ";
                         }
 
-                        else if (gcType == 2)
-                        {
-                            var gp = db.GarbagePointDetails.Where(x => x.ReferanceId == referanceid).FirstOrDefault();
+                    }
 
-                            if (gp != null)
+                    else if (gcType == 2)
+                    {
+                        var gp = db.GarbagePointDetails.Where(x => x.ReferanceId == referanceid).FirstOrDefault();
+
+                        if (gp != null)
+                        {
+                            if ((string.IsNullOrEmpty(obj.name.ToString())) == false)
                             {
-                                if ((string.IsNullOrEmpty(obj.name.ToString())) == false)
-                                {
-                                    gp.gpName = obj.name;
-                                }
-                                if ((string.IsNullOrEmpty(obj.namemar.ToString())) == false)
-                                {
-                                    gp.gpNameMar = obj.namemar;
-                                }
-                                if ((string.IsNullOrEmpty(obj.Address.ToString())) == false)
-                                {
-                                    gp.gpAddress = obj.Address;
-                                }
-                                if ((string.IsNullOrEmpty(obj.Lat.ToString())) == false)
-                                {
-                                    gp.gpLat = obj.Lat;
-                                }
-                                if ((string.IsNullOrEmpty(obj.Long.ToString())) == false)
-                                {
-                                    gp.gpLong = obj.Long;
-                                }
-                             
-                                gp.modified = DateTime.Now;
-                            
+                                gp.gpName = obj.name;
+                            }
+                            if ((string.IsNullOrEmpty(obj.namemar.ToString())) == false)
+                            {
+                                gp.gpNameMar = obj.namemar;
+                            }
+                            if ((string.IsNullOrEmpty(obj.Address.ToString())) == false)
+                            {
+                                gp.gpAddress = obj.Address;
+                            }
+                            if ((string.IsNullOrEmpty(obj.Lat.ToString())) == false)
+                            {
+                                gp.gpLat = obj.Lat;
+                            }
+                            if ((string.IsNullOrEmpty(obj.Long.ToString())) == false)
+                            {
+                                gp.gpLong = obj.Long;
+                            }
+
+                            gp.modified = DateTime.Now;
+
                             if (obj.areaId > 0 && (string.IsNullOrEmpty(obj.areaId.ToString())) == false)
                             {
                                 gp.areaId = obj.areaId;
@@ -10240,82 +10241,82 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                 gp.userId = obj.userId;
                             }
 
-                         
+
                             //////////////////////////////////////////////////////////////////
                             obj.date = DateTime.Now;
-                            db.Qr_Location.Add(FillLocationDetails(obj, AppId ,false));
+                            db.Qr_Location.Add(FillLocationDetails(obj, AppId, false));
                             //////////////////////////////////////////////////////////////////
 
 
                             db.SaveChanges();
-                                result.status = "success";
-                                result.message = "Uploaded successfully";
-                                result.messageMar = "सबमिट यशस्वी";
-                            }
-                            else
-                            {
-                                result.status = "error";
-                                result.message = "Invalid Garbage Point ID";
-                                result.messageMar = "अवैध कचरा पॉइंट आयडी";
-                            }
-                    }
-                        else if (gcType == 1)
+                            result.status = "success";
+                            result.message = "Uploaded successfully";
+                            result.messageMar = "सबमिट यशस्वी";
+                        }
+                        else
                         {
-                            var house = db.HouseMasters.Where(x => x.ReferanceId == referanceid).FirstOrDefault();
-                            if (house != null)
+                            result.status = "error";
+                            result.message = "Invalid Garbage Point ID";
+                            result.messageMar = "अवैध कचरा पॉइंट आयडी";
+                        }
+                    }
+                    else if (gcType == 1)
+                    {
+                        var house = db.HouseMasters.Where(x => x.ReferanceId == referanceid).FirstOrDefault();
+                        if (house != null)
+                        {
+                            if ((string.IsNullOrEmpty(obj.houseNumber.ToString())) == false)
                             {
-                                if ((string.IsNullOrEmpty(obj.houseNumber.ToString())) == false)
-                                {
-                                    house.houseNumber = obj.houseNumber;
-                                }
-                                if ((string.IsNullOrEmpty(obj.name.ToString())) == false)
-                                {
-                                    house.houseOwner = obj.name;
-                                }
-                                if ((string.IsNullOrEmpty(obj.namemar.ToString())) == false)
-                                {
-                                    house.houseOwnerMar = obj.namemar;
-                                }
-                                if ((string.IsNullOrEmpty(obj.Address.ToString())) == false)
-                                {
-                                    house.houseAddress = obj.Address;
-                                }
-                                if ((string.IsNullOrEmpty(obj.Lat.ToString())) == false)
-                                {
-                                    house.houseLat = obj.Lat;
-                                }
-                                if ((string.IsNullOrEmpty(obj.Long.ToString())) == false)
-                                {
-                                    house.houseLong = obj.Long;
-                                }
-                              
-                                house.modified = DateTime.Now;
+                                house.houseNumber = obj.houseNumber;
+                            }
+                            if ((string.IsNullOrEmpty(obj.name.ToString())) == false)
+                            {
+                                house.houseOwner = obj.name;
+                            }
+                            if ((string.IsNullOrEmpty(obj.namemar.ToString())) == false)
+                            {
+                                house.houseOwnerMar = obj.namemar;
+                            }
+                            if ((string.IsNullOrEmpty(obj.Address.ToString())) == false)
+                            {
+                                house.houseAddress = obj.Address;
+                            }
+                            if ((string.IsNullOrEmpty(obj.Lat.ToString())) == false)
+                            {
+                                house.houseLat = obj.Lat;
+                            }
+                            if ((string.IsNullOrEmpty(obj.Long.ToString())) == false)
+                            {
+                                house.houseLong = obj.Long;
+                            }
 
-                                if (obj.areaId > 0 && (string.IsNullOrEmpty(obj.areaId.ToString()))==false)
-                                {
-                                    house.AreaId = obj.areaId;
-                                }
-                                if (obj.zoneId > 0 && (string.IsNullOrEmpty(obj.zoneId.ToString()))==false)
-                                {
-                                    house.ZoneId = obj.zoneId;
-                                }
-                                if (obj.wardId > 0 && (string.IsNullOrEmpty(obj.wardId.ToString()))==false)   
-                                {
-                                    house.WardNo = obj.wardId;
-                                }
-                                if (obj.userId > 0 && (string.IsNullOrEmpty(obj.userId.ToString()))==false) 
-                                {
-                                    house.userId = obj.userId;
-                                }
-                                if ((string.IsNullOrEmpty(obj.mobileno)) == false)
-                                {
-                                    house.houseOwnerMobile = obj.mobileno;
-                                }
+                            house.modified = DateTime.Now;
 
-                                if ((string.IsNullOrEmpty(obj.wastetype)) == false)
-                                {
+                            if (obj.areaId > 0 && (string.IsNullOrEmpty(obj.areaId.ToString())) == false)
+                            {
+                                house.AreaId = obj.areaId;
+                            }
+                            if (obj.zoneId > 0 && (string.IsNullOrEmpty(obj.zoneId.ToString())) == false)
+                            {
+                                house.ZoneId = obj.zoneId;
+                            }
+                            if (obj.wardId > 0 && (string.IsNullOrEmpty(obj.wardId.ToString())) == false)
+                            {
+                                house.WardNo = obj.wardId;
+                            }
+                            if (obj.userId > 0 && (string.IsNullOrEmpty(obj.userId.ToString())) == false)
+                            {
+                                house.userId = obj.userId;
+                            }
+                            if ((string.IsNullOrEmpty(obj.mobileno)) == false)
+                            {
+                                house.houseOwnerMobile = obj.mobileno;
+                            }
+
+                            if ((string.IsNullOrEmpty(obj.wastetype)) == false)
+                            {
                                 house.WasteType = obj.wastetype;
-                                }
+                            }
 
                             if ((string.IsNullOrEmpty(obj.QRCodeImage)) == false)
                             {
@@ -10329,20 +10330,20 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
 
                             db.SaveChanges();
-                                result.status = "success";
-                                result.message = "Uploaded successfully";
-                                result.messageMar = "सबमिट यशस्वी";
-                            }
-                            else
-                            {
-                                result.status = "error";
-                                result.message = "Invalid House ID";
-                                result.messageMar = "अवैध घर आयडी";
-                            }
+                            result.status = "success";
+                            result.message = "Uploaded successfully";
+                            result.messageMar = "सबमिट यशस्वी";
+                        }
+                        else
+                        {
+                            result.status = "error";
+                            result.message = "Invalid House ID";
+                            result.messageMar = "अवैध घर आयडी";
+                        }
 
                     }
 
-                  
+
                     return result;
                 }
                 catch (Exception ex)
@@ -10354,7 +10355,16 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     return result;
                 }
             }
+            if (result.status == "success")
+            {
 
+                if (appdetails != null)
+                {
+                    appdetails.FAQ = "1";
+                    dbMain.SaveChanges();
+                }
+
+            }
         }
 
         /// <summary>
@@ -10809,6 +10819,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     }
                         
                     return result;
+
+
                 }
                 catch (Exception ex)
                 {
@@ -10821,6 +10833,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     });
                     return result;
                 }
+
+            
             }
 
         }
