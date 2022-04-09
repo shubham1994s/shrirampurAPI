@@ -72,7 +72,7 @@ namespace SwachhBharatAPI.Controllers
             IEnumerable<string> headerValue1 = Request.Headers.GetValues("appId");
             IEnumerable<string> headervalue2 = Request.Headers.GetValues("batteryStatus");
             IEnumerable<string> headervalue3 = Request.Headers.GetValues("typeId");
-
+            IEnumerable<string> headervalue4 = Request.Headers.GetValues("EmpType");
             var batteryStatus = headervalue2.FirstOrDefault().ToString();
             var id = headerValue1.FirstOrDefault();
             int AppId = int.Parse(id);
@@ -80,8 +80,10 @@ namespace SwachhBharatAPI.Controllers
             var _typeId = headervalue3.FirstOrDefault();
             int typeId = int.Parse(_typeId);
 
+            var EmpType = headervalue4.FirstOrDefault();
+
             List<SyncResult> objDetail = new List<SyncResult>();
-            objDetail = objRep.SaveUserLocation(obj, AppId, batteryStatus, typeId);
+            objDetail = objRep.SaveUserLocation(obj, AppId, batteryStatus, typeId,EmpType);
             return objDetail;
         }
 
@@ -395,11 +397,13 @@ namespace SwachhBharatAPI.Controllers
             objRep = new Repository();
             IEnumerable<string> headerValue1 = Request.Headers.GetValues("appId");
             IEnumerable<string> headerValue2 = Request.Headers.GetValues("type");
+            IEnumerable<string> headerValue3 = Request.Headers.GetValues("EmpType");
             var id = headerValue1.FirstOrDefault();
             int AppId = int.Parse(id);
             var v = headerValue2.FirstOrDefault();
             int type = int.Parse(v);
-            objDetail = objRep.GetCollectionArea(AppId,type);
+            var EmpType = headerValue3.FirstOrDefault();
+            objDetail = objRep.GetCollectionArea(AppId,type, EmpType);
             return objDetail;
 
         }
@@ -412,11 +416,13 @@ namespace SwachhBharatAPI.Controllers
             objRep = new Repository();
             IEnumerable<string> headerValue1 = Request.Headers.GetValues("appId");
             IEnumerable<string> headerValue2 = Request.Headers.GetValues("areaId");
+            IEnumerable<string> headerValue3 = Request.Headers.GetValues("EmpType");
             var id = headerValue1.FirstOrDefault();
             int AppId = int.Parse(id);
             var v = headerValue2.FirstOrDefault();
             int areaId = int.Parse(v);
-            objDetail = objRep.GetAreaHouse(AppId, areaId);
+            var EmpType = headerValue3.FirstOrDefault();
+            objDetail = objRep.GetAreaHouse(AppId, areaId, EmpType);
             return objDetail;
 
         }

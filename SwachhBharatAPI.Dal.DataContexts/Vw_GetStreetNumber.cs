@@ -10,15 +10,12 @@
 namespace SwachhBharatAPI.Dal.DataContexts
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class GetQrWorkHistory_Result
+    public partial class Vw_GetStreetNumber
     {
-        public string Day { get; set; }
-        public Nullable<int> UserId { get; set; }
-        public Nullable<int> HouseCollection { get; set; }
-        public Nullable<int> PointCollection { get; set; }
-        public Nullable<int> DumpYardCollection { get; set; }
-        public Nullable<int> LiquidCollection { get; set; }
-        public Nullable<int> StreetCollection { get; set; }
+        public int SSId { get; set; }
+        public string ReferanceId { get; set; }
+        public Nullable<int> AreaId { get; set; }
     }
 }

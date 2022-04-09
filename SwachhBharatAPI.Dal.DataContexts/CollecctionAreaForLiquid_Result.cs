@@ -11,14 +11,11 @@ namespace SwachhBharatAPI.Dal.DataContexts
 {
     using System;
     
-    public partial class GetQrWorkHistory_Result
+    public partial class CollecctionAreaForLiquid_Result
     {
-        public string Day { get; set; }
-        public Nullable<int> UserId { get; set; }
-        public Nullable<int> HouseCollection { get; set; }
-        public Nullable<int> PointCollection { get; set; }
-        public Nullable<int> DumpYardCollection { get; set; }
-        public Nullable<int> LiquidCollection { get; set; }
-        public Nullable<int> StreetCollection { get; set; }
+        public int Id { get; set; }
+        public string Area { get; set; }
+        public string AreaMar { get; set; }
+        public Nullable<int> wardId { get; set; }
     }
 }

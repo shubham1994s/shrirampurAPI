@@ -92,6 +92,12 @@
       <DependentUpon>ChildSwachhBharat.edmx</DependentUpon>
     </Compile>
     <Compile Include="Class1.cs" />
+    <Compile Include="CollecctionAreaForLiquid_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CollecctionAreaForStreet_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
     <Compile Include="CollecctionArea_Result.cs">
       <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
     </Compile>
@@ -278,6 +284,12 @@
       <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
     </Compile>
     <Compile Include="Vw_GetHouseNumber.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vw_GetLiquidNumber.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vw_GetStreetNumber.cs">
       <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
     </Compile>
     <Compile Include="Vw_MsgNotification.cs">

@@ -78,7 +78,8 @@ namespace SwachhBharatAPI.Controllers
             if (houseList.Length > 1)
             {
                 obj.ReferanceId = houseList[0];
-              //  obj.houseId = houseList[0];
+                obj.wastetype = houseList[1];
+              
             }
 
             string[] referancList = refid.Split(',');

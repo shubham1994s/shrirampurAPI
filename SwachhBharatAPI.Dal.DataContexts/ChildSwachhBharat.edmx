@@ -69,6 +69,8 @@
           <Property Name="dyAddress" Type="nvarchar(max)" />
           <Property Name="lastModifiedDate" Type="datetime" />
           <Property Name="userId" Type="int" />
+          <Property Name="EmployeeType" Type="varchar" MaxLength="10" />
+          <Property Name="QRCodeImage" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="GamePlayerDetails">
           <Key>
@@ -188,6 +190,7 @@
           <Property Name="lastModifiedEntry" Type="datetime" />
           <Property Name="RFIDTagId" Type="nvarchar" MaxLength="255" />
           <Property Name="WasteType" Type="varchar" MaxLength="10" />
+          <Property Name="QRCodeImage" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="LiquidWasteDetails">
           <Key>
@@ -206,6 +209,7 @@
           <Property Name="LWAddreLW" Type="nvarchar(max)" />
           <Property Name="lastModifiedDate" Type="datetime" />
           <Property Name="userId" Type="int" />
+          <Property Name="QRCodeImage" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Location">
           <Key>
@@ -320,6 +324,7 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.SauchalayAddr
           <Property Name="SSAddress" Type="nvarchar(max)" />
           <Property Name="lastModifiedDate" Type="datetime" />
           <Property Name="userId" Type="int" />
+          <Property Name="QRCodeImage" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="TeritoryMaster">
           <Key>
@@ -436,6 +441,26 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_GetHouseNu
           <Property Name="AreaId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_GetLiquidNumber' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_GetLiquidNumber">
+          <Key>
+            <PropertyRef Name="LWId" />
+          </Key>
+          <Property Name="LWId" Type="int" Nullable="false" />
+          <Property Name="ReferanceId" Type="nvarchar" MaxLength="200" />
+          <Property Name="AreaId" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_GetStreetNumber' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_GetStreetNumber">
+          <Key>
+            <PropertyRef Name="SSId" />
+          </Key>
+          <Property Name="SSId" Type="int" Nullable="false" />
+          <Property Name="ReferanceId" Type="nvarchar" MaxLength="200" />
+          <Property Name="AreaId" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotification' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_MsgNotification">
           <Key>
@@ -458,6 +483,12 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Name="gcTarget" Type="varchar" MaxLength="250" />
         </EntityType>
         <Function Name="CollecctionArea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="int" Mode="In" />
+        </Function>
+        <Function Name="CollecctionAreaForLiquid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="int" Mode="In" />
+        </Function>
+        <Function Name="CollecctionAreaForStreet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="type" Type="int" Mode="In" />
         </Function>
         <Function Name="CurrentAllUserLocation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -608,6 +639,20 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
     [Vw_GetHouseNumber].[AreaId] AS [AreaId]
     FROM [dbo].[Vw_GetHouseNumber] AS [Vw_GetHouseNumber]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="Vw_GetLiquidNumber" EntityType="Self.Vw_GetLiquidNumber" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_GetLiquidNumber].[LWId] AS [LWId], 
+    [Vw_GetLiquidNumber].[ReferanceId] AS [ReferanceId], 
+    [Vw_GetLiquidNumber].[AreaId] AS [AreaId]
+    FROM [dbo].[Vw_GetLiquidNumber] AS [Vw_GetLiquidNumber]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Vw_GetStreetNumber" EntityType="Self.Vw_GetStreetNumber" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_GetStreetNumber].[SSId] AS [SSId], 
+    [Vw_GetStreetNumber].[ReferanceId] AS [ReferanceId], 
+    [Vw_GetStreetNumber].[AreaId] AS [AreaId]
+    FROM [dbo].[Vw_GetStreetNumber] AS [Vw_GetStreetNumber]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Vw_MsgNotification" EntityType="Self.Vw_MsgNotification" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Vw_MsgNotification].[userId] AS [userId], 
@@ -657,7 +702,6 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
             <Parameter Name="AreaId" Mode="In" Type="Int32" />
             <Parameter Name="WardNo" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="DumpYardDetails" EntityType="DevSwachhBharatNagpurModel.DumpYardDetail" />
           <FunctionImport Name="SP_DumpYardDetails" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_DumpYardDetails_Result)" />
           <FunctionImport Name="SP_DistanceCount" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_DistanceCount_Result)">
             <Parameter Name="sLat" Mode="In" Type="Double" />
@@ -677,11 +721,6 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Parameter Name="UserId" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="QrEmployeeMasters" EntityType="DevSwachhBharatNagpurModel.QrEmployeeMaster" />
-          <FunctionImport Name="GetQrWorkHistory" ReturnType="Collection(DevSwachhBharatNagpurModel.GetQrWorkHistory_Result)">
-            <Parameter Name="userId" Mode="In" Type="Int32" />
-            <Parameter Name="year" Mode="In" Type="Int32" />
-            <Parameter Name="month" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="SP_IdelTime" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_IdelTime_Result)">
             <Parameter Name="userId" Mode="In" Type="Int32" />
             <Parameter Name="fdate" Mode="In" Type="DateTime" />
@@ -702,7 +741,6 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
             <Parameter Name="ReferenceId" Mode="In" Type="String" />
             <Parameter Name="gcType" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="HouseMasters" EntityType="DevSwachhBharatNagpurModel.HouseMaster" />
           <FunctionImport Name="HouseDetails_ReferanceId" ReturnType="Collection(DevSwachhBharatNagpurModel.HouseDetails_ReferanceId_Result)">
           <Parameter Name="ReferanceId" Mode="In" Type="String" />
           </FunctionImport>
@@ -754,9 +792,12 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <EntitySet Name="WM_Garbage_Sales" EntityType="DevSwachhBharatNagpurModel.WM_Garbage_Sales" />
           <EntitySet Name="UserMasters" EntityType="DevSwachhBharatNagpurModel.UserMaster" />
           <EntitySet Name="Vw_MsgNotification" EntityType="DevSwachhBharatNagpurModel.Vw_MsgNotification" />
-          <EntitySet Name="LiquidWasteDetails" EntityType="DevSwachhBharatNagpurModel.LiquidWasteDetail" />
-          <EntitySet Name="StreetSweepingDetails" EntityType="DevSwachhBharatNagpurModel.StreetSweepingDetail" />
           <EntitySet Name="GarbageCollectionDetails" EntityType="DevSwachhBharatNagpurModel.GarbageCollectionDetail" />
+          <FunctionImport Name="GetQrWorkHistory" ReturnType="Collection(DevSwachhBharatNagpurModel.GetQrWorkHistory_Result)">
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+            <Parameter Name="year" Mode="In" Type="Int32" />
+            <Parameter Name="month" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="GetAttendenceDetailsTotalLiquid" ReturnType="Collection(DevSwachhBharatNagpurModel.GetAttendenceDetailsTotalLiquid_Result)">
             <Parameter Name="userId" Mode="In" Type="Int32" />
             <Parameter Name="year" Mode="In" Type="Int32" />
@@ -767,6 +808,18 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
             <Parameter Name="year" Mode="In" Type="Int32" />
             <Parameter Name="month" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Vw_GetLiquidNumber" EntityType="DevSwachhBharatNagpurModel.Vw_GetLiquidNumber" />
+          <EntitySet Name="Vw_GetStreetNumber" EntityType="DevSwachhBharatNagpurModel.Vw_GetStreetNumber" />
+          <FunctionImport Name="CollecctionAreaForLiquid" ReturnType="Collection(DevSwachhBharatNagpurModel.CollecctionAreaForLiquid_Result)">
+          <Parameter Name="type" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CollecctionAreaForStreet" ReturnType="Collection(DevSwachhBharatNagpurModel.CollecctionAreaForStreet_Result)">
+          <Parameter Name="type" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="HouseMasters" EntityType="DevSwachhBharatNagpurModel.HouseMaster" />
+          <EntitySet Name="DumpYardDetails" EntityType="DevSwachhBharatNagpurModel.DumpYardDetail" />
+          <EntitySet Name="LiquidWasteDetails" EntityType="DevSwachhBharatNagpurModel.LiquidWasteDetail" />
+          <EntitySet Name="StreetSweepingDetails" EntityType="DevSwachhBharatNagpurModel.StreetSweepingDetail" />
         </EntityContainer>
         <ComplexType Name="sp_area_Result">
           <Property Type="String" Name="area" Nullable="true" MaxLength="500" />
@@ -890,24 +943,6 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Type="Int32" Name="garbageType" Nullable="true" />
           <Property Type="String" Name="batteryStatus" Nullable="true" MaxLength="20" />
         </ComplexType>
-        <EntityType Name="DumpYardDetail">
-          <Key>
-            <PropertyRef Name="dyId" />
-          </Key>
-          <Property Name="dyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="dyName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="dyNameMar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="dyLat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="dyLong" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="dyQRCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="zoneId" Type="Int32" />
-          <Property Name="wardId" Type="Int32" />
-          <Property Name="areaId" Type="Int32" />
-          <Property Name="ReferanceId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="dyAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="lastModifiedDate" Type="DateTime" Precision="3" />
-          <Property Name="userId" Type="Int32" />
-        </EntityType>
         <ComplexType Name="SP_DumpYardDetails_Result">
           <Property Type="Int32" Name="dyId" Nullable="false" />
           <Property Type="String" Name="ReferanceId" Nullable="true" MaxLength="200" />
@@ -1007,13 +1042,6 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Name="target" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="lastModifyDate" Type="DateTime" Precision="3" />
         </EntityType>
-        <ComplexType Name="GetQrWorkHistory_Result">
-          <Property Type="String" Name="Day" Nullable="true" MaxLength="30" />
-          <Property Type="Int32" Name="UserId" Nullable="true" />
-          <Property Type="Int32" Name="HouseCollection" Nullable="true" />
-          <Property Type="Int32" Name="PointCollection" Nullable="true" />
-          <Property Type="Int32" Name="DumpYardCollection" Nullable="true" />
-        </ComplexType>
         <ComplexType Name="SP_IdelTime_Result">
           <Property Type="Int32" Name="userId" Nullable="false" />
           <Property Type="String" Name="userName" Nullable="true" MaxLength="500" />
@@ -1079,30 +1107,6 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Type="String" Name="Lat" Nullable="false" MaxLength="500" />
           <Property Type="String" Name="Long" Nullable="false" MaxLength="500" />
         </ComplexType>
-        <EntityType Name="HouseMaster">
-          <Key>
-            <PropertyRef Name="houseId" />
-          </Key>
-          <Property Name="houseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="houseNumber" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="houseOwner" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="houseOwnerMar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="houseOwnerMobile" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="houseAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="houseLat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="houseLong" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="houseQRCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ZoneId" Type="Int32" />
-          <Property Name="AreaId" Type="Int32" />
-          <Property Name="WardNo" Type="Int32" />
-          <Property Name="ReferanceId" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
-          <Property Name="modified" Type="DateTime" Precision="3" />
-          <Property Name="userId" Type="Int32" />
-          <Property Name="FCMID" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="lastModifiedEntry" Type="DateTime" Precision="3" />
-          <Property Name="RFIDTagId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="WasteType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-        </EntityType>
         <ComplexType Name="HouseDetails_ReferanceId_Result">
           <Property Type="Int32" Name="houseId" Nullable="false" />
           <Property Type="String" Name="ReferanceId" Nullable="true" MaxLength="350" />
@@ -1402,42 +1406,6 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Name="isActive" Type="Boolean" />
           <Property Name="gcTarget" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="LiquidWasteDetail">
-          <Key>
-            <PropertyRef Name="LWId" />
-          </Key>
-          <Property Name="LWId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LWName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="LWNameMar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="LWLat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="LWLong" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="LWQRCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="zoneId" Type="Int32" />
-          <Property Name="wardId" Type="Int32" />
-          <Property Name="areaId" Type="Int32" />
-          <Property Name="ReferanceId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="LWAddreLW" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="lastModifiedDate" Type="DateTime" Precision="3" />
-          <Property Name="userId" Type="Int32" />
-        </EntityType>
-        <EntityType Name="StreetSweepingDetail">
-          <Key>
-            <PropertyRef Name="SSId" />
-          </Key>
-          <Property Name="SSId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SSName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="SSNameMar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="SSLat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="SSLong" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="SSQRCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="zoneId" Type="Int32" />
-          <Property Name="wardId" Type="Int32" />
-          <Property Name="areaId" Type="Int32" />
-          <Property Name="ReferanceId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="SSAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="lastModifiedDate" Type="DateTime" Precision="3" />
-          <Property Name="userId" Type="Int32" />
-        </EntityType>
         <EntityType Name="GarbageCollectionDetail">
           <Key>
             <PropertyRef Name="gcId" />
@@ -1475,16 +1443,138 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Name="LWId" Type="Int32" />
           <Property Name="SSId" Type="Int32" />
         </EntityType>
+        <ComplexType Name="GetQrWorkHistory_Result">
+          <Property Type="String" Name="Day" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="UserId" Nullable="true" />
+          <Property Type="Int32" Name="HouseCollection" Nullable="true" />
+          <Property Type="Int32" Name="PointCollection" Nullable="true" />
+          <Property Type="Int32" Name="DumpYardCollection" Nullable="true" />
+          <Property Type="Int32" Name="LiquidCollection" Nullable="true" />
+          <Property Type="Int32" Name="StreetCollection" Nullable="true" />
+        </ComplexType>
         <ComplexType Name="GetAttendenceDetailsTotalLiquid_Result">
           <Property Type="DateTime" Name="day" Nullable="true" />
           <Property Type="Int32" Name="userid" Nullable="true" />
           <Property Type="Int32" Name="LiquidCollection" Nullable="true" />
+          <Property Type="Int32" Name="DumpYardCollection" Nullable="true" />
         </ComplexType>
         <ComplexType Name="GetAttendenceDetailsTotalStreet_Result">
           <Property Type="DateTime" Name="day" Nullable="true" />
           <Property Type="Int32" Name="userid" Nullable="true" />
           <Property Type="Int32" Name="StreetCollection" Nullable="true" />
+          <Property Type="Int32" Name="DumpYardCollection" Nullable="true" />
         </ComplexType>
+        <EntityType Name="Vw_GetLiquidNumber">
+          <Key>
+            <PropertyRef Name="LWId" />
+          </Key>
+          <Property Name="LWId" Type="Int32" Nullable="false" />
+          <Property Name="ReferanceId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AreaId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Vw_GetStreetNumber">
+          <Key>
+            <PropertyRef Name="SSId" />
+          </Key>
+          <Property Name="SSId" Type="Int32" Nullable="false" />
+          <Property Name="ReferanceId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AreaId" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="CollecctionAreaForLiquid_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Area" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="AreaMar" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="wardId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="CollecctionAreaForStreet_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Area" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="AreaMar" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="wardId" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="HouseMaster">
+          <Key>
+            <PropertyRef Name="houseId" />
+          </Key>
+          <Property Name="houseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="houseNumber" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="houseOwner" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="houseOwnerMar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="houseOwnerMobile" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="houseAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="houseLat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="houseLong" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="houseQRCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ZoneId" Type="Int32" />
+          <Property Name="AreaId" Type="Int32" />
+          <Property Name="WardNo" Type="Int32" />
+          <Property Name="ReferanceId" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="modified" Type="DateTime" Precision="3" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="FCMID" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="lastModifiedEntry" Type="DateTime" Precision="3" />
+          <Property Name="RFIDTagId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="WasteType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="QRCodeImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="DumpYardDetail">
+          <Key>
+            <PropertyRef Name="dyId" />
+          </Key>
+          <Property Name="dyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dyName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="dyNameMar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="dyLat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="dyLong" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="dyQRCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="zoneId" Type="Int32" />
+          <Property Name="wardId" Type="Int32" />
+          <Property Name="areaId" Type="Int32" />
+          <Property Name="ReferanceId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="dyAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="lastModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="EmployeeType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="QRCodeImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="LiquidWasteDetail">
+          <Key>
+            <PropertyRef Name="LWId" />
+          </Key>
+          <Property Name="LWId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LWName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LWNameMar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LWLat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LWLong" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LWQRCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="zoneId" Type="Int32" />
+          <Property Name="wardId" Type="Int32" />
+          <Property Name="areaId" Type="Int32" />
+          <Property Name="ReferanceId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LWAddreLW" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="lastModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="QRCodeImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="StreetSweepingDetail">
+          <Key>
+            <PropertyRef Name="SSId" />
+          </Key>
+          <Property Name="SSId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SSName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SSNameMar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SSLat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SSLong" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SSQRCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="zoneId" Type="Int32" />
+          <Property Name="wardId" Type="Int32" />
+          <Property Name="areaId" Type="Int32" />
+          <Property Name="ReferanceId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SSAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="lastModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="QRCodeImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1643,25 +1733,6 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="DumpYardDetails">
-            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.DumpYardDetail">
-              <MappingFragment StoreEntitySet="DumpYardDetails">
-                <ScalarProperty Name="userId" ColumnName="userId" />
-                <ScalarProperty Name="lastModifiedDate" ColumnName="lastModifiedDate" />
-                <ScalarProperty Name="dyAddress" ColumnName="dyAddress" />
-                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
-                <ScalarProperty Name="areaId" ColumnName="areaId" />
-                <ScalarProperty Name="wardId" ColumnName="wardId" />
-                <ScalarProperty Name="zoneId" ColumnName="zoneId" />
-                <ScalarProperty Name="dyQRCode" ColumnName="dyQRCode" />
-                <ScalarProperty Name="dyLong" ColumnName="dyLong" />
-                <ScalarProperty Name="dyLat" ColumnName="dyLat" />
-                <ScalarProperty Name="dyNameMar" ColumnName="dyNameMar" />
-                <ScalarProperty Name="dyName" ColumnName="dyName" />
-                <ScalarProperty Name="dyId" ColumnName="dyId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="SP_DumpYardDetails" FunctionName="DevSwachhBharatNagpurModel.Store.SP_DumpYardDetails">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_DumpYardDetails_Result">
@@ -1787,17 +1858,6 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GetQrWorkHistory" FunctionName="DevSwachhBharatNagpurModel.Store.GetQrWorkHistory">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.GetQrWorkHistory_Result">
-                <ScalarProperty Name="Day" ColumnName="Day" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="HouseCollection" ColumnName="HouseCollection" />
-                <ScalarProperty Name="PointCollection" ColumnName="PointCollection" />
-                <ScalarProperty Name="DumpYardCollection" ColumnName="DumpYardCollection" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="SP_IdelTime" FunctionName="DevSwachhBharatNagpurModel.Store.SP_IdelTime">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_IdelTime_Result">
@@ -1880,31 +1940,6 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="HouseMasters">
-            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.HouseMaster">
-              <MappingFragment StoreEntitySet="HouseMaster">
-                <ScalarProperty Name="WasteType" ColumnName="WasteType" />
-                <ScalarProperty Name="RFIDTagId" ColumnName="RFIDTagId" />
-                <ScalarProperty Name="lastModifiedEntry" ColumnName="lastModifiedEntry" />
-                <ScalarProperty Name="FCMID" ColumnName="FCMID" />
-                <ScalarProperty Name="userId" ColumnName="userId" />
-                <ScalarProperty Name="modified" ColumnName="modified" />
-                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
-                <ScalarProperty Name="WardNo" ColumnName="WardNo" />
-                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
-                <ScalarProperty Name="ZoneId" ColumnName="ZoneId" />
-                <ScalarProperty Name="houseQRCode" ColumnName="houseQRCode" />
-                <ScalarProperty Name="houseLong" ColumnName="houseLong" />
-                <ScalarProperty Name="houseLat" ColumnName="houseLat" />
-                <ScalarProperty Name="houseAddress" ColumnName="houseAddress" />
-                <ScalarProperty Name="houseOwnerMobile" ColumnName="houseOwnerMobile" />
-                <ScalarProperty Name="houseOwnerMar" ColumnName="houseOwnerMar" />
-                <ScalarProperty Name="houseOwner" ColumnName="houseOwner" />
-                <ScalarProperty Name="houseNumber" ColumnName="houseNumber" />
-                <ScalarProperty Name="houseId" ColumnName="houseId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="HouseDetails_ReferanceId" FunctionName="DevSwachhBharatNagpurModel.Store.HouseDetails_ReferanceId">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.HouseDetails_ReferanceId_Result">
@@ -2229,44 +2264,6 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="LiquidWasteDetails">
-            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.LiquidWasteDetail">
-              <MappingFragment StoreEntitySet="LiquidWasteDetails">
-                <ScalarProperty Name="userId" ColumnName="userId" />
-                <ScalarProperty Name="lastModifiedDate" ColumnName="lastModifiedDate" />
-                <ScalarProperty Name="LWAddreLW" ColumnName="LWAddreLW" />
-                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
-                <ScalarProperty Name="areaId" ColumnName="areaId" />
-                <ScalarProperty Name="wardId" ColumnName="wardId" />
-                <ScalarProperty Name="zoneId" ColumnName="zoneId" />
-                <ScalarProperty Name="LWQRCode" ColumnName="LWQRCode" />
-                <ScalarProperty Name="LWLong" ColumnName="LWLong" />
-                <ScalarProperty Name="LWLat" ColumnName="LWLat" />
-                <ScalarProperty Name="LWNameMar" ColumnName="LWNameMar" />
-                <ScalarProperty Name="LWName" ColumnName="LWName" />
-                <ScalarProperty Name="LWId" ColumnName="LWId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="StreetSweepingDetails">
-            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.StreetSweepingDetail">
-              <MappingFragment StoreEntitySet="StreetSweepingDetails">
-                <ScalarProperty Name="userId" ColumnName="userId" />
-                <ScalarProperty Name="lastModifiedDate" ColumnName="lastModifiedDate" />
-                <ScalarProperty Name="SSAddress" ColumnName="SSAddress" />
-                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
-                <ScalarProperty Name="areaId" ColumnName="areaId" />
-                <ScalarProperty Name="wardId" ColumnName="wardId" />
-                <ScalarProperty Name="zoneId" ColumnName="zoneId" />
-                <ScalarProperty Name="SSQRCode" ColumnName="SSQRCode" />
-                <ScalarProperty Name="SSLong" ColumnName="SSLong" />
-                <ScalarProperty Name="SSLat" ColumnName="SSLat" />
-                <ScalarProperty Name="SSNameMar" ColumnName="SSNameMar" />
-                <ScalarProperty Name="SSName" ColumnName="SSName" />
-                <ScalarProperty Name="SSId" ColumnName="SSId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="GarbageCollectionDetails">
             <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.GarbageCollectionDetail">
               <MappingFragment StoreEntitySet="GarbageCollectionDetails">
@@ -2305,12 +2302,26 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetQrWorkHistory" FunctionName="DevSwachhBharatNagpurModel.Store.GetQrWorkHistory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.GetQrWorkHistory_Result">
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="HouseCollection" ColumnName="HouseCollection" />
+                <ScalarProperty Name="PointCollection" ColumnName="PointCollection" />
+                <ScalarProperty Name="DumpYardCollection" ColumnName="DumpYardCollection" />
+                <ScalarProperty Name="LiquidCollection" ColumnName="LiquidCollection" />
+                <ScalarProperty Name="StreetCollection" ColumnName="StreetCollection" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetAttendenceDetailsTotalLiquid" FunctionName="DevSwachhBharatNagpurModel.Store.GetAttendenceDetailsTotalLiquid">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.GetAttendenceDetailsTotalLiquid_Result">
                 <ScalarProperty Name="day" ColumnName="day" />
                 <ScalarProperty Name="userid" ColumnName="userid" />
                 <ScalarProperty Name="LiquidCollection" ColumnName="LiquidCollection" />
+                <ScalarProperty Name="DumpYardCollection" ColumnName="DumpYardCollection" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -2320,9 +2331,135 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
                 <ScalarProperty Name="day" ColumnName="day" />
                 <ScalarProperty Name="userid" ColumnName="userid" />
                 <ScalarProperty Name="StreetCollection" ColumnName="StreetCollection" />
+                <ScalarProperty Name="DumpYardCollection" ColumnName="DumpYardCollection" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Vw_GetLiquidNumber">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.Vw_GetLiquidNumber">
+              <MappingFragment StoreEntitySet="Vw_GetLiquidNumber">
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="LWId" ColumnName="LWId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_GetStreetNumber">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.Vw_GetStreetNumber">
+              <MappingFragment StoreEntitySet="Vw_GetStreetNumber">
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="SSId" ColumnName="SSId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CollecctionAreaForLiquid" FunctionName="DevSwachhBharatNagpurModel.Store.CollecctionAreaForLiquid">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.CollecctionAreaForLiquid_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="AreaMar" ColumnName="AreaMar" />
+                <ScalarProperty Name="wardId" ColumnName="wardId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CollecctionAreaForStreet" FunctionName="DevSwachhBharatNagpurModel.Store.CollecctionAreaForStreet">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.CollecctionAreaForStreet_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="AreaMar" ColumnName="AreaMar" />
+                <ScalarProperty Name="wardId" ColumnName="wardId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="HouseMasters">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.HouseMaster">
+              <MappingFragment StoreEntitySet="HouseMaster">
+                <ScalarProperty Name="QRCodeImage" ColumnName="QRCodeImage" />
+                <ScalarProperty Name="WasteType" ColumnName="WasteType" />
+                <ScalarProperty Name="RFIDTagId" ColumnName="RFIDTagId" />
+                <ScalarProperty Name="lastModifiedEntry" ColumnName="lastModifiedEntry" />
+                <ScalarProperty Name="FCMID" ColumnName="FCMID" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="modified" ColumnName="modified" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="WardNo" ColumnName="WardNo" />
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="ZoneId" ColumnName="ZoneId" />
+                <ScalarProperty Name="houseQRCode" ColumnName="houseQRCode" />
+                <ScalarProperty Name="houseLong" ColumnName="houseLong" />
+                <ScalarProperty Name="houseLat" ColumnName="houseLat" />
+                <ScalarProperty Name="houseAddress" ColumnName="houseAddress" />
+                <ScalarProperty Name="houseOwnerMobile" ColumnName="houseOwnerMobile" />
+                <ScalarProperty Name="houseOwnerMar" ColumnName="houseOwnerMar" />
+                <ScalarProperty Name="houseOwner" ColumnName="houseOwner" />
+                <ScalarProperty Name="houseNumber" ColumnName="houseNumber" />
+                <ScalarProperty Name="houseId" ColumnName="houseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DumpYardDetails">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.DumpYardDetail">
+              <MappingFragment StoreEntitySet="DumpYardDetails">
+                <ScalarProperty Name="QRCodeImage" ColumnName="QRCodeImage" />
+                <ScalarProperty Name="EmployeeType" ColumnName="EmployeeType" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="lastModifiedDate" ColumnName="lastModifiedDate" />
+                <ScalarProperty Name="dyAddress" ColumnName="dyAddress" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="areaId" ColumnName="areaId" />
+                <ScalarProperty Name="wardId" ColumnName="wardId" />
+                <ScalarProperty Name="zoneId" ColumnName="zoneId" />
+                <ScalarProperty Name="dyQRCode" ColumnName="dyQRCode" />
+                <ScalarProperty Name="dyLong" ColumnName="dyLong" />
+                <ScalarProperty Name="dyLat" ColumnName="dyLat" />
+                <ScalarProperty Name="dyNameMar" ColumnName="dyNameMar" />
+                <ScalarProperty Name="dyName" ColumnName="dyName" />
+                <ScalarProperty Name="dyId" ColumnName="dyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LiquidWasteDetails">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.LiquidWasteDetail">
+              <MappingFragment StoreEntitySet="LiquidWasteDetails">
+                <ScalarProperty Name="QRCodeImage" ColumnName="QRCodeImage" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="lastModifiedDate" ColumnName="lastModifiedDate" />
+                <ScalarProperty Name="LWAddreLW" ColumnName="LWAddreLW" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="areaId" ColumnName="areaId" />
+                <ScalarProperty Name="wardId" ColumnName="wardId" />
+                <ScalarProperty Name="zoneId" ColumnName="zoneId" />
+                <ScalarProperty Name="LWQRCode" ColumnName="LWQRCode" />
+                <ScalarProperty Name="LWLong" ColumnName="LWLong" />
+                <ScalarProperty Name="LWLat" ColumnName="LWLat" />
+                <ScalarProperty Name="LWNameMar" ColumnName="LWNameMar" />
+                <ScalarProperty Name="LWName" ColumnName="LWName" />
+                <ScalarProperty Name="LWId" ColumnName="LWId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StreetSweepingDetails">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.StreetSweepingDetail">
+              <MappingFragment StoreEntitySet="StreetSweepingDetails">
+                <ScalarProperty Name="QRCodeImage" ColumnName="QRCodeImage" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="lastModifiedDate" ColumnName="lastModifiedDate" />
+                <ScalarProperty Name="SSAddress" ColumnName="SSAddress" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="areaId" ColumnName="areaId" />
+                <ScalarProperty Name="wardId" ColumnName="wardId" />
+                <ScalarProperty Name="zoneId" ColumnName="zoneId" />
+                <ScalarProperty Name="SSQRCode" ColumnName="SSQRCode" />
+                <ScalarProperty Name="SSLong" ColumnName="SSLong" />
+                <ScalarProperty Name="SSLat" ColumnName="SSLat" />
+                <ScalarProperty Name="SSNameMar" ColumnName="SSNameMar" />
+                <ScalarProperty Name="SSName" ColumnName="SSName" />
+                <ScalarProperty Name="SSId" ColumnName="SSId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -18,7 +18,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         SBUserView GetUser(int appId,int userId , int typeId);
         List<SBVehicleType> GetVehicle(int appId);
         //List<SyncResult> SaveUserLocation(List<SBUserLocation> obj, int AppId, string batteryStatus);
-        List<SyncResult> SaveUserLocation(List<SBUserLocation> obj, int AppId, string batteryStatus,int typeId);
+        List<SyncResult> SaveUserLocation(List<SBUserLocation> obj, int AppId, string batteryStatus,int typeId,string EmpType);
         //List<SyncResult> SaveUserAttendence(List<SBUserAttendence> obj, int AppId,int type, string batteryStatus);
         Result SaveUserAttendence(SBUserAttendence obj, int AppId, int type, string batteryStatus);
         List<SyncResult1> SaveUserAttendenceOffline(List<SBUserAttendence> obj, int AppId,string cdate,string EmpType);
@@ -44,8 +44,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         List<CMSBWardVM> GetWard(int AppId, string SearchString);
 
         List<SBAUserlocation> GetUserLocation(int appId);
-        List<SBArea> GetCollectionArea(int appId,int type);
-        List<HouseDetailsVM> GetAreaHouse(int appId, int type);
+        List<SBArea> GetCollectionArea(int appId,int type,string EmpType);
+        List<HouseDetailsVM> GetAreaHouse(int appId, int type,string EmpType);
         List<GarbagePointDetailsVM> GetAreaPoint(int appId, int type);
 
         // Added Byu Saurabh (26 Apr 2019)
