@@ -10344,7 +10344,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     }
 
 
-                    return result;
+                  
                 }
                 catch (Exception ex)
                 {
@@ -10365,6 +10365,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 }
 
             }
+            return result;
         }
 
         /// <summary>
