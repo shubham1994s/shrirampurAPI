@@ -76,20 +76,19 @@
           <Property Name="MsgForBroadcast" Type="nvarchar" MaxLength="1000" />
           <Property Name="MsgForNotSpecified" Type="nvarchar" MaxLength="1000" />
           <Property Name="MsgForMixed" Type="nvarchar" MaxLength="1000" />
-          <Property Name="MsgForSegregated" Type="nvarchar" MaxLength="1000" />
           <Property Name="MsgForNotReceived" Type="nvarchar" MaxLength="1000" />
+          <Property Name="MsgForSegregated" Type="nvarchar" MaxLength="1000" />
           <Property Name="IsScanNear" Type="bit" />
-        </EntityType>
-        <EntityType Name="AppVersion">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AppID" Type="int" />
-          <Property Name="ForceUpdateAdmin" Type="bit" />
-          <Property Name="AppVersionAdmin" Type="nvarchar" MaxLength="150" />
-          <Property Name="ForceUpdateGame" Type="bit" />
-          <Property Name="AppVersionGame" Type="nvarchar" MaxLength="150" />
+          <Property Name="LiquidQRCode" Type="varchar" MaxLength="100" />
+          <Property Name="StreetQRCode" Type="varchar" MaxLength="100" />
+          <Property Name="CommercialQRCode" Type="nvarchar" MaxLength="220" />
+          <Property Name="CTPTQRCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="SWMQRCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="Today_Waste_Status" Type="bit" />
+          <Property Name="Today_Liquid_Status" Type="bit" />
+          <Property Name="Today_Street_Status" Type="bit" />
+          <Property Name="ulb_property" Type="int" />
+          <Property Name="Add_Ulb_Property" Type="int" />
         </EntityType>
         <EntityType Name="AspNetUsers">
           <Key>
@@ -230,6 +229,7 @@
           <Property Name="longitude" Type="nvarchar" MaxLength="20" />
           <Property Name="state" Type="int" />
           <Property Name="district" Type="int" />
+          <Property Name="IsCheked" Type="bit" />
         </EntityType>
         <EntityType Name="UserInApps">
           <Key>
@@ -244,7 +244,6 @@
           <EntitySet Name="AdminContact" EntityType="Self.AdminContact" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppConnection" EntityType="Self.AppConnection" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppDetails" EntityType="Self.AppDetails" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AppVersion" EntityType="Self.AppVersion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BinMaster" EntityType="Self.BinMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="country_states" EntityType="Self.country_states" Schema="dbo" store:Type="Tables" />
@@ -367,6 +366,7 @@
           <Property Name="longitude" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="state" Type="Int32" />
           <Property Name="district" Type="Int32" />
+          <Property Name="IsCheked" Type="Boolean" />
         </EntityType>
         <EntityType Name="BinMaster">
           <Key>
@@ -515,9 +515,19 @@
           <Property Name="MsgForBroadcast" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="MsgForNotSpecified" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="MsgForMixed" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="MsgForSegregated" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="MsgForNotReceived" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="MsgForSegregated" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="IsScanNear" Type="Boolean" />
+          <Property Name="LiquidQRCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StreetQRCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CommercialQRCode" Type="String" MaxLength="220" FixedLength="false" Unicode="true" />
+          <Property Name="CTPTQRCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SWMQRCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Today_Waste_Status" Type="Boolean" />
+          <Property Name="Today_Liquid_Status" Type="Boolean" />
+          <Property Name="Today_Street_Status" Type="Boolean" />
+          <Property Name="ulb_property" Type="Int32" />
+          <Property Name="Add_Ulb_Property" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -607,6 +617,7 @@
           <EntitySetMapping Name="tehsils">
             <EntityTypeMapping TypeName="DevSwachhBharatMainModel.tehsil">
               <MappingFragment StoreEntitySet="tehsil">
+                <ScalarProperty Name="IsCheked" ColumnName="IsCheked" />
                 <ScalarProperty Name="district" ColumnName="district" />
                 <ScalarProperty Name="state" ColumnName="state" />
                 <ScalarProperty Name="longitude" ColumnName="longitude" />
@@ -709,24 +720,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="AppVersions">
-            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.AppVersion">
-              <MappingFragment StoreEntitySet="AppVersion">
-                <ScalarProperty Name="AppVersionGame" ColumnName="AppVersionGame" />
-                <ScalarProperty Name="ForceUpdateGame" ColumnName="ForceUpdateGame" />
-                <ScalarProperty Name="AppVersionAdmin" ColumnName="AppVersionAdmin" />
-                <ScalarProperty Name="ForceUpdateAdmin" ColumnName="ForceUpdateAdmin" />
-                <ScalarProperty Name="AppID" ColumnName="AppID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AppDetails">
             <EntityTypeMapping TypeName="DevSwachhBharatMainModel.AppDetail">
               <MappingFragment StoreEntitySet="AppDetails">
+                <ScalarProperty Name="Add_Ulb_Property" ColumnName="Add_Ulb_Property" />
+                <ScalarProperty Name="ulb_property" ColumnName="ulb_property" />
+                <ScalarProperty Name="Today_Street_Status" ColumnName="Today_Street_Status" />
+                <ScalarProperty Name="Today_Liquid_Status" ColumnName="Today_Liquid_Status" />
+                <ScalarProperty Name="Today_Waste_Status" ColumnName="Today_Waste_Status" />
+                <ScalarProperty Name="SWMQRCode" ColumnName="SWMQRCode" />
+                <ScalarProperty Name="CTPTQRCode" ColumnName="CTPTQRCode" />
+                <ScalarProperty Name="CommercialQRCode" ColumnName="CommercialQRCode" />
+                <ScalarProperty Name="StreetQRCode" ColumnName="StreetQRCode" />
+                <ScalarProperty Name="LiquidQRCode" ColumnName="LiquidQRCode" />
                 <ScalarProperty Name="IsScanNear" ColumnName="IsScanNear" />
-                <ScalarProperty Name="MsgForNotReceived" ColumnName="MsgForNotReceived" />
                 <ScalarProperty Name="MsgForSegregated" ColumnName="MsgForSegregated" />
+                <ScalarProperty Name="MsgForNotReceived" ColumnName="MsgForNotReceived" />
                 <ScalarProperty Name="MsgForMixed" ColumnName="MsgForMixed" />
                 <ScalarProperty Name="MsgForNotSpecified" ColumnName="MsgForNotSpecified" />
                 <ScalarProperty Name="MsgForBroadcast" ColumnName="MsgForBroadcast" />

@@ -126,7 +126,7 @@
       <DependentUpon>MainSwachhBharat.tt</DependentUpon>
     </Compile>
     <Compile Include="GamePlayerDetail.cs">
-      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+      <DependentUpon>MainSwachhBharat.tt</DependentUpon>
     </Compile>
     <Compile Include="Game_AnswerType.cs">
       <DependentUpon>MainSwachhBharat.tt</DependentUpon>

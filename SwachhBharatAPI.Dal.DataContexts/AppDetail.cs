@@ -62,8 +62,18 @@ namespace SwachhBharatAPI.Dal.DataContexts
         public string MsgForBroadcast { get; set; }
         public string MsgForNotSpecified { get; set; }
         public string MsgForMixed { get; set; }
-        public string MsgForSegregated { get; set; }
         public string MsgForNotReceived { get; set; }
+        public string MsgForSegregated { get; set; }
         public Nullable<bool> IsScanNear { get; set; }
+        public string LiquidQRCode { get; set; }
+        public string StreetQRCode { get; set; }
+        public string CommercialQRCode { get; set; }
+        public string CTPTQRCode { get; set; }
+        public string SWMQRCode { get; set; }
+        public Nullable<bool> Today_Waste_Status { get; set; }
+        public Nullable<bool> Today_Liquid_Status { get; set; }
+        public Nullable<bool> Today_Street_Status { get; set; }
+        public Nullable<int> ulb_property { get; set; }
+        public Nullable<int> Add_Ulb_Property { get; set; }
     }
 }

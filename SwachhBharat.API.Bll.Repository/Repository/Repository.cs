@@ -6633,6 +6633,19 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 result.message = "You Are Not In Nearby.";
                 result.messageMar = "आपण जवळपास नाही.";
             }
+          
+            if(obj.IsLocation == false && obj.EmpType=="N" && result.status== "success")
+            {
+                appdetails.Today_Waste_Status = true;
+            }
+            if (obj.IsLocation == false && obj.EmpType == "L" && result.status == "success")
+            {
+                appdetails.Today_Liquid_Status = true;
+            }
+            if (obj.IsLocation == false && obj.EmpType == "S" && result.status == "success")
+            {
+                appdetails.Today_Street_Status = true;
+            }
             return result;
         }
 
