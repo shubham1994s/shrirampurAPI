@@ -64,9 +64,6 @@
     <Compile Include="AppDetail.cs">
       <DependentUpon>MainSwachhBharat.tt</DependentUpon>
     </Compile>
-    <Compile Include="AppVersion.cs">
-      <DependentUpon>MainSwachhBharat.tt</DependentUpon>
-    </Compile>
     <Compile Include="AspNetUser.cs">
       <DependentUpon>MainSwachhBharat.tt</DependentUpon>
     </Compile>

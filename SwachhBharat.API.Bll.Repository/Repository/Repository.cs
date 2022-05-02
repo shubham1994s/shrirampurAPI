@@ -7386,34 +7386,34 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         public Result GetAdminVersionUpdate(string version, int AppId)
         {
             Result result = new Result();
-            var appdetails = dbMain.AppVersions.Where(c => c.AppID == AppId).FirstOrDefault();
+            //var appdetails = dbMain.AppVersions.Where(c => c.AppID == AppId).FirstOrDefault();
 
-            if (appdetails.AppVersionAdmin != version && appdetails.ForceUpdateAdmin == true)
-            {
-                if (Convert.ToInt32(appdetails.AppVersionAdmin) <= Convert.ToInt32(version))
-                {
-                    result.status = "false";
-                    result.message = "";
-                    result.messageMar = "";
-                    return result;
-                }
-                else
-                {
-                    result.status = "true";
-                    result.message = "";
-                    result.messageMar = "";
-                    return result;
-                }
-            }
+            //if (appdetails.AppVersionAdmin != version && appdetails.ForceUpdateAdmin == true)
+            //{
+            //    if (Convert.ToInt32(appdetails.AppVersionAdmin) <= Convert.ToInt32(version))
+            //    {
+            //        result.status = "false";
+            //        result.message = "";
+            //        result.messageMar = "";
+            //        return result;
+            //    }
+            //    else
+            //    {
+            //        result.status = "true";
+            //        result.message = "";
+            //        result.messageMar = "";
+            //        return result;
+            //    }
+            //}
 
-            else
-            {
+            //else
+            //{
 
                 result.status = "false";
                 result.message = "";
                 result.messageMar = "";
                 return result;
-            }
+            //}
 
 
         }
@@ -7422,32 +7422,32 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         public Result GetGameVersionUpdate(string version)
         {
             Result result = new Result();
-            var appdetails = dbMain.AppVersions.FirstOrDefault();
+            //var appdetails = dbMain.AppVersions.FirstOrDefault();
 
-            if (appdetails.AppVersionGame != version && appdetails.ForceUpdateGame == true)
-            {
-                if (Convert.ToInt32(appdetails.AppVersionGame) <= Convert.ToInt32(version))
-                {
-                    result.status = "false";
-                    result.message = "";
-                    result.messageMar = "";
-                    return result;
-                }
-                else
-                {
-                    result.status = "true";
-                    result.message = "";
-                    result.messageMar = "";
-                    return result;
-                }
-            }
-            else
-            {
+            //if (appdetails.AppVersionGame != version && appdetails.ForceUpdateGame == true)
+            //{
+            //    if (Convert.ToInt32(appdetails.AppVersionGame) <= Convert.ToInt32(version))
+            //    {
+            //        result.status = "false";
+            //        result.message = "";
+            //        result.messageMar = "";
+            //        return result;
+            //    }
+            //    else
+            //    {
+            //        result.status = "true";
+            //        result.message = "";
+            //        result.messageMar = "";
+            //        return result;
+            //    }
+            //}
+            //else
+            //{
                 result.status = "false";
                 result.message = "";
                 result.messageMar = "";
                 return result;
-            }
+           // }
 
 
         }

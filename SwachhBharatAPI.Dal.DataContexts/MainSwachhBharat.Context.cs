@@ -41,7 +41,6 @@ namespace SwachhBharatAPI.Dal.DataContexts
         public virtual DbSet<GamePlayerDetail> GamePlayerDetails { get; set; }
         public virtual DbSet<RFID_Master> RFID_Master { get; set; }
         public virtual DbSet<AppConnection> AppConnections { get; set; }
-        public virtual DbSet<AppVersion> AppVersions { get; set; }
         public virtual DbSet<AppDetail> AppDetails { get; set; }
     }
 }

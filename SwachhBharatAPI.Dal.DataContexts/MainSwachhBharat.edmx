@@ -280,7 +280,6 @@
           <EntitySet Name="GamePlayerDetails" EntityType="DevSwachhBharatMainModel.GamePlayerDetail" />
           <EntitySet Name="RFID_Master" EntityType="DevSwachhBharatMainModel.RFID_Master" />
           <EntitySet Name="AppConnections" EntityType="DevSwachhBharatMainModel.AppConnection" />
-          <EntitySet Name="AppVersions" EntityType="DevSwachhBharatMainModel.AppVersion" />
           <EntitySet Name="AppDetails" EntityType="DevSwachhBharatMainModel.AppDetail" />
         </EntityContainer>
         <EntityType Name="GoogleAPIDetail">
@@ -451,17 +450,6 @@
           <Property Name="InitialCatalog" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="AppVersion">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AppID" Type="Int32" />
-          <Property Name="ForceUpdateAdmin" Type="Boolean" />
-          <Property Name="AppVersionAdmin" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="ForceUpdateGame" Type="Boolean" />
-          <Property Name="AppVersionGame" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="AppDetail">
           <Key>
