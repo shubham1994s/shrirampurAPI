@@ -281,10 +281,12 @@ namespace SwachhBharatAPI.Controllers
                             }
                             //   gcDetail.houseId = item.ReferenceID;
                             gcDetail.gcType = item.gcType;
+                            gcDetail.EmpType = item.EmpType;
                             break;
                         case 2:
                             gcDetail.gpId = item.ReferenceID;
                             gcDetail.gcType = item.gcType;
+                            gcDetail.EmpType = item.EmpType;
                             break;
                         case 3:
                             gcDetail.dyId = item.ReferenceID;
@@ -300,6 +302,7 @@ namespace SwachhBharatAPI.Controllers
                             gcDetail.totalGcWeight = item.totalGcWeight;
                             gcDetail.totalDryWeight = item.totalDryWeight;
                             gcDetail.totalWetWeight = item.totalWetWeight;
+                            gcDetail.EmpType = item.EmpType;
                             break;
                         case 5:
                             gcDetail.SSId = item.ReferenceID;
@@ -307,6 +310,7 @@ namespace SwachhBharatAPI.Controllers
                             gcDetail.totalGcWeight = item.totalGcWeight;
                             gcDetail.totalDryWeight = item.totalDryWeight;
                             gcDetail.totalWetWeight = item.totalWetWeight;
+                            gcDetail.EmpType = item.EmpType;
                             break;
                         default:
                             gcDetail.houseId = "";
