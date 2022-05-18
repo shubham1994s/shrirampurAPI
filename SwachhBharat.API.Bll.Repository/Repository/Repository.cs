@@ -514,8 +514,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 var objmain = dbMain.AppDetails.Where(x => x.AppId == AppId).FirstOrDefault();
                 var AppDetailURL = objmain.baseImageUrlCMS + objmain.basePath + objmain.UserProfile + "/";
-                var obj = db.UserMasters.Where(c => c.userLoginId == userName & c.isActive == true & c.EmployeeType==null).FirstOrDefault();
-                var objEmpMst = db.QrEmployeeMasters.Where(c => c.qrEmpLoginId == userName & c.isActive == true).FirstOrDefault();
+                var obj = db.UserMasters.Where(c => c.userLoginId == userName & c.userPassword== password & c.isActive == true & c.EmployeeType==null).FirstOrDefault();
+                var objEmpMst = db.QrEmployeeMasters.Where(c => c.qrEmpLoginId == userName & c.qrEmpPassword == password & c.isActive == true).FirstOrDefault();
                 if (obj == null)
                 {
                     user.userId = 0;
