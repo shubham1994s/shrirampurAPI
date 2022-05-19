@@ -543,6 +543,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         user.userLoginId = "";
                         user.userPassword = "";
                         user.EmpType = "N";
+                        user.imiNo = us.imoNo2;
                         user.gtFeatures = objmain.NewFeatures;
                         user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
                     }
@@ -556,7 +557,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         user.userId = obj.userId;
                         user.userLoginId = "";
                         user.userPassword = "";
-                        user.imiNo = "";
+                        user.imiNo = us.imoNo;
                         user.EmpType = "N";
                         user.gtFeatures = objmain.NewFeatures;
                         user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
@@ -571,7 +572,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             user.userId = obj.userId;
                             user.userLoginId = "";
                             user.userPassword = "";
-                            user.imiNo = "";
+                            user.imiNo = obj.imoNo;
                             user.EmpType = "N";
                             user.gtFeatures = objmain.NewFeatures;
                             user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
@@ -643,7 +644,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         user.userId = objEmpMst.qrEmpId;
                         user.userLoginId = "";
                         user.userPassword = "";
-                        user.imiNo = "";
+                        user.imiNo = us.imoNo;
                         user.EmpType = "N";
                         user.gtFeatures = objmain.NewFeatures;
                         user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
@@ -657,7 +658,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             user.userId = objEmpMst.qrEmpId;
                             user.userLoginId = "";
                             user.userPassword = "";
-                            user.imiNo = "";
+                            user.imiNo = imi;
                             user.EmpType = "N";
                             user.gtFeatures = objmain.NewFeatures;
                             user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
