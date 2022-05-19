@@ -543,7 +543,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         user.userLoginId = "";
                         user.userPassword = "";
                         user.EmpType = "N";
-                        user.imiNo = us.imoNo2;
+                        user.imiNo = us.imoNo;
                         user.gtFeatures = objmain.NewFeatures;
                         user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
                     }
@@ -557,15 +557,41 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         user.userId = obj.userId;
                         user.userLoginId = "";
                         user.userPassword = "";
-                        user.imiNo = us.imoNo;
+                        user.imiNo = us.imoNo2;
                         user.EmpType = "N";
                         user.gtFeatures = objmain.NewFeatures;
                         user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
                     }
-
+                    if (obj.imoNo != null || obj.imoNo2 !=null)
+                    {
+                        UserMaster us = db.UserMasters.Where(c => c.userId == obj.userId).FirstOrDefault();
+                        us.imoNo = imi;                      
+                        user.type = checkNull(obj.Type);
+                        user.userId = obj.userId;
+                        user.userLoginId = "";
+                        user.userPassword = "";
+                        user.imiNo = us.imoNo2;             
+                        user.EmpType = "N";
+                        user.gtFeatures = objmain.NewFeatures;
+                        user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
+                        us.imoNo2 = null;
+                        db.SaveChanges();
+                    }
                     else
                     {
                         if (obj.imoNo == imi)
+                        {
+                            user.type = checkNull(obj.Type);
+                            user.typeId = checkIntNull(obj.Type);
+                            user.userId = obj.userId;
+                            user.userLoginId = "";
+                            user.userPassword = "";
+                            user.imiNo = obj.imoNo2;
+                            user.EmpType = "N";
+                            user.gtFeatures = objmain.NewFeatures;
+                            user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
+                        }
+                        if (obj.imoNo2 == imi)
                         {
                             user.type = checkNull(obj.Type);
                             user.typeId = checkIntNull(obj.Type);
@@ -644,7 +670,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         user.userId = objEmpMst.qrEmpId;
                         user.userLoginId = "";
                         user.userPassword = "";
-                        user.imiNo = us.imoNo;
+                        user.imiNo = "";
                         user.EmpType = "N";
                         user.gtFeatures = objmain.NewFeatures;
                         user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
@@ -658,7 +684,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             user.userId = objEmpMst.qrEmpId;
                             user.userLoginId = "";
                             user.userPassword = "";
-                            user.imiNo = imi;
+                            user.imiNo = "";
                             user.EmpType = "N";
                             user.gtFeatures = objmain.NewFeatures;
                             user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
@@ -11378,11 +11404,11 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     string msg = "Your OTP is " + otp + ". Do not Share it with anyone by any means. This is confidential and to be used by you only. ICTSBM";
 
                     sendSMS(msg, _Mobile);
-                    if(AppId==3068)
+                    if(AppId==3068 && AppId==3098)
                     {
                         sendSMSNgp(msg, _Mobile);
                     }
-                        obj.Status = "Success";
+                    obj.Status = "Success";
                     obj.OTP = otp;
                     obj.Message = "OTP sent successfully.";
                     obj.MessageMar = "ओटीपी यशस्वीरित्या पाठवले.";
