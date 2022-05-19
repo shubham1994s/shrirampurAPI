@@ -562,7 +562,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         user.gtFeatures = objmain.NewFeatures;
                         user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
                     }
-                    if (obj.imoNo != null || obj.imoNo2 !=null)
+                    if (obj.imoNo != null && obj.imoNo2 !=null)
                     {
                         UserMaster us = db.UserMasters.Where(c => c.userId == obj.userId).FirstOrDefault();
                         us.imoNo = imi;                      
