@@ -339,9 +339,9 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 //HttpWebRequest myReq = (HttpWebRequest)WebRequest.Create("https://www.smsjust.com/sms/user/urlsms.php?username=ycagent&pass=yocc@5095&senderid=YOCCAG&dest_mobileno=" + MobilNumber + "&message=" + sms + "&response=Y");
                 //HttpWebRequest myReq = (HttpWebRequest)WebRequest.Create("https://www.smsjust.com/sms/user/urlsms.php?username=artiyocc&pass=123456&senderid=BIGVCL&dest_mobileno=" + MobilNumber + "&msgtype=UNI&message="+ sms + "%20&response=Y");
 
-               HttpWebRequest myReq = (HttpWebRequest)WebRequest.Create("https://www.smsjust.com/sms/user/urlsms.php?username=ycagent&pass=yocc@5095&senderid=BIGVCL&dest_mobileno=" + MobilNumber + "&message=" + sms + "%20&response=Y");
+                HttpWebRequest myReq = (HttpWebRequest)WebRequest.Create("https://www.smsjust.com/sms/user/urlsms.php?username=ycagent&pass=yocc@5095&senderid=BIGVCL&dest_mobileno=" + MobilNumber + "&message=" + sms + "%20&response=Y");
 
-              //  HttpWebRequest myReq = (HttpWebRequest)WebRequest.Create("https://www.smsjust.com/sms/user/urlsms.php?username=artiyocc&pass=123456&senderid=BIGVCL&dest_mobileno=" + MobilNumber + "&message=" + sms + "%20&response=Y");
+                //  HttpWebRequest myReq = (HttpWebRequest)WebRequest.Create("https://www.smsjust.com/sms/user/urlsms.php?username=artiyocc&pass=123456&senderid=BIGVCL&dest_mobileno=" + MobilNumber + "&message=" + sms + "%20&response=Y");
 
                 //Get response from Ozeki NG SMS Gateway Server and read the answer
                 HttpWebResponse myResp = (HttpWebResponse)myReq.GetResponse();
@@ -442,7 +442,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             public string Message;
             public long ItemId;
         }
-        
+
         public void PushNotificationMessageBroadCast(string message, List<String> FCMID, string title, string ApiKey)
         {
 
@@ -454,9 +454,9 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 var webAddr = ConfigurationManager.AppSettings["FCMUrl"];// "https://fcm.googleapis.com/fcm/send";
                 string senderId = ConfigurationManager.AppSettings["senderId"];//"858685861086";
 
-                string regID = (FCMID.Count > 1 ? (string.Join("\",\"", FCMID) ) : (string.Join("\"\"", FCMID)));
+                string regID = (FCMID.Count > 1 ? (string.Join("\",\"", FCMID)) : (string.Join("\"\"", FCMID)));
 
-                    //string.Join("\",\"", FCMID);
+                //string.Join("\",\"", FCMID);
 
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(webAddr);
                 httpWebRequest.ContentType = "application/json";
@@ -468,7 +468,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
                 {
                     string json = "{\"registration_ids\": [\"" + regID + "\"],\"data\": {\"title\": \"" + title + " \",\"message\": \"" + message + "\",\"body\": \"GG\"},\"priority\":10,\"timestamp\": \"" + DateTime.Now + "\"}";
-                    
+
                     //registration_ids, array of strings -  to, single recipient
                     streamWriter.Write(json);
                     streamWriter.Flush();
@@ -1771,6 +1771,85 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                                     });
                                     db.SaveChanges();
+
+                                    DateTime newTimeh = DateTime.Now;
+                                    DateTime oldTimeh;
+                                    TimeSpan spanh = TimeSpan.Zero;
+                                    var hd = db.HouseMasters.Where(c => c.houseLat != null && c.houseLong != null && EntityFunctions.TruncateTime(c.modified) == EntityFunctions.TruncateTime(newTimeh)).OrderByDescending(c => c.houseId).FirstOrDefault();
+                                    if (hd != null)
+                                    {
+                                        oldTimeh = hd.modified.Value;
+                                        spanh = newTimeh.Subtract(oldTimeh);
+                                    }
+
+                                    if (spanh.Minutes >= 9)
+                                    {
+                                        var app = dbMain.AppDetails.Where(c => c.AppId == AppId).FirstOrDefault();
+                                        app.FAQ = "2";
+                                    }
+
+
+                                    DateTime newTimed = DateTime.Now;
+                                    DateTime oldTimed;
+                                    TimeSpan spand = TimeSpan.Zero;
+                                    var dy = db.DumpYardDetails.Where(c => c.dyLat != null && c.dyLong != null && EntityFunctions.TruncateTime(c.lastModifiedDate) == EntityFunctions.TruncateTime(newTimed)).OrderByDescending(c => c.dyId).FirstOrDefault();
+                                    if (dy != null)
+                                    {
+                                        oldTimed = dy.lastModifiedDate.Value;
+                                        spand = newTimed.Subtract(oldTimed);
+                                    }
+
+                                    if (spand.Minutes >= 9)
+                                    {
+                                        var app = dbMain.AppDetails.Where(c => c.AppId == AppId).FirstOrDefault();
+                                        app.FAQ = "2";
+                                    }
+
+
+                                    DateTime newTimes = DateTime.Now;
+                                    DateTime oldTimes;
+                                    TimeSpan spans = TimeSpan.Zero;
+                                    var st = db.StreetSweepingDetails.Where(c => c.SSLat != null && c.SSLong != null && EntityFunctions.TruncateTime(c.lastModifiedDate) == EntityFunctions.TruncateTime(newTimes)).OrderByDescending(c => c.SSId).FirstOrDefault();
+                                    if (st != null)
+                                    {
+                                        oldTimes = st.lastModifiedDate.Value;
+                                        spans = newTimes.Subtract(oldTimes);
+                                    }
+
+                                    if (spans.Minutes >= 9)
+                                    {
+                                        var app = dbMain.AppDetails.Where(c => c.AppId == AppId).FirstOrDefault();
+                                        app.FAQ = "2";
+                                    }
+
+
+                                    DateTime newTimel = DateTime.Now;
+                                    DateTime oldTimel;
+                                    TimeSpan spanl = TimeSpan.Zero;
+                                    var lw = db.LiquidWasteDetails.Where(c => c.LWLat != null && c.LWLong != null && EntityFunctions.TruncateTime(c.lastModifiedDate) == EntityFunctions.TruncateTime(newTimel)).OrderByDescending(c => c.LWId).FirstOrDefault();
+                                    if (lw != null)
+                                    {
+                                        oldTimel = lw.lastModifiedDate.Value;
+                                        spanl = newTimel.Subtract(oldTimel);
+                                    }
+
+                                    if (spanl.Minutes >= 9)
+                                    {
+                                        var app = dbMain.AppDetails.Where(c => c.AppId == AppId).FirstOrDefault();
+                                        app.FAQ = "2";
+                                    }
+
+                                    if (hd == null && dy == null && st == null && lw == null)
+                                    {
+                                        var app = dbMain.AppDetails.Where(c => c.AppId == AppId).FirstOrDefault();
+                                        app.FAQ = "0";
+                                    }
+                                    if ((spanl.Minutes <= 9 && lw != null) || (spans.Minutes <= 9 && st != null) || (spand.Minutes <= 9 && dy != null) || (spanh.Minutes <= 9 && hd != null))
+                                    {
+                                        var app = dbMain.AppDetails.Where(c => c.AppId == AppId).FirstOrDefault();
+                                        app.FAQ = "1";
+                                    }
+                                    dbMain.SaveChanges();
                                 }
                             }
 
@@ -6487,6 +6566,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         
                         
                     }
+
+
                     else if (typeId == 1)
                     {
                         DateTime newTime = Dateeee;
@@ -6546,7 +6627,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                             }
                         }
-                            result.ID = Convert.ToInt32(obj.OfflineID);
+                        result.ID = Convert.ToInt32(obj.OfflineID);
                             result.status = "success";
                             result.message = "Uploaded successfully";
                             result.messageMar = "सबमिट यशस्वी";
@@ -11404,7 +11485,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     string msg = "Your OTP is " + otp + ". Do not Share it with anyone by any means. This is confidential and to be used by you only. ICTSBM";
 
                     sendSMS(msg, _Mobile);
-                    if(AppId==3068 && AppId==3098)
+                    if(AppId==3068 || AppId==3098)
                     {
                         sendSMSNgp(msg, _Mobile);
                     }
