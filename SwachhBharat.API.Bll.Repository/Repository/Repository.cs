@@ -6221,7 +6221,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         private CollectionSyncResult SaveStreetCollectionSync(SBGarbageCollectionView obj, int AppId, int type)
         {
-
+            int i = 0;
             CollectionSyncResult result = new CollectionSyncResult();
             var appdetails = dbMain.AppDetails.Where(c => c.AppId == AppId).FirstOrDefault();
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
@@ -6382,16 +6382,16 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         }
                         else { result.isAttendenceOff = false; }
 
-                        if (obj.LWId != null && obj.LWId != "")
+                        if (obj.SSId != null && obj.SSId != "")
                         {
                             try
                             {
-                                var gpdetails = db.LiquidWasteDetails.Where(c => c.ReferanceId == obj.LWId).FirstOrDefault();
-                                gcd.LWId = gpdetails.LWId;
-                                name = gpdetails.LWName;
-                                nameMar = checkNull(gpdetails.LWNameMar);
+                                var gpdetails = db.StreetSweepingDetails.Where(c => c.ReferanceId == obj.SSId).FirstOrDefault();
+                                gcd.SSId = gpdetails.SSId;
+                                name = gpdetails.SSName;
+                                nameMar = checkNull(gpdetails.SSNameMar);
                                 housemob = "";
-                                addre = checkNull(gpdetails.LWAddreLW);
+                                addre = checkNull(gpdetails.SSAddress);
                             }
                             catch
                             {
@@ -6405,7 +6405,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         gcd.gcType = obj.gcType;
                         gcd.gpBeforImage = obj.gpBeforImage;
                         gcd.gpAfterImage = obj.gpAfterImage;
-                        gcd.note = checkNull(gcd.note);
+                        gcd.note = checkNull(obj.note);
                         //objdata.garbageType = checkIntNull(obj.garbageType.ToString());
                         gcd.vehicleNumber = checkNull(gcd.vehicleNumber);
                         gcd.totalGcWeight = obj.totalGcWeight;
@@ -6468,11 +6468,37 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         result.message = "Uploaded successfully";
                         result.messageMar = "सबमिट यशस्वी";
 
-                        //string mes = "नमस्कार! आपल्या घरून कचरा संकलित करण्यात आलेला आहे. कृपया ओला व सुका असा वर्गीकृत केलेला कचरा सफाई कर्मचाऱ्यास सुपूर्द करून सहकार्य करावे धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
-                        //if (housemob != "")
-                        //{
-                        //    sendSMS(mes, housemob);
-                        //}
+
+                    }
+
+                    var gc = db.GarbageCollectionDetails.Where(c => c.userId == obj.userId && c.SSId == dydetails.SSId && EntityFunctions.TruncateTime(c.gcDate) == EntityFunctions.TruncateTime(Dateeee)).OrderByDescending(c => c.gcDate).FirstOrDefault();
+                    var sd = db.StreetSweepingDetails.Where(x => x.SSId == gc.SSId).FirstOrDefault();
+                    var sbeatcount = db.StreetSweepingBeats.Where(x => x.ReferanceId1 == sd.ReferanceId || x.ReferanceId2 == sd.ReferanceId || x.ReferanceId3 == sd.ReferanceId || x.ReferanceId4 == sd.ReferanceId || x.ReferanceId5 == sd.ReferanceId).FirstOrDefault();
+                    var beatcount = db.Vw_BitCount.Where(x => x.BeatId == sbeatcount.BeatId).FirstOrDefault();
+                    var sd1 = db.StreetSweepingDetails.Where(z => z.ReferanceId == sbeatcount.ReferanceId1 || z.ReferanceId == sbeatcount.ReferanceId2 || z.ReferanceId == sbeatcount.ReferanceId3 || z.ReferanceId == sbeatcount.ReferanceId4 || z.ReferanceId == sbeatcount.ReferanceId5).ToList();
+                    foreach (var x in sd1)
+                    {
+                        var sgcd = db.GarbageCollectionDetails.Where(c => c.userId == obj.userId && c.SSId == x.SSId && EntityFunctions.TruncateTime(c.gcDate) == EntityFunctions.TruncateTime(Dateeee)).OrderByDescending(c => c.gcDate).FirstOrDefault();
+                        if (sgcd != null)
+                        {
+                            i++;
+                        }
+
+                    }
+
+                    if (beatcount.BitCount == i)
+                    {
+                        result.ID = obj.OfflineID;
+                        result.status = "success";
+                        result.message = "Street Sweeping Completed Successfully";
+                        result.messageMar = "सबमिट यशस्वी";
+                    }
+                    else
+                    {
+                        result.ID = obj.OfflineID;
+                        result.status = "success";
+                        result.message = "Street Sweeping Partially Completed";
+                        result.messageMar = "सबमिट यशस्वी";
                     }
                     return result;
 

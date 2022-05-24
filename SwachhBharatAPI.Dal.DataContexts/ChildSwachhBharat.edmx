@@ -121,6 +121,8 @@
           <Property Name="EmployeeType" Type="varchar" MaxLength="10" />
           <Property Name="LWId" Type="int" />
           <Property Name="SSId" Type="int" />
+          <Property Name="AreaId" Type="int" />
+          <Property Name="gpBeforImageTime" Type="datetime" />
         </EntityType>
         <EntityType Name="GarbagePointDetails">
           <Key>
@@ -191,6 +193,8 @@
           <Property Name="RFIDTagId" Type="nvarchar" MaxLength="255" />
           <Property Name="WasteType" Type="varchar" MaxLength="10" />
           <Property Name="QRCodeImage" Type="nvarchar(max)" />
+          <Property Name="OccupancyStatus" Type="nvarchar(max)" />
+          <Property Name="Property_Type" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="LiquidWasteDetails">
           <Key>
@@ -306,6 +310,18 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.SauchalayAddr
           <Property Name="ImageUrl" Type="nvarchar" MaxLength="1000" />
           <Property Name="QrImageUrl" Type="nvarchar" MaxLength="1000" />
           <Property Name="Mobile" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="StreetSweepingBeat">
+          <Key>
+            <PropertyRef Name="BeatId" />
+          </Key>
+          <Property Name="BeatId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="ReferanceId1" Type="nvarchar" MaxLength="200" />
+          <Property Name="ReferanceId2" Type="nvarchar" MaxLength="200" />
+          <Property Name="ReferanceId3" Type="nvarchar" MaxLength="200" />
+          <Property Name="ReferanceId4" Type="nvarchar" MaxLength="200" />
+          <Property Name="ReferanceId5" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="StreetSweepingDetails">
           <Key>
@@ -428,6 +444,15 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.SauchalayAddr
           </Key>
           <Property Name="zoneId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_BitCount' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_BitCount">
+          <Key>
+            <PropertyRef Name="BeatId" />
+          </Key>
+          <Property Name="BeatId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BitCount" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_GetHouseNumber' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -606,6 +631,7 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <EntitySet Name="Qr_Employee_Daily_Attendance" EntityType="Self.Qr_Employee_Daily_Attendance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Qr_Location" EntityType="Self.Qr_Location" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QrEmployeeMaster" EntityType="Self.QrEmployeeMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StreetSweepingBeat" EntityType="Self.StreetSweepingBeat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StreetSweepingDetails" EntityType="Self.StreetSweepingDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TeritoryMaster" EntityType="Self.TeritoryMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserMaster" EntityType="Self.UserMaster" Schema="dbo" store:Type="Tables" />
@@ -630,6 +656,12 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
     [SauchalayAddress].[QrImageUrl] AS [QrImageUrl], 
     [SauchalayAddress].[Mobile] AS [Mobile]
     FROM [dbo].[SauchalayAddress] AS [SauchalayAddress]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Vw_BitCount" EntityType="Self.Vw_BitCount" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_BitCount].[BeatId] AS [BeatId], 
+    [Vw_BitCount].[BitCount] AS [BitCount]
+    FROM [dbo].[Vw_BitCount] AS [Vw_BitCount]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Vw_GetHouseNumber" EntityType="Self.Vw_GetHouseNumber" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -820,6 +852,8 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <EntitySet Name="DumpYardDetails" EntityType="DevSwachhBharatNagpurModel.DumpYardDetail" />
           <EntitySet Name="LiquidWasteDetails" EntityType="DevSwachhBharatNagpurModel.LiquidWasteDetail" />
           <EntitySet Name="StreetSweepingDetails" EntityType="DevSwachhBharatNagpurModel.StreetSweepingDetail" />
+          <EntitySet Name="StreetSweepingBeats" EntityType="DevSwachhBharatNagpurModel.StreetSweepingBeat" />
+          <EntitySet Name="Vw_BitCount" EntityType="DevSwachhBharatNagpurModel.Vw_BitCount" />
         </EntityContainer>
         <ComplexType Name="sp_area_Result">
           <Property Type="String" Name="area" Nullable="true" MaxLength="500" />
@@ -1442,6 +1476,8 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Name="EmployeeType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="LWId" Type="Int32" />
           <Property Name="SSId" Type="Int32" />
+          <Property Name="AreaId" Type="Int32" />
+          <Property Name="gpBeforImageTime" Type="DateTime" Precision="3" />
         </EntityType>
         <ComplexType Name="GetQrWorkHistory_Result">
           <Property Type="String" Name="Day" Nullable="true" MaxLength="30" />
@@ -1516,6 +1552,8 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Name="RFIDTagId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="WasteType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="QRCodeImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OccupancyStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Property_Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="DumpYardDetail">
           <Key>
@@ -1574,6 +1612,25 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Name="lastModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="userId" Type="Int32" />
           <Property Name="QRCodeImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="StreetSweepingBeat">
+          <Key>
+            <PropertyRef Name="BeatId" />
+          </Key>
+          <Property Name="BeatId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="ReferanceId1" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ReferanceId2" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ReferanceId3" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ReferanceId4" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ReferanceId5" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Vw_BitCount">
+          <Key>
+            <PropertyRef Name="BeatId" />
+          </Key>
+          <Property Name="BeatId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BitCount" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2267,6 +2324,8 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <EntitySetMapping Name="GarbageCollectionDetails">
             <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.GarbageCollectionDetail">
               <MappingFragment StoreEntitySet="GarbageCollectionDetails">
+                <ScalarProperty Name="gpBeforImageTime" ColumnName="gpBeforImageTime" />
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
                 <ScalarProperty Name="SSId" ColumnName="SSId" />
                 <ScalarProperty Name="LWId" ColumnName="LWId" />
                 <ScalarProperty Name="EmployeeType" ColumnName="EmployeeType" />
@@ -2376,6 +2435,8 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <EntitySetMapping Name="HouseMasters">
             <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.HouseMaster">
               <MappingFragment StoreEntitySet="HouseMaster">
+                <ScalarProperty Name="Property_Type" ColumnName="Property_Type" />
+                <ScalarProperty Name="OccupancyStatus" ColumnName="OccupancyStatus" />
                 <ScalarProperty Name="QRCodeImage" ColumnName="QRCodeImage" />
                 <ScalarProperty Name="WasteType" ColumnName="WasteType" />
                 <ScalarProperty Name="RFIDTagId" ColumnName="RFIDTagId" />
@@ -2457,6 +2518,27 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
                 <ScalarProperty Name="SSNameMar" ColumnName="SSNameMar" />
                 <ScalarProperty Name="SSName" ColumnName="SSName" />
                 <ScalarProperty Name="SSId" ColumnName="SSId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StreetSweepingBeats">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.StreetSweepingBeat">
+              <MappingFragment StoreEntitySet="StreetSweepingBeat">
+                <ScalarProperty Name="ReferanceId5" ColumnName="ReferanceId5" />
+                <ScalarProperty Name="ReferanceId4" ColumnName="ReferanceId4" />
+                <ScalarProperty Name="ReferanceId3" ColumnName="ReferanceId3" />
+                <ScalarProperty Name="ReferanceId2" ColumnName="ReferanceId2" />
+                <ScalarProperty Name="ReferanceId1" ColumnName="ReferanceId1" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="BeatId" ColumnName="BeatId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_BitCount">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.Vw_BitCount">
+              <MappingFragment StoreEntitySet="Vw_BitCount">
+                <ScalarProperty Name="BitCount" ColumnName="BitCount" />
+                <ScalarProperty Name="BeatId" ColumnName="BeatId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

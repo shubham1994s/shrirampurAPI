@@ -34,5 +34,7 @@ namespace SwachhBharatAPI.Dal.DataContexts
         public string RFIDTagId { get; set; }
         public string WasteType { get; set; }
         public string QRCodeImage { get; set; }
+        public string OccupancyStatus { get; set; }
+        public string Property_Type { get; set; }
     }
 }
