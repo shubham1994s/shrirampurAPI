@@ -79,16 +79,17 @@
           <Property Name="MsgForNotReceived" Type="nvarchar" MaxLength="1000" />
           <Property Name="MsgForSegregated" Type="nvarchar" MaxLength="1000" />
           <Property Name="IsScanNear" Type="bit" />
-          <Property Name="LiquidQRCode" Type="varchar" MaxLength="100" />
-          <Property Name="StreetQRCode" Type="varchar" MaxLength="100" />
-          <Property Name="CommercialQRCode" Type="nvarchar" MaxLength="220" />
+          <Property Name="LiquidQRCode" Type="varchar" MaxLength="50" />
+          <Property Name="StreetQRCode" Type="varchar" MaxLength="50" />
+          <Property Name="CommercialQRCode" Type="nvarchar" MaxLength="100" />
           <Property Name="CTPTQRCode" Type="nvarchar" MaxLength="100" />
           <Property Name="SWMQRCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="ulb_property" Type="int" />
+          <Property Name="Add_Ulb_Property" Type="int" />
           <Property Name="Today_Waste_Status" Type="bit" />
           <Property Name="Today_Liquid_Status" Type="bit" />
           <Property Name="Today_Street_Status" Type="bit" />
-          <Property Name="ulb_property" Type="int" />
-          <Property Name="Add_Ulb_Property" Type="int" />
+          <Property Name="Status" Type="bit" />
         </EntityType>
         <EntityType Name="AspNetUsers">
           <Key>
@@ -127,6 +128,22 @@
           <Property Name="state_name_mar" Type="nvarchar" MaxLength="250" />
           <Property Name="state_3_code" Type="nvarchar" MaxLength="3" />
           <Property Name="state_2_code" Type="nvarchar" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="EmployeeMaster">
+          <Key>
+            <PropertyRef Name="EmpId" />
+          </Key>
+          <Property Name="EmpId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpName" Type="nvarchar" MaxLength="500" />
+          <Property Name="EmpNameMar" Type="nvarchar" MaxLength="200" />
+          <Property Name="LoginId" Type="nvarchar" MaxLength="200" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" />
+          <Property Name="EmpMobileNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="EmpAddress" Type="nvarchar" MaxLength="200" />
+          <Property Name="type" Type="nvarchar" MaxLength="50" />
+          <Property Name="isActive" Type="bit" />
+          <Property Name="isActiveULB" Type="nvarchar(max)" />
+          <Property Name="lastModifyDateEntry" Type="datetime" />
         </EntityType>
         <EntityType Name="Game_AnswerType">
           <Key>
@@ -229,7 +246,6 @@
           <Property Name="longitude" Type="nvarchar" MaxLength="20" />
           <Property Name="state" Type="int" />
           <Property Name="district" Type="int" />
-          <Property Name="IsCheked" Type="bit" />
         </EntityType>
         <EntityType Name="UserInApps">
           <Key>
@@ -247,6 +263,7 @@
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BinMaster" EntityType="Self.BinMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="country_states" EntityType="Self.country_states" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeMaster" EntityType="Self.EmployeeMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Game_AnswerType" EntityType="Self.Game_AnswerType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Game_Slogan" EntityType="Self.Game_Slogan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GameDetails" EntityType="Self.GameDetails" Schema="dbo" store:Type="Tables" />
@@ -271,7 +288,6 @@
           <EntitySet Name="UserInApps" EntityType="DevSwachhBharatMainModel.UserInApp" />
           <EntitySet Name="country_states" EntityType="DevSwachhBharatMainModel.country_states" />
           <EntitySet Name="state_districts" EntityType="DevSwachhBharatMainModel.state_districts" />
-          <EntitySet Name="tehsils" EntityType="DevSwachhBharatMainModel.tehsil" />
           <EntitySet Name="BinMasters" EntityType="DevSwachhBharatMainModel.BinMaster" />
           <EntitySet Name="Game_AnswerType" EntityType="DevSwachhBharatMainModel.Game_AnswerType" />
           <EntitySet Name="Game_Slogan" EntityType="DevSwachhBharatMainModel.Game_Slogan" />
@@ -281,6 +297,8 @@
           <EntitySet Name="RFID_Master" EntityType="DevSwachhBharatMainModel.RFID_Master" />
           <EntitySet Name="AppConnections" EntityType="DevSwachhBharatMainModel.AppConnection" />
           <EntitySet Name="AppDetails" EntityType="DevSwachhBharatMainModel.AppDetail" />
+          <EntitySet Name="EmployeeMasters" EntityType="DevSwachhBharatMainModel.EmployeeMaster" />
+          <EntitySet Name="tehsils" EntityType="DevSwachhBharatMainModel.tehsil" />
         </EntityContainer>
         <EntityType Name="GoogleAPIDetail">
           <Key>
@@ -353,19 +371,6 @@
           <Property Name="state_id" Type="Int32" Nullable="false" />
           <Property Name="district_name" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
           <Property Name="district_name_mar" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="tehsil">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="name_mar" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="latitude" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="longitude" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="state" Type="Int32" />
-          <Property Name="district" Type="Int32" />
-          <Property Name="IsCheked" Type="Boolean" />
         </EntityType>
         <EntityType Name="BinMaster">
           <Key>
@@ -506,9 +511,9 @@
           <Property Name="MsgForNotReceived" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="MsgForSegregated" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="IsScanNear" Type="Boolean" />
-          <Property Name="LiquidQRCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="StreetQRCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="CommercialQRCode" Type="String" MaxLength="220" FixedLength="false" Unicode="true" />
+          <Property Name="LiquidQRCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StreetQRCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CommercialQRCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="CTPTQRCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="SWMQRCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Today_Waste_Status" Type="Boolean" />
@@ -516,6 +521,35 @@
           <Property Name="Today_Street_Status" Type="Boolean" />
           <Property Name="ulb_property" Type="Int32" />
           <Property Name="Add_Ulb_Property" Type="Int32" />
+          <Property Name="Status" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="EmployeeMaster">
+          <Key>
+            <PropertyRef Name="EmpId" />
+          </Key>
+          <Property Name="EmpId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="EmpNameMar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LoginId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EmpMobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="EmpAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="isActive" Type="Boolean" />
+          <Property Name="isActiveULB" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="lastModifyDateEntry" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tehsil">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="name_mar" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="latitude" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="longitude" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="state" Type="Int32" />
+          <Property Name="district" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -598,20 +632,6 @@
                 <ScalarProperty Name="district_name_mar" ColumnName="district_name_mar" />
                 <ScalarProperty Name="district_name" ColumnName="district_name" />
                 <ScalarProperty Name="state_id" ColumnName="state_id" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tehsils">
-            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.tehsil">
-              <MappingFragment StoreEntitySet="tehsil">
-                <ScalarProperty Name="IsCheked" ColumnName="IsCheked" />
-                <ScalarProperty Name="district" ColumnName="district" />
-                <ScalarProperty Name="state" ColumnName="state" />
-                <ScalarProperty Name="longitude" ColumnName="longitude" />
-                <ScalarProperty Name="latitude" ColumnName="latitude" />
-                <ScalarProperty Name="name_mar" ColumnName="name_mar" />
-                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -711,6 +731,7 @@
           <EntitySetMapping Name="AppDetails">
             <EntityTypeMapping TypeName="DevSwachhBharatMainModel.AppDetail">
               <MappingFragment StoreEntitySet="AppDetails">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Add_Ulb_Property" ColumnName="Add_Ulb_Property" />
                 <ScalarProperty Name="ulb_property" ColumnName="ulb_property" />
                 <ScalarProperty Name="Today_Street_Status" ColumnName="Today_Street_Status" />
@@ -772,6 +793,36 @@
                 <ScalarProperty Name="AppName_mar" ColumnName="AppName_mar" />
                 <ScalarProperty Name="AppName" ColumnName="AppName" />
                 <ScalarProperty Name="AppId" ColumnName="AppId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeMasters">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.EmployeeMaster">
+              <MappingFragment StoreEntitySet="EmployeeMaster">
+                <ScalarProperty Name="lastModifyDateEntry" ColumnName="lastModifyDateEntry" />
+                <ScalarProperty Name="isActiveULB" ColumnName="isActiveULB" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="EmpAddress" ColumnName="EmpAddress" />
+                <ScalarProperty Name="EmpMobileNumber" ColumnName="EmpMobileNumber" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+                <ScalarProperty Name="EmpNameMar" ColumnName="EmpNameMar" />
+                <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+                <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tehsils">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.tehsil">
+              <MappingFragment StoreEntitySet="tehsil">
+                <ScalarProperty Name="district" ColumnName="district" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="name_mar" ColumnName="name_mar" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

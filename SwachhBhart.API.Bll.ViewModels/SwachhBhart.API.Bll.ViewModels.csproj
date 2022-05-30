@@ -89,6 +89,16 @@
     <Compile Include="GPHousedetailsVM.cs" />
     <Compile Include="HouseDetailsVM.cs" />
     <Compile Include="AHouseGarbageCollectionVM.cs" />
+    <Compile Include="HouseScanifyDetailsGridRow.cs" />
+    <Compile Include="HouseScanifyEmployeeDetails.cs" />
+    <Compile Include="HSAttendanceGrid.cs" />
+    <Compile Include="HSDashboard.cs" />
+    <Compile Include="HSDumpYardDetailsGrid.cs" />
+    <Compile Include="HSEmployee.cs" />
+    <Compile Include="HSHouseDetailsGrid.cs" />
+    <Compile Include="HSLiquidDetailsGrid.cs" />
+    <Compile Include="HSStreetDetailsGrid.cs" />
+    <Compile Include="NameULB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Result.cs" />
     <Compile Include="SBAAttendenceSettingsGridRow.cs" />

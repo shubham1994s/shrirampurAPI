@@ -10,16 +10,16 @@
 namespace SwachhBharatAPI.Dal.DataContexts
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class tehsil
+    public partial class SP_LiquidDetailsApp_Result
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string name_mar { get; set; }
-        public string latitude { get; set; }
-        public string longitude { get; set; }
-        public Nullable<int> state { get; set; }
-        public Nullable<int> district { get; set; }
+        public Nullable<int> userId { get; set; }
+        public int LWId { get; set; }
+        public string LWLat { get; set; }
+        public string LWLong { get; set; }
+        public string ReferanceId { get; set; }
+        public Nullable<System.DateTime> lastModifiedDate { get; set; }
+        public string qrEmpName { get; set; }
+        public string QRCodeImage { get; set; }
     }
 }

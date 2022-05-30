@@ -32,7 +32,6 @@ namespace SwachhBharatAPI.Dal.DataContexts
         public virtual DbSet<UserInApp> UserInApps { get; set; }
         public virtual DbSet<country_states> country_states { get; set; }
         public virtual DbSet<state_districts> state_districts { get; set; }
-        public virtual DbSet<tehsil> tehsils { get; set; }
         public virtual DbSet<BinMaster> BinMasters { get; set; }
         public virtual DbSet<Game_AnswerType> Game_AnswerType { get; set; }
         public virtual DbSet<Game_Slogan> Game_Slogan { get; set; }
@@ -42,5 +41,7 @@ namespace SwachhBharatAPI.Dal.DataContexts
         public virtual DbSet<RFID_Master> RFID_Master { get; set; }
         public virtual DbSet<AppConnection> AppConnections { get; set; }
         public virtual DbSet<AppDetail> AppDetails { get; set; }
+        public virtual DbSet<EmployeeMaster> EmployeeMasters { get; set; }
+        public virtual DbSet<tehsil> tehsils { get; set; }
     }
 }

@@ -116,6 +116,9 @@
     <Compile Include="DumpYardDetail.cs">
       <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
     </Compile>
+    <Compile Include="EmployeeMaster.cs">
+      <DependentUpon>MainSwachhBharat.tt</DependentUpon>
+    </Compile>
     <Compile Include="GameDetail.cs">
       <DependentUpon>MainSwachhBharat.tt</DependentUpon>
     </Compile>
@@ -225,6 +228,9 @@
     <Compile Include="SP_DistanceCount_Result.cs">
       <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
     </Compile>
+    <Compile Include="SP_DumpYardDetailsApp_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
     <Compile Include="SP_DumpYardDetails_Result.cs">
       <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
     </Compile>
@@ -237,19 +243,34 @@
     <Compile Include="SP_GarbageCollection_Result.cs">
       <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
     </Compile>
+    <Compile Include="SP_HouseDetailsApp_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
     <Compile Include="SP_HouseOnMapDetails_Result.cs">
       <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
     </Compile>
     <Compile Include="SP_HousePointDumpDetails_Scanify_Result.cs">
       <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
     </Compile>
+    <Compile Include="SP_HouseScanifyDetails_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_HouseScanify_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
     <Compile Include="SP_IdelTime_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_LiquidDetailsApp_Result.cs">
       <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_Locationdata_Result.cs">
       <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_MsgNotification_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_StreetDetailsApp_Result.cs">
       <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
     </Compile>
     <Compile Include="SP_TotalHouseCollection_Count_Result.cs">

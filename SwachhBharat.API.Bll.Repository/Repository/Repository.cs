@@ -41,7 +41,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 result = 0;
                 return result;
             }
-            else {
+            else
+            {
                 result = Convert.ToInt32(str);
                 return result;
             }
@@ -54,7 +55,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 result = "";
                 return result;
             }
-            else {
+            else
+            {
                 result = str;
                 return result;
             }
@@ -189,9 +191,9 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         //    catch { return ""; }
 
         //}
-    
-         public string Address(string location)
-         {
+
+        public string Address(string location)
+        {
             //    try
             //    {
             //        string API = "";               
@@ -327,7 +329,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                 return "";
             }
-           
+
 
         }
 
@@ -396,7 +398,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         }
 
-        public void PushNotificationMessage(string message, string FCMID, string type , string ApiKey)
+        public void PushNotificationMessage(string message, string FCMID, string type, string ApiKey)
         {
             // string serverKey = "AAAAx-2qbN4:APA91bHFXj5rDt-FjWekbG9rGi6qehxrz4q3-xFRqCzENEUg2y7RtGCqYTqKGPca3kCrE9gEohYSPx8Xpxw5eBfqJrd4j7TomomnYQMAddnMw9trAGyKuJsWH2YwgxR1g_Tqc5MdJlE1siimjMSWGnMIa7dSefEtgw";
 
@@ -418,7 +420,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
                 {
                     string json = "{\"to\": \"" + regID + "\",\"data\": {\"title\": \"" + type + " \",\"message\": \"" + message + "\",\"body\": \"GG\"},\"priority\":10,\"timestamp\": \"" + DateTime.Now + "\"}";
-                    
+
                     //registration_ids, array of strings -  to, single recipient
                     streamWriter.Write(json);
                     streamWriter.Flush();
@@ -487,12 +489,12 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         }
 
         #endregion
-        public SBUser CheckUserLogin(string userName, string password, string imi, int AppId,string EmpType)
-           {
+        public SBUser CheckUserLogin(string userName, string password, string imi, int AppId, string EmpType)
+        {
             SBUser user = new SBUser();
-            if(EmpType== "N")
+            if (EmpType == "N")
             {
-                user = CheckUserLoginForNormal(userName,password, imi, AppId, EmpType);
+                user = CheckUserLoginForNormal(userName, password, imi, AppId, EmpType);
             }
 
             if (EmpType == "L")
@@ -514,7 +516,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 var objmain = dbMain.AppDetails.Where(x => x.AppId == AppId).FirstOrDefault();
                 var AppDetailURL = objmain.baseImageUrlCMS + objmain.basePath + objmain.UserProfile + "/";
-                var obj = db.UserMasters.Where(c => c.userLoginId == userName & c.userPassword== password & c.isActive == true & c.EmployeeType==null).FirstOrDefault();
+                var obj = db.UserMasters.Where(c => c.userLoginId == userName & c.userPassword == password & c.isActive == true & c.EmployeeType == null).FirstOrDefault();
                 var objEmpMst = db.QrEmployeeMasters.Where(c => c.qrEmpLoginId == userName & c.qrEmpPassword == password & c.isActive == true).FirstOrDefault();
                 if (obj == null)
                 {
@@ -730,7 +732,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 var objmain = dbMain.AppDetails.Where(x => x.AppId == AppId).FirstOrDefault();
                 var AppDetailURL = objmain.baseImageUrlCMS + objmain.basePath + objmain.UserProfile + "/";
-                var obj = db.UserMasters.Where(c => c.userLoginId == userName & c.isActive == true & c.EmployeeType=="L").FirstOrDefault();
+                var obj = db.UserMasters.Where(c => c.userLoginId == userName & c.isActive == true & c.EmployeeType == "L").FirstOrDefault();
                 var objEmpMst = db.QrEmployeeMasters.Where(c => c.qrEmpLoginId == userName & c.isActive == true).FirstOrDefault();
                 if (obj == null)
                 {
@@ -1102,11 +1104,11 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         public SBAdmin CheckAdminLogin(string userName, string password)
         {
             SBAdmin admin = new SBAdmin();
-            var obj = dbMain.AspNetUsers.Where(c => c.UserName == userName ).FirstOrDefault();
+            var obj = dbMain.AspNetUsers.Where(c => c.UserName == userName).FirstOrDefault();
             var userId = obj.Id;
             var appId = dbMain.UserInApps.Where(x => x.UserId == userId).Select(x => x.AppId).FirstOrDefault();
             var objMain = dbMain.AppDetails.Where(c => c.AppId == appId).FirstOrDefault();
-            if (obj.UserName == userName && (password == "Admin#123" || password == "Nazim#123") && objMain != null )
+            if (obj.UserName == userName && (password == "Admin#123" || password == "Nazim#123") && objMain != null)
             {
                 //var AppDetailURL = objmain.baseImageUrlCMS + objmain.basePath + objmain.UserProfile + "/";
                 admin.adminId = userId;
@@ -1149,7 +1151,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 AppDetail objmain = dbMain.AppDetails.Where(x => x.AppId == AppId).FirstOrDefault();
 
-                if (typeId==0 || typeId == 2)
+                if (typeId == 0 || typeId == 2)
                 {
                     var obj = db.UserMasters.Where(c => c.userId == userId).FirstOrDefault();
                     if (obj != null)
@@ -1181,7 +1183,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         user.profileImage = ""; //ImagePathCMS(objmain.UserProfile, obj., objmain);
                     }
                 }
-                
+
             }
             return user;
         }
@@ -1563,7 +1565,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         //}
         #endregion
 
-        public List<SyncResult> SaveUserLocation(List<SBUserLocation> obj, int AppId, string batteryStatus, int typeId,string EmpType)
+        public List<SyncResult> SaveUserLocation(List<SBUserLocation> obj, int AppId, string batteryStatus, int typeId, string EmpType)
         {
             DevSwachhBharatMainEntities dbMain = new DevSwachhBharatMainEntities();
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
@@ -1572,7 +1574,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 {
                     List<SyncResult> result = new List<SyncResult>();
                     var distCount = "";
-                 
+
                     if (typeId == 0)
                     {
                         foreach (var x in obj)
@@ -1581,7 +1583,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             DateTime newTime = Dateeee;
                             DateTime oldTime;
                             TimeSpan span = TimeSpan.Zero;
-                            var gcd = db.Locations.Where(c => c.userId == x.userId && c.type==null && EntityFunctions.TruncateTime(c.datetime) == EntityFunctions.TruncateTime(Dateeee)).OrderByDescending(c => c.locId).FirstOrDefault();
+                            var gcd = db.Locations.Where(c => c.userId == x.userId && c.type == null && EntityFunctions.TruncateTime(c.datetime) == EntityFunctions.TruncateTime(Dateeee)).OrderByDescending(c => c.locId).FirstOrDefault();
                             if (gcd != null)
                             {
                                 oldTime = gcd.datetime.Value;
@@ -1590,10 +1592,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                             if (gcd == null || span.Minutes >= 9)
                             {
-                            //    var IsSameRecord_Location = db.Locations.Where(c => c.userId == x.userId && c.datetime == x.datetime).FirstOrDefault();
+                                //    var IsSameRecord_Location = db.Locations.Where(c => c.userId == x.userId && c.datetime == x.datetime).FirstOrDefault();
 
-                            //if (IsSameRecord_Location == null)
-                            //{
+                                //if (IsSameRecord_Location == null)
+                                //{
                                 var u = db.UserMasters.Where(c => c.userId == x.userId);
 
                                 DateTime Offlinedate = Convert.ToDateTime(x.datetime);
@@ -1651,7 +1653,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                         distCount = dist.Distance_in_KM.ToString();
                                     }
 
-                                    if(EmpType=="N")
+                                    if (EmpType == "N")
                                     {
                                         EmpType = null;
                                     }
@@ -1667,7 +1669,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                         batteryStatus = batteryStatus,
                                         Distnace = Convert.ToDecimal(distCount),
                                         CreatedDate = DateTime.Now,
-                                        EmployeeType=EmpType,
+                                        EmployeeType = EmpType,
                                     });
                                     db.SaveChanges();
                                 }
@@ -1701,7 +1703,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             }
 
                             if (IsSameRecordQr_Location == null || span.Minutes >= 9)
-                          
+
                             {
                                 var u = db.QrEmployeeMasters.Where(c => c.qrEmpId == x.userId);
 
@@ -1736,7 +1738,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                     //objdata.gcDate = DateTime.Now;
                                     //objdata.Lat = obj.Lat;
                                     //    Location loc = new Location();
-                                    
+
                                     var locc = db.SP_UserLatLongDetail(x.userId, typeId).FirstOrDefault();
 
                                     if (locc == null || locc.lat == "" || locc.@long == "")
@@ -1886,7 +1888,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         public Result SaveUserAttendence(SBUserAttendence obj, int AppId, int type, string batteryStatus)
         {
             Result result = new Result();
-            if(obj.EmpType=="N")
+            if (obj.EmpType == "N")
             {
                 result = SaveUserAttendenceForNormal(obj, AppId, type, batteryStatus);
             }
@@ -1908,7 +1910,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             Result result = new Result();
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
             {
-                var user = db.UserMasters.Where(c => c.userId == obj.userId && c.EmployeeType==null).FirstOrDefault();
+                var user = db.UserMasters.Where(c => c.userId == obj.userId && c.EmployeeType == null).FirstOrDefault();
 
                 if (type == 0)
                 {
@@ -2660,10 +2662,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         public List<SyncResult1> SaveUserAttendenceOffline(List<SBUserAttendence> obj, int AppId, string cdate, string EmpType)
         {
-            
+
             List<SyncResult1> result = new List<SyncResult1>();
             double aaaa = distance(21.142180, 79.067540, 21.138420, 79.069210, 'k');
-          
+
             if (EmpType == "N")
             {
                 result = SaveUserAttendenceOfflineForNormal(obj, AppId, cdate, EmpType);
@@ -2676,10 +2678,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 result = SaveUserAttendenceOfflineForStreet(obj, AppId, cdate, EmpType);
             }
-          
+
             return result;
-           
-          
+
+
         }
 
         public List<SyncResult1> SaveUserAttendenceOfflineForNormal(List<SBUserAttendence> obj, int AppId, string cdate, string EmpType)
@@ -2693,11 +2695,11 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 {
 
                     DateTime Datee = Convert.ToDateTime(cdate);
-                    var IsSameRecordLocation = db.Locations.Where(c => c.userId == x.userId && c.datetime == Datee && c.type == null && c.EmployeeType ==null).FirstOrDefault();
+                    var IsSameRecordLocation = db.Locations.Where(c => c.userId == x.userId && c.datetime == Datee && c.type == null && c.EmployeeType == null).FirstOrDefault();
                     try
                     {
                         bool _IsInSync = false, _IsOutSync = false;
-                        var user = db.UserMasters.Where(c => c.userId == x.userId && c.EmployeeType==null).FirstOrDefault();
+                        var user = db.UserMasters.Where(c => c.userId == x.userId && c.EmployeeType == null).FirstOrDefault();
 
                         if (user.isActive == true)
                         {
@@ -2711,13 +2713,13 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                    c.startTime == x.startTime &&
                                    c.endTime == x.endTime &&
                                    c.daDate == EntityFunctions.TruncateTime(x.daDate) &&
-                                   c.daEndDate == EntityFunctions.TruncateTime(x.daEndDate) && c.EmployeeType ==null
+                                   c.daEndDate == EntityFunctions.TruncateTime(x.daEndDate) && c.EmployeeType == null
                                  ).FirstOrDefault();
 
                             if (IsSameRecord == null)
                             {
 
-                                var objdata = db.Daily_Attendance.Where(c => c.daDate == EntityFunctions.TruncateTime(x.daDate) && c.userId == x.userId && (c.endTime == "" || c.endTime == null) && c.EmployeeType==null).FirstOrDefault();
+                                var objdata = db.Daily_Attendance.Where(c => c.daDate == EntityFunctions.TruncateTime(x.daDate) && c.userId == x.userId && (c.endTime == "" || c.endTime == null) && c.EmployeeType == null).FirstOrDefault();
                                 if (objdata != null && x.endTime == null)
                                 {
                                     objdata.endTime = x.startTime;
@@ -2811,7 +2813,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                 }
                                 else
                                 {
-                                    var OutTime = db.Daily_Attendance.Where(a => a.userId == x.userId && a.startTime == x.startTime && a.daDate == x.daDate && a.EmployeeType==null).OrderByDescending(m => m.daID).FirstOrDefault();
+                                    var OutTime = db.Daily_Attendance.Where(a => a.userId == x.userId && a.startTime == x.startTime && a.daDate == x.daDate && a.EmployeeType == null).OrderByDescending(m => m.daID).FirstOrDefault();
 
                                     if (OutTime != null && OutTime.endTime == "11:50 PM")
                                     {
@@ -3010,8 +3012,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                     messageMar = "शिफ्ट सुरू",
                                     IsInSync = _IsInSync,
                                     IsOutSync = _IsOutSync,
-                                    EmpType="N",
-                                   
+                                    EmpType = "N",
+
                                 });
                             }
                             else
@@ -3807,7 +3809,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         //}
 
 
-        public List<SBAAttendenceSettingsGridRow> SaveAttendenceSettingsDetail(int AppId,string hour)
+        public List<SBAAttendenceSettingsGridRow> SaveAttendenceSettingsDetail(int AppId, string hour)
         {
 
 
@@ -3826,14 +3828,14 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 return datalist;
             }
 
-          
+
 
         }
 
 
         public CollectionResult SaveGarbageCollection(SBGarbageCollectionView obj, int AppId, int type, string batteryStatus)
         {
-            
+
             int locType = 0;
             string mes = string.Empty;
             CollectionResult result = new CollectionResult();
@@ -3926,7 +3928,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             name = gpdetails.gpName;
                             nameMar = checkNull(gpdetails.gpNameMar);
                             housemob = "";
-                           // housemob = house.houseOwnerMobile;
+                            // housemob = house.houseOwnerMobile;
                             addre = checkNull(gpdetails.gpAddress);
 
                             //IsExist = (from p in db.GarbageCollectionDetails where p.gpId == objdata.gpId && p.gcDate >= startDateTime && p.gcDate <= endDateTime select p).Count() > 0;
@@ -4027,11 +4029,11 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                         #endregion
                         /////////////////////////////////////////////////////////
-                       
+
 
                         //  Temperary Added
 
-                        if(house != null)
+                        if (house != null)
                         {
                             if (house.houseLat == null && house.houseLong == null)
                             {
@@ -4100,13 +4102,14 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     result.status = "success";
                     result.message = "Uploaded successfully";
                     result.messageMar = "सबमिट यशस्वी";
-                    if (appdetails.AppId == 1003 || appdetails.AppId == 1006 )
+                    if (appdetails.AppId == 1003 || appdetails.AppId == 1006)
                     {
                         result.messageMar = "सबमिट यशस्वी";
                     }
 
-                    else {
-                     //   objdata.garbageType = 0;
+                    else
+                    {
+                        //   objdata.garbageType = 0;
                         if (objdata.garbageType == 3 && objdata.houseId != null)
                         {
                             switch (appdetails.LanguageId)
@@ -4124,12 +4127,12 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                     break;
 
                                 default:
-                                    mes = "Dear Citizen Waste Pattern collected today from your house-Waste Not Specified Suggested Waste Pattern - Dry and Wet Segregated.Thank You! " + appdetails.AppName + "."; 
+                                    mes = "Dear Citizen Waste Pattern collected today from your house-Waste Not Specified Suggested Waste Pattern - Dry and Wet Segregated.Thank You! " + appdetails.AppName + ".";
                                     break;
                             }
 
 
-                           
+
 
                             if (house != null)
                             {
@@ -4191,7 +4194,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                         if (objdata.garbageType == 1)
                         {
-                            
+
                             switch (appdetails.LanguageId)
                             {
                                 case 1:
@@ -4249,7 +4252,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                     mes = "Dear Citizen Waste Pattern collected today from your house-Segregated Suggested Waste Pattern - Dry and Wet Segregated.Thank You! " + appdetails.AppName + ".";
                                     break;
                             }
-                            
+
                             if (house != null)
                             {
                                 List<String> ArrayList = DeviceDetailsFCM(obj.houseId, AppId);
@@ -4277,7 +4280,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     result.status = "error";
                     return result;
                 }
-            } 
+            }
 
 
         }
@@ -4307,54 +4310,54 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             CollectionSyncResult result = new CollectionSyncResult();
             HouseMaster dbHouse = new HouseMaster();
 
-           
+
 
             var appdetails = dbMain.AppDetails.Where(c => c.AppId == AppId).FirstOrDefault();
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
             {
                 string name = "", housemob = "", nameMar = "", addre = "";
- 
-                    var house = db.HouseMasters.Where(c => c.ReferanceId == obj.houseId).FirstOrDefault();
-                    bool IsExist = false;
-                    DateTime Dateeee = Convert.ToDateTime(obj.gcDate);
-                    DateTime startDateTime = new DateTime(Dateeee.Year, Dateeee.Month, Dateeee.Day, 00, 00, 00, 000);
-                    DateTime endDateTime = new DateTime(Dateeee.Year, Dateeee.Month, Dateeee.Day, 23, 59, 59, 999);
-                    var IsSameHouseRecord = db.GarbageCollectionDetails.Where(c => c.userId == obj.userId && c.houseId == house.houseId && c.gcDate == Dateeee).FirstOrDefault();
-                    if (IsSameHouseRecord == null)
+
+                var house = db.HouseMasters.Where(c => c.ReferanceId == obj.houseId).FirstOrDefault();
+                bool IsExist = false;
+                DateTime Dateeee = Convert.ToDateTime(obj.gcDate);
+                DateTime startDateTime = new DateTime(Dateeee.Year, Dateeee.Month, Dateeee.Day, 00, 00, 00, 000);
+                DateTime endDateTime = new DateTime(Dateeee.Year, Dateeee.Month, Dateeee.Day, 23, 59, 59, 999);
+                var IsSameHouseRecord = db.GarbageCollectionDetails.Where(c => c.userId == obj.userId && c.houseId == house.houseId && c.gcDate == Dateeee).FirstOrDefault();
+                if (IsSameHouseRecord == null)
+                {
+
+                    try
                     {
+                        GarbageCollectionDetail objdata = new GarbageCollectionDetail();
+                        objdata.userId = obj.userId;
+                        objdata.gcDate = Dateeee;
+                        objdata.Lat = obj.Lat;
+                        objdata.Long = obj.Long;
+                        //    objdata.garbageType = obj.garbageType;
+                        var atten = db.Daily_Attendance.Where(c => c.userId == obj.userId & c.daDate == EntityFunctions.TruncateTime(Dateeee)).FirstOrDefault();
 
-                        try
+                        Location loc = new Location();
+
+                        if (atten == null)
                         {
-                            GarbageCollectionDetail objdata = new GarbageCollectionDetail();
-                            objdata.userId = obj.userId;
-                            objdata.gcDate = Dateeee;
-                            objdata.Lat = obj.Lat;
-                            objdata.Long = obj.Long;
-                            //    objdata.garbageType = obj.garbageType;
-                            var atten = db.Daily_Attendance.Where(c => c.userId == obj.userId & c.daDate == EntityFunctions.TruncateTime(Dateeee)).FirstOrDefault();
-
-                            Location loc = new Location();
-
-                            if (atten == null)
+                            result.isAttendenceOff = true;
+                            result.ID = obj.OfflineID;
+                            result.message = "Your duty is currently off, please start again.. ";
+                            result.messageMar = "आपली ड्यूटी सध्या बंद आहे, कृपया पुन्हा सुरू करा..";
+                            result.status = "success";
+                            return result;
+                        }
+                        else { result.isAttendenceOff = false; }
+                        if (obj.houseId != null && obj.houseId != "")
+                        {
+                            try
                             {
-                                result.isAttendenceOff = true;
-                                result.ID = obj.OfflineID;
-                                result.message = "Your duty is currently off, please start again.. ";
-                                result.messageMar = "आपली ड्यूटी सध्या बंद आहे, कृपया पुन्हा सुरू करा..";
-                                result.status = "success";
-                                return result;
-                            }
-                            else { result.isAttendenceOff = false; }
-                            if (obj.houseId != null && obj.houseId != "")
-                            {
-                                try
-                                {
-                                    locType = 1;
-                                    objdata.houseId = house.houseId;
-                                    name = house.houseOwner;
-                                    nameMar = checkNull(house.houseOwnerMar);
-                                    addre = checkNull(house.houseAddress);
-                                    housemob = house.houseOwnerMobile;
+                                locType = 1;
+                                objdata.houseId = house.houseId;
+                                name = house.houseOwner;
+                                nameMar = checkNull(house.houseOwnerMar);
+                                addre = checkNull(house.houseAddress);
+                                housemob = house.houseOwnerMobile;
 
 
                                 IsExist = (from p in db.GarbageCollectionDetails where p.houseId == objdata.houseId && p.gcDate >= startDateTime && p.gcDate <= endDateTime select p).Count() > 0;
@@ -4368,24 +4371,24 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                 //    
                                 //    IsExist = (from p in db.GarbageCollectionDetails where p.houseId == objdata.houseId && p.WasteType=="WW" && p.gcDate >= startDateTime && p.gcDate <= endDateTime select p).Count() > 0;
                                 //}                            
-                                                       
-                            }
-                                catch (Exception ex)
-                                {
-                                    result.ID = obj.OfflineID;
-                                    result.message = "Invalid houseId"; result.messageMar = "अवैध घर आयडी";
-                                    result.status = "error";
-                                    return result;
-                                }
 
                             }
-
-
-                            if (IsExist == true)
+                            catch (Exception ex)
                             {
+                                result.ID = obj.OfflineID;
+                                result.message = "Invalid houseId"; result.messageMar = "अवैध घर आयडी";
+                                result.status = "error";
+                                return result;
+                            }
 
-                                var gcd = db.GarbageCollectionDetails.Where(c => c.houseId == house.houseId && c.userId ==obj.userId && EntityFunctions.TruncateTime(c.gcDate) == EntityFunctions.TruncateTime(Dateeee)).FirstOrDefault();
-                            if(gcd==null)
+                        }
+
+
+                        if (IsExist == true)
+                        {
+
+                            var gcd = db.GarbageCollectionDetails.Where(c => c.houseId == house.houseId && c.userId == obj.userId && EntityFunctions.TruncateTime(c.gcDate) == EntityFunctions.TruncateTime(Dateeee)).FirstOrDefault();
+                            if (gcd == null)
                             {
                                 result.ID = obj.OfflineID;
                                 result.message = "This house id already scanned."; result.messageMar = "हे घर आयडी आधीच स्कॅन केले आहे.";
@@ -4393,7 +4396,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                 return result;
                             }
                             if (gcd != null)
-                            { 
+                            {
                                 if (Dateeee > gcd.gcDate)
                                 {
                                     gcd.gcType = obj.gcType;
@@ -4410,9 +4413,9 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                     gcd.Lat = obj.Lat;
                                     gcd.Long = obj.Long;
 
-                                //gcd.Lat = house.houseLat;
-                                //gcd.Long = house.houseLong;
-                            }
+                                    //gcd.Lat = house.houseLat;
+                                    //gcd.Long = house.houseLong;
+                                }
 
 
                                 //if (AppId == 1003 || AppId == 1010)
@@ -4475,377 +4478,377 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             }
                         }
                         else
+                        {
+                            if (house != null)
                             {
-                                if (house != null)
+                                if (house.houseLat == null && house.houseLong == null)
                                 {
-                                    if (house.houseLat == null && house.houseLong == null)
-                                    {
-                                        house.houseLat = obj.Lat;
-                                        house.houseLong = obj.Long;
-                                    }
+                                    house.houseLat = obj.Lat;
+                                    house.houseLong = obj.Long;
                                 }
-
-                                objdata.gcType = obj.gcType;
-                                objdata.gpBeforImage = obj.gpBeforImage;
-                                objdata.gpAfterImage = obj.gpAfterImage;
-                                objdata.note = checkNull(obj.note);
-                                objdata.garbageType = checkIntNull(obj.garbageType.ToString());
-                                objdata.vehicleNumber = checkNull(obj.vehicleNumber);
-                                loc.Distnace = obj.Distance; // Convert.ToDecimal(distCount);
-                                objdata.batteryStatus = obj.batteryStatus;
-                                objdata.userId = obj.userId;
-
-                                //if (AppId == 1010)
-                                //{
-                                //    objdata.locAddresss = Address(objdata.Lat + "," + objdata.Long);
-                                //}
-                                //else
-                                //{
-                                //    objdata.locAddresss = addre;
-                                //}
-
-                                objdata.locAddresss = addre;
-                                objdata.CreatedDate = DateTime.Now;
-                                objdata.WasteType = obj.wastetype;
-                                db.GarbageCollectionDetails.Add(objdata);
-
-                                loc.datetime = Dateeee;
-                                loc.lat = objdata.Lat;
-                                loc.@long = objdata.Long;
-                                loc.address = objdata.locAddresss;
-                                loc.batteryStatus = obj.batteryStatus;
-                                if (objdata.locAddresss != "")
-                                { loc.area = area(loc.address); }
-                                else
-                                {
-                                    loc.area = "";
-                                }
-                                loc.userId = objdata.userId;
-                                loc.type = 1;
-                                loc.Distnace = obj.Distance;
-                                loc.IsOffline = obj.IsOffline;
-                                if (!string.IsNullOrEmpty(obj.houseId))
-                                {
-                                    loc.ReferanceID = obj.houseId;
-                                }
-                                loc.CreatedDate = DateTime.Now;
-
-                                db.Locations.Add(loc);
-                                db.SaveChanges();
-
                             }
 
-                            result.ID = obj.OfflineID;
-                            result.status = "success";
-                            result.message = "Uploaded successfully";
-                            result.messageMar = "सबमिट यशस्वी";
-                            if (appdetails.AppId == 1003 || appdetails.AppId == 1006)
-                            {
-                                result.messageMar = "सबमिट यशस्वी";
-                            }
+                            objdata.gcType = obj.gcType;
+                            objdata.gpBeforImage = obj.gpBeforImage;
+                            objdata.gpAfterImage = obj.gpAfterImage;
+                            objdata.note = checkNull(obj.note);
+                            objdata.garbageType = checkIntNull(obj.garbageType.ToString());
+                            objdata.vehicleNumber = checkNull(obj.vehicleNumber);
+                            loc.Distnace = obj.Distance; // Convert.ToDecimal(distCount);
+                            objdata.batteryStatus = obj.batteryStatus;
+                            objdata.userId = obj.userId;
 
+                            //if (AppId == 1010)
+                            //{
+                            //    objdata.locAddresss = Address(objdata.Lat + "," + objdata.Long);
+                            //}
+                            //else
+                            //{
+                            //    objdata.locAddresss = addre;
+                            //}
+
+                            objdata.locAddresss = addre;
+                            objdata.CreatedDate = DateTime.Now;
+                            objdata.WasteType = obj.wastetype;
+                            db.GarbageCollectionDetails.Add(objdata);
+
+                            loc.datetime = Dateeee;
+                            loc.lat = objdata.Lat;
+                            loc.@long = objdata.Long;
+                            loc.address = objdata.locAddresss;
+                            loc.batteryStatus = obj.batteryStatus;
+                            if (objdata.locAddresss != "")
+                            { loc.area = area(loc.address); }
                             else
                             {
-                                if (objdata.garbageType == 3 && objdata.houseId != null)
-                                {
-                                    //string mes = "Dear Citizen Waste Pattern collected today from your house-Waste Not Specified Suggested Waste Pattern - Dry and Wet Segregated.Thank You! " + appdetails.AppName + ".";
-
-                                    //string mesMar = "नमस्कार! आपल्या घरून कचरा संकलित करण्यात आलेला आहे. कृपया ओला व सुका असा वर्गीकृत केलेला कचरा सफाई कर्मचाऱ्यास सुपूर्द करून सहकार्य करावे धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
-
-                                    switch (appdetails.LanguageId)
-                                    {
-                                        //case 1:
-                                        //    mes = "Dear Citizen Waste Pattern collected today from your house-Waste Not Specified Suggested Waste Pattern - Dry and Wet Segregated.Thank You! " + appdetails.AppName + ".";
-                                        //    break;
-
-                                        //case 2:
-                                        //    mes = "नमस्कार! आपल्या घरून कचरा संकलित करण्यात आलेला आहे. कृपया ओला व सुका असा वर्गीकृत केलेला कचरा सफाई कर्मचाऱ्यास सुपूर्द करून सहकार्य करावे धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
-                                        //    break;
-
-                                        case 3:
-                                            //  mes = "नमस्कार! आपके घर से कचरा एकत्र किया जाता है। गीले और सूखे के रूप में वर्गीकृत कचरा सफाई कर्मचारियों को सौंपने में सहायता के लिए धन्यवाद। आपकी सेवा में " + appdetails.AppName_mar + " " + appdetails.yoccContact;
-                                            mes = "" + appdetails.MsgForNotSpecified + " " + appdetails.AppName_mar + " " + appdetails.yoccContact;
-                                            break;
-                                        case 4:
-                                            //  mes = "नमस्कार! आपल्या घरून कचरा संकलित करण्यात आलेला आहे. कृपया ओला व सुका असा वर्गीकृत केलेला कचरा सफाई कर्मचाऱ्यास सुपूर्द करून सहकार्य करावे धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
-                                            mes = "" + appdetails.MsgForNotSpecified + " " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
-                                            break;
-
-                                        default:
-                                            //  mes = "Dear Citizen Waste Pattern collected today from your house-Waste Not Specified Suggested Waste Pattern - Dry and Wet Segregated.Thank You! " + appdetails.AppName + ".";
-                                            mes = "" + appdetails.MsgForNotSpecified + " " + appdetails.AppName + ".";
-                                            break;
-                                    }
-
-
-                                    if (house != null)
-                                    {
-                                        List<String> ArrayList = DeviceDetailsFCM(obj.houseId, AppId);
-
-                                        if (ArrayList.Count > 0)
-                                        {
-                                            PushNotificationMessageBroadCast(mes, ArrayList, appdetails.AppName, appdetails.Android_GCM_pushNotification_Key);
-                                        }
-                                        else if (housemob != "")
-                                        {
-                                            if (appdetails.LanguageId == 4)
-                                            {
-                                                sendSMSmar(mes, housemob);
-                                            }
-                                            if (appdetails.LanguageId == 1)
-                                            {
-
-                                            }
-
-                                            else
-                                            {
-                                                if (appdetails.LanguageId != 4)
-                                                {
-                                                    sendSMS(mes, housemob);
-                                                }
-
-                                                else
-                                                {
-                                                    sendSMS(mes, housemob);
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                }
-
-                                if (objdata.garbageType == 0)
-                                {
-                                    //string mes = "Dear Citizen Waste Pattern collected today from your house- mixed Suggested Waste Pattern - Dry and Wet Segregated. Thank You! " + appdetails.AppName + ".";
-
-                                    //string mesMar = "नमस्कार! आपल्या घरातून आज ओला व सुका कचरा मिश्र स्वरूपात संकलित करण्यात आलेला आहे. आपणास विनंती आहे कि दररोज ओला व सुका कचरा विघटित करून सफाई कर्मचाऱ्यास सुपूर्द करून सहयोग करावा धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
-
-                                    switch (appdetails.LanguageId)
-                                    {
-                                        //case 1:
-                                        //    mes = "Dear Citizen Waste Pattern collected today from your house- mixed Suggested Waste Pattern - Dry and Wet Segregated. Thank You! " + appdetails.AppName + ".";
-                                        //    break;
-
-                                        //case 2:
-                                        //    mes = "नमस्कार! आपल्या घरातून आज ओला व सुका कचरा मिश्र स्वरूपात संकलित करण्यात आलेला आहे. आपणास विनंती आहे कि दररोज ओला व सुका कचरा विघटित करून सफाई कर्मचाऱ्यास सुपूर्द करून सहयोग करावा धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
-                                        //    break;
-
-                                        case 3:
-                                            //  mes = "नमस्कार! आज, हमारे घरों से मिश्रित रूप में नम और सूखा कचरा एकत्र किया गया है। आपसे अनुरोध है कि प्रतिदिन नम कचरे की सफाई और निपटान में सहायता करें और सफाई कर्मचारियों को सौंप दें। " + appdetails.yoccContact + " आपकी सेवा में " + appdetails.AppName_mar + "";
-                                            mes = "" + appdetails.MsgForMixed + " " + appdetails.yoccContact + " आपकी सेवा में " + appdetails.AppName_mar + "";
-                                            break;
-
-                                        case 4:
-                                            //  mes = "प्रिय नागरिक आपणाद्वारे आज मिश्र स्वरूपाचा कचरा देण्यात आला आहे. कृपया दररोज ओला व सुका असा वर्गीकृत कचरा देण्यात यावा.आपली सौ स्वातीताई संतोषभाऊ कोल्हे " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
-                                            mes = "" + appdetails.MsgForMixed + " " + appdetails.yoccContact + "  आपल्या सेवेशी " + appdetails.AppName_mar + "";
-                                            break;
-                                        default:
-                                            //   mes = "Dear Citizen Waste Pattern collected today from your house- mixed Suggested Waste Pattern - Dry and Wet Segregated. Thank You! " + appdetails.AppName + ".";
-                                            mes = "" + appdetails.MsgForMixed + " " + appdetails.AppName + ".";
-                                            break;
-                                    }
-
-                                    if (house != null)
-                                    {
-                                        List<String> ArrayList = DeviceDetailsFCM(obj.houseId, AppId);
-
-                                        if (ArrayList.Count > 0)
-                                        {
-                                            PushNotificationMessageBroadCast(mes, ArrayList, appdetails.AppName, appdetails.Android_GCM_pushNotification_Key);
-                                        }
-                                        else if (housemob != "")
-                                        {
-                                            if (appdetails.LanguageId == 4)
-                                            {
-                                                sendSMSmar(mes, housemob);
-                                            }
-                                            if (appdetails.LanguageId == 1)
-                                            {
-
-                                            }
-
-                                            else
-                                            {
-                                                if (appdetails.LanguageId != 4)
-                                                {
-                                                    sendSMS(mes, housemob);
-                                                }
-
-                                                else
-                                                {
-                                                    sendSMS(mes, housemob);
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                }
-
-                                if (objdata.garbageType == 1)
-                                {
-                                    //string mes = "Dear Citizen Waste Pattern collected today from your house-Segregated Suggested Waste Pattern - Dry and Wet Segregated.Thank You! " + appdetails.AppName + ".";
-
-                                    //string mesMar = "नमस्कार! आपल्या घरातून आज ओला व सुका असा विघटित केलेला कचरा संकलित करण्यात आलेला आहे. आपण केलेल्या सहयोगाबद्दल धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
-
-                                    switch (appdetails.LanguageId)
-                                    {
-                                        //case 1:
-                                        //    mes = "Dear Citizen Waste Pattern collected today from your house-Segregated Suggested Waste Pattern - Dry and Wet Segregated.Thank You! " + appdetails.AppName + ".";
-                                        //    break;
-
-                                        //case 2:
-                                        //    mes = "नमस्कार! आपल्या घरातून आज ओला व सुका असा विघटित केलेला कचरा संकलित करण्यात आलेला आहे. आपण केलेल्या सहयोगाबद्दल धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
-                                        //    break;
-
-                                        case 3:
-                                            //mes = "नमस्कार! आज, हमारे घर से कचरा एकत्र किया जाता है, जो गीला और सूखा होता है। आपके सहयोग के लिए धन्यवाद।" + appdetails.yoccContact + " आपकी सेवा में " + appdetails.AppName_mar + "";
-                                            mes = "" + appdetails.MsgForSegregated + " " + appdetails.yoccContact + " आपकी सेवा में " + appdetails.AppName_mar + "";
-                                            break;
-                                        case 4:
-                                            //  mes = "प्रिय नागरिक, आपण घंटागाडीमध्ये ओला व सुका असा वर्गीकृत कचरा दिल्याबद्दल धन्यवाद. आपली सौ स्वातीताई संतोषभाऊ कोल्हे" + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
-                                            mes = "" + appdetails.MsgForSegregated + " " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
-                                            break;
-
-                                        default:
-                                            //  mes = "Dear Citizen Waste Pattern collected today from your house-Segregated Suggested Waste Pattern - Dry and Wet Segregated.Thank You! " + appdetails.AppName + ".";
-
-                                            mes = "" + appdetails.MsgForSegregated + " " + appdetails.AppName + ".";
-                                            break;
-                                    }
-
-                                    if (house != null)
-                                    {
-                                        List<String> ArrayList = DeviceDetailsFCM(obj.houseId, AppId);
-
-                                        if (ArrayList.Count > 0)
-                                        {
-                                            PushNotificationMessageBroadCast(mes, ArrayList, appdetails.AppName, appdetails.Android_GCM_pushNotification_Key);
-                                        }
-                                        else if (housemob != "")
-                                        {
-                                            if (appdetails.LanguageId == 4)
-                                            {
-                                                sendSMSmar(mes, housemob);
-                                            }
-                                            if (appdetails.LanguageId == 1)
-                                            {
-
-                                            }
-
-                                            else
-                                            {
-                                                if (appdetails.LanguageId != 4)
-                                                {
-                                                    sendSMS(mes, housemob);
-                                                }
-
-                                                else
-                                                {
-                                                    sendSMS(mes, housemob);
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                }
-
-                                if (objdata.garbageType == 2)
-                                {
-                                    //string mes = "Dear Citizen Waste Pattern collected today from your house-Waste Not Received Suggested Waste Pattern - Dry and Wet Segregated.Thank You! " + appdetails.AppName + ".";
-
-                                    //string mesMar = "नमस्कार! आपल्या घरातून आज कोणत्याही प्रकारचा कचरा सफाई कर्मचाऱ्यास देण्यात आलेला नाही. आपणास विनंती आहे कि दररोज ओला व सुका कचरा विघटित करून सफाई कर्मचाऱ्यास सुपूर्द करून सहयोग करावा धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
-
-                                    switch (appdetails.LanguageId)
-                                    {
-                                        //case 1:
-                                        //    mes = "Dear Citizen Waste Pattern collected today from your house-Waste Not Received Suggested Waste Pattern - Dry and Wet Segregated.Thank You! " + appdetails.AppName + ".";
-                                        //    break;
-
-                                        //case 2:
-                                        //    mes = "नमस्कार! आपल्या घरातून आज कोणत्याही प्रकारचा कचरा सफाई कर्मचाऱ्यास देण्यात आलेला नाही. आपणास विनंती आहे कि दररोज ओला व सुका कचरा विघटित करून सफाई कर्मचाऱ्यास सुपूर्द करून सहयोग करावा धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
-                                        //    break;
-
-                                        case 3:
-                                            //  mes = "नमस्कार! आज आपके घर में कोई भी कचरा उपलब्ध नहीं कराया गया है। आपसे अनुरोध है कि प्रतिदिन गीला और सूखा कचरे की सफाई और निपटान में सहायता करें और सफाई कर्मचारियों को सौंप दें।" + appdetails.yoccContact + " आपकी सेवा में " + appdetails.AppName_mar + "";
-                                            mes = "" + appdetails.MsgForNotReceived + " " + appdetails.yoccContact + " आपकी सेवा में " + appdetails.AppName_mar + "";
-                                            break;
-
-                                        case 4:
-                                            //  mes = "प्रिय नागरिक आपणाद्वारे आज कचरा देण्यात आला नाही. कृपया दररोज ओला व सुका असा वर्गीकृत कचरा देण्यात यावा. आपली सौ स्वातीताई संतोषभाऊ कोल्हे" + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
-                                            mes = "" + appdetails.MsgForNotReceived + " " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
-                                            break;
-
-                                        default:
-                                            //  mes = "Dear Citizen Waste Pattern collected today from your house-Segregated Suggested Waste Pattern - Dry and Wet Segregated.Thank You! " + appdetails.AppName + ".";
-
-                                            mes = "" + appdetails.MsgForNotReceived + " " + appdetails.AppName + ".";
-                                            break;
-                                    }
-
-                                    if (house != null)
-                                    {
-                                        List<String> ArrayList = DeviceDetailsFCM(obj.houseId, AppId);
-
-                                        if (ArrayList.Count > 0)
-                                        {
-                                            PushNotificationMessageBroadCast(mes, ArrayList, appdetails.AppName, appdetails.Android_GCM_pushNotification_Key);
-                                        }
-                                        else if (housemob != "")
-                                        {
-                                           
-                                            if (appdetails.LanguageId == 4)
-                                            {
-                                                sendSMSmar(mes, housemob);
-                                            }
-                                            if (appdetails.LanguageId == 1)
-                                            {
-
-                                            }
-
-                                            else
-                                            {
-                                                if (appdetails.LanguageId != 4)
-                                                {
-                                                    sendSMS(mes, housemob);
-                                                }
-
-                                                else
-                                                {
-                                                    sendSMS(mes, housemob);
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                }
+                                loc.area = "";
                             }
-                            return result;
+                            loc.userId = objdata.userId;
+                            loc.type = 1;
+                            loc.Distnace = obj.Distance;
+                            loc.IsOffline = obj.IsOffline;
+                            if (!string.IsNullOrEmpty(obj.houseId))
+                            {
+                                loc.ReferanceID = obj.houseId;
+                            }
+                            loc.CreatedDate = DateTime.Now;
+
+                            db.Locations.Add(loc);
+                            db.SaveChanges();
+
                         }
 
-                        catch (Exception ex)
-                        {
-                            result.ID = obj.OfflineID;
-                            result.message = "Something is wrong,Try Again.. ";
-                            result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
-                            result.status = "error";
-                            return result;
-                        }
-
-                    }
-
-                    else
-                    {
                         result.ID = obj.OfflineID;
                         result.status = "success";
                         result.message = "Uploaded successfully";
                         result.messageMar = "सबमिट यशस्वी";
+                        if (appdetails.AppId == 1003 || appdetails.AppId == 1006)
+                        {
+                            result.messageMar = "सबमिट यशस्वी";
+                        }
+
+                        else
+                        {
+                            if (objdata.garbageType == 3 && objdata.houseId != null)
+                            {
+                                //string mes = "Dear Citizen Waste Pattern collected today from your house-Waste Not Specified Suggested Waste Pattern - Dry and Wet Segregated.Thank You! " + appdetails.AppName + ".";
+
+                                //string mesMar = "नमस्कार! आपल्या घरून कचरा संकलित करण्यात आलेला आहे. कृपया ओला व सुका असा वर्गीकृत केलेला कचरा सफाई कर्मचाऱ्यास सुपूर्द करून सहकार्य करावे धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
+
+                                switch (appdetails.LanguageId)
+                                {
+                                    //case 1:
+                                    //    mes = "Dear Citizen Waste Pattern collected today from your house-Waste Not Specified Suggested Waste Pattern - Dry and Wet Segregated.Thank You! " + appdetails.AppName + ".";
+                                    //    break;
+
+                                    //case 2:
+                                    //    mes = "नमस्कार! आपल्या घरून कचरा संकलित करण्यात आलेला आहे. कृपया ओला व सुका असा वर्गीकृत केलेला कचरा सफाई कर्मचाऱ्यास सुपूर्द करून सहकार्य करावे धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
+                                    //    break;
+
+                                    case 3:
+                                        //  mes = "नमस्कार! आपके घर से कचरा एकत्र किया जाता है। गीले और सूखे के रूप में वर्गीकृत कचरा सफाई कर्मचारियों को सौंपने में सहायता के लिए धन्यवाद। आपकी सेवा में " + appdetails.AppName_mar + " " + appdetails.yoccContact;
+                                        mes = "" + appdetails.MsgForNotSpecified + " " + appdetails.AppName_mar + " " + appdetails.yoccContact;
+                                        break;
+                                    case 4:
+                                        //  mes = "नमस्कार! आपल्या घरून कचरा संकलित करण्यात आलेला आहे. कृपया ओला व सुका असा वर्गीकृत केलेला कचरा सफाई कर्मचाऱ्यास सुपूर्द करून सहकार्य करावे धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
+                                        mes = "" + appdetails.MsgForNotSpecified + " " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
+                                        break;
+
+                                    default:
+                                        //  mes = "Dear Citizen Waste Pattern collected today from your house-Waste Not Specified Suggested Waste Pattern - Dry and Wet Segregated.Thank You! " + appdetails.AppName + ".";
+                                        mes = "" + appdetails.MsgForNotSpecified + " " + appdetails.AppName + ".";
+                                        break;
+                                }
+
+
+                                if (house != null)
+                                {
+                                    List<String> ArrayList = DeviceDetailsFCM(obj.houseId, AppId);
+
+                                    if (ArrayList.Count > 0)
+                                    {
+                                        PushNotificationMessageBroadCast(mes, ArrayList, appdetails.AppName, appdetails.Android_GCM_pushNotification_Key);
+                                    }
+                                    else if (housemob != "")
+                                    {
+                                        if (appdetails.LanguageId == 4)
+                                        {
+                                            sendSMSmar(mes, housemob);
+                                        }
+                                        if (appdetails.LanguageId == 1)
+                                        {
+
+                                        }
+
+                                        else
+                                        {
+                                            if (appdetails.LanguageId != 4)
+                                            {
+                                                sendSMS(mes, housemob);
+                                            }
+
+                                            else
+                                            {
+                                                sendSMS(mes, housemob);
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+
+                            if (objdata.garbageType == 0)
+                            {
+                                //string mes = "Dear Citizen Waste Pattern collected today from your house- mixed Suggested Waste Pattern - Dry and Wet Segregated. Thank You! " + appdetails.AppName + ".";
+
+                                //string mesMar = "नमस्कार! आपल्या घरातून आज ओला व सुका कचरा मिश्र स्वरूपात संकलित करण्यात आलेला आहे. आपणास विनंती आहे कि दररोज ओला व सुका कचरा विघटित करून सफाई कर्मचाऱ्यास सुपूर्द करून सहयोग करावा धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
+
+                                switch (appdetails.LanguageId)
+                                {
+                                    //case 1:
+                                    //    mes = "Dear Citizen Waste Pattern collected today from your house- mixed Suggested Waste Pattern - Dry and Wet Segregated. Thank You! " + appdetails.AppName + ".";
+                                    //    break;
+
+                                    //case 2:
+                                    //    mes = "नमस्कार! आपल्या घरातून आज ओला व सुका कचरा मिश्र स्वरूपात संकलित करण्यात आलेला आहे. आपणास विनंती आहे कि दररोज ओला व सुका कचरा विघटित करून सफाई कर्मचाऱ्यास सुपूर्द करून सहयोग करावा धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
+                                    //    break;
+
+                                    case 3:
+                                        //  mes = "नमस्कार! आज, हमारे घरों से मिश्रित रूप में नम और सूखा कचरा एकत्र किया गया है। आपसे अनुरोध है कि प्रतिदिन नम कचरे की सफाई और निपटान में सहायता करें और सफाई कर्मचारियों को सौंप दें। " + appdetails.yoccContact + " आपकी सेवा में " + appdetails.AppName_mar + "";
+                                        mes = "" + appdetails.MsgForMixed + " " + appdetails.yoccContact + " आपकी सेवा में " + appdetails.AppName_mar + "";
+                                        break;
+
+                                    case 4:
+                                        //  mes = "प्रिय नागरिक आपणाद्वारे आज मिश्र स्वरूपाचा कचरा देण्यात आला आहे. कृपया दररोज ओला व सुका असा वर्गीकृत कचरा देण्यात यावा.आपली सौ स्वातीताई संतोषभाऊ कोल्हे " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
+                                        mes = "" + appdetails.MsgForMixed + " " + appdetails.yoccContact + "  आपल्या सेवेशी " + appdetails.AppName_mar + "";
+                                        break;
+                                    default:
+                                        //   mes = "Dear Citizen Waste Pattern collected today from your house- mixed Suggested Waste Pattern - Dry and Wet Segregated. Thank You! " + appdetails.AppName + ".";
+                                        mes = "" + appdetails.MsgForMixed + " " + appdetails.AppName + ".";
+                                        break;
+                                }
+
+                                if (house != null)
+                                {
+                                    List<String> ArrayList = DeviceDetailsFCM(obj.houseId, AppId);
+
+                                    if (ArrayList.Count > 0)
+                                    {
+                                        PushNotificationMessageBroadCast(mes, ArrayList, appdetails.AppName, appdetails.Android_GCM_pushNotification_Key);
+                                    }
+                                    else if (housemob != "")
+                                    {
+                                        if (appdetails.LanguageId == 4)
+                                        {
+                                            sendSMSmar(mes, housemob);
+                                        }
+                                        if (appdetails.LanguageId == 1)
+                                        {
+
+                                        }
+
+                                        else
+                                        {
+                                            if (appdetails.LanguageId != 4)
+                                            {
+                                                sendSMS(mes, housemob);
+                                            }
+
+                                            else
+                                            {
+                                                sendSMS(mes, housemob);
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+
+                            if (objdata.garbageType == 1)
+                            {
+                                //string mes = "Dear Citizen Waste Pattern collected today from your house-Segregated Suggested Waste Pattern - Dry and Wet Segregated.Thank You! " + appdetails.AppName + ".";
+
+                                //string mesMar = "नमस्कार! आपल्या घरातून आज ओला व सुका असा विघटित केलेला कचरा संकलित करण्यात आलेला आहे. आपण केलेल्या सहयोगाबद्दल धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
+
+                                switch (appdetails.LanguageId)
+                                {
+                                    //case 1:
+                                    //    mes = "Dear Citizen Waste Pattern collected today from your house-Segregated Suggested Waste Pattern - Dry and Wet Segregated.Thank You! " + appdetails.AppName + ".";
+                                    //    break;
+
+                                    //case 2:
+                                    //    mes = "नमस्कार! आपल्या घरातून आज ओला व सुका असा विघटित केलेला कचरा संकलित करण्यात आलेला आहे. आपण केलेल्या सहयोगाबद्दल धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
+                                    //    break;
+
+                                    case 3:
+                                        //mes = "नमस्कार! आज, हमारे घर से कचरा एकत्र किया जाता है, जो गीला और सूखा होता है। आपके सहयोग के लिए धन्यवाद।" + appdetails.yoccContact + " आपकी सेवा में " + appdetails.AppName_mar + "";
+                                        mes = "" + appdetails.MsgForSegregated + " " + appdetails.yoccContact + " आपकी सेवा में " + appdetails.AppName_mar + "";
+                                        break;
+                                    case 4:
+                                        //  mes = "प्रिय नागरिक, आपण घंटागाडीमध्ये ओला व सुका असा वर्गीकृत कचरा दिल्याबद्दल धन्यवाद. आपली सौ स्वातीताई संतोषभाऊ कोल्हे" + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
+                                        mes = "" + appdetails.MsgForSegregated + " " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
+                                        break;
+
+                                    default:
+                                        //  mes = "Dear Citizen Waste Pattern collected today from your house-Segregated Suggested Waste Pattern - Dry and Wet Segregated.Thank You! " + appdetails.AppName + ".";
+
+                                        mes = "" + appdetails.MsgForSegregated + " " + appdetails.AppName + ".";
+                                        break;
+                                }
+
+                                if (house != null)
+                                {
+                                    List<String> ArrayList = DeviceDetailsFCM(obj.houseId, AppId);
+
+                                    if (ArrayList.Count > 0)
+                                    {
+                                        PushNotificationMessageBroadCast(mes, ArrayList, appdetails.AppName, appdetails.Android_GCM_pushNotification_Key);
+                                    }
+                                    else if (housemob != "")
+                                    {
+                                        if (appdetails.LanguageId == 4)
+                                        {
+                                            sendSMSmar(mes, housemob);
+                                        }
+                                        if (appdetails.LanguageId == 1)
+                                        {
+
+                                        }
+
+                                        else
+                                        {
+                                            if (appdetails.LanguageId != 4)
+                                            {
+                                                sendSMS(mes, housemob);
+                                            }
+
+                                            else
+                                            {
+                                                sendSMS(mes, housemob);
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+
+                            if (objdata.garbageType == 2)
+                            {
+                                //string mes = "Dear Citizen Waste Pattern collected today from your house-Waste Not Received Suggested Waste Pattern - Dry and Wet Segregated.Thank You! " + appdetails.AppName + ".";
+
+                                //string mesMar = "नमस्कार! आपल्या घरातून आज कोणत्याही प्रकारचा कचरा सफाई कर्मचाऱ्यास देण्यात आलेला नाही. आपणास विनंती आहे कि दररोज ओला व सुका कचरा विघटित करून सफाई कर्मचाऱ्यास सुपूर्द करून सहयोग करावा धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
+
+                                switch (appdetails.LanguageId)
+                                {
+                                    //case 1:
+                                    //    mes = "Dear Citizen Waste Pattern collected today from your house-Waste Not Received Suggested Waste Pattern - Dry and Wet Segregated.Thank You! " + appdetails.AppName + ".";
+                                    //    break;
+
+                                    //case 2:
+                                    //    mes = "नमस्कार! आपल्या घरातून आज कोणत्याही प्रकारचा कचरा सफाई कर्मचाऱ्यास देण्यात आलेला नाही. आपणास विनंती आहे कि दररोज ओला व सुका कचरा विघटित करून सफाई कर्मचाऱ्यास सुपूर्द करून सहयोग करावा धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
+                                    //    break;
+
+                                    case 3:
+                                        //  mes = "नमस्कार! आज आपके घर में कोई भी कचरा उपलब्ध नहीं कराया गया है। आपसे अनुरोध है कि प्रतिदिन गीला और सूखा कचरे की सफाई और निपटान में सहायता करें और सफाई कर्मचारियों को सौंप दें।" + appdetails.yoccContact + " आपकी सेवा में " + appdetails.AppName_mar + "";
+                                        mes = "" + appdetails.MsgForNotReceived + " " + appdetails.yoccContact + " आपकी सेवा में " + appdetails.AppName_mar + "";
+                                        break;
+
+                                    case 4:
+                                        //  mes = "प्रिय नागरिक आपणाद्वारे आज कचरा देण्यात आला नाही. कृपया दररोज ओला व सुका असा वर्गीकृत कचरा देण्यात यावा. आपली सौ स्वातीताई संतोषभाऊ कोल्हे" + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
+                                        mes = "" + appdetails.MsgForNotReceived + " " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
+                                        break;
+
+                                    default:
+                                        //  mes = "Dear Citizen Waste Pattern collected today from your house-Segregated Suggested Waste Pattern - Dry and Wet Segregated.Thank You! " + appdetails.AppName + ".";
+
+                                        mes = "" + appdetails.MsgForNotReceived + " " + appdetails.AppName + ".";
+                                        break;
+                                }
+
+                                if (house != null)
+                                {
+                                    List<String> ArrayList = DeviceDetailsFCM(obj.houseId, AppId);
+
+                                    if (ArrayList.Count > 0)
+                                    {
+                                        PushNotificationMessageBroadCast(mes, ArrayList, appdetails.AppName, appdetails.Android_GCM_pushNotification_Key);
+                                    }
+                                    else if (housemob != "")
+                                    {
+
+                                        if (appdetails.LanguageId == 4)
+                                        {
+                                            sendSMSmar(mes, housemob);
+                                        }
+                                        if (appdetails.LanguageId == 1)
+                                        {
+
+                                        }
+
+                                        else
+                                        {
+                                            if (appdetails.LanguageId != 4)
+                                            {
+                                                sendSMS(mes, housemob);
+                                            }
+
+                                            else
+                                            {
+                                                sendSMS(mes, housemob);
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
                         return result;
                     }
+
+                    catch (Exception ex)
+                    {
+                        result.ID = obj.OfflineID;
+                        result.message = "Something is wrong,Try Again.. ";
+                        result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                        result.status = "error";
+                        return result;
+                    }
+
                 }
+
+                else
+                {
+                    result.ID = obj.OfflineID;
+                    result.status = "success";
+                    result.message = "Uploaded successfully";
+                    result.messageMar = "सबमिट यशस्वी";
+                    return result;
+                }
+            }
         }
 
 
-        
+
 
         private CollectionSyncResult SavePointCollectionSync(SBGarbageCollectionView obj, int AppId, int type)
         {
@@ -4868,7 +4871,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     objdata.gcDate = Convert.ToDateTime(obj.gcDate);
                     objdata.Lat = obj.Lat;
                     objdata.Long = obj.Long;
-                   
+
                     //var atten = db.Daily_Attendance.Where(c => c.userId == obj.userId & c.endTime == "" & c.daDate == EntityFunctions.TruncateTime(Dateeee)).FirstOrDefault();
 
                     var atten = db.Daily_Attendance.Where(c => c.userId == obj.userId & c.daDate == EntityFunctions.TruncateTime(Dateeee)).FirstOrDefault();
@@ -4978,7 +4981,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         loc.Distnace = obj.Distance; //Convert.ToDecimal(distCount);
                         //loc.IsOffline = obj.IsOffline;
                         loc.ReferanceID = obj.gpId;
-                        loc.CreatedDate = DateTime.Now ;
+                        loc.CreatedDate = DateTime.Now;
                         db.Locations.Add(loc);
                         db.SaveChanges();
 
@@ -5045,7 +5048,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         loc.lat = objdata.Lat;
                         loc.@long = objdata.Long;
                         loc.address = objdata.locAddresss;
-                        loc.batteryStatus = obj.batteryStatus; 
+                        loc.batteryStatus = obj.batteryStatus;
                         if (objdata.locAddresss != "")
                         { loc.area = area(loc.address); }
                         else
@@ -5985,7 +5988,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                         //var atten = db.Daily_Attendance.Where(c => c.userId == obj.userId & c.endTime == "" & c.daDate == EntityFunctions.TruncateTime(Dateeee)).FirstOrDefault();
 
-                        var atten = db.Daily_Attendance.Where(c => c.userId == obj.userId & c.daDate == EntityFunctions.TruncateTime(Dateeee) & c.EmployeeType=="L").FirstOrDefault();
+                        var atten = db.Daily_Attendance.Where(c => c.userId == obj.userId & c.daDate == EntityFunctions.TruncateTime(Dateeee) & c.EmployeeType == "L").FirstOrDefault();
 
                         if (atten == null)
                         {
@@ -6099,7 +6102,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         gcd.gcDate = Dateeee;
                         gcd.Lat = obj.Lat;
                         gcd.Long = obj.Long;
-                        var atten = db.Daily_Attendance.Where(c => c.userId == obj.userId & c.daDate == EntityFunctions.TruncateTime(Dateeee) & c.EmployeeType=="L").FirstOrDefault();
+                        var atten = db.Daily_Attendance.Where(c => c.userId == obj.userId & c.daDate == EntityFunctions.TruncateTime(Dateeee) & c.EmployeeType == "L").FirstOrDefault();
 
                         if (atten == null)
                         {
@@ -6526,11 +6529,11 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                     if (typeId == 0 || typeId == 2)
                     {
-                      
+
                         DateTime newTime = Dateeee;
                         DateTime oldTime;
                         TimeSpan span = TimeSpan.Zero;
-                        var gcd = db.Locations.Where(c => c.userId == obj.userId && c.type==null && EntityFunctions.TruncateTime(c.datetime) == EntityFunctions.TruncateTime(Dateeee)).OrderByDescending(c => c.locId).FirstOrDefault();
+                        var gcd = db.Locations.Where(c => c.userId == obj.userId && c.type == null && EntityFunctions.TruncateTime(c.datetime) == EntityFunctions.TruncateTime(Dateeee)).OrderByDescending(c => c.locId).FirstOrDefault();
                         if (gcd != null)
                         {
                             oldTime = gcd.datetime.Value;
@@ -6538,7 +6541,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         }
 
                         if (gcd == null || span.Minutes >= 9)
-                          //  var IsSameRecordLocation = db.Locations.Where(c => c.userId == obj.userId && c.datetime == Dateeee).FirstOrDefault();
+                        //  var IsSameRecordLocation = db.Locations.Where(c => c.userId == obj.userId && c.datetime == Dateeee).FirstOrDefault();
 
                         //if (IsSameRecordLocation == null)
                         {
@@ -6584,13 +6587,13 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                 db.SaveChanges();
                             }
                         }
-                            result.ID = Convert.ToInt32(obj.OfflineID);
-                            result.status = "success";
-                            result.message = "Uploaded successfully";
-                            result.messageMar = "सबमिट यशस्वी";
-                            return result;
-                        
-                        
+                        result.ID = Convert.ToInt32(obj.OfflineID);
+                        result.status = "success";
+                        result.message = "Uploaded successfully";
+                        result.messageMar = "सबमिट यशस्वी";
+                        return result;
+
+
                     }
 
 
@@ -6610,7 +6613,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                         //    var IsSameRecordQr_Location = db.Locations.Where(c => c.userId == obj.userId && c.datetime == Dateeee).FirstOrDefault();
 
-                     //   if (IsSameRecordQr_Location == null)
+                        //   if (IsSameRecordQr_Location == null)
                         {
                             var u = db.QrEmployeeMasters.Where(c => c.qrEmpId == obj.userId);
 
@@ -6654,16 +6657,16 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             }
                         }
                         result.ID = Convert.ToInt32(obj.OfflineID);
-                            result.status = "success";
-                            result.message = "Uploaded successfully";
-                            result.messageMar = "सबमिट यशस्वी";
-                        
+                        result.status = "success";
+                        result.message = "Uploaded successfully";
+                        result.messageMar = "सबमिट यशस्वी";
+
                     }
                     return result;
                 }
                 catch
                 {
-                    
+
                     CollectionSyncResult result = new CollectionSyncResult();
                     result.ID = 0;
                     result.status = "error";
@@ -6689,7 +6692,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             string HouseLong = House_Long.Substring(0, 5);
             var house = db.HouseMasters.Where(c => c.ReferanceId == obj.houseId && c.houseLat.Contains(HouseLat) && c.houseLong.Contains(HouseLong)).FirstOrDefault();
 
-            if (obj.IsLocation == false && house!=null && appdetails.IsScanNear==true)
+            if (obj.IsLocation == false && house != null && appdetails.IsScanNear == true)
             {
                 switch (obj.gcType)
                 {
@@ -6700,9 +6703,9 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         result = SavePointCollectionSync(obj, AppId, type);
                         break;
                     case 3:
-                        if(obj.EmpType=="N")
-                        { 
-                        result = SaveDumpCollectionSyncForNormal(obj, AppId, type);
+                        if (obj.EmpType == "N")
+                        {
+                            result = SaveDumpCollectionSyncForNormal(obj, AppId, type);
                         }
                         if (obj.EmpType == "L")
                         {
@@ -6724,7 +6727,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 }
             }
 
-         else  if (obj.IsLocation == false && appdetails.IsScanNear == null)
+            else if (obj.IsLocation == false && appdetails.IsScanNear == null)
             {
                 switch (obj.gcType)
                 {
@@ -6762,13 +6765,13 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 result = SaveUserLocationOfflineSync(obj, AppId, type);
             }
-        if(obj.IsLocation == false && house == null && appdetails.IsScanNear == true)
+            if (obj.IsLocation == false && house == null && appdetails.IsScanNear == true)
             {
                 result.message = "You Are Not In Nearby.";
                 result.messageMar = "आपण जवळपास नाही.";
             }
-          
-            if(obj.IsLocation == false && obj.EmpType=="N" && result.status== "success")
+
+            if (obj.IsLocation == false && obj.EmpType == "N" && result.status == "success")
             {
                 appdetails.Today_Waste_Status = true;
             }
@@ -6785,361 +6788,361 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             return result;
         }
 
-   // }
-//}
+        // }
+        //}
 
 
-//private CollectionSyncResult SaveGarbageCollectionHouse(SBGarbageCollectionView obj, int AppId, int type, string batteryStatus)
-//{
-//    int locType = 0;
-//    CollectionSyncResult result = new CollectionSyncResult();
-//    HouseMaster dbHouse = new HouseMaster();
+        //private CollectionSyncResult SaveGarbageCollectionHouse(SBGarbageCollectionView obj, int AppId, int type, string batteryStatus)
+        //{
+        //    int locType = 0;
+        //    CollectionSyncResult result = new CollectionSyncResult();
+        //    HouseMaster dbHouse = new HouseMaster();
 
-//    var appdetails = dbMain.AppDetails.Where(c => c.AppId == AppId).FirstOrDefault();
-//    using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
-//    {
-//        string name = "", housemob = "", nameMar = "", addre = "";
+        //    var appdetails = dbMain.AppDetails.Where(c => c.AppId == AppId).FirstOrDefault();
+        //    using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
+        //    {
+        //        string name = "", housemob = "", nameMar = "", addre = "";
 
-//        var house = db.HouseMasters.Where(c => c.ReferanceId == obj.houseId).FirstOrDefault();
-//        bool IsExist = false;
-//        DateTime startDateTime = DateTime.Today; //Today at 00:00:00
-//        DateTime endDateTime = DateTime.Today.AddDays(1).AddTicks(-1); //Today at 23:59:59
-//        var distCount = "";
-//        try
-//        {
-//            GarbageCollectionDetail objdata = new GarbageCollectionDetail();
-//            objdata.userId = obj.userId;
-//            objdata.gcDate = DateTime.Now;
-//            objdata.Lat = obj.Lat;
-//            objdata.Long = obj.Long;
-//            var atten = db.Daily_Attendance.Where(c => c.userId == obj.userId & c.endTime == "" & c.daDate == EntityFunctions.TruncateTime(DateTime.Now)).FirstOrDefault();
+        //        var house = db.HouseMasters.Where(c => c.ReferanceId == obj.houseId).FirstOrDefault();
+        //        bool IsExist = false;
+        //        DateTime startDateTime = DateTime.Today; //Today at 00:00:00
+        //        DateTime endDateTime = DateTime.Today.AddDays(1).AddTicks(-1); //Today at 23:59:59
+        //        var distCount = "";
+        //        try
+        //        {
+        //            GarbageCollectionDetail objdata = new GarbageCollectionDetail();
+        //            objdata.userId = obj.userId;
+        //            objdata.gcDate = DateTime.Now;
+        //            objdata.Lat = obj.Lat;
+        //            objdata.Long = obj.Long;
+        //            var atten = db.Daily_Attendance.Where(c => c.userId == obj.userId & c.endTime == "" & c.daDate == EntityFunctions.TruncateTime(DateTime.Now)).FirstOrDefault();
 
-//            Location loc = new Location();
-//            var locc = db.SP_UserLatLongDetail(objdata.userId, 0).FirstOrDefault();
+        //            Location loc = new Location();
+        //            var locc = db.SP_UserLatLongDetail(objdata.userId, 0).FirstOrDefault();
 
-//            if (locc == null || locc.lat == "" || locc.@long == "")
-//            {
-//                string a = objdata.Lat;
-//                string b = objdata.Long;
+        //            if (locc == null || locc.lat == "" || locc.@long == "")
+        //            {
+        //                string a = objdata.Lat;
+        //                string b = objdata.Long;
 
-//                //string a = loc.lat;
-//                //string b = loc.@long;
+        //                //string a = loc.lat;
+        //                //string b = loc.@long;
 
-//                var dist = db.SP_DistanceCount(Convert.ToDouble(a), Convert.ToDouble(b), Convert.ToDouble(objdata.Lat), Convert.ToDouble(objdata.Long)).FirstOrDefault();
-//                distCount = dist.Distance_in_KM.ToString();
-//            }
-//            else
-//            {
+        //                var dist = db.SP_DistanceCount(Convert.ToDouble(a), Convert.ToDouble(b), Convert.ToDouble(objdata.Lat), Convert.ToDouble(objdata.Long)).FirstOrDefault();
+        //                distCount = dist.Distance_in_KM.ToString();
+        //            }
+        //            else
+        //            {
 
-//                var dist = db.SP_DistanceCount(Convert.ToDouble(locc.lat), Convert.ToDouble(locc.@long), Convert.ToDouble(objdata.Lat), Convert.ToDouble(objdata.Long)).FirstOrDefault();
-//                distCount = dist.Distance_in_KM.ToString();
-//            }
-
-
-//            if (atten == null)
-//            {
-//                result.isAttendenceOff = true;
-//                result.message = "Your duty is currently off, please start again.. ";
-//                result.messageMar = "आपली ड्यूटी सध्या बंद आहे, कृपया पुन्हा सुरू करा..";
-//                result.name = "";
-//                result.status = "success";
-//                return result;
-//            }
-//            else { result.isAttendenceOff = false; }
-//            if (obj.houseId != null && obj.houseId != "")
-//            {
-//                try
-//                {
-//                    locType = 1;
-//                    //var house = db.HouseMasters.Where(c => c.ReferanceId == obj.houseId).FirstOrDefault();
-//                    objdata.houseId = house.houseId;
-//                    // objdata.gpId = 0;
-//                    name = house.houseOwner;
-//                    nameMar = checkNull(house.houseOwnerMar);
-//                    addre = checkNull(house.houseAddress);
-//                    housemob = house.houseOwnerMobile;
-
-//                    IsExist = (from p in db.GarbageCollectionDetails where p.houseId == objdata.houseId && p.gcDate >= startDateTime && p.gcDate <= endDateTime select p).Count() > 0;
-
-//                }
-//                catch (Exception ex)
-//                {
-//                    result.message = "Invalid houseId"; result.messageMar = "अवैध घर आयडी"; result.name = "";
-//                    result.status = "error";
-//                    return result;
-//                }
-
-//            }
-//            if (obj.gpId != null && obj.gpId != "")
-//            {
-//                try
-//                {
-//                    locType = 2;
-//                    var gpdetails = db.GarbagePointDetails.Where(c => c.ReferanceId == obj.gpId).FirstOrDefault();
-//                    objdata.gpId = gpdetails.gpId;
-//                    // objdata.houseId = 0;
-//                    name = gpdetails.gpName;
-//                    nameMar = checkNull(gpdetails.gpNameMar);
-//                    housemob = "";
-//                    addre = checkNull(gpdetails.gpAddress);
-
-//                    //IsExist = (from p in db.GarbageCollectionDetails where p.gpId == objdata.gpId && p.gcDate >= startDateTime && p.gcDate <= endDateTime select p).Count() > 0;
-//                }
-//                catch
-//                {
-//                    result.message = "Invalid gpId"; result.messageMar = "अवैध जीपी आयडी"; result.name = "";
-//                    result.status = "error";
-//                    return result;
-//                }
-
-//            }
+        //                var dist = db.SP_DistanceCount(Convert.ToDouble(locc.lat), Convert.ToDouble(locc.@long), Convert.ToDouble(objdata.Lat), Convert.ToDouble(objdata.Long)).FirstOrDefault();
+        //                distCount = dist.Distance_in_KM.ToString();
+        //            }
 
 
-//            if (IsExist == true)
-//            {
-//                ///////////////Temperary Added By Nishikant on dated 12-06-2019 ////////////
-//                //#region Temperary Added
-//                var dbLocalHouse = db.HouseMasters.Where(c => c.houseId == house.houseId).FirstOrDefault();
-//                if (dbLocalHouse.houseLong == null && dbLocalHouse.houseLong == null)
-//                {
-//                    dbLocalHouse.houseLat = obj.Lat;
-//                    dbLocalHouse.houseLong = obj.Long;
-//                }
-//                //#endregion
-//                /////////////////////////////////////////////////////////
+        //            if (atten == null)
+        //            {
+        //                result.isAttendenceOff = true;
+        //                result.message = "Your duty is currently off, please start again.. ";
+        //                result.messageMar = "आपली ड्यूटी सध्या बंद आहे, कृपया पुन्हा सुरू करा..";
+        //                result.name = "";
+        //                result.status = "success";
+        //                return result;
+        //            }
+        //            else { result.isAttendenceOff = false; }
+        //            if (obj.houseId != null && obj.houseId != "")
+        //            {
+        //                try
+        //                {
+        //                    locType = 1;
+        //                    //var house = db.HouseMasters.Where(c => c.ReferanceId == obj.houseId).FirstOrDefault();
+        //                    objdata.houseId = house.houseId;
+        //                    // objdata.gpId = 0;
+        //                    name = house.houseOwner;
+        //                    nameMar = checkNull(house.houseOwnerMar);
+        //                    addre = checkNull(house.houseAddress);
+        //                    housemob = house.houseOwnerMobile;
 
-//                var gcd = db.GarbageCollectionDetails.Where(c => c.houseId == house.houseId && EntityFunctions.TruncateTime(c.gcDate) == EntityFunctions.TruncateTime(DateTime.Now)).FirstOrDefault();
-//                gcd.gcType = obj.gcType;
-//                gcd.gpBeforImage = obj.gpBeforImage;
-//                gcd.gpAfterImage = obj.gpAfterImage;
-//                gcd.note = checkNull(obj.note);
-//                gcd.garbageType = checkIntNull(obj.garbageType.ToString());
-//                objdata.garbageType = checkIntNull(obj.garbageType.ToString());
-//                gcd.vehicleNumber = checkNull(obj.vehicleNumber);
-//                loc.Distnace = Convert.ToDecimal(distCount);
-//                gcd.batteryStatus = batteryStatus;
-//                gcd.userId = obj.userId;
-//                gcd.gcDate = DateTime.Now;
-//                gcd.Lat = obj.Lat;
-//                gcd.Long = obj.Long;
+        //                    IsExist = (from p in db.GarbageCollectionDetails where p.houseId == objdata.houseId && p.gcDate >= startDateTime && p.gcDate <= endDateTime select p).Count() > 0;
 
-//                if (AppId == 1003 || AppId == 1010)
-//                {
-//                    objdata.locAddresss = Address(objdata.Lat + "," + objdata.Long);
-//                }
-//                else
-//                {
-//                    objdata.locAddresss = addre;
-//                }
-//                //db.Entry(gcd).State = System.Data.Entity.EntityState.Modified;
-//                //db.SaveChanges();
+        //                }
+        //                catch (Exception ex)
+        //                {
+        //                    result.message = "Invalid houseId"; result.messageMar = "अवैध घर आयडी"; result.name = "";
+        //                    result.status = "error";
+        //                    return result;
+        //                }
 
-//                //db.GarbageCollectionDetails.Add(objdata);
+        //            }
+        //            if (obj.gpId != null && obj.gpId != "")
+        //            {
+        //                try
+        //                {
+        //                    locType = 2;
+        //                    var gpdetails = db.GarbagePointDetails.Where(c => c.ReferanceId == obj.gpId).FirstOrDefault();
+        //                    objdata.gpId = gpdetails.gpId;
+        //                    // objdata.houseId = 0;
+        //                    name = gpdetails.gpName;
+        //                    nameMar = checkNull(gpdetails.gpNameMar);
+        //                    housemob = "";
+        //                    addre = checkNull(gpdetails.gpAddress);
 
-//                // Location loc = new Location();
-//                loc.datetime = DateTime.Now;
-//                loc.lat = objdata.Lat;
-//                loc.@long = objdata.Long;
-//                loc.address = objdata.locAddresss; //Address(objdata.Lat + "," + objdata.Long);
-//                loc.batteryStatus = batteryStatus;
-//                if (objdata.locAddresss != "")
-//                { loc.area = area(loc.address); }
-//                else
-//                {
-//                    loc.area = "";
-//                }
-//                loc.userId = objdata.userId;
-//                loc.type = 1;
-//                db.Locations.Add(loc);
-//                // db.Entry(objdata).State = System.Data.Entity.EntityState.Modified;
-//                db.SaveChanges();
-//                result.name = name;
-//                result.nameMar = nameMar;
-//                result.mobile = housemob;
-//            }
-//            else
-//            {
-//                ///////////////Temperary Added By Nishikant on dated 12-06-2019 ////////////
-//                #region Temperary Added
+        //                    //IsExist = (from p in db.GarbageCollectionDetails where p.gpId == objdata.gpId && p.gcDate >= startDateTime && p.gcDate <= endDateTime select p).Count() > 0;
+        //                }
+        //                catch
+        //                {
+        //                    result.message = "Invalid gpId"; result.messageMar = "अवैध जीपी आयडी"; result.name = "";
+        //                    result.status = "error";
+        //                    return result;
+        //                }
 
-//                //var dbLocalHouse = db.HouseMasters.Where(c => c.houseId == house.houseId).FirstOrDefault();
-//                //dbLocalHouse.houseLat = obj.Lat;
-//                //dbLocalHouse.houseLong = obj.Long;
-
-//                #endregion
-//                /////////////////////////////////////////////////////////
+        //            }
 
 
-//                //  Temperary Added
+        //            if (IsExist == true)
+        //            {
+        //                ///////////////Temperary Added By Nishikant on dated 12-06-2019 ////////////
+        //                //#region Temperary Added
+        //                var dbLocalHouse = db.HouseMasters.Where(c => c.houseId == house.houseId).FirstOrDefault();
+        //                if (dbLocalHouse.houseLong == null && dbLocalHouse.houseLong == null)
+        //                {
+        //                    dbLocalHouse.houseLat = obj.Lat;
+        //                    dbLocalHouse.houseLong = obj.Long;
+        //                }
+        //                //#endregion
+        //                /////////////////////////////////////////////////////////
 
-//                if (house != null)
-//                {
-//                    if (house.houseLat == null && house.houseLong == null)
-//                    {
-//                        house.houseLat = obj.Lat;
-//                        house.houseLong = obj.Long;
-//                    }
-//                }
+        //                var gcd = db.GarbageCollectionDetails.Where(c => c.houseId == house.houseId && EntityFunctions.TruncateTime(c.gcDate) == EntityFunctions.TruncateTime(DateTime.Now)).FirstOrDefault();
+        //                gcd.gcType = obj.gcType;
+        //                gcd.gpBeforImage = obj.gpBeforImage;
+        //                gcd.gpAfterImage = obj.gpAfterImage;
+        //                gcd.note = checkNull(obj.note);
+        //                gcd.garbageType = checkIntNull(obj.garbageType.ToString());
+        //                objdata.garbageType = checkIntNull(obj.garbageType.ToString());
+        //                gcd.vehicleNumber = checkNull(obj.vehicleNumber);
+        //                loc.Distnace = Convert.ToDecimal(distCount);
+        //                gcd.batteryStatus = batteryStatus;
+        //                gcd.userId = obj.userId;
+        //                gcd.gcDate = DateTime.Now;
+        //                gcd.Lat = obj.Lat;
+        //                gcd.Long = obj.Long;
 
-//                objdata.gcType = obj.gcType;
-//                objdata.gpBeforImage = obj.gpBeforImage;
-//                objdata.gpAfterImage = obj.gpAfterImage;
-//                objdata.note = checkNull(obj.note);
-//                objdata.garbageType = checkIntNull(obj.garbageType.ToString());
-//                objdata.vehicleNumber = checkNull(obj.vehicleNumber);
-//                loc.Distnace = Convert.ToDecimal(distCount);
-//                objdata.batteryStatus = batteryStatus;
-//                objdata.userId = obj.userId;
+        //                if (AppId == 1003 || AppId == 1010)
+        //                {
+        //                    objdata.locAddresss = Address(objdata.Lat + "," + objdata.Long);
+        //                }
+        //                else
+        //                {
+        //                    objdata.locAddresss = addre;
+        //                }
+        //                //db.Entry(gcd).State = System.Data.Entity.EntityState.Modified;
+        //                //db.SaveChanges();
 
+        //                //db.GarbageCollectionDetails.Add(objdata);
 
-//                if (AppId == 1003 || AppId == 1010)
-//                {
-//                    objdata.locAddresss = Address(objdata.Lat + "," + objdata.Long);
-//                }
-//                else
-//                {
-//                    objdata.locAddresss = addre;
-//                }
-//                //db.HouseMasters.Add(house);
-//                db.GarbageCollectionDetails.Add(objdata);
+        //                // Location loc = new Location();
+        //                loc.datetime = DateTime.Now;
+        //                loc.lat = objdata.Lat;
+        //                loc.@long = objdata.Long;
+        //                loc.address = objdata.locAddresss; //Address(objdata.Lat + "," + objdata.Long);
+        //                loc.batteryStatus = batteryStatus;
+        //                if (objdata.locAddresss != "")
+        //                { loc.area = area(loc.address); }
+        //                else
+        //                {
+        //                    loc.area = "";
+        //                }
+        //                loc.userId = objdata.userId;
+        //                loc.type = 1;
+        //                db.Locations.Add(loc);
+        //                // db.Entry(objdata).State = System.Data.Entity.EntityState.Modified;
+        //                db.SaveChanges();
+        //                result.name = name;
+        //                result.nameMar = nameMar;
+        //                result.mobile = housemob;
+        //            }
+        //            else
+        //            {
+        //                ///////////////Temperary Added By Nishikant on dated 12-06-2019 ////////////
+        //                #region Temperary Added
 
-//                // Location loc = new Location();
-//                loc.datetime = DateTime.Now;
-//                loc.lat = objdata.Lat;
-//                loc.@long = objdata.Long;
-//                loc.address = objdata.locAddresss; //Address(objdata.Lat + "," + objdata.Long);
-//                loc.batteryStatus = batteryStatus;
-//                if (objdata.locAddresss != "")
-//                { loc.area = area(loc.address); }
-//                else
-//                {
-//                    loc.area = "";
-//                }
-//                loc.userId = objdata.userId;
-//                loc.type = 1;
-//                db.Locations.Add(loc);
-//                db.SaveChanges();
-//                result.name = name;
-//                result.nameMar = nameMar;
-//                result.mobile = housemob;
-//            }
+        //                //var dbLocalHouse = db.HouseMasters.Where(c => c.houseId == house.houseId).FirstOrDefault();
+        //                //dbLocalHouse.houseLat = obj.Lat;
+        //                //dbLocalHouse.houseLong = obj.Long;
 
-//            result.status = "success";
-//            result.message = "Uploaded successfully";
-//            result.messageMar = "सबमिट यशस्वी";
-//            if (appdetails.AppId == 1003 || appdetails.AppId == 1006)
-//            {
-//                result.messageMar = "सबमिट यशस्वी";
-//            }
-
-//            else
-//            {
-//                if (objdata.garbageType == 3 && objdata.houseId != null)
-//                {
-//                    string mes = "Dear Citizen Waste Pattern collected today from your house-Waste Not Specified Suggested Waste Pattern - Dry and Wet Segregated.Thank You! " + appdetails.AppName + "."; /*"नमस्कार! आपल्या घरून कचरा संकलित करण्यात आलेला आहे. कृपया ओला व सुका असा वर्गीकृत केलेला कचरा सफाई कर्मचाऱ्यास सुपूर्द करून सहकार्य करावे धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";*/
-
-//                    string mesMar = "नमस्कार! आपल्या घरून कचरा संकलित करण्यात आलेला आहे. कृपया ओला व सुका असा वर्गीकृत केलेला कचरा सफाई कर्मचाऱ्यास सुपूर्द करून सहकार्य करावे धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
-
-//                    if (house != null)
-//                    {
-//                        List<String> ArrayList = DeviceDetailsFCM(obj.houseId, AppId);
-
-//                        if (ArrayList.Count > 0) //if (!string.IsNullOrEmpty(house.FCMID))
-//                        {
-//                            //PushNotificationMessage(mes, house.FCMID, appdetails.AppName, appdetails.Android_GCM_pushNotification_Key);
-//                            PushNotificationMessageBroadCast(mes, ArrayList, appdetails.AppName, appdetails.Android_GCM_pushNotification_Key);
-//                        }
-//                        else if (housemob != "")
-//                        {
-//                            sendSMS(mes, housemob);
-//                        }
-//                    }
-
-//                }
-
-//                if (objdata.garbageType == 0)
-//                {
-//                    string mes = "Dear Citizen Waste Pattern collected today from your house- mixed Suggested Waste Pattern - Dry and Wet Segregated. Thank You! " + appdetails.AppName + ".";
-
-//                    string mesMar = "नमस्कार! आपल्या घरातून आज ओला व सुका कचरा मिश्र स्वरूपात संकलित करण्यात आलेला आहे. आपणास विनंती आहे कि दररोज ओला व सुका कचरा विघटित करून सफाई कर्मचाऱ्यास सुपूर्द करून सहयोग करावा धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
-
-//                    if (house != null)
-//                    {
-//                        List<String> ArrayList = DeviceDetailsFCM(obj.houseId, AppId);
-
-//                        if (ArrayList.Count > 0) //if (!string.IsNullOrEmpty(house.FCMID))
-//                        {
-//                            //PushNotificationMessage(mes, house.FCMID, appdetails.AppName, appdetails.Android_GCM_pushNotification_Key);
-//                            PushNotificationMessageBroadCast(mes, ArrayList, appdetails.AppName, appdetails.Android_GCM_pushNotification_Key);
-//                        }
-//                        else if (housemob != "")
-//                        {
-//                            sendSMS(mes, housemob);
-//                        }
-//                    }
-
-//                }
-
-//                if (objdata.garbageType == 1)
-//                {
-//                    string mes = "Dear Citizen Waste Pattern collected today from your house-Segregated Suggested Waste Pattern - Dry and Wet Segregated.Thank You! " + appdetails.AppName + ".";
-
-//                    string mesMar = "नमस्कार! आपल्या घरातून आज ओला व सुका असा विघटित केलेला कचरा संकलित करण्यात आलेला आहे. आपण केलेल्या सहयोगाबद्दल धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
-
-//                    if (house != null)
-//                    {
-//                        List<String> ArrayList = DeviceDetailsFCM(obj.houseId, AppId);
-
-//                        if (ArrayList.Count > 0) //if (!string.IsNullOrEmpty(house.FCMID))
-//                        {
-//                            //PushNotificationMessage(mes, house.FCMID, appdetails.AppName, appdetails.Android_GCM_pushNotification_Key);
-//                            PushNotificationMessageBroadCast(mes, ArrayList, appdetails.AppName, appdetails.Android_GCM_pushNotification_Key);
-//                        }
-//                        else if (housemob != "")
-//                        {
-//                            sendSMS(mes, housemob);
-//                        }
-//                    }
-
-//                }
-
-//                if (objdata.garbageType == 2)
-//                {
-//                    string mes = "Dear Citizen Waste Pattern collected today from your house-Waste Not Received Suggested Waste Pattern - Dry and Wet Segregated.Thank You! " + appdetails.AppName + ".";
-
-//                    string mesMar = "नमस्कार! आपल्या घरातून आज कोणत्याही प्रकारचा कचरा सफाई कर्मचाऱ्यास देण्यात आलेला नाही. आपणास विनंती आहे कि दररोज ओला व सुका कचरा विघटित करून सफाई कर्मचाऱ्यास सुपूर्द करून सहयोग करावा धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
-
-//                    if (house != null)
-//                    {
-//                        List<String> ArrayList = DeviceDetailsFCM(obj.houseId, AppId);
-
-//                        if (ArrayList.Count > 0)
-//                        {
-//                            PushNotificationMessageBroadCast(mes, ArrayList, appdetails.AppName, appdetails.Android_GCM_pushNotification_Key);
-//                        }
-//                        else if (housemob != "")
-//                        {
-//                            sendSMS(mes, housemob);
-//                        }
-//                    }
-
-//                }
-//            }
-//            return result;
-//        }
-
-//        catch (Exception ex)
-//        {
-//            result.message = "Something is wrong,Try Again.. ";
-//            result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
-//            result.name = "";
-//            result.status = "error";
-//            return result;
-//        }
-//    }
+        //                #endregion
+        //                /////////////////////////////////////////////////////////
 
 
-//}
+        //                //  Temperary Added
+
+        //                if (house != null)
+        //                {
+        //                    if (house.houseLat == null && house.houseLong == null)
+        //                    {
+        //                        house.houseLat = obj.Lat;
+        //                        house.houseLong = obj.Long;
+        //                    }
+        //                }
+
+        //                objdata.gcType = obj.gcType;
+        //                objdata.gpBeforImage = obj.gpBeforImage;
+        //                objdata.gpAfterImage = obj.gpAfterImage;
+        //                objdata.note = checkNull(obj.note);
+        //                objdata.garbageType = checkIntNull(obj.garbageType.ToString());
+        //                objdata.vehicleNumber = checkNull(obj.vehicleNumber);
+        //                loc.Distnace = Convert.ToDecimal(distCount);
+        //                objdata.batteryStatus = batteryStatus;
+        //                objdata.userId = obj.userId;
+
+
+        //                if (AppId == 1003 || AppId == 1010)
+        //                {
+        //                    objdata.locAddresss = Address(objdata.Lat + "," + objdata.Long);
+        //                }
+        //                else
+        //                {
+        //                    objdata.locAddresss = addre;
+        //                }
+        //                //db.HouseMasters.Add(house);
+        //                db.GarbageCollectionDetails.Add(objdata);
+
+        //                // Location loc = new Location();
+        //                loc.datetime = DateTime.Now;
+        //                loc.lat = objdata.Lat;
+        //                loc.@long = objdata.Long;
+        //                loc.address = objdata.locAddresss; //Address(objdata.Lat + "," + objdata.Long);
+        //                loc.batteryStatus = batteryStatus;
+        //                if (objdata.locAddresss != "")
+        //                { loc.area = area(loc.address); }
+        //                else
+        //                {
+        //                    loc.area = "";
+        //                }
+        //                loc.userId = objdata.userId;
+        //                loc.type = 1;
+        //                db.Locations.Add(loc);
+        //                db.SaveChanges();
+        //                result.name = name;
+        //                result.nameMar = nameMar;
+        //                result.mobile = housemob;
+        //            }
+
+        //            result.status = "success";
+        //            result.message = "Uploaded successfully";
+        //            result.messageMar = "सबमिट यशस्वी";
+        //            if (appdetails.AppId == 1003 || appdetails.AppId == 1006)
+        //            {
+        //                result.messageMar = "सबमिट यशस्वी";
+        //            }
+
+        //            else
+        //            {
+        //                if (objdata.garbageType == 3 && objdata.houseId != null)
+        //                {
+        //                    string mes = "Dear Citizen Waste Pattern collected today from your house-Waste Not Specified Suggested Waste Pattern - Dry and Wet Segregated.Thank You! " + appdetails.AppName + "."; /*"नमस्कार! आपल्या घरून कचरा संकलित करण्यात आलेला आहे. कृपया ओला व सुका असा वर्गीकृत केलेला कचरा सफाई कर्मचाऱ्यास सुपूर्द करून सहकार्य करावे धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";*/
+
+        //                    string mesMar = "नमस्कार! आपल्या घरून कचरा संकलित करण्यात आलेला आहे. कृपया ओला व सुका असा वर्गीकृत केलेला कचरा सफाई कर्मचाऱ्यास सुपूर्द करून सहकार्य करावे धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
+
+        //                    if (house != null)
+        //                    {
+        //                        List<String> ArrayList = DeviceDetailsFCM(obj.houseId, AppId);
+
+        //                        if (ArrayList.Count > 0) //if (!string.IsNullOrEmpty(house.FCMID))
+        //                        {
+        //                            //PushNotificationMessage(mes, house.FCMID, appdetails.AppName, appdetails.Android_GCM_pushNotification_Key);
+        //                            PushNotificationMessageBroadCast(mes, ArrayList, appdetails.AppName, appdetails.Android_GCM_pushNotification_Key);
+        //                        }
+        //                        else if (housemob != "")
+        //                        {
+        //                            sendSMS(mes, housemob);
+        //                        }
+        //                    }
+
+        //                }
+
+        //                if (objdata.garbageType == 0)
+        //                {
+        //                    string mes = "Dear Citizen Waste Pattern collected today from your house- mixed Suggested Waste Pattern - Dry and Wet Segregated. Thank You! " + appdetails.AppName + ".";
+
+        //                    string mesMar = "नमस्कार! आपल्या घरातून आज ओला व सुका कचरा मिश्र स्वरूपात संकलित करण्यात आलेला आहे. आपणास विनंती आहे कि दररोज ओला व सुका कचरा विघटित करून सफाई कर्मचाऱ्यास सुपूर्द करून सहयोग करावा धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
+
+        //                    if (house != null)
+        //                    {
+        //                        List<String> ArrayList = DeviceDetailsFCM(obj.houseId, AppId);
+
+        //                        if (ArrayList.Count > 0) //if (!string.IsNullOrEmpty(house.FCMID))
+        //                        {
+        //                            //PushNotificationMessage(mes, house.FCMID, appdetails.AppName, appdetails.Android_GCM_pushNotification_Key);
+        //                            PushNotificationMessageBroadCast(mes, ArrayList, appdetails.AppName, appdetails.Android_GCM_pushNotification_Key);
+        //                        }
+        //                        else if (housemob != "")
+        //                        {
+        //                            sendSMS(mes, housemob);
+        //                        }
+        //                    }
+
+        //                }
+
+        //                if (objdata.garbageType == 1)
+        //                {
+        //                    string mes = "Dear Citizen Waste Pattern collected today from your house-Segregated Suggested Waste Pattern - Dry and Wet Segregated.Thank You! " + appdetails.AppName + ".";
+
+        //                    string mesMar = "नमस्कार! आपल्या घरातून आज ओला व सुका असा विघटित केलेला कचरा संकलित करण्यात आलेला आहे. आपण केलेल्या सहयोगाबद्दल धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
+
+        //                    if (house != null)
+        //                    {
+        //                        List<String> ArrayList = DeviceDetailsFCM(obj.houseId, AppId);
+
+        //                        if (ArrayList.Count > 0) //if (!string.IsNullOrEmpty(house.FCMID))
+        //                        {
+        //                            //PushNotificationMessage(mes, house.FCMID, appdetails.AppName, appdetails.Android_GCM_pushNotification_Key);
+        //                            PushNotificationMessageBroadCast(mes, ArrayList, appdetails.AppName, appdetails.Android_GCM_pushNotification_Key);
+        //                        }
+        //                        else if (housemob != "")
+        //                        {
+        //                            sendSMS(mes, housemob);
+        //                        }
+        //                    }
+
+        //                }
+
+        //                if (objdata.garbageType == 2)
+        //                {
+        //                    string mes = "Dear Citizen Waste Pattern collected today from your house-Waste Not Received Suggested Waste Pattern - Dry and Wet Segregated.Thank You! " + appdetails.AppName + ".";
+
+        //                    string mesMar = "नमस्कार! आपल्या घरातून आज कोणत्याही प्रकारचा कचरा सफाई कर्मचाऱ्यास देण्यात आलेला नाही. आपणास विनंती आहे कि दररोज ओला व सुका कचरा विघटित करून सफाई कर्मचाऱ्यास सुपूर्द करून सहयोग करावा धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी " + appdetails.AppName_mar + "";
+
+        //                    if (house != null)
+        //                    {
+        //                        List<String> ArrayList = DeviceDetailsFCM(obj.houseId, AppId);
+
+        //                        if (ArrayList.Count > 0)
+        //                        {
+        //                            PushNotificationMessageBroadCast(mes, ArrayList, appdetails.AppName, appdetails.Android_GCM_pushNotification_Key);
+        //                        }
+        //                        else if (housemob != "")
+        //                        {
+        //                            sendSMS(mes, housemob);
+        //                        }
+        //                    }
+
+        //                }
+        //            }
+        //            return result;
+        //        }
+
+        //        catch (Exception ex)
+        //        {
+        //            result.message = "Something is wrong,Try Again.. ";
+        //            result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+        //            result.name = "";
+        //            result.status = "error";
+        //            return result;
+        //        }
+        //    }
+
+
+        //}
 
 
 
@@ -7195,8 +7198,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             return obj;
         }
 
-  
-      public SyncResult2 GetUserMobileIdentification(int appId, int userId, bool isSync, int batteryStatus, string imeinos)
+
+        public SyncResult2 GetUserMobileIdentification(int appId, int userId, bool isSync, int batteryStatus, string imeinos)
         {
             SyncResult2 result = new SyncResult2();
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(appId))
@@ -7205,8 +7208,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 var mob = db.UserMasters.Where(c => c.userId == userId).FirstOrDefault();
                 string imei1 = mob.imoNo;
                 string imei2 = mob.imoNo2;
-                if (mob.imoNo != null  && mob.imoNo2 != null)
-                {                   
+                if (mob.imoNo != null && mob.imoNo2 != null)
+                {
                     if (mob.imoNo == imeinos)
                     {
                         mob.imoNo = null;
@@ -7215,36 +7218,36 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         result.batterystatus = batteryStatus;
                         result.imei = imei1;
                         mob.imoNo = mob.imoNo2;
-                        mob.imoNo2 =null;
+                        mob.imoNo2 = null;
                         db.SaveChanges();
                     }
                     else
-                    {                     
+                    {
                         result.IsInSync = false;
                         result.UserId = userId;
                         result.batterystatus = batteryStatus;
                         result.imei = imei2;
                     }
                 }
-               else
+                else
                 {
                     result.IsInSync = false;
                     result.UserId = userId;
                     result.batterystatus = batteryStatus;
                     result.imei = imei1;
                 }
-            
+
             }
             return result;
         }
 
-    
-    public List<SBWorkDetails> GetUserWork(int userId, int year, int month, int appId,string EmpType)
+
+        public List<SBWorkDetails> GetUserWork(int userId, int year, int month, int appId, string EmpType)
         {
             List<SBWorkDetails> obj = new List<SBWorkDetails>();
-           if(EmpType=="N")
+            if (EmpType == "N")
             {
-              obj = GetUserWorkForNormal(userId, year,month, appId);
+                obj = GetUserWorkForNormal(userId, year, month, appId);
             }
             if (EmpType == "L")
             {
@@ -7500,15 +7503,17 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     result.messageMar = "";
                     return result;
                 }
-                else {
+                else
+                {
                     result.status = "true";
                     result.message = "";
                     result.messageMar = "";
                     return result;
                 }
             }
-        
-            else {
+
+            else
+            {
 
                 result.status = "false";
                 result.message = "";
@@ -7545,10 +7550,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             //else
             //{
 
-                result.status = "false";
-                result.message = "";
-                result.messageMar = "";
-                return result;
+            result.status = "false";
+            result.message = "";
+            result.messageMar = "";
+            return result;
             //}
 
 
@@ -7579,11 +7584,11 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             //}
             //else
             //{
-                result.status = "false";
-                result.message = "";
-                result.messageMar = "";
-                return result;
-           // }
+            result.status = "false";
+            result.message = "";
+            result.messageMar = "";
+            return result;
+            // }
 
 
         }
@@ -7750,8 +7755,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                 foreach (var x in data)
                 {
-                    var atten = db.Daily_Attendance.Where(c => c.userId == x.userid && c.daDate ==System.Data.Entity.Core.Objects.EntityFunctions.TruncateTime(x.datetime) && (c.endTime == null || c.endTime == "")).FirstOrDefault();
-                    
+                    var atten = db.Daily_Attendance.Where(c => c.userId == x.userid && c.daDate == System.Data.Entity.Core.Objects.EntityFunctions.TruncateTime(x.datetime) && (c.endTime == null || c.endTime == "")).FirstOrDefault();
+
                     string v = "";
                     if (atten != null)
                     {
@@ -7782,13 +7787,13 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         }
 
-        public List<SBArea> GetCollectionArea(int AppId, int type,string EmpType)
+        public List<SBArea> GetCollectionArea(int AppId, int type, string EmpType)
         {
             List<SBArea> obj = new List<SBArea>();
 
             if (EmpType == "N")
             {
-                obj = GetCollectionAreaForNormal(AppId,type);
+                obj = GetCollectionAreaForNormal(AppId, type);
             }
             if (EmpType == "L")
             {
@@ -7797,7 +7802,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             if (EmpType == "S")
             {
                 obj = GetCollectionAreaForStreet(AppId, type);
-            }   
+            }
             return obj;
 
         }
@@ -7887,7 +7892,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 obj = GetAreaHousForStreet(AppId, areaId);
             }
-           
+
             return obj;
 
         }
@@ -7934,7 +7939,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             return obj;
         }
 
-           public List<HouseDetailsVM> GetAreaHouseForLiquid(int AppId, int areaId)
+        public List<HouseDetailsVM> GetAreaHouseForLiquid(int AppId, int areaId)
         {
             List<HouseDetailsVM> obj = new List<HouseDetailsVM>();
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
@@ -8079,7 +8084,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         }
         public Result SendSMSToHOuse(int area, int AppId)
         {
-       
+
             Result res = new Result();
             var appdetails = dbMain.AppDetails.Where(c => c.AppId == AppId).FirstOrDefault();
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
@@ -8102,9 +8107,9 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                 string mob = db.GetMobile(Convert.ToInt32(area)).FirstOrDefault().mob;
 
-                string msg ,msgMar;
+                string msg, msgMar;
 
-               
+
 
                 if (appdetails.LanguageId == 3)
                 {
@@ -8115,10 +8120,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 if (appdetails.LanguageId == 4)
                 {
                     //  msg = "प्रिय नागरिक, कन्नड नगरपरिषदेची घंटागाडी १५ मिनिटाच्या आत आपल्या घरासमोर कचरा संकलनासाठी येत आहे. तरी आपण ओला व सुका कचरा वेगवेगळा करून गाडीत टाकावा. आपली सौ स्वातीताई संतोषभाऊ कोल्हे" + appdetails.yoccContact + " आपल्या सेवेशी" + appdetails.AppName_mar + ".";
-                    msg = ""+appdetails.MsgForBroadcast+" "+ appdetails.yoccContact + " आपल्या सेवेशी" + appdetails.AppName_mar + ".";
+                    msg = "" + appdetails.MsgForBroadcast + " " + appdetails.yoccContact + " आपल्या सेवेशी" + appdetails.AppName_mar + ".";
                     sendSMSmar(msg, mob);
                 }
-             else if (AppId == 1 && appdetails.LanguageId == 4)
+                else if (AppId == 1 && appdetails.LanguageId == 4)
                 {
                     // msgMar = "नमस्कार! घंटागाडीचे आगमन आपल्या क्षेत्रात झालेले आहे. आपल्या घरातून लवकरच कचरा संकलित करण्यात येईल. आपणास विनंती आहे कि कृपया आपल्या घरातील ओला व सुका असा वर्गीकृत कचरा आमच्या सफाई सेवकास सुपूर्द करावा. कचरा संकलन न झाल्यास कृपया खालील दिलेल्या क्रमांकावर संपर्क करून तक्रार/सूचना नोंदवावी. धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी" + appdetails.AppName_mar + ".";
 
@@ -8126,12 +8131,13 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                     //   msg= "Dear citizen, garbage collection van will arrive in your area very shortly.Kindly keep the dry and wet segregated waste ready & submit it to the sanitary worker.Thank you " + appdetails.AppName + ".";
 
-                    msg = "" + appdetails.MsgForBroadcast + " "+ appdetails.AppName + ".";
+                    msg = "" + appdetails.MsgForBroadcast + " " + appdetails.AppName + ".";
                     sendSMS(msg, mob);
                 }
 
-               
-                else {
+
+                else
+                {
                     // msgMar = "नमस्कार! घंटागाडीचे आगमन आपल्या क्षेत्रात झालेले आहे. आपल्या घरातून लवकरच कचरा संकलित करण्यात येईल. आपणास विनंती आहे कि कृपया आपल्या घरातील ओला व सुका असा वर्गीकृत कचरा आमच्या सफाई सेवकास सुपूर्द करावा. धन्यवाद. " + appdetails.yoccContact + " आपल्या सेवेशी" + appdetails.AppName_mar + ".";
 
                     //  msg = "Dear citizen, garbage collection van will arrive in your area very shortly.Kindly keep the dry and wet segregated waste ready & submit it to the sanitary worker.Thank you " + appdetails.AppName + ".";
@@ -8140,12 +8146,12 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         msg = "" + appdetails.MsgForBroadcast + " " + appdetails.AppName + ".";
                     }
                     else
-                    { 
-                    msg = "" + appdetails.MsgForBroadcast + " " + appdetails.AppName + ".";
-                    sendSMS(msg, mob);
+                    {
+                        msg = "" + appdetails.MsgForBroadcast + " " + appdetails.AppName + ".";
+                        sendSMS(msg, mob);
                     }
                 }
-               
+
 
                 var FCM = from h in db.HouseMasters
                           join d in db.DeviceDetails on h.ReferanceId equals d.ReferenceID
@@ -8154,18 +8160,18 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 //var FCM = db.HouseMasters
                 //  .Where(y => y.AreaId == area & y.FCMID != null)
                 //  .ToList();
-                
+
                 List<String> ArrayList = new List<String>();
 
                 foreach (var x in FCM)
                 {
                     ArrayList.Add(x.FCMID.FCMID);
                 }
-                
+
                 PushNotificationMessageBroadCast(msg, ArrayList, appdetails.AppName, appdetails.Android_GCM_pushNotification_Key);
 
             }
-                res.status = "success";
+            res.status = "success";
             return res;
 
 
@@ -8262,10 +8268,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(appId))
             {
                 var data = db.Daily_Attendance.OrderByDescending(c => c.daID).ToList();
-                
+
                 if (Convert.ToDateTime(fdate).ToString("dd/MM/yyyy") == Convert.ToDateTime(DateTime.Now).ToString("dd/MM/yyyy"))
                 {
-                    data = data.Where(c => (c.daDate == fdate || c.daEndDate == fdate || c.endTime == "" )).ToList();
+                    data = data.Where(c => (c.daDate == fdate || c.daEndDate == fdate || c.endTime == "")).ToList();
                     //data = data.Where(c => (c.daDate == fdate || c.daEndDate == tdate || c.endTime == "")).ToList();
                 }
                 else
@@ -8288,15 +8294,16 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     x.vehicleNumber = checkNull(x.vehicleNumber);
                     x.daEndNote = checkNull(x.daEndNote);
                     x.daStartNote = checkNull(x.daStartNote);
-                    string endate = "" ,  daDate="";
+                    string endate = "", daDate = "";
                     if (x.daEndDate == null)
                     {
                         endate = "";
                     }
-                    else {
+                    else
+                    {
                         endate = Convert.ToDateTime(x.daEndDate).ToString("dd/MM/yyyy");
                     }
-                    
+
                     obj.Add(new AttendanceGridVM()
                     {
                         daID = x.daID,
@@ -8335,7 +8342,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     obj = model.ToList();
 
                 }
-                return obj.OrderByDescending( c=> c.daID).Skip(Fetch_Next).Take(Offset).ToList();
+                return obj.OrderByDescending(c => c.daID).Skip(Fetch_Next).Take(Offset).ToList();
 
 
             }
@@ -8343,7 +8350,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         }
 
-        public List<AHouseGarbageCollectionVM> GetHouseGarbageCollectionData(int appId, int userId, DateTime fdate, DateTime tdate, int gcType ,int Offset , int Fetch_Next , string SearchString)
+        public List<AHouseGarbageCollectionVM> GetHouseGarbageCollectionData(int appId, int userId, DateTime fdate, DateTime tdate, int gcType, int Offset, int Fetch_Next, string SearchString)
         {
             DevSwachhBharatMainEntities dbMain = new DevSwachhBharatMainEntities();
 
@@ -8353,13 +8360,13 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(appId))
             {
-                var data = db.SP_GarbageCollection(appId, userId, fdate, tdate,null,null,null).Select(x => new AHouseGarbageCollectionVM
+                var data = db.SP_GarbageCollection(appId, userId, fdate, tdate, null, null, null).Select(x => new AHouseGarbageCollectionVM
                 {
                     Id = x.gcId,
                     userId = x.userId,
                     houseId = x.houseId,
                     UserName = x.houseOwner,
-                    HouseNumber = db.HouseMasters.Where(c =>c.houseId==x.houseId).Select(c => c.houseNumber).FirstOrDefault(),//
+                    HouseNumber = db.HouseMasters.Where(c => c.houseId == x.houseId).Select(c => c.houseNumber).FirstOrDefault(),//
                     gcDate = x.gcDate,
                     gcType = 1,
                     type1 = x.garbageType.ToString(),
@@ -8389,10 +8396,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                     var model = data.Where(c => ((c.UserName == null ? " " : c.UserName) + " " + (c.HouseNumber == null ? " " : c.HouseNumber) + " " + (c.VehicleNumber == null ? " " : c.VehicleNumber) + " " + (c.ReferanceId == null ? "" : c.ReferanceId) + " " + (c.Address == null ? " " : c.Address) + " " + (c.Employee == null ? " " : c.Employee) + " " + (c.attandDate == null ? " " : c.attandDate) + " " + (c.Note == null ? " " : c.Note)).ToUpper().Contains(SearchString.ToUpper())
                        ).ToList();
-                    
+
                     data = model.ToList();
-                    }
-                               
+                }
+
 
                 if (userId > 0)
                 {
@@ -8505,7 +8512,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             var dist = db.SP_DistanceCount(Convert.ToDouble(a), Convert.ToDouble(b), Convert.ToDouble(objdata.Lat), Convert.ToDouble(objdata.Long)).FirstOrDefault();
                             distCount = dist.Distance_in_KM.ToString();
                         }
-                        else {
+                        else
+                        {
 
                             var dist = db.SP_DistanceCount(Convert.ToDouble(locc.lat), Convert.ToDouble(locc.@long), Convert.ToDouble(objdata.Lat), Convert.ToDouble(objdata.Long)).FirstOrDefault();
                             distCount = dist.Distance_in_KM.ToString();
@@ -8716,7 +8724,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         }
 
         //Added By Nishikant (03 May 2019)
-        public List<CMSBPointGarbageCollectionVM> GetPointGarbageCollectionData(int appId, int userId, DateTime fdate, DateTime tdate, int gcType , int Offset , int Fetch_Next ,string SearchString)
+        public List<CMSBPointGarbageCollectionVM> GetPointGarbageCollectionData(int appId, int userId, DateTime fdate, DateTime tdate, int gcType, int Offset, int Fetch_Next, string SearchString)
         {
             {
                 DevSwachhBharatMainEntities dbMain = new DevSwachhBharatMainEntities();
@@ -8742,12 +8750,12 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     foreach (var item in data)
                     {
                         var gcdata = db.GarbageCollectionDetails.Where(c => c.gcId == item.Id).FirstOrDefault();
-                        
+
                         item.ReferanceId = db.GarbagePointDetails.Where(c => c.gpId == item.gpIdfk).FirstOrDefault().ReferanceId;
 
                         item.Employee = db.UserMasters.Where(c => c.userId == item.userId).FirstOrDefault().userName;
                         item.attandDate = Convert.ToDateTime(item.gcDate).ToString("dd/MM/yyyy hh:mm tt");
-                        
+
                         item.UserName = db.GarbagePointDetails.Where(c => c.gpId == item.gpIdfk).FirstOrDefault().gpName;
 
                         item.HouseNumber = checkNull(item.HouseNumber);
@@ -8781,7 +8789,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         item.Note = checkNull(item.Note);
                         item.ReferanceId = checkNull(item.ReferanceId);
 
-                        
+
                     }
 
                     if (!string.IsNullOrEmpty(SearchString))
@@ -8811,10 +8819,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
 
         //Added By Nishikant (11 May 2019)
-        public List<CMSBGrabageCollectionVM> GetDumpYardCollectionData(int appId, int empId, DateTime fdate, DateTime tdate, int gcType, int Offset, int Fetch_Next , string SearchString)
+        public List<CMSBGrabageCollectionVM> GetDumpYardCollectionData(int appId, int empId, DateTime fdate, DateTime tdate, int gcType, int Offset, int Fetch_Next, string SearchString)
         {
             {
-                
+
                 DevSwachhBharatMainEntities dbMain = new DevSwachhBharatMainEntities();
                 var appDetails = dbMain.AppDetails.Where(x => x.AppId == appId).FirstOrDefault();
                 string ThumbnaiUrlAPI = appDetails.baseImageUrl + appDetails.basePath + appDetails.Collection + "/";
@@ -8899,19 +8907,19 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         data = model.ToList();
                     }
                     return data.OrderByDescending(g => g.gcDate).Skip(Fetch_Next).Take(Offset).ToList();
-                    
+
                 }
             }
         }
 
 
         //Added By Nishikant (04 May 2019)
-        public List<CMSBLocationVM> GetLocationData(int appId, int userId, DateTime fdate, DateTime tdate, int Offset , int Fetch_Next ,string SearchString)
+        public List<CMSBLocationVM> GetLocationData(int appId, int userId, DateTime fdate, DateTime tdate, int Offset, int Fetch_Next, string SearchString)
         {
 
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(appId))
             {
-               List<CMSBLocationVM> data = new List<CMSBLocationVM>();
+                List<CMSBLocationVM> data = new List<CMSBLocationVM>();
 
                 //var data1 = db.Locations.Where(c => c.datetime >= fdate && c.datetime <= tdate).OrderByDescending(c => c.locId).ToList();
 
@@ -8962,7 +8970,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 {
                     data.Add(new CMSBLocationVM
                     {
-                       locId = x.locId,
+                        locId = x.locId,
 
                         userName = x.userName,//db.UserMasters.FirstOrDefault(c => c.userId == x.userId).userName,
                         userId = Convert.ToInt32(x.userId),
@@ -8973,7 +8981,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         Address = x.address,
                         CompareDate = x.CompareDate,
                         userMobile = x.userMobile,//db.UserMasters.FirstOrDefault(c => c.userId == x.userId).userMobileNumber,
-                       vehicleNumber =x.vehicleNumber
+                        vehicleNumber = x.vehicleNumber
                     });
                 }
                 foreach (var item in data)
@@ -9013,7 +9021,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
 
         //Added By Nishikant (04 May 2019)
-        public List<CMSBUserLocationMapVM> GetUserWiseLocation(int appId, int userId, string date ,int _Type)
+        public List<CMSBUserLocationMapVM> GetUserWiseLocation(int appId, int userId, string date, int _Type)
         {
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(appId))
             {
@@ -9084,7 +9092,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 }
                 else if (_Type == 1 && userId > 0)
                 {
-                    
+
                     DateTime newdate = DateTime.Now.Date;
                     var datt = newdate;
 
@@ -9126,7 +9134,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         var model = userLocation.Where(c => c.userId == userId).ToList();
                         userLocation = model.ToList();
                     }
-                    
+
                 }
                 return userLocation.OrderByDescending(ul => ul.date).ToList();
             }
@@ -9134,7 +9142,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         }
 
         //Added By Nishikant (06 May 2019)
-        public List<CMSBHouseDetailsVM> GetHouseDetailsData(int appId, int Offset, int Fetch_Next , string SearchString)
+        public List<CMSBHouseDetailsVM> GetHouseDetailsData(int appId, int Offset, int Fetch_Next, string SearchString)
         {
             DevSwachhBharatMainEntities dbMain = new DevSwachhBharatMainEntities();
             var appDetails = dbMain.AppDetails.Where(x => x.AppId == appId).FirstOrDefault();
@@ -9155,9 +9163,9 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     QRCode = ThumbnaiUrlCMS + x.Images.Trim(),
                     ReferanceId = x.ReferanceId,
                     houseOwner = x.Name,
-                    houseOwnerMar= x.NameMar,
-                    houseLat=x.houseLat,
-                    houseLong=x.houseLong
+                    houseOwnerMar = x.NameMar,
+                    houseLat = x.houseLat,
+                    houseLong = x.houseLong
 
                 }).ToList();
 
@@ -9204,7 +9212,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         }
 
         //Added By Nishikant (10 May 2019)
-        public Result SaveHouse(CMSBHouseDetailsVM data , int _AppId, int _HouseId)
+        public Result SaveHouse(CMSBHouseDetailsVM data, int _AppId, int _HouseId)
         {
             screenService = new ScreenService(_AppId);
             Result result = new Result();
@@ -9212,13 +9220,13 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 data.houseId = 0;
             }
-            Result dd = screenService.SaveHouseDetails(data , _AppId , _HouseId);
+            Result dd = screenService.SaveHouseDetails(data, _AppId, _HouseId);
 
             return dd;
         }
 
 
-        public Result SaveGarbagePoint(CMSBGarbagePointDetailsVM data ,int _AppId, int gpId)
+        public Result SaveGarbagePoint(CMSBGarbagePointDetailsVM data, int _AppId, int gpId)
         {
             screenService = new ScreenService(_AppId);
             Result result = new Result();
@@ -9226,7 +9234,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 data.gpId = 0;
             }
-            Result dd = screenService.SaveGarbagePointDetails(data , _AppId , gpId);
+            Result dd = screenService.SaveGarbagePointDetails(data, _AppId, gpId);
             return dd;
         }
 
@@ -9238,7 +9246,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 employee.userId = 0;
             }
-            Result dd = screenService.SaveEmployeeDetails(employee ,_AppId , UserId);
+            Result dd = screenService.SaveEmployeeDetails(employee, _AppId, UserId);
             return dd;
         }
 
@@ -9250,12 +9258,12 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 data.dyId = 0;
             }
-            Result dd = screenService.SaveDumpYardtDetails(data, _AppId , dyId );
+            Result dd = screenService.SaveDumpYardtDetails(data, _AppId, dyId);
             return dd;
         }
 
 
-        public List<CMSBStatesVM> GetStates(int AppId , string SearchString)
+        public List<CMSBStatesVM> GetStates(int AppId, string SearchString)
 
         {
             using (var dbMain = new DevSwachhBharatMainEntities())
@@ -9369,7 +9377,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             }
         }
 
-        public List<CMSBGarbagePointDetailsVM>GetGarbagePointData(string SearchString, int appId ,int Offset, int Fetch_Next)
+        public List<CMSBGarbagePointDetailsVM> GetGarbagePointData(string SearchString, int appId, int Offset, int Fetch_Next)
         {
             DevSwachhBharatMainEntities dbMain = new DevSwachhBharatMainEntities();
             var appDetails = dbMain.AppDetails.Where(x => x.AppId == appId).FirstOrDefault();
@@ -9400,8 +9408,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     || c.Area.ToUpper().ToString().Contains(SearchString) || c.gpName.ToUpper().ToString().Contains(SearchString)
                     || c.gpNameMar.ToUpper().ToString().Contains(SearchString) || c.ReferanceId.ToUpper().ToString().Contains(SearchString)).ToList();
 
-                     data = model.ToList();
-                    
+                    data = model.ToList();
+
                 }
                 return data.OrderByDescending(c => c.gpId).Skip(Fetch_Next).Take(Offset).ToList();
             }
@@ -9427,8 +9435,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     QrCode = ThumbnaiUrlCMS + x.Images.Trim(),
                     Address = x.Address,
                     ReferanceId = x.ReferanceId,
-                    dyLat=x.dyLat,
-                    dyLong=x.dyLong
+                    dyLat = x.dyLat,
+                    dyLong = x.dyLong
 
                 }).ToList();
                 if (!string.IsNullOrEmpty(SearchString))
@@ -9447,7 +9455,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             }
         }
 
-        public List<CMSBEmployeeDetailsVM> GetEmployeeDetailsData(string SearchString, int appId , int Offset, int Fetch_Next)
+        public List<CMSBEmployeeDetailsVM> GetEmployeeDetailsData(string SearchString, int appId, int Offset, int Fetch_Next)
         {
             DevSwachhBharatMainEntities dbMain = new DevSwachhBharatMainEntities();
             var appDetails = dbMain.AppDetails.Where(x => x.AppId == appId).FirstOrDefault();
@@ -9469,7 +9477,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     isActive = x.isActive.ToString(),
                     bloodGroup = x.bloodGroup,
                     gcTarget = x.gcTarget,
-                    imoNo=x.imoNo
+                    imoNo = x.imoNo
                 }).ToList();
                 foreach (var item in data)
                 {
@@ -9587,7 +9595,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     {
                         item.Wardno = item.Wardno + " (" + zone + ")";
                     }
-                    
+
                 }
                 if (!string.IsNullOrEmpty(SearchString))
                 {
@@ -9613,8 +9621,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     WardNo = x.WardNo,
                     zoneId = x.zoneId,
                     Zone = db.ZoneMasters.Where(c => c.zoneId == x.zoneId).FirstOrDefault().name
-            }).ToList();
-                              
+                }).ToList();
+
                 return data.OrderByDescending(c => c.WardID).ToList();
             }
 
@@ -9827,7 +9835,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
 
         }
-        
+
         public List<SyncResult1> SaveQrEmployeeAttendenceOffline(List<BigVQREmployeeAttendenceVM> obj, int AppId)
         {
             List<SyncResult1> result = new List<SyncResult1>();
@@ -9903,7 +9911,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                 attendance.startLong = x.startLong;
                                 attendance.startTime = x.startTime;
                                 attendance.startDate = x.startDate;
-                                
+
                                 if (x.endDate.Equals(DateTime.MinValue))
                                 {
                                     attendance.endDate = null;
@@ -10122,7 +10130,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             //        return result;
             //    }
             //}
-        
+
             return result;
         }
 
@@ -10493,7 +10501,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     }
 
 
-                  
+
                 }
                 catch (Exception ex)
                 {
@@ -10523,7 +10531,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         /// <param name="obj"></param>
         /// <param name="AppId"></param>
         /// <returns></returns>
-        public Qr_Location FillLocationDetails(BigVQRHPDVM obj ,int AppId , bool IsOffline)
+        public Qr_Location FillLocationDetails(BigVQRHPDVM obj, int AppId, bool IsOffline)
         {
             var distCount = "";
             string addre = string.Empty, batteryStatus = string.Empty;
@@ -10553,19 +10561,19 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 loc.@long = obj.Long;
                 loc.address = obj.Address;
                 //loc.batteryStatus = batteryStatus;
-                loc.area = (obj.Address != "") ?  area(loc.address) : "";
+                loc.area = (obj.Address != "") ? area(loc.address) : "";
                 loc.empId = obj.userId;
                 loc.type = 1;
                 loc.ReferanceID = obj.ReferanceId;
-                loc.IsOffline = (IsOffline == true ? true : false) ; 
+                loc.IsOffline = (IsOffline == true ? true : false);
                 loc.CreatedDate = DateTime.Now;
-                
+
 
             }
 
             return loc;
         }
-               
+
 
         public List<CollectionSyncResult> SaveQrHPDCollectionsOffline(List<BigVQRHPDVM> obj, int AppId)
         {
@@ -10575,8 +10583,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 try
                 {
-                        foreach (var item in obj)
-                        {
+                    foreach (var item in obj)
+                    {
 
                         if (item.gcType == 5)
                         {
@@ -10652,10 +10660,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                         }
 
-                       
+
                         if (item.gcType == 4)
-                          {
-                            var dump = db.LiquidWasteDetails.Where(x => x.ReferanceId == item.ReferanceId ).FirstOrDefault();
+                        {
+                            var dump = db.LiquidWasteDetails.Where(x => x.ReferanceId == item.ReferanceId).FirstOrDefault();
                             if (dump != null)
                             {
 
@@ -10671,17 +10679,17 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                 {
                                     dump.LWAddreLW = item.Address;
                                 }
-                                if (!string.IsNullOrEmpty(item.Lat)) 
+                                if (!string.IsNullOrEmpty(item.Lat))
                                 {
                                     dump.LWLat = item.Lat;
                                 }
-                                if (!string.IsNullOrEmpty(item.Long)) 
+                                if (!string.IsNullOrEmpty(item.Long))
                                 {
                                     dump.LWLong = item.Long;
                                 }
 
                                 dump.lastModifiedDate = item.date; //DateTime.Now;
-                                
+
                                 if (item.areaId > 0 && (string.IsNullOrEmpty(item.areaId.ToString())) == false)
                                 {
                                     dump.areaId = item.areaId;
@@ -10702,7 +10710,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                 {
                                     dump.QRCodeImage = item.QRCodeImage;
                                 }
-                                db.Qr_Location.Add(FillLocationDetails(item, AppId,true));
+                                db.Qr_Location.Add(FillLocationDetails(item, AppId, true));
 
                                 db.SaveChanges();
 
@@ -10807,11 +10815,11 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                             if (gp != null)
                             {
-                                if (!string.IsNullOrEmpty(item.name.ToString())) 
+                                if (!string.IsNullOrEmpty(item.name.ToString()))
                                 {
                                     gp.gpName = item.name;
                                 }
-                                if (!string.IsNullOrEmpty(item.namemar.ToString())) 
+                                if (!string.IsNullOrEmpty(item.namemar.ToString()))
                                 {
                                     gp.gpNameMar = item.namemar;
                                 }
@@ -10829,7 +10837,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                 }
 
                                 gp.modified = item.date; //DateTime.Now;
-                                
+
                                 if (item.areaId > 0 && (string.IsNullOrEmpty(item.areaId.ToString())) == false)
                                 {
                                     gp.areaId = item.areaId;
@@ -10911,7 +10919,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                 }
 
                                 house.modified = item.date; //DateTime.Now;
-                                
+
                                 if (item.areaId > 0 && (string.IsNullOrEmpty(item.areaId.ToString())) == false)
                                 {
                                     house.AreaId = item.areaId;
@@ -10967,7 +10975,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                         }
                     }
-                        
+
                     return result;
 
 
@@ -10984,7 +10992,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     return result;
                 }
 
-            
+
             }
 
         }
@@ -11034,7 +11042,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         houseCollection = checkIntNull(x.HouseCollection.ToString()),
                         pointCollection = checkIntNull(x.PointCollection.ToString()),
                         DumpYardCollection = checkIntNull(x.DumpYardCollection.ToString()),
-                        LiquidCollection=checkIntNull(x.LiquidCollection.ToString()),
+                        LiquidCollection = checkIntNull(x.LiquidCollection.ToString()),
                         StreetCollection = checkIntNull(x.StreetCollection.ToString()),
                     });
                 }
@@ -11125,7 +11133,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             List<CMSBEmplyeeIdelGrid> obj = new List<CMSBEmplyeeIdelGrid>();
             using (var db = new DevSwachhBharatNagpurEntities(appId))
             {
-                
+
                 var data = db.SP_IdelTime(UserId, fdate, tdate).Where(c => c.IdelTime != null & c.IdelTime > 15).ToList();
 
                 if (!string.IsNullOrEmpty(SearchString))
@@ -11159,12 +11167,12 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         userId = x.userId
                     });
                 }
-                
+
                 return obj.Skip(Fetch_Next).Take(Offset).ToList();
             }
         }
 
-        public List<CMSBEmpolyeeSummaryGrid> GetEmployeeSummary(int appId, DateTime fdate, DateTime tdate, int ? UserId, int Offset, int Fetch_Next, string SearchString)
+        public List<CMSBEmpolyeeSummaryGrid> GetEmployeeSummary(int appId, DateTime fdate, DateTime tdate, int? UserId, int Offset, int Fetch_Next, string SearchString)
         {
             List<CMSBEmpolyeeSummaryGrid> obj = new List<CMSBEmpolyeeSummaryGrid>();
             using (var db = new DevSwachhBharatNagpurEntities(appId))
@@ -11226,7 +11234,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         }
 
 
-        public BigVQRHPDVM2 GetScanifyHouseDetailsData(int appId, string ReferenceId ,int gcType)
+        public BigVQRHPDVM2 GetScanifyHouseDetailsData(int appId, string ReferenceId, int gcType)
         {
             BigVQRHPDVM2 Details = new BigVQRHPDVM2();
 
@@ -11237,8 +11245,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             using (var db = new DevSwachhBharatNagpurEntities(appId))
             {
                 var model = db.SP_HousePointDumpDetails_Scanify(ReferenceId, gcType).FirstOrDefault();
-                
-                if(gcType==1)
+
+                if (gcType == 1)
                 {
                     if (model != null)
                     {
@@ -11332,7 +11340,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         {
             var binMaster = dbMain.BinMasters.Where(c => c.DeviceId == DeviceId).FirstOrDefault();
             //dbMain.AppDetails.Where(c => c.AppId == AppId).FirstOrDefault();
-            
+
             Result result = new Result();
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(Convert.ToInt32(binMaster.AppId)))
             {
@@ -11373,7 +11381,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             List<CMSBHouseLocationOnMap> houseLocation = new List<CMSBHouseLocationOnMap>();
             using (var db = new DevSwachhBharatNagpurEntities(AppId))
             {
-                var data = db.SP_HouseOnMapDetails(Convert.ToDateTime(gcdate), userid == -1 ? 0 : userid, areaid, WardNo,null,null,0).ToList();
+                var data = db.SP_HouseOnMapDetails(Convert.ToDateTime(gcdate), userid == -1 ? 0 : userid, areaid, WardNo, null, null, 0).ToList();
                 foreach (var x in data)
                 {
 
@@ -11391,7 +11399,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                                          //string gcTime = x.gcDate.ToString(),
                                                          //gcTime = x.gcDate.ToString("hh:mm tt"),
                                                          //myDateTime.ToString("HH:mm:ss")
-                                                         ///date = Convert.ToDateTime(x.datt).ToString("dd/MM/yyyy"),
+                        ///date = Convert.ToDateTime(x.datt).ToString("dd/MM/yyyy"),
                         //time = Convert.ToDateTime(x.datt).ToString("hh:mm:ss tt"),
                         houseLat = x.houseLat,
                         houseLong = x.houseLong,
@@ -11487,7 +11495,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         {
             CitizenMobileOTP obj = new CitizenMobileOTP();
 
-            string characters= "1234567890";
+            string characters = "1234567890";
 
             string otp = string.Empty;
             for (int i = 0; i < 4; i++)
@@ -11511,7 +11519,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     string msg = "Your OTP is " + otp + ". Do not Share it with anyone by any means. This is confidential and to be used by you only. ICTSBM";
 
                     sendSMS(msg, _Mobile);
-                    if(AppId==3068 || AppId==3098)
+                    if (AppId == 3068 || AppId == 3098)
                     {
                         sendSMSNgp(msg, _Mobile);
                     }
@@ -11519,7 +11527,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     obj.OTP = otp;
                     obj.Message = "OTP sent successfully.";
                     obj.MessageMar = "ओटीपी यशस्वीरित्या पाठवले.";
-                    obj.MobileNo = _Mobile ;
+                    obj.MobileNo = _Mobile;
                 }
                 else
                 {
@@ -11529,12 +11537,12 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 }
             }
 
-            
+
 
             return obj;
         }
 
-        public Result1 SaveDeviceDetails(int appId, string ReferanceId, string FCMID, string DeviceID , string Mobile)
+        public Result1 SaveDeviceDetails(int appId, string ReferanceId, string FCMID, string DeviceID, string Mobile)
         {
             screenService = new ScreenService(appId);
             Result1 result = new Result1();
@@ -11542,7 +11550,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             return result;
         }
 
-        public Result1 SaveDeviceDetailsClear(int appId, string DeviceID,string ReferenceID)
+        public Result1 SaveDeviceDetailsClear(int appId, string DeviceID, string ReferenceID)
         {
             screenService = new ScreenService(appId);
             Result1 result = new Result1();
@@ -11611,7 +11619,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(appId))
             {
                 var data = db.HouseDetails_ReferanceId(ReferanceId).FirstOrDefault();
-                if(data != null)
+                if (data != null)
                 {
                     GPHouse.Name = data.Name;
                     GPHouse.NameMar = data.NameMar;
@@ -11630,7 +11638,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             List<CitizenCTPTAddress> Location = new List<CitizenCTPTAddress>();
             using (var db = new DevSwachhBharatNagpurEntities(appId))
             {
-                var data = db.SauchalayAddresses.Where(c => c.Lat != null && c.Long !=null).ToList();
+                var data = db.SauchalayAddresses.Where(c => c.Lat != null && c.Long != null).ToList();
                 foreach (var x in data)
                 {
                     Location.Add(new CitizenCTPTAddress()
@@ -11656,15 +11664,424 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             return screenService.GetHouseAttenRoute(daId);
         }
 
-        #region RFID 
-        public Result SaveRfidDetails(string ReaderId, string TagId, string Lat, string Long, string Type, string DT)
+
+        // House Scanify API Code
+
+        public SBUser CheckSupervisorUserLogin(string userName, string password, string EmpType)
+        {
+            SBUser user = new SBUser();
+            if (EmpType == "A")
+            {
+                user = SupervisorLogin(userName, password, EmpType);
+            }
+            else
+            {
+                user.userId = 0;
+                user.userLoginId = "";
+                user.userPassword = "";
+                user.status = "error";
+                user.gtFeatures = false;
+                user.EmpType = "";
+                user.imiNo = "";
+                user.message = "Employee Type Does not Match.";
+                user.messageMar = "कर्मचारी प्रकार जुळत नाही.";
+            }
+            return user;
+        }
+
+        public SBUser SupervisorLogin(string userName, string password, string EmpType)
+        {
+            SBUser user = new SBUser();
+            var obj = dbMain.EmployeeMasters.Where(c => c.LoginId == userName & c.Password == password & c.isActive == true).FirstOrDefault();
+            if (obj == null)
+            {
+                user.userId = 0;
+                user.userLoginId = "";
+                user.userPassword = "";
+                user.status = "error";
+                user.gtFeatures = false;
+                user.EmpType = "";
+                user.imiNo = "";
+                user.message = "UserName or Passward not Match.";
+                user.messageMar = "वापरकर्ता नाव किंवा पासवर्ड जुळत नाही.";
+            }
+            else if (obj != null && obj.LoginId == userName && obj.Password == password)
+            {
+
+                user.userId = obj.EmpId;
+                user.userLoginId = obj.LoginId;
+                user.userPassword = obj.Password;
+                user.EmpType = checkNull(obj.type); ;
+                user.imiNo = "";
+                user.type = "";
+                user.gtFeatures = true;
+                user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
+            }
+
+            return user;
+        }
+
+        public List<NameULB> GetUlb(int userId, string EmpType)
+        {
+            List<NameULB> obj = new List<NameULB>();
+            var ids = dbMain.EmployeeMasters.Where(c => c.EmpId == userId).Select(c => c.isActiveULB).FirstOrDefault();
+            if (ids != null)
+            {
+                string[] authorsList = ids.Split(',');
+                foreach (string author in authorsList)
+                {
+                    var data = dbMain.AppDetails.Where(c => c.AppId.ToString().ToLower().Contains(author.ToLower())).ToList();
+                    foreach (var x in data)
+                    {
+                        obj.Add(new NameULB()
+                        {
+                            ulb = (x.AppName.ToString()),
+                            appid = (x.AppId),
+                        });
+                    }
+                }
+            }
+            else
+            {
+                var data = dbMain.AppDetails.Where(c => c.IsActive == true).ToList();
+                foreach (var x in data)
+                {
+                    obj.Add(new NameULB()
+                    {
+                        ulb = (x.AppName.ToString()),
+                        appid = (x.AppId),
+                    });
+                }
+            }
+
+            return obj;
+        }
+
+        public HSDashboard GetSelectedUlbData(int userId, string EmpType, int appId)
+        {
+            HSDashboard model = new HSDashboard();
+            try
+            {
+                using (var db = new DevSwachhBharatNagpurEntities(appId))
+                {
+                    DevSwachhBharatMainEntities dbm = new DevSwachhBharatMainEntities();
+                    var appdetails = dbm.AppDetails.Where(c => c.AppId == appId).FirstOrDefault();
+                    var data = db.SP_HouseScanifyDetails().First();
+                    if (data != null)
+                    {
+                        model.AppId = appdetails.AppId;
+                        model.AppName = appdetails.AppName;
+                        model.TotalHouse = data.TotalHouse;
+                        model.TotalHouseUpdated = data.TotalHouseUpdated;
+                        model.TotalHouseUpdated_CurrentDay = data.TotalHouseUpdated_CurrentDay;
+                        model.TotalPoint = data.TotalPoint;
+                        model.TotalPointUpdated = data.TotalPointUpdated;
+                        model.TotalPointUpdated_CurrentDay = data.TotalPointUpdated_CurrentDay;
+                        model.TotalDump = data.TotalDump;
+                        model.TotalDumpUpdated = data.TotalDumpUpdated;
+                        model.TotalDumpUpdated_CurrentDay = data.TotalDumpUpdated_CurrentDay;
+
+                        model.TotalLiquid = data.TotalLiquid;
+                        model.TotalLiquidUpdated = data.TotalLiquidUpdated;
+                        model.TotalLiquidUpdated_CurrentDay = data.TotalLiquidUpdated_CurrentDay;
+
+                        model.TotalStreet = data.TotalStreet;
+                        model.TotalStreetUpdated = data.TotalStreetUpdated;
+                        model.TotalStreetUpdated_CurrentDay = data.TotalStreetUpdated_CurrentDay;
+
+                        return model;
+                    }
+
+                    else
+                    {
+                        return model;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return model;
+            }
+        }
+
+        public List<HSEmployee> GetQREmployeeList(int userId, string EmpType, int appId)
+        {
+            List<HSEmployee> obj = new List<HSEmployee>();
+            try
+            {
+                using (var db = new DevSwachhBharatNagpurEntities(appId))
+                {
+                    {
+                        var data = db.QrEmployeeMasters.Where(c => c.isActive == true).ToList();
+                        foreach (var x in data)
+                        {
+                            obj.Add(new HSEmployee()
+                            {
+                                EmployeeName = (x.qrEmpName.ToString()),
+                                EmployeeID = (x.qrEmpId),
+                            });
+                        }
+                    }
+
+                    return obj;
+                }
+            }
+            catch (Exception)
+            {
+                return obj;
+            }
+
+        }
+
+        public IEnumerable<HouseScanifyDetailsGridRow> GetHouseScanifyDetails(int userId, DateTime FromDate, DateTime Todate, int appId)
+        {
+            using (var db = new DevSwachhBharatNagpurEntities(appId))
+            {
+                var data = db.SP_HouseScanify(FromDate, Todate, userId).Select(x => new HouseScanifyDetailsGridRow
+                {
+                    qrEmpId = x.qrEMpId,
+                    qrEmpName = x.qrEmpName,
+                    qrEmpNameMar = x.qrEmpNameMar,
+                    qrEmpMobileNumber = x.qrEmpMobileNumber,
+                    qrEmpAddress = x.qrEmpAddress,
+                    qrEmpLoginId = x.qrEmpLoginId,
+                    qrEmpPassword = x.qrEmpPassword,
+                    isActive = x.isActive,
+                    bloodGroup = x.bloodGroup,
+                    lastModifyDate = x.lastModifyDate,
+                    HouseCount = x.HouseCount,
+                    PointCount = x.PointCount,
+                    DumpCount = x.DumpCount,
+                    LiquidCount = x.LiquidCount,
+                    StreetCount = x.StreetCount,
+
+                }).ToList();
+
+                 return data.OrderByDescending(c => c.LiquidCount).OrderByDescending(c => c.HouseCount).OrderByDescending(c => c.StreetCount);
+                //return data.Join
+            }
+        }
+
+        public IEnumerable<HSAttendanceGrid> GetAttendanceDetails(int userId, DateTime FromDate, DateTime Todate, int appId)
+        {
+            List<HSAttendanceGrid> obj = new List<HSAttendanceGrid>();
+            using (var db = new DevSwachhBharatNagpurEntities(appId))
+            {
+
+                var data = (from t1 in db.Qr_Employee_Daily_Attendance
+                            join t2 in db.QrEmployeeMasters on t1.qrEmpId equals t2.qrEmpId
+                            select new
+                            {
+                                t1.qrEmpDaId,
+                                t1.qrEmpId,
+                                t1.startDate,
+                                t1.endDate,
+                                t1.startTime,
+                                t1.endTime,
+                                t1.startLat,
+                                t1.startLong,
+                                t1.endLat,
+                                t1.endLong,
+                                t1.startNote,
+                                t1.endNote,
+                                t2.qrEmpName,
+
+                            }).OrderByDescending(c => c.startDate).ThenByDescending(c => c.startTime).ToList();
+
+                //return obj.OrderBy(c => c.Date).ThenByDescending(c => c.StartTime);
+
+                //var data = db.Qr_Employee_Daily_Attendance.OrderByDescending(c => c.qrEmpDaId).ToList();
+
+                if (Convert.ToDateTime(FromDate).ToString("dd/MM/yyyy") == Convert.ToDateTime(DateTime.Now).ToString("dd/MM/yyyy"))
+                {
+                    data = data.OrderByDescending(c => c.qrEmpDaId).Where(c => (c.startDate == FromDate || c.endDate == FromDate || c.endTime == "")).ToList();
+                }
+                else
+                {
+
+                    data = data.OrderByDescending(c => c.qrEmpDaId).Where(c => (c.startDate >= FromDate && c.startDate <= Todate) || (c.startDate >= FromDate && c.startDate <= Todate)).ToList();
+                }
+
+                if (userId > 0)
+                {
+                    var model = data.OrderByDescending(c => c.qrEmpDaId).Where(c => c.qrEmpId == userId).ToList();
+
+                    data = model.ToList();
+                }
+
+                foreach (var x in data)
+                {
+
+                    DateTime cDate = DateTime.Now;
+
+                    TimeSpan timespan = new TimeSpan(00, 00, 00);
+                    DateTime time = DateTime.Now.Add(timespan);
+                    string displayTime = time.ToString("hh:mm tt");
+
+
+                    string displayTime1 = Convert.ToDateTime(x.startDate).ToString("MM/dd/yyyy");
+                    string sTime = Convert.ToDateTime(x.startTime).ToString("HH:mm:ss");
+
+                    var a = (Convert.ToDateTime(x.startDate).ToString("MM/dd/yyyy"));
+                    var b = x.endDate == null ? Convert.ToDateTime(cDate).ToString("MM/dd/yyyy") : Convert.ToDateTime(x.endDate).ToString("MM/dd/yyyy");
+
+                    string Time1 = (x.startTime).ToString();
+                    string Time2 = ((x.endTime == "" ? displayTime : x.endTime).ToString());
+
+                    DateTime startDate = Convert.ToDateTime(a + " " + Time1);
+                    DateTime endDate = Convert.ToDateTime(b + " " + Time2);
+                    var houseCount = db.HouseMasters.Where(c => c.modified >= startDate && c.modified <= endDate && c.userId == x.qrEmpId).Count();
+                    var liquidCount = db.LiquidWasteDetails.Where(c => c.lastModifiedDate >= startDate && c.lastModifiedDate <= endDate && c.userId == x.qrEmpId).Count();
+                    var streetCount = db.StreetSweepingDetails.Where(c => c.lastModifiedDate >= startDate && c.lastModifiedDate <= endDate && c.userId == x.qrEmpId).Count();
+                    var dumpyardcount = db.DumpYardDetails.Where(c => c.lastModifiedDate >= startDate && c.lastModifiedDate <= endDate && c.userId == x.qrEmpId).Count();
+
+                    string endate = "";
+                    if (x.endDate == null)
+                    {
+                        endate = "";
+                    }
+                    else
+                    {
+                        endate = Convert.ToDateTime(x.endDate).ToString("dd/MM/yyyy");
+                    }
+                    obj.Add(new HSAttendanceGrid()
+                    {
+                        qrEmpDaId = x.qrEmpDaId,
+                        qrEmpId = Convert.ToInt32(x.qrEmpId),
+                        userName = x.qrEmpName,
+                        startDate = Convert.ToDateTime(x.startDate).ToString("dd/MM/yyyy"),
+                        endDate = endate,
+                        startTime = checkNull(x.startTime),
+                        endTime = checkNull(x.endTime),
+                        startLat = checkNull(x.startLat),
+                        startLong = checkNull(x.startLong),
+                        endLat = checkNull(x.endLat),
+                        endLong = checkNull(x.endLong),
+                        startNote = checkNull(x.startNote),
+                        endNote = checkNull(x.endNote),
+                        CompareDate = x.startDate,
+                        HouseCount = houseCount,
+                        LiquidCount = liquidCount,
+                        StreetCount = streetCount,
+                        DumpYardCount = dumpyardcount,
+                        daDateTIme = (displayTime1 + " " + sTime)
+
+
+
+                    });
+                }
+
+                return obj.OrderByDescending(c => c.qrEmpDaId).ToList();
+            }
+
+        }
+
+        public IEnumerable<HSHouseDetailsGrid> GetHouseDetails(int userId, DateTime FromDate, DateTime Todate, int appId)
+        {
+            using (var db = new DevSwachhBharatNagpurEntities(appId))
+            {
+                var data = db.SP_HouseDetailsApp(FromDate, Todate, userId).Select(x => new HSHouseDetailsGrid
+                {
+                    houseId = x.houseId,
+                    Name = x.qrEmpName,
+                    HouseLat = x.houseLat,
+                    HouseLong = x.houseLong,
+                    QRCodeImage = x.QRCodeImage,
+                    ReferanceId = x.ReferanceId,
+                    modifiedDate = x.modified.HasValue ? Convert.ToDateTime(x.modified).ToString("dd/MM/yyyy hh:mm tt") : "",
+
+
+                }).ToList();
+
+                return data;
+            }
+        }
+
+        public IEnumerable<HSDumpYardDetailsGrid> GetDumpYardDetails(int userId, DateTime FromDate, DateTime Todate, int appId)
+        {
+            using (var db = new DevSwachhBharatNagpurEntities(appId))
+            {
+                var data = db.SP_DumpYardDetailsApp(FromDate, Todate, userId).Select(x => new HSDumpYardDetailsGrid
+                {
+                    dyId = x.dyId,
+                    Name = x.qrEmpName,
+                    dyLat = x.dyLat,
+                    dyLong = x.dyLong,
+                    QRCodeImage = x.QRCodeImage,
+                    ReferanceId = x.ReferanceId,
+                    modifiedDate = x.lastModifiedDate.HasValue ? Convert.ToDateTime(x.lastModifiedDate).ToString("dd/MM/yyyy hh:mm tt") : "",
+
+
+                }).ToList();
+
+                return data;
+            }
+        }
+
+        public IEnumerable<HSLiquidDetailsGrid> GetLiquidDetails(int userId, DateTime FromDate, DateTime Todate, int appId)
+        {
+            using (var db = new DevSwachhBharatNagpurEntities(appId))
+            {
+                var data = db.SP_LiquidDetailsApp(FromDate, Todate, userId).Select(x => new HSLiquidDetailsGrid
+                {
+                    LWId = x.LWId,
+                    Name = x.qrEmpName,
+                    LWLat = x.LWLat,
+                    LWLong = x.LWLong,
+                    QRCodeImage = x.QRCodeImage,
+                    ReferanceId = x.ReferanceId,
+                    modifiedDate = x.lastModifiedDate.HasValue ? Convert.ToDateTime(x.lastModifiedDate).ToString("dd/MM/yyyy hh:mm tt") : "",
+
+
+                }).ToList();
+
+                return data;
+            }
+        }
+
+        public IEnumerable<HSStreetDetailsGrid> GetStreetDetails(int userId, DateTime FromDate, DateTime Todate, int appId)
+        {
+            using (var db = new DevSwachhBharatNagpurEntities(appId))
+            {
+                var data = db.SP_StreetDetailsApp(FromDate, Todate, userId).Select(x => new HSStreetDetailsGrid
+                {
+                    SSId = x.SSId,
+                    Name = x.qrEmpName,
+                    SSLat = x.SSLat,
+                    SSLong = x.SSLong,
+                    QRCodeImage = x.QRCodeImage,
+                    ReferanceId = x.ReferanceId,
+                    modifiedDate = x.lastModifiedDate.HasValue ? Convert.ToDateTime(x.lastModifiedDate).ToString("dd/MM/yyyy hh:mm tt") : "",
+
+
+                }).ToList();
+
+                return data;
+            }
+        }
+
+        public CollectionSyncResult SaveAddEmployee(HouseScanifyEmployeeDetails obj, int AppId)
+        {
+            CollectionSyncResult result = new CollectionSyncResult();
+
+            using (var db = new DevSwachhBharatNagpurEntities(AppId))
+            {
+                //Add Code 
+
+            }
+
+            return result;
+        }
+
+            #region RFID 
+            public Result SaveRfidDetails(string ReaderId, string TagId, string Lat, string Long, string Type, string DT)
         {
             var rfid = dbMain.RFID_Master.Where(c => c.ReaderID == ReaderId).FirstOrDefault();
             var AppId = rfid.AppID;
             //dbMain.AppDetails.Where(c => c.AppId == AppId).FirstOrDefault();
 
             //var date = Convert.ToDateTime(DT);
-           // int size = 10;
+            // int size = 10;
 
             List<string> a = new List<string>();
             for (int i = 0; i < DT.Length; i += 10)
@@ -11728,7 +12145,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         result.message = "Something is wrong,Try Again.. ";
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     result.status = "error";
                     result.message = "Something is wrong,Try Again.. ";
@@ -11740,7 +12157,9 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         }
 
-       
+
+
+
         #endregion
     }
 }

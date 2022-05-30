@@ -224,6 +224,7 @@
     <Compile Include="Controllers\QREmployeeController.cs" />
     <Compile Include="Controllers\RFIDController.cs" />
     <Compile Include="Controllers\SBGameController.cs" />
+    <Compile Include="Controllers\SupervisorLoginController.cs" />
     <Compile Include="Controllers\TypeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\WasteManagementController.cs" />

@@ -10,42 +10,42 @@ using System.Threading.Tasks;
 
 namespace SwachhBharat.API.Bll.Repository.Repository
 {
-   public interface IRepository
+    public interface IRepository
     {
-        SBUser CheckUserLogin(string email, string password,string imi,int appId,string EmpType);
+        SBUser CheckUserLogin(string email, string password, string imi, int appId, string EmpType);
 
         SBAdmin CheckAdminLogin(string userName, string password);
-        SBUserView GetUser(int appId,int userId , int typeId);
+        SBUserView GetUser(int appId, int userId, int typeId);
         List<SBVehicleType> GetVehicle(int appId);
         //List<SyncResult> SaveUserLocation(List<SBUserLocation> obj, int AppId, string batteryStatus);
-        List<SyncResult> SaveUserLocation(List<SBUserLocation> obj, int AppId, string batteryStatus,int typeId,string EmpType);
+        List<SyncResult> SaveUserLocation(List<SBUserLocation> obj, int AppId, string batteryStatus, int typeId, string EmpType);
         //List<SyncResult> SaveUserAttendence(List<SBUserAttendence> obj, int AppId,int type, string batteryStatus);
         Result SaveUserAttendence(SBUserAttendence obj, int AppId, int type, string batteryStatus);
-        List<SyncResult1> SaveUserAttendenceOffline(List<SBUserAttendence> obj, int AppId,string cdate,string EmpType);
+        List<SyncResult1> SaveUserAttendenceOffline(List<SBUserAttendence> obj, int AppId, string cdate, string EmpType);
 
         List<SBAAttendenceSettingsGridRow> SaveAttendenceSettingsDetail(int AppId, string hour);
-        List<SBUserAttendenceView> GetUserAttendence(DateTime fdate, int appId,int userId);
+        List<SBUserAttendenceView> GetUserAttendence(DateTime fdate, int appId, int userId);
 
-        SyncResult2 GetUserMobileIdentification(int appId, int userId,bool isSync,int batteryStatus,string imeinos);
+        SyncResult2 GetUserMobileIdentification(int appId, int userId, bool isSync, int batteryStatus, string imeinos);
 
-        List<SBWorkDetails> GetUserWork(int userid, int year,int month, int appId,string EmpType);
-        List<SBWorkDetailsHistory> GetUserWorkDetails(DateTime date,  int appId, int userId,int languageId);
+        List<SBWorkDetails> GetUserWork(int userid, int year, int month, int appId, string EmpType);
+        List<SBWorkDetailsHistory> GetUserWorkDetails(DateTime date, int appId, int userId, int languageId);
 
         CollectionResult SaveGarbageCollection(SBGarbageCollectionView obj, int AppId, int type, string batteryStatus);
         CollectionSyncResult SaveGarbageCollectionOffline(SBGarbageCollectionView obj, int AppId, int type);
-        List<SBGarbageCollectionView> GetGarbageCollection(DateTime fdate,int appId);
+        List<SBGarbageCollectionView> GetGarbageCollection(DateTime fdate, int appId);
         Result GetVersionUpdate(string version, int AppId);
         Result GetAdminVersionUpdate(string version, int AppId);
         Result GetGameVersionUpdate(string version);
         List<SBArea> GetArea(int appId);
 
-        List<CMSBZoneVM> GetZone(int appId , string SearchString);
+        List<CMSBZoneVM> GetZone(int appId, string SearchString);
 
         List<CMSBWardVM> GetWard(int AppId, string SearchString);
 
         List<SBAUserlocation> GetUserLocation(int appId);
-        List<SBArea> GetCollectionArea(int appId,int type,string EmpType);
-        List<HouseDetailsVM> GetAreaHouse(int appId, int type,string EmpType);
+        List<SBArea> GetCollectionArea(int appId, int type, string EmpType);
+        List<HouseDetailsVM> GetAreaHouse(int appId, int type, string EmpType);
         List<GarbagePointDetailsVM> GetAreaPoint(int appId, int type);
 
         // Added Byu Saurabh (26 Apr 2019)
@@ -59,11 +59,11 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         List<EmployeeVM> GetActiveEmployee(int appId);
 
-        List<AttendanceGridVM> GetAdminAttendence( int appId, DateTime fdate, DateTime tdate, int UserId, int Offset, int Fetch_Next , string SearchString );
+        List<AttendanceGridVM> GetAdminAttendence(int appId, DateTime fdate, DateTime tdate, int UserId, int Offset, int Fetch_Next, string SearchString);
 
         List<CMSBEmployee> GetEmployee(int AppId);
 
-        List<AHouseGarbageCollectionVM> GetHouseGarbageCollectionData(int appId, int empId, DateTime fdate, DateTime tdate,  int gcType, int Offset, int Fetch_Next ,string SearchString);
+        List<AHouseGarbageCollectionVM> GetHouseGarbageCollectionData(int appId, int empId, DateTime fdate, DateTime tdate, int gcType, int Offset, int Fetch_Next, string SearchString);
 
         //Added By Saurabh (26 Apr 2019)
 
@@ -73,17 +73,17 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         List<CMSBPointGarbageCollectionVM> GetPointGarbageCollectionData(int appId, int empId, DateTime fdate, DateTime tdate, int gcType, int Offset, int Fetch_Next, string SearchString);
         //Added By Nishikant (03 May 2019)
 
-        List<CMSBGrabageCollectionVM> GetDumpYardCollectionData(int appId, int empId, DateTime fdate, DateTime tdate, int gcType, int Offset, int Fetch_Next , string SearchString);
+        List<CMSBGrabageCollectionVM> GetDumpYardCollectionData(int appId, int empId, DateTime fdate, DateTime tdate, int gcType, int Offset, int Fetch_Next, string SearchString);
         //Added By Nishikant (11 May 2019)
 
-        List<CMSBLocationVM> GetLocationData(int appId, int empId, DateTime fdate, DateTime tdate, int Offset , int Fetch_Next , string SearchString);
+        List<CMSBLocationVM> GetLocationData(int appId, int empId, DateTime fdate, DateTime tdate, int Offset, int Fetch_Next, string SearchString);
         //Added By Nishikant (04 May 2019)
 
-        List<CMSBUserLocationMapVM> GetUserWiseLocation(int appId, int empId, string date ,int _Type);
+        List<CMSBUserLocationMapVM> GetUserWiseLocation(int appId, int empId, string date, int _Type);
         //Added By Nishikant (04 May 2019)
 
-        List<CMSBHouseDetailsVM> GetHouseDetailsData(int appId, int Offset, int Fetch_Next , string SearchString);
-        
+        List<CMSBHouseDetailsVM> GetHouseDetailsData(int appId, int Offset, int Fetch_Next, string SearchString);
+
         //Added By Nishikant (06 May 2019)
 
         List<CMSBGarbagePointDetailsVM> GetGarbagePointData(string SearchString, int appId, int Offset, int Fetch_Next);
@@ -124,7 +124,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
 
         //Added Added By Nishikant (17 May 2019)
-        Result SaveZone(CMSBZoneVM state , int  AppId);
+        Result SaveZone(CMSBZoneVM state, int AppId);
 
         // Added By Saurabh (16 May 2019)
         //BigVQrEmployeeVM CheckQrEmployeeLogin(string userName, string password);
@@ -135,7 +135,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         List<SyncResult1> SaveQrEmployeeAttendenceOffline(List<BigVQREmployeeAttendenceVM> obj, int AppId);
 
         Result SaveWard(CMSBWardVM Ward, int AppId);
-        
+
         Result SaveArea(CMSBAreaVM Area, int AppId);
 
         Result SaveVehicleType(SBVehicleType VehicleType, int AppId);
@@ -157,7 +157,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         List<CMSBEmplyeeIdelGrid> GetEmployeeIdelTime(int appId, DateTime fdate, DateTime tdate, int UserId, int Offset, int Fetch_Next, string SearchString);
 
         //Added By neha
-        List<CMSBEmpolyeeSummaryGrid> GetEmployeeSummary(int appId, DateTime fdate, DateTime tdate, int ? UserId, int Offset, int Fetch_Next, string SearchString);
+        List<CMSBEmpolyeeSummaryGrid> GetEmployeeSummary(int appId, DateTime fdate, DateTime tdate, int? UserId, int Offset, int Fetch_Next, string SearchString);
 
 
         //Added By neha
@@ -179,10 +179,32 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         GPHousedetailsVM GetGPHouseDetails(int AppId, string ReferanceId);
         Result1 SaveDeviceDetails(int appId, string ReferanceId, string FCMID, string DeviceID, string Mobile);
-        Result1 SaveDeviceDetailsClear(int appId, string DeviceID ,string _ReferenceID);
+        Result1 SaveDeviceDetailsClear(int appId, string DeviceID, string _ReferenceID);
         #endregion
         List<CMSBUserLocationMapVM> GetHouseAttenRoute(int _AppId, int daId);
         List<CitizenCTPTAddress> GetCTPTAddress(int AppId);
+
+        // House Scanify API Code
+        SBUser CheckSupervisorUserLogin(string email, string password, string EmpType);
+        List<NameULB> GetUlb(int userid, string EmpType);
+
+        HSDashboard GetSelectedUlbData(int userid, string EmpType, int appId);
+
+        List<HSEmployee> GetQREmployeeList(int userid, string EmpType, int appId);
+
+        IEnumerable<HouseScanifyDetailsGridRow> GetHouseScanifyDetails(int userid, DateTime FromDate, DateTime Todate, int appId);
+
+        IEnumerable<HSAttendanceGrid> GetAttendanceDetails(int userid, DateTime FromDate, DateTime Todate, int appId);
+
+        IEnumerable<HSHouseDetailsGrid> GetHouseDetails(int userid, DateTime FromDate, DateTime Todate, int appId);
+
+        IEnumerable<HSDumpYardDetailsGrid> GetDumpYardDetails(int userid, DateTime FromDate, DateTime Todate, int appId);
+
+        IEnumerable<HSLiquidDetailsGrid> GetLiquidDetails(int userid, DateTime FromDate, DateTime Todate, int appId);
+
+        IEnumerable<HSStreetDetailsGrid> GetStreetDetails(int userid, DateTime FromDate, DateTime Todate, int appId);
+
+        CollectionSyncResult SaveAddEmployee(HouseScanifyEmployeeDetails obj, int AppId);
 
         #region RFID
         Result SaveRfidDetails(string ReaderId, string TagId, string Lat, string Long, string Type, string DT);

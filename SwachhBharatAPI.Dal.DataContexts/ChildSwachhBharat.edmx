@@ -506,6 +506,8 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Name="bloodGroup" Type="nvarchar" MaxLength="250" />
           <Property Name="isActive" Type="bit" />
           <Property Name="gcTarget" Type="varchar" MaxLength="250" />
+          <Property Name="EmployeeType" Type="varchar" MaxLength="10" />
+          <Property Name="imoNo2" Type="nvarchar(max)" />
         </EntityType>
         <Function Name="CollecctionArea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="type" Type="int" Mode="In" />
@@ -568,6 +570,11 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Parameter Name="dLong" Type="float" Mode="In" />
         </Function>
         <Function Name="SP_DumpYardDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_DumpYardDetailsApp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fdate" Type="date" Mode="In" />
+          <Parameter Name="tdate" Type="date" Mode="In" />
+          <Parameter Name="userid" Type="int" Mode="In" />
+        </Function>
         <Function Name="SP_EmployeeSummary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="from" Type="date" Mode="In" />
           <Parameter Name="to" Type="date" Mode="In" />
@@ -587,6 +594,11 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Parameter Name="AreaId" Type="int" Mode="In" />
           <Parameter Name="WardNo" Type="int" Mode="In" />
         </Function>
+        <Function Name="SP_HouseDetailsApp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fdate" Type="date" Mode="In" />
+          <Parameter Name="tdate" Type="date" Mode="In" />
+          <Parameter Name="userid" Type="int" Mode="In" />
+        </Function>
         <Function Name="SP_HouseOnMapDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="gcDate" Type="datetime" Mode="In" />
           <Parameter Name="UserId" Type="int" Mode="In" />
@@ -600,14 +612,30 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Parameter Name="ReferenceId" Type="nvarchar" Mode="In" />
           <Parameter Name="gcType" Type="int" Mode="In" />
         </Function>
+        <Function Name="SP_HouseScanify" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fdate" Type="date" Mode="In" />
+          <Parameter Name="tdate" Type="date" Mode="In" />
+          <Parameter Name="userid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_HouseScanifyDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SP_IdelTime" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userId" Type="int" Mode="In" />
           <Parameter Name="fdate" Type="date" Mode="In" />
           <Parameter Name="tdate" Type="date" Mode="In" />
         </Function>
+        <Function Name="SP_LiquidDetailsApp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fdate" Type="date" Mode="In" />
+          <Parameter Name="tdate" Type="date" Mode="In" />
+          <Parameter Name="userid" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_Locationdata" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="fdate" Type="date" Mode="In" />
           <Parameter Name="tdate" Type="date" Mode="In" />
+        </Function>
+        <Function Name="SP_StreetDetailsApp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fdate" Type="date" Mode="In" />
+          <Parameter Name="tdate" Type="date" Mode="In" />
+          <Parameter Name="userid" Type="int" Mode="In" />
         </Function>
         <Function Name="SP_TotalHouseCollection_Count" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="gcdate" Type="date" Mode="In" />
@@ -701,7 +729,9 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
     [Vw_MsgNotification].[imoNo] AS [imoNo], 
     [Vw_MsgNotification].[bloodGroup] AS [bloodGroup], 
     [Vw_MsgNotification].[isActive] AS [isActive], 
-    [Vw_MsgNotification].[gcTarget] AS [gcTarget]
+    [Vw_MsgNotification].[gcTarget] AS [gcTarget], 
+    [Vw_MsgNotification].[EmployeeType] AS [EmployeeType], 
+    [Vw_MsgNotification].[imoNo2] AS [imoNo2]
     FROM [dbo].[Vw_MsgNotification] AS [Vw_MsgNotification]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
@@ -854,6 +884,32 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <EntitySet Name="StreetSweepingDetails" EntityType="DevSwachhBharatNagpurModel.StreetSweepingDetail" />
           <EntitySet Name="StreetSweepingBeats" EntityType="DevSwachhBharatNagpurModel.StreetSweepingBeat" />
           <EntitySet Name="Vw_BitCount" EntityType="DevSwachhBharatNagpurModel.Vw_BitCount" />
+          <FunctionImport Name="SP_HouseScanify" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_HouseScanify_Result)">
+            <Parameter Name="fdate" Mode="In" Type="DateTime" />
+            <Parameter Name="tdate" Mode="In" Type="DateTime" />
+            <Parameter Name="userid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_HouseScanifyDetails" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_HouseScanifyDetails_Result)" />
+          <FunctionImport Name="SP_HouseDetailsApp" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_HouseDetailsApp_Result)">
+            <Parameter Name="fdate" Mode="In" Type="DateTime" />
+            <Parameter Name="tdate" Mode="In" Type="DateTime" />
+            <Parameter Name="userid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_DumpYardDetailsApp" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_DumpYardDetailsApp_Result)">
+            <Parameter Name="fdate" Mode="In" Type="DateTime" />
+            <Parameter Name="tdate" Mode="In" Type="DateTime" />
+            <Parameter Name="userid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_LiquidDetailsApp" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_LiquidDetailsApp_Result)">
+            <Parameter Name="fdate" Mode="In" Type="DateTime" />
+            <Parameter Name="tdate" Mode="In" Type="DateTime" />
+            <Parameter Name="userid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_StreetDetailsApp" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_StreetDetailsApp_Result)">
+            <Parameter Name="fdate" Mode="In" Type="DateTime" />
+            <Parameter Name="tdate" Mode="In" Type="DateTime" />
+            <Parameter Name="userid" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_area_Result">
           <Property Type="String" Name="area" Nullable="true" MaxLength="500" />
@@ -1439,6 +1495,8 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Name="bloodGroup" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="isActive" Type="Boolean" />
           <Property Name="gcTarget" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="imoNo2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="GarbageCollectionDetail">
           <Key>
@@ -1632,6 +1690,80 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Name="BeatId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BitCount" Type="Int32" />
         </EntityType>
+        <ComplexType Name="SP_HouseScanify_Result">
+          <Property Type="Int32" Name="qrEMpId" Nullable="false" />
+          <Property Type="String" Name="qrEmpName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="qrEmpNameMar" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="qrEmpLoginId" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="qrEmpPassword" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="qrEmpMobileNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="qrEmpAddress" Nullable="true" MaxLength="200" />
+          <Property Type="Boolean" Name="isActive" Nullable="true" />
+          <Property Type="String" Name="bloodGroup" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="lastModifyDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="HouseCount" Nullable="true" />
+          <Property Type="Int32" Name="LiquidCount" Nullable="true" />
+          <Property Type="Int32" Name="StreetCount" Nullable="true" />
+          <Property Type="Int32" Name="PointCount" Nullable="true" />
+          <Property Type="Int32" Name="DumpCount" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_HouseScanifyDetails_Result">
+          <Property Type="Int32" Name="TotalHouse" Nullable="true" />
+          <Property Type="Int32" Name="TotalHouseUpdated" Nullable="true" />
+          <Property Type="Int32" Name="TotalHouseUpdated_CurrentDay" Nullable="true" />
+          <Property Type="Int32" Name="TotalPoint" Nullable="true" />
+          <Property Type="Int32" Name="TotalPointUpdated" Nullable="true" />
+          <Property Type="Int32" Name="TotalPointUpdated_CurrentDay" Nullable="true" />
+          <Property Type="Int32" Name="TotalDump" Nullable="true" />
+          <Property Type="Int32" Name="TotalDumpUpdated" Nullable="true" />
+          <Property Type="Int32" Name="TotalDumpUpdated_CurrentDay" Nullable="true" />
+          <Property Type="Int32" Name="TotalLiquid" Nullable="true" />
+          <Property Type="Int32" Name="TotalLiquidUpdated" Nullable="true" />
+          <Property Type="Int32" Name="TotalLiquidUpdated_CurrentDay" Nullable="true" />
+          <Property Type="Int32" Name="TotalStreet" Nullable="true" />
+          <Property Type="Int32" Name="TotalStreetUpdated" Nullable="true" />
+          <Property Type="Int32" Name="TotalStreetUpdated_CurrentDay" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_HouseDetailsApp_Result">
+          <Property Type="Int32" Name="userId" Nullable="true" />
+          <Property Type="Int32" Name="houseId" Nullable="false" />
+          <Property Type="String" Name="houseLat" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="houseLong" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ReferanceId" Nullable="true" MaxLength="350" />
+          <Property Type="DateTime" Name="modified" Nullable="true" Precision="23" />
+          <Property Type="String" Name="qrEmpName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="QRCodeImage" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_DumpYardDetailsApp_Result">
+          <Property Type="Int32" Name="userId" Nullable="true" />
+          <Property Type="Int32" Name="dyId" Nullable="false" />
+          <Property Type="String" Name="dyLat" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="dyLong" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ReferanceId" Nullable="true" MaxLength="200" />
+          <Property Type="DateTime" Name="lastModifiedDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="qrEmpName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="QRCodeImage" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_LiquidDetailsApp_Result">
+          <Property Type="Int32" Name="userId" Nullable="true" />
+          <Property Type="Int32" Name="LWId" Nullable="false" />
+          <Property Type="String" Name="LWLat" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="LWLong" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ReferanceId" Nullable="true" MaxLength="200" />
+          <Property Type="DateTime" Name="lastModifiedDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="qrEmpName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="QRCodeImage" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_StreetDetailsApp_Result">
+          <Property Type="Int32" Name="userId" Nullable="true" />
+          <Property Type="Int32" Name="SSId" Nullable="false" />
+          <Property Type="String" Name="SSLat" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="SSLong" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ReferanceId" Nullable="true" MaxLength="200" />
+          <Property Type="DateTime" Name="lastModifiedDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="qrEmpName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="QRCodeImage" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2303,6 +2435,8 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <EntitySetMapping Name="Vw_MsgNotification">
             <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.Vw_MsgNotification">
               <MappingFragment StoreEntitySet="Vw_MsgNotification">
+                <ScalarProperty Name="imoNo2" ColumnName="imoNo2" />
+                <ScalarProperty Name="EmployeeType" ColumnName="EmployeeType" />
                 <ScalarProperty Name="gcTarget" ColumnName="gcTarget" />
                 <ScalarProperty Name="isActive" ColumnName="isActive" />
                 <ScalarProperty Name="bloodGroup" ColumnName="bloodGroup" />
@@ -2542,6 +2676,104 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_HouseScanify" FunctionName="DevSwachhBharatNagpurModel.Store.SP_HouseScanify">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_HouseScanify_Result">
+                <ScalarProperty Name="qrEMpId" ColumnName="qrEMpId" />
+                <ScalarProperty Name="qrEmpName" ColumnName="qrEmpName" />
+                <ScalarProperty Name="qrEmpNameMar" ColumnName="qrEmpNameMar" />
+                <ScalarProperty Name="qrEmpLoginId" ColumnName="qrEmpLoginId" />
+                <ScalarProperty Name="qrEmpPassword" ColumnName="qrEmpPassword" />
+                <ScalarProperty Name="qrEmpMobileNumber" ColumnName="qrEmpMobileNumber" />
+                <ScalarProperty Name="qrEmpAddress" ColumnName="qrEmpAddress" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="bloodGroup" ColumnName="bloodGroup" />
+                <ScalarProperty Name="lastModifyDate" ColumnName="lastModifyDate" />
+                <ScalarProperty Name="HouseCount" ColumnName="HouseCount" />
+                <ScalarProperty Name="LiquidCount" ColumnName="LiquidCount" />
+                <ScalarProperty Name="StreetCount" ColumnName="StreetCount" />
+                <ScalarProperty Name="PointCount" ColumnName="PointCount" />
+                <ScalarProperty Name="DumpCount" ColumnName="DumpCount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_HouseScanifyDetails" FunctionName="DevSwachhBharatNagpurModel.Store.SP_HouseScanifyDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_HouseScanifyDetails_Result">
+                <ScalarProperty Name="TotalHouse" ColumnName="TotalHouse" />
+                <ScalarProperty Name="TotalHouseUpdated" ColumnName="TotalHouseUpdated" />
+                <ScalarProperty Name="TotalHouseUpdated_CurrentDay" ColumnName="TotalHouseUpdated_CurrentDay" />
+                <ScalarProperty Name="TotalPoint" ColumnName="TotalPoint" />
+                <ScalarProperty Name="TotalPointUpdated" ColumnName="TotalPointUpdated" />
+                <ScalarProperty Name="TotalPointUpdated_CurrentDay" ColumnName="TotalPointUpdated_CurrentDay" />
+                <ScalarProperty Name="TotalDump" ColumnName="TotalDump" />
+                <ScalarProperty Name="TotalDumpUpdated" ColumnName="TotalDumpUpdated" />
+                <ScalarProperty Name="TotalDumpUpdated_CurrentDay" ColumnName="TotalDumpUpdated_CurrentDay" />
+                <ScalarProperty Name="TotalLiquid" ColumnName="TotalLiquid" />
+                <ScalarProperty Name="TotalLiquidUpdated" ColumnName="TotalLiquidUpdated" />
+                <ScalarProperty Name="TotalLiquidUpdated_CurrentDay" ColumnName="TotalLiquidUpdated_CurrentDay" />
+                <ScalarProperty Name="TotalStreet" ColumnName="TotalStreet" />
+                <ScalarProperty Name="TotalStreetUpdated" ColumnName="TotalStreetUpdated" />
+                <ScalarProperty Name="TotalStreetUpdated_CurrentDay" ColumnName="TotalStreetUpdated_CurrentDay" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_HouseDetailsApp" FunctionName="DevSwachhBharatNagpurModel.Store.SP_HouseDetailsApp">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_HouseDetailsApp_Result">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="houseId" ColumnName="houseId" />
+                <ScalarProperty Name="houseLat" ColumnName="houseLat" />
+                <ScalarProperty Name="houseLong" ColumnName="houseLong" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="modified" ColumnName="modified" />
+                <ScalarProperty Name="qrEmpName" ColumnName="qrEmpName" />
+                <ScalarProperty Name="QRCodeImage" ColumnName="QRCodeImage" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_DumpYardDetailsApp" FunctionName="DevSwachhBharatNagpurModel.Store.SP_DumpYardDetailsApp">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_DumpYardDetailsApp_Result">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="dyId" ColumnName="dyId" />
+                <ScalarProperty Name="dyLat" ColumnName="dyLat" />
+                <ScalarProperty Name="dyLong" ColumnName="dyLong" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="lastModifiedDate" ColumnName="lastModifiedDate" />
+                <ScalarProperty Name="qrEmpName" ColumnName="qrEmpName" />
+                <ScalarProperty Name="QRCodeImage" ColumnName="QRCodeImage" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_LiquidDetailsApp" FunctionName="DevSwachhBharatNagpurModel.Store.SP_LiquidDetailsApp">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_LiquidDetailsApp_Result">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="LWId" ColumnName="LWId" />
+                <ScalarProperty Name="LWLat" ColumnName="LWLat" />
+                <ScalarProperty Name="LWLong" ColumnName="LWLong" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="lastModifiedDate" ColumnName="lastModifiedDate" />
+                <ScalarProperty Name="qrEmpName" ColumnName="qrEmpName" />
+                <ScalarProperty Name="QRCodeImage" ColumnName="QRCodeImage" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_StreetDetailsApp" FunctionName="DevSwachhBharatNagpurModel.Store.SP_StreetDetailsApp">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_StreetDetailsApp_Result">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="SSId" ColumnName="SSId" />
+                <ScalarProperty Name="SSLat" ColumnName="SSLat" />
+                <ScalarProperty Name="SSLong" ColumnName="SSLong" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="lastModifiedDate" ColumnName="lastModifiedDate" />
+                <ScalarProperty Name="qrEmpName" ColumnName="qrEmpName" />
+                <ScalarProperty Name="QRCodeImage" ColumnName="QRCodeImage" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
