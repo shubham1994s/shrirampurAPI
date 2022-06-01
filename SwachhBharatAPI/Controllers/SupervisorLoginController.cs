@@ -38,11 +38,13 @@ namespace SwachhBharatAPI.Controllers
 
             IEnumerable<string> headerValue1 = Request.Headers.GetValues("EmpType");
             IEnumerable<string> headerValue2 = Request.Headers.GetValues("userId");
+            IEnumerable<string> headerValue3 = Request.Headers.GetValues("status");
             var EmpType = headerValue1.FirstOrDefault();
             var u = headerValue2.FirstOrDefault();
             int userId = int.Parse(u);
+            var Status = headerValue3.FirstOrDefault();
             List<NameULB> objDetail = new List<NameULB>();
-            objDetail = objRep.GetUlb(userId, EmpType).ToList();
+            objDetail = objRep.GetUlb(userId, EmpType, Status.ToLower()).ToList();
             return objDetail;
         }
 
@@ -67,6 +69,7 @@ namespace SwachhBharatAPI.Controllers
 
         [HttpGet]
         [Route("QREmployeeList")]
+        // Active Employee List For Filter
         public List<HSEmployee> GetQREmployeeList()
         {
             objRep = new Repository();
@@ -84,8 +87,32 @@ namespace SwachhBharatAPI.Controllers
             return objDetail;
         }
 
+
+
+        [HttpGet]
+        [Route("QREmployeeDetailsList")]
+        public List<HouseScanifyEmployeeDetails> GetQREmployeeDetailsList()
+        {
+            objRep = new Repository();
+
+            IEnumerable<string> headerValue1 = Request.Headers.GetValues("EmpType");
+            IEnumerable<string> headerValue2 = Request.Headers.GetValues("userId");
+            IEnumerable<string> headerValue3 = Request.Headers.GetValues("appId");
+            var id = headerValue3.FirstOrDefault();
+            int AppId = int.Parse(id);
+            var EmpType = headerValue1.FirstOrDefault();
+            var u = headerValue2.FirstOrDefault();
+            int userId = int.Parse(u);
+            List<HouseScanifyEmployeeDetails> objDetail = new List<HouseScanifyEmployeeDetails>();
+            objDetail = objRep.GetQREmployeeDetailsList(userId, EmpType, AppId).ToList();
+            return objDetail;
+        }
+
+
+
         [HttpGet]
         [Route("HouseScanifyDetailsGridRow")]
+        // Show Live Data On Dashboard
         public List<HouseScanifyDetailsGridRow> GetHouseScanifyDetails()
         {
             objRep = new Repository();
@@ -308,6 +335,26 @@ namespace SwachhBharatAPI.Controllers
 
             List<HSStreetDetailsGrid> objDetail = new List<HSStreetDetailsGrid>();
             objDetail = objRep.GetStreetDetails(userId, FromDate, Todate, AppId).ToList();
+            return objDetail;
+        }
+
+
+        [HttpGet]
+        [Route("UserRoleList")]
+        public List<UserRoleDetails> UserRoleList()
+        {
+            objRep = new Repository();
+
+            IEnumerable<string> headerValue1 = Request.Headers.GetValues("EmpType");
+            IEnumerable<string> headerValue2 = Request.Headers.GetValues("userId");
+            IEnumerable<string> headerValue3 = Request.Headers.GetValues("status");
+            var EmpType = headerValue1.FirstOrDefault();
+            var u = headerValue2.FirstOrDefault();
+            int userId = int.Parse(u);
+            var s = headerValue3.FirstOrDefault();
+            bool status = bool.Parse(s);
+            List<UserRoleDetails> objDetail = new List<UserRoleDetails>();
+            objDetail = objRep.UserRoleList(userId, EmpType, status).ToList();
             return objDetail;
         }
 

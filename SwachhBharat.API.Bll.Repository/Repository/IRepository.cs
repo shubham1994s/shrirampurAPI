@@ -186,11 +186,13 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         // House Scanify API Code
         SBUser CheckSupervisorUserLogin(string email, string password, string EmpType);
-        List<NameULB> GetUlb(int userid, string EmpType);
+        List<NameULB> GetUlb(int userid, string EmpType, string Status);
 
         HSDashboard GetSelectedUlbData(int userid, string EmpType, int appId);
 
         List<HSEmployee> GetQREmployeeList(int userid, string EmpType, int appId);
+
+        List<HouseScanifyEmployeeDetails> GetQREmployeeDetailsList(int userid, string EmpType, int appId);
 
         IEnumerable<HouseScanifyDetailsGridRow> GetHouseScanifyDetails(int userid, DateTime FromDate, DateTime Todate, int appId);
 
@@ -203,6 +205,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         IEnumerable<HSLiquidDetailsGrid> GetLiquidDetails(int userid, DateTime FromDate, DateTime Todate, int appId);
 
         IEnumerable<HSStreetDetailsGrid> GetStreetDetails(int userid, DateTime FromDate, DateTime Todate, int appId);
+
+        List<UserRoleDetails> UserRoleList(int userid, string EmpType, bool val);
 
         CollectionSyncResult SaveAddEmployee(HouseScanifyEmployeeDetails obj, int AppId);
 
