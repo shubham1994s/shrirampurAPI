@@ -21,6 +21,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Collections;
 using System.Web;
+using System.Drawing;
 
 namespace SwachhBharat.API.Bll.Repository.Repository
 {
@@ -10475,9 +10476,15 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                 house.WasteType = obj.wastetype;
                             }
 
+                            //if ((string.IsNullOrEmpty(obj.QRCodeImage)) == false)
+                            //{
+                            //    house.QRCodeImage = obj.QRCodeImage;
+                            //}
+
                             if ((string.IsNullOrEmpty(obj.QRCodeImage)) == false)
                             {
-                                house.QRCodeImage = obj.QRCodeImage;
+                                obj.QRCodeImage = obj.QRCodeImage.Replace("data:image/jpeg;base64,", "");
+                                house.BinaryQrCodeImage =Convert.FromBase64String(obj.QRCodeImage);
                             }
 
                             //////////////////////////////////////////////////////////////////
@@ -10531,6 +10538,19 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         /// <param name="obj"></param>
         /// <param name="AppId"></param>
         /// <returns></returns>
+        /// 
+        public Image Base64ToImage(string base64String)
+        {
+            // Convert Base64 String to byte[]
+            byte[] imageBytes = Convert.FromBase64String(base64String);
+            MemoryStream ms = new MemoryStream(imageBytes, 0,
+              imageBytes.Length);
+
+            // Convert byte[] to Image
+            ms.Write(imageBytes, 0, imageBytes.Length);
+            Image image = Image.FromStream(ms, true);
+            return image;
+        }
         public Qr_Location FillLocationDetails(BigVQRHPDVM obj, int AppId, bool IsOffline)
         {
             var distCount = "";
