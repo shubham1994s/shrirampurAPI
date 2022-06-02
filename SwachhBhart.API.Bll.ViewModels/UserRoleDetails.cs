@@ -19,5 +19,9 @@ namespace SwachhBhart.API.Bll.ViewModels
         public Nullable<bool> isActive { get; set; }
         public string isActiveULB { get; set; }
 
+       // public Nullable<System.DateTime> lastModifyDateEntry { get; set; }
+
+        public string LastModifyDateEntry { get; set; }
+
     }
 }

@@ -378,6 +378,12 @@ namespace SwachhBharatAPI.Controllers
                 {
                     gcDetail.qrEmpId = item.qrEmpId;
                     gcDetail.qrEmpName = item.qrEmpName;
+                    gcDetail.qrEmpLoginId = item.qrEmpLoginId;
+                    gcDetail.qrEmpPassword = item.qrEmpPassword;
+                    gcDetail.qrEmpMobileNumber = item.qrEmpMobileNumber;
+                    gcDetail.qrEmpAddress = item.qrEmpAddress;
+                    gcDetail.imoNo = item.imoNo;
+                    gcDetail.isActive = item.isActive;
 
                     CollectionSyncResult detail = objRep.SaveAddEmployee(gcDetail, AppId);
                     if (detail.message == "")
@@ -393,11 +399,11 @@ namespace SwachhBharatAPI.Controllers
 
                     objres.Add(new CollectionSyncResult()
                     {
-                        ID = detail.ID,
+                        
                         status = detail.status,
                         messageMar = detail.messageMar,
-                        message = detail.message,
-                        isAttendenceOff = detail.isAttendenceOff
+                        message = detail.message
+                        
                     });
 
                     return objres;
