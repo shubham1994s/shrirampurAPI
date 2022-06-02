@@ -11,5 +11,7 @@ namespace SwachhBhart.API.Bll.ViewModels
         public string ulb { get; set; }
 
         public int appid { get; set; }
+
+        public string faq { get; set; }
     }
 }

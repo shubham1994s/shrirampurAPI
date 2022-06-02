@@ -11741,40 +11741,77 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             return user;
         }
 
-        public List<NameULB> GetUlb(int userId, string EmpType)
+        public List<NameULB> GetUlb(int userId, string EmpType, string Status)
         {
             List<NameULB> obj = new List<NameULB>();
             var ids = dbMain.EmployeeMasters.Where(c => c.EmpId == userId).Select(c => c.isActiveULB).FirstOrDefault();
             if (ids != null)
             {
+
                 string[] authorsList = ids.Split(',');
                 foreach (string author in authorsList)
                 {
-                    var data = dbMain.AppDetails.Where(c => c.AppId.ToString().ToLower().Contains(author.ToLower())).ToList();
+                    if (Status == "false")
+                    {
+                        var data = dbMain.AppDetails.Where(c => c.AppId.ToString().ToLower().Contains(author.ToLower())).ToList();
+                        foreach (var x in data)
+                        {
+                            obj.Add(new NameULB()
+                            {
+                                ulb = (x.AppName.ToString()),
+                                appid = (x.AppId),
+                                faq = x.FAQ,
+                            });
+                        }
+                    }
+                    else if (Status == "true")
+                    {
+                        var data = dbMain.AppDetails.Where(c => c.AppId.ToString().ToLower().Contains(author.ToLower()) && c.FAQ != "0").ToList();
+                        foreach (var x in data)
+                        {
+                            obj.Add(new NameULB()
+                            {
+                                ulb = (x.AppName.ToString()),
+                                appid = (x.AppId),
+                                faq = x.FAQ,
+                            });
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (Status == "false")
+                {
+                    var data = dbMain.AppDetails.Where(c => c.IsActive == true).ToList();
                     foreach (var x in data)
                     {
                         obj.Add(new NameULB()
                         {
                             ulb = (x.AppName.ToString()),
                             appid = (x.AppId),
+                            faq = x.FAQ,
                         });
                     }
                 }
-            }
-            else
-            {
-                var data = dbMain.AppDetails.Where(c => c.IsActive == true).ToList();
-                foreach (var x in data)
+                else if (Status == "true")
                 {
-                    obj.Add(new NameULB()
+                    var data = dbMain.AppDetails.Where(c => c.IsActive == true && c.FAQ != "0").ToList();
+                    foreach (var x in data)
                     {
-                        ulb = (x.AppName.ToString()),
-                        appid = (x.AppId),
-                    });
+                        obj.Add(new NameULB()
+                        {
+                            ulb = (x.AppName.ToString()),
+                            appid = (x.AppId),
+                            faq = x.FAQ,
+                        });
+                    }
                 }
+
+
             }
 
-            return obj;
+            return obj.OrderBy(c => c.ulb).ToList();
         }
 
         public HSDashboard GetSelectedUlbData(int userId, string EmpType, int appId)
@@ -11843,6 +11880,46 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         }
                     }
 
+                    return obj.OrderBy(c=>c.EmployeeName).ToList();
+                }
+            }
+            catch (Exception)
+            {
+                return obj;
+            }
+
+        }
+
+        public List<HouseScanifyEmployeeDetails> GetQREmployeeDetailsList(int userId, string EmpType, int appId)
+        {
+            List<HouseScanifyEmployeeDetails> obj = new List<HouseScanifyEmployeeDetails>();
+            try
+            {
+                using (var db = new DevSwachhBharatNagpurEntities(appId))
+                {
+                    {
+                        var data = db.QrEmployeeMasters.ToList();
+                        foreach (var x in data)
+                        {
+                            obj.Add(new HouseScanifyEmployeeDetails()
+                            {
+                                qrEmpId = x.qrEmpId,
+                                qrEmpName = x.qrEmpName.ToString(),
+                                qrEmpLoginId = x.qrEmpLoginId,
+                                qrEmpPassword = x.qrEmpPassword,
+                                qrEmpMobileNumber = x.qrEmpMobileNumber,
+                                qrEmpAddress = x.qrEmpAddress,
+                                type = x.type,
+                                typeId = x.typeId,
+                                imoNo = x.imoNo,
+                                bloodGroup = x.bloodGroup,
+                                isActive = x.isActive,
+                                target = x.target,
+                                lastModifyDate = x.lastModifyDate,
+                            });
+                        }
+                    }
+
                     return obj;
                 }
             }
@@ -11857,28 +11934,59 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         {
             using (var db = new DevSwachhBharatNagpurEntities(appId))
             {
-                var data = db.SP_HouseScanify(FromDate, Todate, userId).Select(x => new HouseScanifyDetailsGridRow
+                List<HouseScanifyDetailsGridRow> obj = new List<HouseScanifyDetailsGridRow>();
+                var data = db.SP_HouseScanify(FromDate, Todate, userId).ToList();//Select(x => new HouseScanifyDetailsGridRow
+                                                                                 //{
+                                                                                 //    qrEmpId = x.qrEMpId,
+                                                                                 //    qrEmpName = x.qrEmpName,
+                                                                                 //    qrEmpNameMar = x.qrEmpNameMar,
+                                                                                 //    qrEmpMobileNumber = x.qrEmpMobileNumber,
+                                                                                 //    qrEmpAddress = x.qrEmpAddress,
+                                                                                 //    qrEmpLoginId = x.qrEmpLoginId,
+                                                                                 //    qrEmpPassword = x.qrEmpPassword,
+                                                                                 //    isActive = x.isActive,
+                                                                                 //    bloodGroup = x.bloodGroup,
+                                                                                 //    lastModifyDate = x.lastModifyDate,
+                                                                                 //    HouseCount = x.HouseCount,
+                                                                                 //    PointCount = x.PointCount,
+                                                                                 //    DumpCount = x.DumpCount,
+                                                                                 //    LiquidCount = x.LiquidCount,
+                                                                                 //    StreetCount = x.StreetCount,
+
+
+                //}).ToList();
+
+                foreach (var x in data)
                 {
-                    qrEmpId = x.qrEMpId,
-                    qrEmpName = x.qrEmpName,
-                    qrEmpNameMar = x.qrEmpNameMar,
-                    qrEmpMobileNumber = x.qrEmpMobileNumber,
-                    qrEmpAddress = x.qrEmpAddress,
-                    qrEmpLoginId = x.qrEmpLoginId,
-                    qrEmpPassword = x.qrEmpPassword,
-                    isActive = x.isActive,
-                    bloodGroup = x.bloodGroup,
-                    lastModifyDate = x.lastModifyDate,
-                    HouseCount = x.HouseCount,
-                    PointCount = x.PointCount,
-                    DumpCount = x.DumpCount,
-                    LiquidCount = x.LiquidCount,
-                    StreetCount = x.StreetCount,
+                    var data1 = db.Qr_Employee_Daily_Attendance.Where(c => c.qrEmpId == x.qrEMpId && c.startDate >= EntityFunctions.TruncateTime(FromDate) && c.startDate <= EntityFunctions.TruncateTime(Todate)).ToList();
 
-                }).ToList();
+                    if (data1.Count != 0)
+                    {
+                        obj.Add(new HouseScanifyDetailsGridRow()
+                        {
+                            qrEmpId = x.qrEMpId,
+                            qrEmpName = x.qrEmpName,
+                            qrEmpNameMar = x.qrEmpNameMar,
+                            qrEmpMobileNumber = x.qrEmpMobileNumber,
+                            qrEmpAddress = x.qrEmpAddress,
+                            qrEmpLoginId = x.qrEmpLoginId,
+                            qrEmpPassword = x.qrEmpPassword,
+                            isActive = x.isActive,
+                            bloodGroup = x.bloodGroup,
+                            lastModifyDate = x.lastModifyDate,
+                            HouseCount = x.HouseCount,
+                            PointCount = x.PointCount,
+                            DumpCount = x.DumpCount,
+                            LiquidCount = x.LiquidCount,
+                            StreetCount = x.StreetCount,
+                        });
+                    }
 
-                 return data.OrderByDescending(c => c.LiquidCount).OrderByDescending(c => c.HouseCount).OrderByDescending(c => c.StreetCount);
-                //return data.Join
+
+                }
+
+                return obj.OrderByDescending(c => c.LiquidCount).OrderByDescending(c => c.HouseCount).OrderByDescending(c => c.StreetCount);
+
             }
         }
 
@@ -12080,21 +12188,111 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             }
         }
 
+
+        public List<UserRoleDetails> UserRoleList(int userId, string EmpType, bool status)
+        {
+            List<UserRoleDetails> obj = new List<UserRoleDetails>();
+            var data = dbMain.EmployeeMasters.Where(c => c.isActive == status).ToList();
+            foreach (var x in data)
+            {
+                obj.Add(new UserRoleDetails()
+                {
+                    EmpId = x.EmpId,
+                    EmpName = x.EmpName.ToString(),
+                    LoginId = x.LoginId,
+                    Password = x.Password,
+                    EmpMobileNumber = x.EmpMobileNumber,
+                    EmpAddress = x.EmpAddress,
+                    type = x.type,
+                    isActive = x.isActive,
+                    isActiveULB = x.isActiveULB,
+                    LastModifyDateEntry = Convert.ToDateTime(x.lastModifyDateEntry).ToString("dd-MM-yyyy hh:mm"),
+                });
+            }
+
+
+            return obj.OrderBy(c=>c.EmpName).ToList();
+        }
+
+
         public CollectionSyncResult SaveAddEmployee(HouseScanifyEmployeeDetails obj, int AppId)
         {
             CollectionSyncResult result = new CollectionSyncResult();
-
+            QrEmployeeMaster objdata = new QrEmployeeMaster();
             using (var db = new DevSwachhBharatNagpurEntities(AppId))
             {
-                //Add Code 
+                try
+                {
+                    if (obj.qrEmpId != 0)
+                    {
+                        var model = db.QrEmployeeMasters.Where(c => c.qrEmpId == obj.qrEmpId).FirstOrDefault();
+                        if (model != null)
+                        {
+                            model.qrEmpId = obj.qrEmpId;
+                            model.qrEmpName = obj.qrEmpName;
+                            model.qrEmpLoginId = obj.qrEmpLoginId;
+                            model.qrEmpPassword = obj.qrEmpPassword;
+                            model.qrEmpMobileNumber = obj.qrEmpMobileNumber;
+                            model.qrEmpAddress = obj.qrEmpAddress;
+                            model.type = "Employee";
+                            model.typeId = 1;
+                            model.imoNo = obj.imoNo;
+                            model.bloodGroup = "0";
+                            model.isActive = obj.isActive;
+
+                            db.SaveChanges();
+                            result.status = "success";
+                            result.message = "Employee Details Updated successfully";
+                            result.messageMar = "कर्मचारी तपशील यशस्वीरित्या अद्यतनित केले";
+                        }
+                        else
+                        {
+                            result.message = "This Employee Not Available.";
+                            result.messageMar = "कर्मचारी उपलब्ध नाही.";
+                            result.status = "error";
+                            return result;
+
+                        }
+
+                    }
+                    else
+                    {
+                        objdata.qrEmpName = obj.qrEmpName;
+                        objdata.qrEmpLoginId = obj.qrEmpLoginId;
+                        objdata.qrEmpPassword = obj.qrEmpPassword;
+                        objdata.qrEmpMobileNumber = obj.qrEmpMobileNumber;
+                        objdata.qrEmpAddress = obj.qrEmpAddress;
+                        objdata.type = "Employee";
+                        objdata.typeId = 1;
+                        objdata.imoNo = obj.imoNo;
+                        objdata.bloodGroup = "0";
+                        objdata.isActive = obj.isActive;
+
+                        db.QrEmployeeMasters.Add(objdata);
+                        db.SaveChanges();
+                        result.status = "success";
+                        result.message = "Employee Details Added successfully";
+                        result.messageMar = "कर्मचारी तपशील यशस्वीरित्या जोडले";
+                        return result;
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    result.message = "Something is wrong,Try Again.. ";
+                    result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                    result.status = "error";
+                    return result;
+                }
+
 
             }
 
             return result;
         }
 
-            #region RFID 
-            public Result SaveRfidDetails(string ReaderId, string TagId, string Lat, string Long, string Type, string DT)
+        #region RFID 
+        public Result SaveRfidDetails(string ReaderId, string TagId, string Lat, string Long, string Type, string DT)
         {
             var rfid = dbMain.RFID_Master.Where(c => c.ReaderID == ReaderId).FirstOrDefault();
             var AppId = rfid.AppID;

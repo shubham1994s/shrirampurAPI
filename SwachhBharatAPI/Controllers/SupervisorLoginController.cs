@@ -38,11 +38,13 @@ namespace SwachhBharatAPI.Controllers
 
             IEnumerable<string> headerValue1 = Request.Headers.GetValues("EmpType");
             IEnumerable<string> headerValue2 = Request.Headers.GetValues("userId");
+            IEnumerable<string> headerValue3 = Request.Headers.GetValues("status");
             var EmpType = headerValue1.FirstOrDefault();
             var u = headerValue2.FirstOrDefault();
             int userId = int.Parse(u);
+            var Status = headerValue3.FirstOrDefault();
             List<NameULB> objDetail = new List<NameULB>();
-            objDetail = objRep.GetUlb(userId, EmpType).ToList();
+            objDetail = objRep.GetUlb(userId, EmpType, Status.ToLower()).ToList();
             return objDetail;
         }
 
@@ -67,6 +69,7 @@ namespace SwachhBharatAPI.Controllers
 
         [HttpGet]
         [Route("QREmployeeList")]
+        // Active Employee List For Filter
         public List<HSEmployee> GetQREmployeeList()
         {
             objRep = new Repository();
@@ -84,8 +87,32 @@ namespace SwachhBharatAPI.Controllers
             return objDetail;
         }
 
+
+
+        [HttpGet]
+        [Route("QREmployeeDetailsList")]
+        public List<HouseScanifyEmployeeDetails> GetQREmployeeDetailsList()
+        {
+            objRep = new Repository();
+
+            IEnumerable<string> headerValue1 = Request.Headers.GetValues("EmpType");
+            IEnumerable<string> headerValue2 = Request.Headers.GetValues("userId");
+            IEnumerable<string> headerValue3 = Request.Headers.GetValues("appId");
+            var id = headerValue3.FirstOrDefault();
+            int AppId = int.Parse(id);
+            var EmpType = headerValue1.FirstOrDefault();
+            var u = headerValue2.FirstOrDefault();
+            int userId = int.Parse(u);
+            List<HouseScanifyEmployeeDetails> objDetail = new List<HouseScanifyEmployeeDetails>();
+            objDetail = objRep.GetQREmployeeDetailsList(userId, EmpType, AppId).ToList();
+            return objDetail;
+        }
+
+
+
         [HttpGet]
         [Route("HouseScanifyDetailsGridRow")]
+        // Show Live Data On Dashboard
         public List<HouseScanifyDetailsGridRow> GetHouseScanifyDetails()
         {
             objRep = new Repository();
@@ -312,6 +339,26 @@ namespace SwachhBharatAPI.Controllers
         }
 
 
+        [HttpGet]
+        [Route("UserRoleList")]
+        public List<UserRoleDetails> UserRoleList()
+        {
+            objRep = new Repository();
+
+            IEnumerable<string> headerValue1 = Request.Headers.GetValues("EmpType");
+            IEnumerable<string> headerValue2 = Request.Headers.GetValues("userId");
+            IEnumerable<string> headerValue3 = Request.Headers.GetValues("status");
+            var EmpType = headerValue1.FirstOrDefault();
+            var u = headerValue2.FirstOrDefault();
+            int userId = int.Parse(u);
+            var s = headerValue3.FirstOrDefault();
+            bool status = bool.Parse(s);
+            List<UserRoleDetails> objDetail = new List<UserRoleDetails>();
+            objDetail = objRep.UserRoleList(userId, EmpType, status).ToList();
+            return objDetail;
+        }
+
+
         [Route("AddHouseScanifyEmployee")]
         [HttpPost]
         public List<CollectionSyncResult> AddEmployee(List<HouseScanifyEmployeeDetails> objRaw)
@@ -331,6 +378,12 @@ namespace SwachhBharatAPI.Controllers
                 {
                     gcDetail.qrEmpId = item.qrEmpId;
                     gcDetail.qrEmpName = item.qrEmpName;
+                    gcDetail.qrEmpLoginId = item.qrEmpLoginId;
+                    gcDetail.qrEmpPassword = item.qrEmpPassword;
+                    gcDetail.qrEmpMobileNumber = item.qrEmpMobileNumber;
+                    gcDetail.qrEmpAddress = item.qrEmpAddress;
+                    gcDetail.imoNo = item.imoNo;
+                    gcDetail.isActive = item.isActive;
 
                     CollectionSyncResult detail = objRep.SaveAddEmployee(gcDetail, AppId);
                     if (detail.message == "")
@@ -346,11 +399,11 @@ namespace SwachhBharatAPI.Controllers
 
                     objres.Add(new CollectionSyncResult()
                     {
-                        ID = detail.ID,
+                        
                         status = detail.status,
                         messageMar = detail.messageMar,
-                        message = detail.message,
-                        isAttendenceOff = detail.isAttendenceOff
+                        message = detail.message
+                        
                     });
 
                     return objres;
