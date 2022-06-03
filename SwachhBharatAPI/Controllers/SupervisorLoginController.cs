@@ -87,8 +87,6 @@ namespace SwachhBharatAPI.Controllers
             return objDetail;
         }
 
-
-
         [HttpGet]
         [Route("QREmployeeDetailsList")]
         public List<HouseScanifyEmployeeDetails> GetQREmployeeDetailsList()
@@ -98,17 +96,21 @@ namespace SwachhBharatAPI.Controllers
             IEnumerable<string> headerValue1 = Request.Headers.GetValues("EmpType");
             IEnumerable<string> headerValue2 = Request.Headers.GetValues("userId");
             IEnumerable<string> headerValue3 = Request.Headers.GetValues("appId");
+            IEnumerable<string> headerValue4 = Request.Headers.GetValues("qrEmpId");
+
             var id = headerValue3.FirstOrDefault();
             int AppId = int.Parse(id);
             var EmpType = headerValue1.FirstOrDefault();
             var u = headerValue2.FirstOrDefault();
             int userId = int.Parse(u);
+
+            var EmpID = headerValue4.FirstOrDefault();
+            int QrEmpId = int.Parse(EmpID);
+
             List<HouseScanifyEmployeeDetails> objDetail = new List<HouseScanifyEmployeeDetails>();
-            objDetail = objRep.GetQREmployeeDetailsList(userId, EmpType, AppId).ToList();
+            objDetail = objRep.GetQREmployeeDetailsList(userId, EmpType, AppId, QrEmpId).ToList();
             return objDetail;
         }
-
-
 
         [HttpGet]
         [Route("HouseScanifyDetailsGridRow")]
@@ -348,13 +350,19 @@ namespace SwachhBharatAPI.Controllers
             IEnumerable<string> headerValue1 = Request.Headers.GetValues("EmpType");
             IEnumerable<string> headerValue2 = Request.Headers.GetValues("userId");
             IEnumerable<string> headerValue3 = Request.Headers.GetValues("status");
+            IEnumerable<string> headerValue4 = Request.Headers.GetValues("EmpId");
+
             var EmpType = headerValue1.FirstOrDefault();
             var u = headerValue2.FirstOrDefault();
             int userId = int.Parse(u);
             var s = headerValue3.FirstOrDefault();
             bool status = bool.Parse(s);
+
+            var emp = headerValue4.FirstOrDefault();
+            int EmpId = int.Parse(emp);
+
             List<UserRoleDetails> objDetail = new List<UserRoleDetails>();
-            objDetail = objRep.UserRoleList(userId, EmpType, status).ToList();
+            objDetail = objRep.UserRoleList(userId, EmpType, status, EmpId).ToList();
             return objDetail;
         }
 

@@ -11879,7 +11879,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         }
 
-        public List<HouseScanifyEmployeeDetails> GetQREmployeeDetailsList(int userId, string EmpType, int appId)
+        public List<HouseScanifyEmployeeDetails> GetQREmployeeDetailsList(int userId, string EmpType, int appId, int QrEmpID)
         {
             List<HouseScanifyEmployeeDetails> obj = new List<HouseScanifyEmployeeDetails>();
             try
@@ -11887,26 +11887,53 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 using (var db = new DevSwachhBharatNagpurEntities(appId))
                 {
                     {
-                        var data = db.QrEmployeeMasters.ToList();
-                        foreach (var x in data)
+                        if (QrEmpID != 0)
                         {
-                            obj.Add(new HouseScanifyEmployeeDetails()
+                            var data = db.QrEmployeeMasters.Where(c => c.qrEmpId == QrEmpID).ToList();
+                            foreach (var x in data)
                             {
-                                qrEmpId = x.qrEmpId,
-                                qrEmpName = x.qrEmpName.ToString(),
-                                qrEmpLoginId = x.qrEmpLoginId,
-                                qrEmpPassword = x.qrEmpPassword,
-                                qrEmpMobileNumber = x.qrEmpMobileNumber,
-                                qrEmpAddress = x.qrEmpAddress,
-                                type = x.type,
-                                typeId = x.typeId,
-                                imoNo = x.imoNo,
-                                bloodGroup = x.bloodGroup,
-                                isActive = x.isActive,
-                                target = x.target,
-                                lastModifyDate = x.lastModifyDate,
-                            });
+                                obj.Add(new HouseScanifyEmployeeDetails()
+                                {
+                                    qrEmpId = x.qrEmpId,
+                                    qrEmpName = x.qrEmpName.ToString(),
+                                    qrEmpLoginId = x.qrEmpLoginId,
+                                    qrEmpPassword = x.qrEmpPassword,
+                                    qrEmpMobileNumber = x.qrEmpMobileNumber,
+                                    qrEmpAddress = x.qrEmpAddress,
+                                    type = x.type,
+                                    typeId = x.typeId,
+                                    imoNo = x.imoNo,
+                                    bloodGroup = x.bloodGroup,
+                                    isActive = x.isActive,
+                                    target = x.target,
+                                    lastModifyDate = x.lastModifyDate,
+                                });
+                            }
                         }
+                        else
+                        {
+                            var data = db.QrEmployeeMasters.ToList();
+                            foreach (var x in data)
+                            {
+                                obj.Add(new HouseScanifyEmployeeDetails()
+                                {
+                                    qrEmpId = x.qrEmpId,
+                                    qrEmpName = x.qrEmpName.ToString(),
+                                    qrEmpLoginId = x.qrEmpLoginId,
+                                    qrEmpPassword = x.qrEmpPassword,
+                                    qrEmpMobileNumber = x.qrEmpMobileNumber,
+                                    qrEmpAddress = x.qrEmpAddress,
+                                    type = x.type,
+                                    typeId = x.typeId,
+                                    imoNo = x.imoNo,
+                                    bloodGroup = x.bloodGroup,
+                                    isActive = x.isActive,
+                                    target = x.target,
+                                    lastModifyDate = x.lastModifyDate,
+                                });
+                            }
+                        }
+                       
                     }
 
                     return obj;
@@ -12178,27 +12205,58 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         }
 
 
-        public List<UserRoleDetails> UserRoleList(int userId, string EmpType, bool status)
+        public List<UserRoleDetails> UserRoleList(int userId, string EmpType, bool status, int EmpId)
         {
             List<UserRoleDetails> obj = new List<UserRoleDetails>();
-            var data = dbMain.EmployeeMasters.Where(c => c.isActive == status).ToList();
-            foreach (var x in data)
+            try
             {
-                obj.Add(new UserRoleDetails()
+                if (EmpId != 0)
                 {
-                    EmpId = x.EmpId,
-                    EmpName = x.EmpName.ToString(),
-                    LoginId = x.LoginId,
-                    Password = x.Password,
-                    EmpMobileNumber = x.EmpMobileNumber,
-                    EmpAddress = x.EmpAddress,
-                    type = x.type,
-                    isActive = x.isActive,
-                    isActiveULB = x.isActiveULB,
-                    LastModifyDateEntry = Convert.ToDateTime(x.lastModifyDateEntry).ToString("dd-MM-yyyy hh:mm"),
-                });
+                    var data = dbMain.EmployeeMasters.Where(c => c.isActive == status && c.EmpId== EmpId).ToList();
+                    foreach (var x in data)
+                    {
+                        obj.Add(new UserRoleDetails()
+                        {
+                            EmpId = x.EmpId,
+                            EmpName = x.EmpName.ToString(),
+                            LoginId = x.LoginId,
+                            Password = x.Password,
+                            EmpMobileNumber = x.EmpMobileNumber,
+                            EmpAddress = x.EmpAddress,
+                            type = x.type,
+                            isActive = x.isActive,
+                            isActiveULB = x.isActiveULB,
+                            LastModifyDateEntry = Convert.ToDateTime(x.lastModifyDateEntry).ToString("dd-MM-yyyy hh:mm"),
+                        });
+                    }
+                }
+                else
+                {
+                    var data = dbMain.EmployeeMasters.Where(c => c.isActive == status).ToList();
+                    foreach (var x in data)
+                    {
+                        obj.Add(new UserRoleDetails()
+                        {
+                            EmpId = x.EmpId,
+                            EmpName = x.EmpName.ToString(),
+                            LoginId = x.LoginId,
+                            Password = x.Password,
+                            EmpMobileNumber = x.EmpMobileNumber,
+                            EmpAddress = x.EmpAddress,
+                            type = x.type,
+                            isActive = x.isActive,
+                            isActiveULB = x.isActiveULB,
+                            LastModifyDateEntry = Convert.ToDateTime(x.lastModifyDateEntry).ToString("dd-MM-yyyy hh:mm"),
+                        });
+                    }
+                }
+                
+               
             }
-
+            catch(Exception ex)
+            {
+                return obj;
+            }
 
             return obj.OrderBy(c=>c.EmpName).ToList();
         }

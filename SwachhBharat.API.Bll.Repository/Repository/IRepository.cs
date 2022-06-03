@@ -192,7 +192,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         List<HSEmployee> GetQREmployeeList(int userid, string EmpType, int appId);
 
-        List<HouseScanifyEmployeeDetails> GetQREmployeeDetailsList(int userid, string EmpType, int appId);
+        List<HouseScanifyEmployeeDetails> GetQREmployeeDetailsList(int userid, string EmpType, int appId,int QrEmpID);
 
         IEnumerable<HouseScanifyDetailsGridRow> GetHouseScanifyDetails(int userid, DateTime FromDate, DateTime Todate, int appId);
 
@@ -206,7 +206,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         IEnumerable<HSStreetDetailsGrid> GetStreetDetails(int userid, DateTime FromDate, DateTime Todate, int appId);
 
-        List<UserRoleDetails> UserRoleList(int userid, string EmpType, bool val);
+        List<UserRoleDetails> UserRoleList(int userid, string EmpType, bool val,int EmpId);
 
         CollectionSyncResult SaveAddEmployee(HouseScanifyEmployeeDetails obj, int AppId);
 
