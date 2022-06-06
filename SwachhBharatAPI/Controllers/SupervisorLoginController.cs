@@ -446,5 +446,87 @@ namespace SwachhBharatAPI.Controllers
 
         }
 
+        [Route("AddHouseScanifyUserRole")]
+        [HttpPost]
+
+        public List<CollectionSyncResult> AddUserRole(List<UserRoleDetails> objRaw)
+        {
+
+            objRep = new Repository();
+            UserRoleDetails gcDetail = new UserRoleDetails();
+            List<CollectionSyncResult> objres = new List<CollectionSyncResult>();
+            try
+            {
+
+                //IEnumerable<string> headerValue1 = Request.Headers.GetValues("appId");
+                //var AppId = Convert.ToInt32(headerValue1.FirstOrDefault());
+
+
+                foreach (var item in objRaw)
+                {
+                    gcDetail.EmpId = item.EmpId;
+                    gcDetail.EmpName = item.EmpName;
+                    gcDetail.LoginId = item.LoginId;
+                    gcDetail.Password = item.Password;
+                    gcDetail.EmpMobileNumber = item.EmpMobileNumber;
+                    gcDetail.EmpAddress = item.EmpAddress;
+                    gcDetail.type = item.type;
+                    gcDetail.isActive = item.isActive;
+                    gcDetail.isActiveULB = item.isActiveULB;
+                    //gcDetail.LastModifyDateEntry = item.LastModifyDateEntry;
+
+                    CollectionSyncResult detail = objRep.SaveAddUserRole(gcDetail);
+                    if (detail.message == "")
+                    {
+                        objres.Add(new CollectionSyncResult()
+                        {
+                            ID = detail.ID,
+                            status = "error",
+                            message = "Record not inserted",
+                            messageMar = "रेकॉर्ड सबमिट केले नाही"
+                        });
+                    }
+
+                    objres.Add(new CollectionSyncResult()
+                    {
+
+                        status = detail.status,
+                        messageMar = detail.messageMar,
+                        message = detail.message
+
+                    });
+
+                    return objres;
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                objres.Add(new CollectionSyncResult()
+                {
+                    ID = 0,
+                    status = "error",
+                    message = "Something is wrong,Try Again.. ",
+                    messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..",
+                });
+                return objres;
+
+            }
+
+            objres.Add(new CollectionSyncResult()
+            {
+                ID = 0,
+                status = "error",
+                message = "Record not inserted",
+                messageMar = "रेकॉर्ड सबमिट केले नाही",
+            });
+
+            return objres;
+
+        }
+
     }
 }

@@ -10484,7 +10484,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             if ((string.IsNullOrEmpty(obj.QRCodeImage)) == false)
                             {
                                 obj.QRCodeImage = obj.QRCodeImage.Replace("data:image/jpeg;base64,", "");
-                                house.BinaryQrCodeImage =Convert.FromBase64String(obj.QRCodeImage);
+                                house.BinaryQrCodeImage = Convert.FromBase64String(obj.QRCodeImage);
                             }
 
                             //////////////////////////////////////////////////////////////////
@@ -10539,7 +10539,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         /// <param name="AppId"></param>
         /// <returns></returns>
         /// 
-   
+
         public Qr_Location FillLocationDetails(BigVQRHPDVM obj, int AppId, bool IsOffline)
         {
             var distCount = "";
@@ -11869,7 +11869,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         }
                     }
 
-                    return obj.OrderBy(c=>c.EmployeeName).ToList();
+                    return obj.OrderBy(c => c.EmployeeName).ToList();
                 }
             }
             catch (Exception)
@@ -11933,7 +11933,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                 });
                             }
                         }
-                       
+
                     }
 
                     return obj;
@@ -12212,7 +12212,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 if (EmpId != 0)
                 {
-                    var data = dbMain.EmployeeMasters.Where(c => c.isActive == status && c.EmpId== EmpId).ToList();
+                    var data = dbMain.EmployeeMasters.Where(c => c.isActive == status && c.EmpId == EmpId).ToList();
                     foreach (var x in data)
                     {
                         obj.Add(new UserRoleDetails()
@@ -12250,15 +12250,15 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         });
                     }
                 }
-                
-               
+
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return obj;
             }
 
-            return obj.OrderBy(c=>c.EmpName).ToList();
+            return obj;
         }
 
 
@@ -12334,6 +12334,78 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
 
             }
+
+            return result;
+        }
+
+        public CollectionSyncResult SaveAddUserRole(UserRoleDetails obj)
+        {
+            CollectionSyncResult result = new CollectionSyncResult();
+            EmployeeMaster objdata = new EmployeeMaster();
+
+            try
+            {
+                if (obj.EmpId != 0)
+                {
+                    var model = dbMain.EmployeeMasters.Where(c => c.EmpId == obj.EmpId).FirstOrDefault();
+                    if (model != null)
+                    {
+                        model.EmpId = obj.EmpId;
+                        model.EmpName = obj.EmpName;
+                        model.LoginId = obj.LoginId;
+                        model.Password = obj.Password;
+                        model.EmpMobileNumber = obj.EmpMobileNumber;
+                        model.EmpAddress = obj.EmpAddress;
+                        model.type = obj.type;
+                        model.isActive = obj.isActive;
+                        model.isActiveULB = obj.isActiveULB;
+                        model.lastModifyDateEntry = DateTime.Now;
+
+
+                        dbMain.SaveChanges();
+                        result.status = "success";
+                        result.message = "User Role Details Updated successfully";
+                        result.messageMar = "वापरकर्ता भूमिका तपशील यशस्वीरित्या अद्यतनित केले";
+                    }
+                    else
+                    {
+                        result.message = "This User Role Not Available.";
+                        result.messageMar = "वापरकर्ता भूमिका उपलब्ध नाही.";
+                        result.status = "error";
+                        return result;
+
+                    }
+
+                }
+                else
+                {
+                    objdata.EmpName = obj.EmpName;
+                    objdata.LoginId = obj.LoginId;
+                    objdata.Password = obj.Password;
+                    objdata.EmpMobileNumber = obj.EmpMobileNumber;
+                    objdata.EmpAddress = obj.EmpAddress;
+                    objdata.type = obj.type;
+                    objdata.isActive = obj.isActive;
+                    objdata.isActiveULB = obj.isActiveULB;
+                    objdata.lastModifyDateEntry = DateTime.Now;
+
+                    dbMain.EmployeeMasters.Add(objdata);
+                    dbMain.SaveChanges();
+                    result.status = "success";
+                    result.message = "User Role Added successfully";
+                    result.messageMar = "वापरकर्ता भूमिका तपशील यशस्वीरित्या जोडले";
+                    return result;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                result.message = "Something is wrong,Try Again.. ";
+                result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                result.status = "error";
+                return result;
+            }
+
 
             return result;
         }
@@ -12421,9 +12493,6 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             }
 
         }
-
-
-
 
         #endregion
     }
