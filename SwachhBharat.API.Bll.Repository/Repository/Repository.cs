@@ -11946,12 +11946,12 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         }
 
-        public IEnumerable<HouseScanifyDetailsGridRow> GetHouseScanifyDetails(int userId, DateTime FromDate, DateTime Todate, int appId)
+        public IEnumerable<HouseScanifyDetailsGridRow> GetHouseScanifyDetails(int qrEmpId, DateTime FromDate, DateTime Todate, int appId)
         {
             using (var db = new DevSwachhBharatNagpurEntities(appId))
             {
                 List<HouseScanifyDetailsGridRow> obj = new List<HouseScanifyDetailsGridRow>();
-                var data = db.SP_HouseScanify(FromDate, Todate, userId).ToList();//Select(x => new HouseScanifyDetailsGridRow
+                var data = db.SP_HouseScanify(FromDate, Todate, qrEmpId).ToList();//Select(x => new HouseScanifyDetailsGridRow
                                                                                  //{
                                                                                  //    qrEmpId = x.qrEMpId,
                                                                                  //    qrEmpName = x.qrEmpName,

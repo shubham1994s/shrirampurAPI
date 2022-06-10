@@ -22,8 +22,10 @@ namespace SwachhBharatAPI.Controllers
             //var id = headerValue1.FirstOrDefault();
             //int AppId = int.Parse(id);
 
-            IEnumerable<string> headerValue1 = Request.Headers.GetValues("EmpType");
-            var EmpType = headerValue1.FirstOrDefault();
+            //IEnumerable<string> headerValue1 = Request.Headers.GetValues("EmpType");
+            //var EmpType = headerValue1.FirstOrDefault();
+
+            var EmpType = "A";
 
             objRep = new Repository();
             SBUser objresponse = objRep.CheckSupervisorUserLogin(objlogin.userLoginId, objlogin.userPassword, EmpType);
@@ -122,7 +124,7 @@ namespace SwachhBharatAPI.Controllers
             IEnumerable<string> headerValue1 = Request.Headers.GetValues("FromDate");
             IEnumerable<string> headerValue2 = Request.Headers.GetValues("Todate");
             IEnumerable<string> headerValue3 = Request.Headers.GetValues("appId");
-            IEnumerable<string> headerValue4 = Request.Headers.GetValues("userId");
+            IEnumerable<string> headerValue4 = Request.Headers.GetValues("qrEmpId");
 
 
             var Fdate = headerValue1.FirstOrDefault();
@@ -134,19 +136,19 @@ namespace SwachhBharatAPI.Controllers
             var id = headerValue3.FirstOrDefault();
             int AppId = int.Parse(id);
 
-            int userId;
+            int qrEmpId;
             var u = headerValue4.FirstOrDefault();
             if (u == "null" || u == "" || u == null)
             {
-                userId = 0;
+                qrEmpId = 0;
             }
             else
             {
-                userId = int.Parse(u);
+                qrEmpId = int.Parse(u);
             }
 
             List<HouseScanifyDetailsGridRow> objDetail = new List<HouseScanifyDetailsGridRow>();
-            objDetail = objRep.GetHouseScanifyDetails(userId, FromDate, Todate, AppId).ToList();
+            objDetail = objRep.GetHouseScanifyDetails(qrEmpId, FromDate, Todate, AppId).ToList();
             return objDetail;
         }
 
@@ -160,7 +162,7 @@ namespace SwachhBharatAPI.Controllers
             IEnumerable<string> headerValue1 = Request.Headers.GetValues("FromDate");
             IEnumerable<string> headerValue2 = Request.Headers.GetValues("Todate");
             IEnumerable<string> headerValue3 = Request.Headers.GetValues("appId");
-            IEnumerable<string> headerValue4 = Request.Headers.GetValues("userId");
+            IEnumerable<string> headerValue4 = Request.Headers.GetValues("qrEmpId");
 
 
             var Fdate = headerValue1.FirstOrDefault();
@@ -198,7 +200,7 @@ namespace SwachhBharatAPI.Controllers
             IEnumerable<string> headerValue1 = Request.Headers.GetValues("FromDate");
             IEnumerable<string> headerValue2 = Request.Headers.GetValues("Todate");
             IEnumerable<string> headerValue3 = Request.Headers.GetValues("appId");
-            IEnumerable<string> headerValue4 = Request.Headers.GetValues("userId");
+            IEnumerable<string> headerValue4 = Request.Headers.GetValues("qrEmpId");
 
 
             var Fdate = headerValue1.FirstOrDefault();
@@ -236,7 +238,7 @@ namespace SwachhBharatAPI.Controllers
             IEnumerable<string> headerValue1 = Request.Headers.GetValues("FromDate");
             IEnumerable<string> headerValue2 = Request.Headers.GetValues("Todate");
             IEnumerable<string> headerValue3 = Request.Headers.GetValues("appId");
-            IEnumerable<string> headerValue4 = Request.Headers.GetValues("userId");
+            IEnumerable<string> headerValue4 = Request.Headers.GetValues("qrEmpId");
 
 
             var Fdate = headerValue1.FirstOrDefault();
@@ -274,7 +276,7 @@ namespace SwachhBharatAPI.Controllers
             IEnumerable<string> headerValue1 = Request.Headers.GetValues("FromDate");
             IEnumerable<string> headerValue2 = Request.Headers.GetValues("Todate");
             IEnumerable<string> headerValue3 = Request.Headers.GetValues("appId");
-            IEnumerable<string> headerValue4 = Request.Headers.GetValues("userId");
+            IEnumerable<string> headerValue4 = Request.Headers.GetValues("qrEmpId");
 
 
             var Fdate = headerValue1.FirstOrDefault();
@@ -312,7 +314,7 @@ namespace SwachhBharatAPI.Controllers
             IEnumerable<string> headerValue1 = Request.Headers.GetValues("FromDate");
             IEnumerable<string> headerValue2 = Request.Headers.GetValues("Todate");
             IEnumerable<string> headerValue3 = Request.Headers.GetValues("appId");
-            IEnumerable<string> headerValue4 = Request.Headers.GetValues("userId");
+            IEnumerable<string> headerValue4 = Request.Headers.GetValues("qrEmpId");
 
 
             var Fdate = headerValue1.FirstOrDefault();
