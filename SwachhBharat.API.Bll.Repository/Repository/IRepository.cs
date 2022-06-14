@@ -210,6 +210,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         CollectionSyncResult SaveAddEmployee(HouseScanifyEmployeeDetails obj, int AppId);
 
+        CollectionQRStatusResult UpdateQRstatus(HSHouseDetailsGrid obj, int AppId);
+
         CollectionSyncResult SaveAddUserRole(UserRoleDetails obj);
 
         #region RFID

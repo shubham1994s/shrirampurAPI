@@ -12353,6 +12353,56 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             return result;
         }
 
+        public CollectionQRStatusResult UpdateQRstatus(HSHouseDetailsGrid obj, int AppId)
+        {
+            CollectionQRStatusResult result = new CollectionQRStatusResult();
+            HouseMaster objdata = new HouseMaster();
+            using (var db = new DevSwachhBharatNagpurEntities(AppId))
+            {
+                try
+                {
+                    if (obj.ReferanceId != null)
+                    {
+                        var model = db.HouseMasters.Where(c => c.ReferanceId == obj.ReferanceId).FirstOrDefault();
+                        if (model != null)
+                        {
+                         
+                            model.QRStatus = obj.QRStatus;
+                            model.QRStatusDate = DateTime.Now;
+                            db.SaveChanges();
+                            result.ReferanceId = obj.ReferanceId;
+                            result.status = "success";
+                            result.message = "Record Updated successfully";
+                            result.messageMar = "रेकॉर्ड यशस्वीरित्या अद्यतनित केले";
+                        }
+                        else
+                        {
+                            result.ReferanceId = obj.ReferanceId;
+                            result.message = "This Record Not Available.";
+                            result.messageMar = "रेकॉर्ड उपलब्ध नाही.";
+                            result.status = "error";
+                            return result;
+
+                        }
+
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    result.ReferanceId = obj.ReferanceId;
+                    result.message = "Something is wrong,Try Again.. ";
+                    result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                    result.status = "error";
+                    return result;
+                }
+
+
+            }
+
+            return result;
+        }
+
         public CollectionSyncResult SaveAddUserRole(UserRoleDetails obj)
         {
             CollectionSyncResult result = new CollectionSyncResult();
