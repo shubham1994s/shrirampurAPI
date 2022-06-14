@@ -12143,8 +12143,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 {
                     houseId = x.houseId,
                     Name = x.qrEmpName,
-                    HouseLat = x.houseLat,
-                    HouseLong = x.houseLong,
+                    Lat = x.houseLat,
+                    Long = x.houseLong,
                     QRCodeImage = x.QRCodeImage,
                     ReferanceId = x.ReferanceId,
                     modifiedDate = x.modified.HasValue ? Convert.ToDateTime(x.modified).ToString("dd/MM/yyyy hh:mm tt") : "",
@@ -12164,8 +12164,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 {
                     dyId = x.dyId,
                     Name = x.qrEmpName,
-                    dyLat = x.dyLat,
-                    dyLong = x.dyLong,
+                    Lat = x.dyLat,
+                    Long = x.dyLong,
                     QRCodeImage = x.QRCodeImage,
                     ReferanceId = x.ReferanceId,
                     modifiedDate = x.lastModifiedDate.HasValue ? Convert.ToDateTime(x.lastModifiedDate).ToString("dd/MM/yyyy hh:mm tt") : "",
@@ -12185,8 +12185,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 {
                     LWId = x.LWId,
                     Name = x.qrEmpName,
-                    LWLat = x.LWLat,
-                    LWLong = x.LWLong,
+                    Lat = x.LWLat,
+                    Long = x.LWLong,
                     QRCodeImage = x.QRCodeImage,
                     ReferanceId = x.ReferanceId,
                     modifiedDate = x.lastModifiedDate.HasValue ? Convert.ToDateTime(x.lastModifiedDate).ToString("dd/MM/yyyy hh:mm tt") : "",
@@ -12206,8 +12206,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 {
                     SSId = x.SSId,
                     Name = x.qrEmpName,
-                    SSLat = x.SSLat,
-                    SSLong = x.SSLong,
+                    Lat = x.SSLat,
+                    Long = x.SSLong,
                     QRCodeImage = x.QRCodeImage,
                     ReferanceId = x.ReferanceId,
                     modifiedDate = x.lastModifiedDate.HasValue ? Convert.ToDateTime(x.lastModifiedDate).ToString("dd/MM/yyyy hh:mm tt") : "",

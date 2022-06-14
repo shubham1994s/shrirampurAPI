@@ -9,8 +9,8 @@ namespace SwachhBhart.API.Bll.ViewModels
     public class HSHouseDetailsGrid
     {
         public int houseId { get; set; }
-        public string HouseLat { get; set; }
-        public string HouseLong { get; set; }
+        public string Lat { get; set; }
+        public string Long { get; set; }
         public string ReferanceId { get; set; }
         public string Name { get; set; }
         public string QRCodeImage { get; set; }

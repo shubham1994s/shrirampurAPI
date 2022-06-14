@@ -9,8 +9,8 @@ namespace SwachhBhart.API.Bll.ViewModels
    public class HSDumpYardDetailsGrid
     {
         public int dyId { get; set; }
-        public string dyLat { get; set; }
-        public string dyLong { get; set; }
+        public string Lat { get; set; }
+        public string Long { get; set; }
         public string ReferanceId { get; set; }
         public string Name { get; set; }
         public string QRCodeImage { get; set; }
