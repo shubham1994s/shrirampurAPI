@@ -4335,7 +4335,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         objdata.Lat = obj.Lat;
                         objdata.Long = obj.Long;
                         //    objdata.garbageType = obj.garbageType;
-                        var atten = db.Daily_Attendance.Where(c => c.userId == obj.userId & c.daDate == EntityFunctions.TruncateTime(Dateeee)).FirstOrDefault();
+                        var atten = db.Daily_Attendance.Where(c => c.userId == obj.userId & c.daDate == EntityFunctions.TruncateTime(Dateeee) ).FirstOrDefault();
 
                         Location loc = new Location();
 
