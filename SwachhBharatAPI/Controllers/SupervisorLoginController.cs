@@ -22,10 +22,10 @@ namespace SwachhBharatAPI.Controllers
             //var id = headerValue1.FirstOrDefault();
             //int AppId = int.Parse(id);
 
-            //IEnumerable<string> headerValue1 = Request.Headers.GetValues("EmpType");
-            //var EmpType = headerValue1.FirstOrDefault();
+            IEnumerable<string> headerValue1 = Request.Headers.GetValues("EmpType");
+            var EmpType = headerValue1.FirstOrDefault();
 
-            var EmpType = "A";
+            EmpType = "A";
 
             objRep = new Repository();
             SBUser objresponse = objRep.CheckSupervisorUserLogin(objlogin.userLoginId, objlogin.userPassword, EmpType);
@@ -124,7 +124,7 @@ namespace SwachhBharatAPI.Controllers
             IEnumerable<string> headerValue1 = Request.Headers.GetValues("FromDate");
             IEnumerable<string> headerValue2 = Request.Headers.GetValues("Todate");
             IEnumerable<string> headerValue3 = Request.Headers.GetValues("appId");
-            IEnumerable<string> headerValue4 = Request.Headers.GetValues("qrEmpId");
+            IEnumerable<string> headerValue4 = Request.Headers.GetValues("userId");
 
 
             var Fdate = headerValue1.FirstOrDefault();
@@ -200,7 +200,9 @@ namespace SwachhBharatAPI.Controllers
             IEnumerable<string> headerValue1 = Request.Headers.GetValues("FromDate");
             IEnumerable<string> headerValue2 = Request.Headers.GetValues("Todate");
             IEnumerable<string> headerValue3 = Request.Headers.GetValues("appId");
-            IEnumerable<string> headerValue4 = Request.Headers.GetValues("qrEmpId");
+            IEnumerable<string> headerValue4 = Request.Headers.GetValues("userId");
+
+            IEnumerable<string> headerValue5 = Request.Headers.GetValues("ReferanceId");
 
 
             var Fdate = headerValue1.FirstOrDefault();
@@ -223,8 +225,10 @@ namespace SwachhBharatAPI.Controllers
                 userId = int.Parse(u);
             }
 
+             var ReferanceId= headerValue5.FirstOrDefault();
+
             List<HSHouseDetailsGrid> objDetail = new List<HSHouseDetailsGrid>();
-            objDetail = objRep.GetHouseDetails(userId, FromDate, Todate, AppId).ToList();
+            objDetail = objRep.GetHouseDetails(userId, FromDate, Todate, AppId, ReferanceId).ToList();
             return objDetail;
         }
 
@@ -238,7 +242,7 @@ namespace SwachhBharatAPI.Controllers
             IEnumerable<string> headerValue1 = Request.Headers.GetValues("FromDate");
             IEnumerable<string> headerValue2 = Request.Headers.GetValues("Todate");
             IEnumerable<string> headerValue3 = Request.Headers.GetValues("appId");
-            IEnumerable<string> headerValue4 = Request.Headers.GetValues("qrEmpId");
+            IEnumerable<string> headerValue4 = Request.Headers.GetValues("userId");
 
 
             var Fdate = headerValue1.FirstOrDefault();
@@ -276,7 +280,7 @@ namespace SwachhBharatAPI.Controllers
             IEnumerable<string> headerValue1 = Request.Headers.GetValues("FromDate");
             IEnumerable<string> headerValue2 = Request.Headers.GetValues("Todate");
             IEnumerable<string> headerValue3 = Request.Headers.GetValues("appId");
-            IEnumerable<string> headerValue4 = Request.Headers.GetValues("qrEmpId");
+            IEnumerable<string> headerValue4 = Request.Headers.GetValues("userId");
 
 
             var Fdate = headerValue1.FirstOrDefault();
@@ -314,7 +318,7 @@ namespace SwachhBharatAPI.Controllers
             IEnumerable<string> headerValue1 = Request.Headers.GetValues("FromDate");
             IEnumerable<string> headerValue2 = Request.Headers.GetValues("Todate");
             IEnumerable<string> headerValue3 = Request.Headers.GetValues("appId");
-            IEnumerable<string> headerValue4 = Request.Headers.GetValues("qrEmpId");
+            IEnumerable<string> headerValue4 = Request.Headers.GetValues("userId");
 
 
             var Fdate = headerValue1.FirstOrDefault();
@@ -521,6 +525,80 @@ namespace SwachhBharatAPI.Controllers
             objres.Add(new CollectionSyncResult()
             {
                 ID = 0,
+                status = "error",
+                message = "Record not inserted",
+                messageMar = "रेकॉर्ड सबमिट केले नाही",
+            });
+
+            return objres;
+
+        }
+
+
+        [Route("UpdateQRstatus")]
+        [HttpPost]
+        public List<CollectionQRStatusResult> UpdateQRstatus(List<HSHouseDetailsGrid> objRaw)
+        {
+
+            objRep = new Repository();
+            HSHouseDetailsGrid gcDetail = new HSHouseDetailsGrid();
+            List<CollectionQRStatusResult> objres = new List<CollectionQRStatusResult>();
+            try
+            {
+
+                IEnumerable<string> headerValue1 = Request.Headers.GetValues("appId");
+                var AppId = Convert.ToInt32(headerValue1.FirstOrDefault());
+               
+
+                foreach (var item in objRaw)
+                {
+                    
+                    gcDetail.QRStatus = item.QRStatus;
+                    gcDetail.ReferanceId = item.ReferanceId;
+                    CollectionQRStatusResult detail = objRep.UpdateQRstatus(gcDetail, AppId);
+                    if (detail.message == "")
+                    {
+                        objres.Add(new CollectionQRStatusResult()
+                        {
+                           ReferanceId=detail.ReferanceId,
+                            status = "error",
+                            message = "Record not inserted",
+                            messageMar = "रेकॉर्ड सबमिट केले नाही"
+                        });
+                    }
+
+                    objres.Add(new CollectionQRStatusResult()
+                    {
+                        ReferanceId = detail.ReferanceId,
+                        status = detail.status,
+                        messageMar = detail.messageMar,
+                        message = detail.message
+
+                    });
+
+                    return objres;
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                objres.Add(new CollectionQRStatusResult()
+                {
+                     ReferanceId="",
+                    status = "error",
+                    message = "Something is wrong,Try Again.. ",
+                    messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..",
+                });
+                return objres;
+
+            }
+
+            objres.Add(new CollectionQRStatusResult()
+            {
+                ReferanceId = "",
                 status = "error",
                 message = "Record not inserted",
                 messageMar = "रेकॉर्ड सबमिट केले नाही",

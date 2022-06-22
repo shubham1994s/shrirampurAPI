@@ -25,4 +25,13 @@ namespace SwachhBhart.API.Bll.ViewModels
         public string messageMar { get; set; }
         public bool isAttendenceOff { get; set; }
     }
+
+    public class CollectionQRStatusResult
+    {
+        public  string ReferanceId { get; set; }
+        public string status { get; set; }
+        public string message { get; set; }
+        public string messageMar { get; set; }
+    }
+
 }

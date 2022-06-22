@@ -10,8 +10,8 @@ namespace SwachhBhart.API.Bll.ViewModels
     {
 
         public int SSId { get; set; }
-        public string SSLat { get; set; }
-        public string SSLong { get; set; }
+        public string Lat { get; set; }
+        public string Long { get; set; }
         public string ReferanceId { get; set; }
         public string Name { get; set; }
         public string QRCodeImage { get; set; }

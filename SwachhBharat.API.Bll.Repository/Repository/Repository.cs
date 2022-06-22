@@ -11787,7 +11787,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 if (Status == "false")
                 {
-                    var data = dbMain.AppDetails.Where(c => c.IsActive == true).ToList();
+                    var data = dbMain.AppDetails.Where(c => c.IsActive == true && c.AppId !=3088 && c.AppId != 3068).ToList();
                     foreach (var x in data)
                     {
                         obj.Add(new NameULB()
@@ -11800,7 +11800,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 }
                 else if (Status == "true")
                 {
-                    var data = dbMain.AppDetails.Where(c => c.IsActive == true && c.FAQ != "0").ToList();
+                    var data = dbMain.AppDetails.Where(c => c.IsActive == true && c.FAQ != "0" && c.AppId != 3088 && c.AppId != 3068).ToList();
                     foreach (var x in data)
                     {
                         obj.Add(new NameULB()
@@ -11951,7 +11951,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                     }
 
-                    return obj;
+                    return obj.OrderByDescending(c=>c.qrEmpId).ToList();
                 }
             }
             catch (Exception)
@@ -12135,16 +12135,16 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         }
 
-        public IEnumerable<HSHouseDetailsGrid> GetHouseDetails(int userId, DateTime FromDate, DateTime Todate, int appId)
+        public IEnumerable<HSHouseDetailsGrid> GetHouseDetails(int userId, DateTime FromDate, DateTime Todate, int appId, string ReferanceId)
         {
             using (var db = new DevSwachhBharatNagpurEntities(appId))
             {
-                var data = db.SP_HouseDetailsApp(FromDate, Todate, userId).Select(x => new HSHouseDetailsGrid
+                var data = db.SP_HouseDetailsApp(FromDate, Todate, userId, ReferanceId).Select(x => new HSHouseDetailsGrid
                 {
                     houseId = x.houseId,
                     Name = x.qrEmpName,
-                    HouseLat = x.houseLat,
-                    HouseLong = x.houseLong,
+                    Lat = x.houseLat,
+                    Long = x.houseLong,
                     QRCodeImage = x.QRCodeImage,
                     ReferanceId = x.ReferanceId,
                     modifiedDate = x.modified.HasValue ? Convert.ToDateTime(x.modified).ToString("dd/MM/yyyy hh:mm tt") : "",
@@ -12164,8 +12164,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 {
                     dyId = x.dyId,
                     Name = x.qrEmpName,
-                    dyLat = x.dyLat,
-                    dyLong = x.dyLong,
+                    Lat = x.dyLat,
+                    Long = x.dyLong,
                     QRCodeImage = x.QRCodeImage,
                     ReferanceId = x.ReferanceId,
                     modifiedDate = x.lastModifiedDate.HasValue ? Convert.ToDateTime(x.lastModifiedDate).ToString("dd/MM/yyyy hh:mm tt") : "",
@@ -12185,8 +12185,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 {
                     LWId = x.LWId,
                     Name = x.qrEmpName,
-                    LWLat = x.LWLat,
-                    LWLong = x.LWLong,
+                    Lat = x.LWLat,
+                    Long = x.LWLong,
                     QRCodeImage = x.QRCodeImage,
                     ReferanceId = x.ReferanceId,
                     modifiedDate = x.lastModifiedDate.HasValue ? Convert.ToDateTime(x.lastModifiedDate).ToString("dd/MM/yyyy hh:mm tt") : "",
@@ -12206,8 +12206,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 {
                     SSId = x.SSId,
                     Name = x.qrEmpName,
-                    SSLat = x.SSLat,
-                    SSLong = x.SSLong,
+                    Lat = x.SSLat,
+                    Long = x.SSLong,
                     QRCodeImage = x.QRCodeImage,
                     ReferanceId = x.ReferanceId,
                     modifiedDate = x.lastModifiedDate.HasValue ? Convert.ToDateTime(x.lastModifiedDate).ToString("dd/MM/yyyy hh:mm tt") : "",
@@ -12341,6 +12341,56 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 }
                 catch (Exception ex)
                 {
+                    result.message = "Something is wrong,Try Again.. ";
+                    result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                    result.status = "error";
+                    return result;
+                }
+
+
+            }
+
+            return result;
+        }
+
+        public CollectionQRStatusResult UpdateQRstatus(HSHouseDetailsGrid obj, int AppId)
+        {
+            CollectionQRStatusResult result = new CollectionQRStatusResult();
+            HouseMaster objdata = new HouseMaster();
+            using (var db = new DevSwachhBharatNagpurEntities(AppId))
+            {
+                try
+                {
+                    if (obj.ReferanceId != null)
+                    {
+                        var model = db.HouseMasters.Where(c => c.ReferanceId == obj.ReferanceId).FirstOrDefault();
+                        if (model != null)
+                        {
+                         
+                            model.QRStatus = obj.QRStatus;
+                            model.QRStatusDate = DateTime.Now;
+                            db.SaveChanges();
+                            result.ReferanceId = obj.ReferanceId;
+                            result.status = "success";
+                            result.message = "Record Updated successfully";
+                            result.messageMar = "रेकॉर्ड यशस्वीरित्या अद्यतनित केले";
+                        }
+                        else
+                        {
+                            result.ReferanceId = obj.ReferanceId;
+                            result.message = "This Record Not Available.";
+                            result.messageMar = "रेकॉर्ड उपलब्ध नाही.";
+                            result.status = "error";
+                            return result;
+
+                        }
+
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    result.ReferanceId = obj.ReferanceId;
                     result.message = "Something is wrong,Try Again.. ";
                     result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
                     result.status = "error";

@@ -198,7 +198,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         IEnumerable<HSAttendanceGrid> GetAttendanceDetails(int userid, DateTime FromDate, DateTime Todate, int appId);
 
-        IEnumerable<HSHouseDetailsGrid> GetHouseDetails(int userid, DateTime FromDate, DateTime Todate, int appId);
+        IEnumerable<HSHouseDetailsGrid> GetHouseDetails(int userid, DateTime FromDate, DateTime Todate, int appId,string ReferanceId);
 
         IEnumerable<HSDumpYardDetailsGrid> GetDumpYardDetails(int userid, DateTime FromDate, DateTime Todate, int appId);
 
@@ -209,6 +209,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         List<UserRoleDetails> UserRoleList(int userid, string EmpType, bool val,int EmpId);
 
         CollectionSyncResult SaveAddEmployee(HouseScanifyEmployeeDetails obj, int AppId);
+
+        CollectionQRStatusResult UpdateQRstatus(HSHouseDetailsGrid obj, int AppId);
 
         CollectionSyncResult SaveAddUserRole(UserRoleDetails obj);
 

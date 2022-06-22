@@ -608,6 +608,7 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Parameter Name="fdate" Type="date" Mode="In" />
           <Parameter Name="tdate" Type="date" Mode="In" />
           <Parameter Name="userid" Type="int" Mode="In" />
+          <Parameter Name="referanceId" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="SP_HouseOnMapDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="gcDate" Type="datetime" Mode="In" />
@@ -893,11 +894,6 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
             <Parameter Name="userid" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_HouseScanifyDetails" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_HouseScanifyDetails_Result)" />
-          <FunctionImport Name="SP_HouseDetailsApp" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_HouseDetailsApp_Result)">
-            <Parameter Name="fdate" Mode="In" Type="DateTime" />
-            <Parameter Name="tdate" Mode="In" Type="DateTime" />
-            <Parameter Name="userid" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="SP_DumpYardDetailsApp" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_DumpYardDetailsApp_Result)">
             <Parameter Name="fdate" Mode="In" Type="DateTime" />
             <Parameter Name="tdate" Mode="In" Type="DateTime" />
@@ -918,6 +914,12 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <EntitySet Name="DumpYardDetails" EntityType="DevSwachhBharatNagpurModel.DumpYardDetail" />
           <EntitySet Name="LiquidWasteDetails" EntityType="DevSwachhBharatNagpurModel.LiquidWasteDetail" />
           <EntitySet Name="StreetSweepingDetails" EntityType="DevSwachhBharatNagpurModel.StreetSweepingDetail" />
+          <FunctionImport Name="SP_HouseDetailsApp" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_HouseDetailsApp_Result)">
+            <Parameter Name="fdate" Mode="In" Type="DateTime" />
+            <Parameter Name="tdate" Mode="In" Type="DateTime" />
+            <Parameter Name="userid" Mode="In" Type="Int32" />
+            <Parameter Name="referanceId" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_area_Result">
           <Property Type="String" Name="area" Nullable="true" MaxLength="500" />
@@ -1625,16 +1627,6 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Type="Int32" Name="TotalStreetUpdated" Nullable="true" />
           <Property Type="Int32" Name="TotalStreetUpdated_CurrentDay" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="SP_HouseDetailsApp_Result">
-          <Property Type="Int32" Name="userId" Nullable="true" />
-          <Property Type="Int32" Name="houseId" Nullable="false" />
-          <Property Type="String" Name="houseLat" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="houseLong" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="ReferanceId" Nullable="true" MaxLength="350" />
-          <Property Type="DateTime" Name="modified" Nullable="true" Precision="23" />
-          <Property Type="String" Name="qrEmpName" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="QRCodeImage" Nullable="true" />
-        </ComplexType>
         <ComplexType Name="SP_DumpYardDetailsApp_Result">
           <Property Type="Int32" Name="userId" Nullable="true" />
           <Property Type="Int32" Name="dyId" Nullable="false" />
@@ -1782,6 +1774,16 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Name="QRStatusDate" Type="DateTime" Precision="3" />
           <Property Name="BinaryQrCodeImage" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
+        <ComplexType Name="SP_HouseDetailsApp_Result">
+          <Property Type="Int32" Name="userId" Nullable="true" />
+          <Property Type="Int32" Name="houseId" Nullable="false" />
+          <Property Type="String" Name="houseLat" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="houseLong" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ReferanceId" Nullable="true" MaxLength="350" />
+          <Property Type="DateTime" Name="modified" Nullable="true" Precision="23" />
+          <Property Type="String" Name="qrEmpName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="QRCodeImage" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2624,20 +2626,6 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="SP_HouseDetailsApp" FunctionName="DevSwachhBharatNagpurModel.Store.SP_HouseDetailsApp">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_HouseDetailsApp_Result">
-                <ScalarProperty Name="userId" ColumnName="userId" />
-                <ScalarProperty Name="houseId" ColumnName="houseId" />
-                <ScalarProperty Name="houseLat" ColumnName="houseLat" />
-                <ScalarProperty Name="houseLong" ColumnName="houseLong" />
-                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
-                <ScalarProperty Name="modified" ColumnName="modified" />
-                <ScalarProperty Name="qrEmpName" ColumnName="qrEmpName" />
-                <ScalarProperty Name="QRCodeImage" ColumnName="QRCodeImage" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="SP_DumpYardDetailsApp" FunctionName="DevSwachhBharatNagpurModel.Store.SP_DumpYardDetailsApp">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_DumpYardDetailsApp_Result">
@@ -2802,6 +2790,20 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_HouseDetailsApp" FunctionName="DevSwachhBharatNagpurModel.Store.SP_HouseDetailsApp">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_HouseDetailsApp_Result">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="houseId" ColumnName="houseId" />
+                <ScalarProperty Name="houseLat" ColumnName="houseLat" />
+                <ScalarProperty Name="houseLong" ColumnName="houseLong" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="modified" ColumnName="modified" />
+                <ScalarProperty Name="qrEmpName" ColumnName="qrEmpName" />
+                <ScalarProperty Name="QRCodeImage" ColumnName="QRCodeImage" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
