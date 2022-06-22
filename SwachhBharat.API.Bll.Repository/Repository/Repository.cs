@@ -11787,7 +11787,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 if (Status == "false")
                 {
-                    var data = dbMain.AppDetails.Where(c => c.IsActive == true).ToList();
+                    var data = dbMain.AppDetails.Where(c => c.IsActive == true && c.AppId !=3088 && c.AppId != 3068).ToList();
                     foreach (var x in data)
                     {
                         obj.Add(new NameULB()
@@ -11800,7 +11800,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 }
                 else if (Status == "true")
                 {
-                    var data = dbMain.AppDetails.Where(c => c.IsActive == true && c.FAQ != "0").ToList();
+                    var data = dbMain.AppDetails.Where(c => c.IsActive == true && c.FAQ != "0" && c.AppId != 3088 && c.AppId != 3068).ToList();
                     foreach (var x in data)
                     {
                         obj.Add(new NameULB()
@@ -12135,11 +12135,11 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         }
 
-        public IEnumerable<HSHouseDetailsGrid> GetHouseDetails(int userId, DateTime FromDate, DateTime Todate, int appId)
+        public IEnumerable<HSHouseDetailsGrid> GetHouseDetails(int userId, DateTime FromDate, DateTime Todate, int appId, string ReferanceId)
         {
             using (var db = new DevSwachhBharatNagpurEntities(appId))
             {
-                var data = db.SP_HouseDetailsApp(FromDate, Todate, userId).Select(x => new HSHouseDetailsGrid
+                var data = db.SP_HouseDetailsApp(FromDate, Todate, userId, ReferanceId).Select(x => new HSHouseDetailsGrid
                 {
                     houseId = x.houseId,
                     Name = x.qrEmpName,

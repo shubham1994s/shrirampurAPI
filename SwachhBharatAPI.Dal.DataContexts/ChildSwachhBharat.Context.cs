@@ -467,23 +467,6 @@ namespace SwachhBharatAPI.Dal.DataContexts
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_HouseScanifyDetails_Result>("SP_HouseScanifyDetails");
         }
     
-        public virtual ObjectResult<SP_HouseDetailsApp_Result> SP_HouseDetailsApp(Nullable<System.DateTime> fdate, Nullable<System.DateTime> tdate, Nullable<int> userid)
-        {
-            var fdateParameter = fdate.HasValue ?
-                new ObjectParameter("fdate", fdate) :
-                new ObjectParameter("fdate", typeof(System.DateTime));
-    
-            var tdateParameter = tdate.HasValue ?
-                new ObjectParameter("tdate", tdate) :
-                new ObjectParameter("tdate", typeof(System.DateTime));
-    
-            var useridParameter = userid.HasValue ?
-                new ObjectParameter("userid", userid) :
-                new ObjectParameter("userid", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_HouseDetailsApp_Result>("SP_HouseDetailsApp", fdateParameter, tdateParameter, useridParameter);
-        }
-    
         public virtual ObjectResult<SP_DumpYardDetailsApp_Result> SP_DumpYardDetailsApp(Nullable<System.DateTime> fdate, Nullable<System.DateTime> tdate, Nullable<int> userid)
         {
             var fdateParameter = fdate.HasValue ?
@@ -533,6 +516,27 @@ namespace SwachhBharatAPI.Dal.DataContexts
                 new ObjectParameter("userid", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_StreetDetailsApp_Result>("SP_StreetDetailsApp", fdateParameter, tdateParameter, useridParameter);
+        }
+    
+        public virtual ObjectResult<SP_HouseDetailsApp_Result> SP_HouseDetailsApp(Nullable<System.DateTime> fdate, Nullable<System.DateTime> tdate, Nullable<int> userid, string referanceId)
+        {
+            var fdateParameter = fdate.HasValue ?
+                new ObjectParameter("fdate", fdate) :
+                new ObjectParameter("fdate", typeof(System.DateTime));
+    
+            var tdateParameter = tdate.HasValue ?
+                new ObjectParameter("tdate", tdate) :
+                new ObjectParameter("tdate", typeof(System.DateTime));
+    
+            var useridParameter = userid.HasValue ?
+                new ObjectParameter("userid", userid) :
+                new ObjectParameter("userid", typeof(int));
+    
+            var referanceIdParameter = referanceId != null ?
+                new ObjectParameter("referanceId", referanceId) :
+                new ObjectParameter("referanceId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_HouseDetailsApp_Result>("SP_HouseDetailsApp", fdateParameter, tdateParameter, useridParameter, referanceIdParameter);
         }
     }
 }

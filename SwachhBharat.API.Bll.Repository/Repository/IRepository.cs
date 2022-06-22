@@ -198,7 +198,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         IEnumerable<HSAttendanceGrid> GetAttendanceDetails(int userid, DateTime FromDate, DateTime Todate, int appId);
 
-        IEnumerable<HSHouseDetailsGrid> GetHouseDetails(int userid, DateTime FromDate, DateTime Todate, int appId);
+        IEnumerable<HSHouseDetailsGrid> GetHouseDetails(int userid, DateTime FromDate, DateTime Todate, int appId,string ReferanceId);
 
         IEnumerable<HSDumpYardDetailsGrid> GetDumpYardDetails(int userid, DateTime FromDate, DateTime Todate, int appId);
 
