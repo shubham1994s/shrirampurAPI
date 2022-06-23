@@ -11893,7 +11893,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         }
 
-        public List<HouseScanifyEmployeeDetails> GetQREmployeeDetailsList(int userId, string EmpType, int appId, int QrEmpID)
+        public List<HouseScanifyEmployeeDetails> GetQREmployeeDetailsList(int userId, string EmpType, int appId, int QrEmpID,bool status)
         {
             List<HouseScanifyEmployeeDetails> obj = new List<HouseScanifyEmployeeDetails>();
             try
@@ -11926,7 +11926,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         }
                         else
                         {
-                            var data = db.QrEmployeeMasters.ToList();
+                            var data = db.QrEmployeeMasters.Where(c => c.isActive == status).ToList();
                             foreach (var x in data)
                             {
                                 obj.Add(new HouseScanifyEmployeeDetails()

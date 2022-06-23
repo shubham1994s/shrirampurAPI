@@ -192,7 +192,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         List<HSEmployee> GetQREmployeeList(int userid, string EmpType, int appId);
 
-        List<HouseScanifyEmployeeDetails> GetQREmployeeDetailsList(int userid, string EmpType, int appId,int QrEmpID);
+        List<HouseScanifyEmployeeDetails> GetQREmployeeDetailsList(int userid, string EmpType, int appId,int QrEmpID, bool val);
 
         IEnumerable<HouseScanifyDetailsGridRow> GetHouseScanifyDetails(int qrEmpId, DateTime FromDate, DateTime Todate, int appId);
 

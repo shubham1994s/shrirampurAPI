@@ -99,6 +99,7 @@ namespace SwachhBharatAPI.Controllers
             IEnumerable<string> headerValue2 = Request.Headers.GetValues("userId");
             IEnumerable<string> headerValue3 = Request.Headers.GetValues("appId");
             IEnumerable<string> headerValue4 = Request.Headers.GetValues("qrEmpId");
+            IEnumerable<string> headerValue5 = Request.Headers.GetValues("status");
 
             var id = headerValue3.FirstOrDefault();
             int AppId = int.Parse(id);
@@ -109,8 +110,11 @@ namespace SwachhBharatAPI.Controllers
             var EmpID = headerValue4.FirstOrDefault();
             int QrEmpId = int.Parse(EmpID);
 
+            var s = headerValue5.FirstOrDefault();
+            bool status = bool.Parse(s);
+
             List<HouseScanifyEmployeeDetails> objDetail = new List<HouseScanifyEmployeeDetails>();
-            objDetail = objRep.GetQREmployeeDetailsList(userId, EmpType, AppId, QrEmpId).ToList();
+            objDetail = objRep.GetQREmployeeDetailsList(userId, EmpType, AppId, QrEmpId, status).ToList();
             return objDetail;
         }
 
