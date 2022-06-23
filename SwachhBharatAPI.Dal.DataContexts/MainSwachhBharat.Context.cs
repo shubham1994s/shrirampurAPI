@@ -12,6 +12,8 @@ namespace SwachhBharatAPI.Dal.DataContexts
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class DevSwachhBharatMainEntities : DbContext
     {
@@ -43,5 +45,10 @@ namespace SwachhBharatAPI.Dal.DataContexts
         public virtual DbSet<AppDetail> AppDetails { get; set; }
         public virtual DbSet<EmployeeMaster> EmployeeMasters { get; set; }
         public virtual DbSet<tehsil> tehsils { get; set; }
+    
+        public virtual ObjectResult<Update_Trigger_Result> Update_Trigger()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Update_Trigger_Result>("Update_Trigger");
+        }
     }
 }

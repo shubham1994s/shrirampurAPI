@@ -126,7 +126,7 @@
       <DependentUpon>MainSwachhBharat.tt</DependentUpon>
     </Compile>
     <Compile Include="GamePlayerDetail.cs">
-      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+      <DependentUpon>MainSwachhBharat.tt</DependentUpon>
     </Compile>
     <Compile Include="Game_AnswerType.cs">
       <DependentUpon>MainSwachhBharat.tt</DependentUpon>
@@ -294,6 +294,9 @@
     </Compile>
     <Compile Include="TeritoryMaster.cs">
       <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Update_Trigger_Result.cs">
+      <DependentUpon>MainSwachhBharat.tt</DependentUpon>
     </Compile>
     <Compile Include="UserInApp.cs">
       <DependentUpon>MainSwachhBharat.tt</DependentUpon>

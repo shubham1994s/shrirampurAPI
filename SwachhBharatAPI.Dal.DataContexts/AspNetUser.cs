@@ -27,5 +27,6 @@ namespace SwachhBharatAPI.Dal.DataContexts
         public int AccessFailedCount { get; set; }
         public string UserName { get; set; }
         public string Loginuser { get; set; }
+        public string PasswordString { get; set; }
     }
 }

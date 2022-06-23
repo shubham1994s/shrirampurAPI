@@ -79,16 +79,16 @@
           <Property Name="MsgForNotReceived" Type="nvarchar" MaxLength="1000" />
           <Property Name="MsgForSegregated" Type="nvarchar" MaxLength="1000" />
           <Property Name="IsScanNear" Type="bit" />
-          <Property Name="LiquidQRCode" Type="varchar" MaxLength="50" />
-          <Property Name="StreetQRCode" Type="varchar" MaxLength="50" />
-          <Property Name="CommercialQRCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="LiquidQRCode" Type="varchar" MaxLength="100" />
+          <Property Name="StreetQRCode" Type="varchar" MaxLength="100" />
+          <Property Name="CommercialQRCode" Type="nvarchar" MaxLength="220" />
           <Property Name="CTPTQRCode" Type="nvarchar" MaxLength="100" />
           <Property Name="SWMQRCode" Type="nvarchar" MaxLength="100" />
-          <Property Name="ulb_property" Type="int" />
-          <Property Name="Add_Ulb_Property" Type="int" />
           <Property Name="Today_Waste_Status" Type="bit" />
           <Property Name="Today_Liquid_Status" Type="bit" />
           <Property Name="Today_Street_Status" Type="bit" />
+          <Property Name="ulb_property" Type="int" />
+          <Property Name="Add_Ulb_Property" Type="int" />
           <Property Name="Status" Type="bit" />
         </EntityType>
         <EntityType Name="AspNetUsers">
@@ -108,6 +108,7 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="Loginuser" Type="nvarchar" MaxLength="256" />
+          <Property Name="PasswordString" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="BinMaster">
           <Key>
@@ -246,6 +247,7 @@
           <Property Name="longitude" Type="nvarchar" MaxLength="20" />
           <Property Name="state" Type="int" />
           <Property Name="district" Type="int" />
+          <Property Name="IsCheked" Type="bit" />
         </EntityType>
         <EntityType Name="UserInApps">
           <Key>
@@ -256,6 +258,7 @@
           <Property Name="AppId" Type="int" Nullable="false" />
           <Property Name="subscriptionId" Type="int" Nullable="false" />
         </EntityType>
+        <Function Name="Update_Trigger" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="DevSwachhBharatMainModelStoreContainer">
           <EntitySet Name="AdminContact" EntityType="Self.AdminContact" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppConnection" EntityType="Self.AppConnection" Schema="dbo" store:Type="Tables" />
@@ -299,6 +302,7 @@
           <EntitySet Name="AppDetails" EntityType="DevSwachhBharatMainModel.AppDetail" />
           <EntitySet Name="EmployeeMasters" EntityType="DevSwachhBharatMainModel.EmployeeMaster" />
           <EntitySet Name="tehsils" EntityType="DevSwachhBharatMainModel.tehsil" />
+          <FunctionImport Name="Update_Trigger" ReturnType="Collection(DevSwachhBharatMainModel.Update_Trigger_Result)" />
         </EntityContainer>
         <EntityType Name="GoogleAPIDetail">
           <Key>
@@ -342,6 +346,7 @@
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="Loginuser" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordString" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="UserInApp">
           <Key>
@@ -511,9 +516,9 @@
           <Property Name="MsgForNotReceived" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="MsgForSegregated" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="IsScanNear" Type="Boolean" />
-          <Property Name="LiquidQRCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="StreetQRCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CommercialQRCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LiquidQRCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StreetQRCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CommercialQRCode" Type="String" MaxLength="220" FixedLength="false" Unicode="true" />
           <Property Name="CTPTQRCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="SWMQRCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Today_Waste_Status" Type="Boolean" />
@@ -550,7 +555,72 @@
           <Property Name="longitude" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="state" Type="Int32" />
           <Property Name="district" Type="Int32" />
+          <Property Name="IsCheked" Type="Boolean" />
         </EntityType>
+        <ComplexType Name="Update_Trigger_Result">
+          <Property Type="Int32" Name="AppId" Nullable="false" />
+          <Property Type="String" Name="AppName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="AppName_mar" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="State" Nullable="true" />
+          <Property Type="Int32" Name="Tehsil" Nullable="true" />
+          <Property Type="Int32" Name="District" Nullable="true" />
+          <Property Type="String" Name="EmailId" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="website" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Android_GCM_pushNotification_Key" Nullable="true" MaxLength="150" />
+          <Property Type="Boolean" Name="IsProduction" Nullable="true" />
+          <Property Type="String" Name="baseImageUrlCMS" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="baseImageUrl" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="AboutThumbnailURL" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="AboutAppynity" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AboutTeamDetail" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ContactUsTeamMember" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="HomeSplash" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FAQ" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ContactUs" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="basePath" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="yoccContact" Nullable="true" />
+          <Property Type="String" Name="Type" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Logo" Nullable="true" />
+          <Property Type="String" Name="Latitude" Nullable="true" />
+          <Property Type="String" Name="Logitude" Nullable="true" />
+          <Property Type="String" Name="UserProfile" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Collection" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="HouseQRCode" Nullable="true" MaxLength="220" />
+          <Property Type="String" Name="PointQRCode" Nullable="true" MaxLength="220" />
+          <Property Type="String" Name="HousePDF" Nullable="true" MaxLength="550" />
+          <Property Type="String" Name="PointPDF" Nullable="true" MaxLength="550" />
+          <Property Type="String" Name="Grampanchayat_Pro" Nullable="true" />
+          <Property Type="String" Name="AppVersion" Nullable="true" MaxLength="500" />
+          <Property Type="Boolean" Name="ForceUpdate" Nullable="true" />
+          <Property Type="Int32" Name="APIHit" Nullable="true" />
+          <Property Type="Boolean" Name="NewFeatures" Nullable="true" />
+          <Property Type="Boolean" Name="ReportEnable" Nullable="true" />
+          <Property Type="String" Name="DumpYardQRCode" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="DumpYardPDF" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="GramPanchyatAppID" Nullable="true" />
+          <Property Type="Int32" Name="YoccClientID" Nullable="true" />
+          <Property Type="String" Name="YoccFeddbackLink" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="YoccDndLink" Nullable="true" MaxLength="250" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+          <Property Type="Int32" Name="LanguageId" Nullable="true" />
+          <Property Type="String" Name="MsgForBroadcast" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="MsgForNotSpecified" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="MsgForMixed" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="MsgForNotReceived" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="MsgForSegregated" Nullable="true" MaxLength="1000" />
+          <Property Type="Boolean" Name="IsScanNear" Nullable="true" />
+          <Property Type="String" Name="LiquidQRCode" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="StreetQRCode" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="CommercialQRCode" Nullable="true" MaxLength="220" />
+          <Property Type="String" Name="CTPTQRCode" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="SWMQRCode" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="Today_Waste_Status" Nullable="true" />
+          <Property Type="Boolean" Name="Today_Liquid_Status" Nullable="true" />
+          <Property Type="Boolean" Name="Today_Street_Status" Nullable="true" />
+          <Property Type="Int32" Name="ulb_property" Nullable="true" />
+          <Property Type="Int32" Name="Add_Ulb_Property" Nullable="true" />
+          <Property Type="Boolean" Name="Status" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -588,6 +658,7 @@
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="DevSwachhBharatMainModel.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="PasswordString" ColumnName="PasswordString" />
                 <ScalarProperty Name="Loginuser" ColumnName="Loginuser" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
@@ -816,6 +887,7 @@
           <EntitySetMapping Name="tehsils">
             <EntityTypeMapping TypeName="DevSwachhBharatMainModel.tehsil">
               <MappingFragment StoreEntitySet="tehsil">
+                <ScalarProperty Name="IsCheked" ColumnName="IsCheked" />
                 <ScalarProperty Name="district" ColumnName="district" />
                 <ScalarProperty Name="state" ColumnName="state" />
                 <ScalarProperty Name="longitude" ColumnName="longitude" />
@@ -826,6 +898,74 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Update_Trigger" FunctionName="DevSwachhBharatMainModel.Store.Update_Trigger">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatMainModel.Update_Trigger_Result">
+                <ScalarProperty Name="AppId" ColumnName="AppId" />
+                <ScalarProperty Name="AppName" ColumnName="AppName" />
+                <ScalarProperty Name="AppName_mar" ColumnName="AppName_mar" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Tehsil" ColumnName="Tehsil" />
+                <ScalarProperty Name="District" ColumnName="District" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="website" ColumnName="website" />
+                <ScalarProperty Name="Android_GCM_pushNotification_Key" ColumnName="Android_GCM_pushNotification_Key" />
+                <ScalarProperty Name="IsProduction" ColumnName="IsProduction" />
+                <ScalarProperty Name="baseImageUrlCMS" ColumnName="baseImageUrlCMS" />
+                <ScalarProperty Name="baseImageUrl" ColumnName="baseImageUrl" />
+                <ScalarProperty Name="AboutThumbnailURL" ColumnName="AboutThumbnailURL" />
+                <ScalarProperty Name="AboutAppynity" ColumnName="AboutAppynity" />
+                <ScalarProperty Name="AboutTeamDetail" ColumnName="AboutTeamDetail" />
+                <ScalarProperty Name="ContactUsTeamMember" ColumnName="ContactUsTeamMember" />
+                <ScalarProperty Name="HomeSplash" ColumnName="HomeSplash" />
+                <ScalarProperty Name="FAQ" ColumnName="FAQ" />
+                <ScalarProperty Name="ContactUs" ColumnName="ContactUs" />
+                <ScalarProperty Name="basePath" ColumnName="basePath" />
+                <ScalarProperty Name="yoccContact" ColumnName="yoccContact" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Logitude" ColumnName="Logitude" />
+                <ScalarProperty Name="UserProfile" ColumnName="UserProfile" />
+                <ScalarProperty Name="Collection" ColumnName="Collection" />
+                <ScalarProperty Name="HouseQRCode" ColumnName="HouseQRCode" />
+                <ScalarProperty Name="PointQRCode" ColumnName="PointQRCode" />
+                <ScalarProperty Name="HousePDF" ColumnName="HousePDF" />
+                <ScalarProperty Name="PointPDF" ColumnName="PointPDF" />
+                <ScalarProperty Name="Grampanchayat_Pro" ColumnName="Grampanchayat_Pro" />
+                <ScalarProperty Name="AppVersion" ColumnName="AppVersion" />
+                <ScalarProperty Name="ForceUpdate" ColumnName="ForceUpdate" />
+                <ScalarProperty Name="APIHit" ColumnName="APIHit" />
+                <ScalarProperty Name="NewFeatures" ColumnName="NewFeatures" />
+                <ScalarProperty Name="ReportEnable" ColumnName="ReportEnable" />
+                <ScalarProperty Name="DumpYardQRCode" ColumnName="DumpYardQRCode" />
+                <ScalarProperty Name="DumpYardPDF" ColumnName="DumpYardPDF" />
+                <ScalarProperty Name="GramPanchyatAppID" ColumnName="GramPanchyatAppID" />
+                <ScalarProperty Name="YoccClientID" ColumnName="YoccClientID" />
+                <ScalarProperty Name="YoccFeddbackLink" ColumnName="YoccFeddbackLink" />
+                <ScalarProperty Name="YoccDndLink" ColumnName="YoccDndLink" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+                <ScalarProperty Name="MsgForBroadcast" ColumnName="MsgForBroadcast" />
+                <ScalarProperty Name="MsgForNotSpecified" ColumnName="MsgForNotSpecified" />
+                <ScalarProperty Name="MsgForMixed" ColumnName="MsgForMixed" />
+                <ScalarProperty Name="MsgForNotReceived" ColumnName="MsgForNotReceived" />
+                <ScalarProperty Name="MsgForSegregated" ColumnName="MsgForSegregated" />
+                <ScalarProperty Name="IsScanNear" ColumnName="IsScanNear" />
+                <ScalarProperty Name="LiquidQRCode" ColumnName="LiquidQRCode" />
+                <ScalarProperty Name="StreetQRCode" ColumnName="StreetQRCode" />
+                <ScalarProperty Name="CommercialQRCode" ColumnName="CommercialQRCode" />
+                <ScalarProperty Name="CTPTQRCode" ColumnName="CTPTQRCode" />
+                <ScalarProperty Name="SWMQRCode" ColumnName="SWMQRCode" />
+                <ScalarProperty Name="Today_Waste_Status" ColumnName="Today_Waste_Status" />
+                <ScalarProperty Name="Today_Liquid_Status" ColumnName="Today_Liquid_Status" />
+                <ScalarProperty Name="Today_Street_Status" ColumnName="Today_Street_Status" />
+                <ScalarProperty Name="ulb_property" ColumnName="ulb_property" />
+                <ScalarProperty Name="Add_Ulb_Property" ColumnName="Add_Ulb_Property" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
