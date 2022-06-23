@@ -1853,6 +1853,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                         app.FAQ = "1";
                                     }
                                     dbMain.SaveChanges();
+                                    List<AppDetail> AppDetailss = dbMain.Database.SqlQuery<AppDetail>("exec [Update_Trigger]").ToList();
                                 }
                             }
 
