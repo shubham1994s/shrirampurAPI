@@ -11543,7 +11543,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 if (model != null)
                 {
                     model.houseOwnerMobile = _Mobile;
-                    db.SaveChanges();
+                   // db.SaveChanges();
                     string msg = "Your OTP is " + otp + ". Do not Share it with anyone by any means. This is confidential and to be used by you only. ICTSBM";
 
                     sendSMS(msg, _Mobile);

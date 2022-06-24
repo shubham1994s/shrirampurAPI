@@ -586,12 +586,20 @@ namespace SwachBharat.API.Bll.Services
                 try
                 {
                     DeviceDetail details = new DeviceDetail();
-
+                    var model2 = db.HouseMasters.Where(x => x.ReferanceId == ReferanceId).FirstOrDefault();
+                    if (model2 != null)
+                    {
+                        model2.houseOwnerMobile = Mobile;
+                        db.SaveChanges();
+                        result.Status = "Success";
+                        result.Message = "Uploaded successfully";
+                        result.MessageMar = "सबमिट यशस्वी";
+                    }
                     IsExist = (from p in db.DeviceDetails where p.DeviceID == DeviceID select p).Count() > 0;
 
-                    if(IsExist == true)
+                    if (IsExist == true)
                     {
-                        //var model = db.DeviceDetails.Where(x => x.ReferenceID == ReferanceId & x.DeviceID == DeviceID & x.FCMID == FCMID).FirstOrDefault();
+
                         var model = db.DeviceDetails.Where(x => x.ReferenceID == ReferanceId & x.DeviceID == DeviceID).FirstOrDefault();
                         if (model != null)
                         {
@@ -620,6 +628,7 @@ namespace SwachBharat.API.Bll.Services
                             result.Message = "Uploaded successfully";
                             result.MessageMar = "सबमिट यशस्वी";
                         }
+
                     }
                     else
                     {
