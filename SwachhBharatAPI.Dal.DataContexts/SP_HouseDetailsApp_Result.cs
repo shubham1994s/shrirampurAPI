@@ -20,6 +20,7 @@ namespace SwachhBharatAPI.Dal.DataContexts
         public string ReferanceId { get; set; }
         public Nullable<System.DateTime> modified { get; set; }
         public string qrEmpName { get; set; }
+        public Nullable<bool> QRStatus { get; set; }
         public string QRCodeImage { get; set; }
     }
 }

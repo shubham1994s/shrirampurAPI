@@ -12172,6 +12172,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     QRCodeImage = x.QRCodeImage,
                     ReferanceId = x.ReferanceId,
                     modifiedDate = x.modified.HasValue ? Convert.ToDateTime(x.modified).ToString("dd/MM/yyyy hh:mm tt") : "",
+                    QRStatus=x.QRStatus,
 
 
                 }).ToList();

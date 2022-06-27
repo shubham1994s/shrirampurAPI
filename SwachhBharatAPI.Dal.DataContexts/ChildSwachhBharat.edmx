@@ -1782,7 +1782,8 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Type="String" Name="ReferanceId" Nullable="true" MaxLength="350" />
           <Property Type="DateTime" Name="modified" Nullable="true" Precision="23" />
           <Property Type="String" Name="qrEmpName" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="QRCodeImage" Nullable="true" />
+          <Property Type="Boolean" Name="QRStatus" Nullable="true" />
+          <Property Type="String" Name="QRCodeImage" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2800,6 +2801,7 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
                 <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
                 <ScalarProperty Name="modified" ColumnName="modified" />
                 <ScalarProperty Name="qrEmpName" ColumnName="qrEmpName" />
+                <ScalarProperty Name="QRStatus" ColumnName="QRStatus" />
                 <ScalarProperty Name="QRCodeImage" ColumnName="QRCodeImage" />
               </ComplexTypeMapping>
             </ResultMapping>
