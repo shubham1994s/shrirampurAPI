@@ -1857,7 +1857,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                         app.FAQ = "1";
                                     }
                                     dbMain.SaveChanges();
-                                   // List<AppDetail> AppDetailss = dbMain.Database.SqlQuery<AppDetail>("exec [Update_Trigger]").ToList();
+                                    List<AppDetail> AppDetailss = dbMain.Database.SqlQuery<AppDetail>("exec [Update_Trigger]").ToList();
                                 }
                             }
 
@@ -9721,22 +9721,33 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     {
                         Qr_Employee_Daily_Attendance objdata = new Qr_Employee_Daily_Attendance();
 
-                        objdata.qrEmpId = obj.qrEmpId;
-                        objdata.startDate = obj.startDate;
-                        objdata.endLat = "";
-                        objdata.startLat = obj.startLat;
-                        objdata.startLong = obj.startLong;
-                        objdata.startTime = obj.startTime;
-                        objdata.endTime = "";
-                        objdata.startNote = obj.startNote;
-                        objdata.endNote = obj.endNote;
-                        //   objdata.startAddress = Address(obj.startLat + "," + obj.startLong); 
-                        db.Qr_Employee_Daily_Attendance.Add(objdata);
-                        db.SaveChanges();
-                        result.status = "success";
-                        result.message = "Shift started Successfully";
-                        result.messageMar = "शिफ्ट सुरू";
-                        return result;
+                        var isActive=db.QrEmployeeMasters.Where(c => c.qrEmpId == obj.qrEmpId && c.isActive==true).FirstOrDefault();
+                        if (isActive != null) { 
+
+                            objdata.qrEmpId = obj.qrEmpId;
+                            objdata.startDate = obj.startDate;
+                            objdata.endLat = "";
+                            objdata.startLat = obj.startLat;
+                            objdata.startLong = obj.startLong;
+                            objdata.startTime = obj.startTime;
+                            objdata.endTime = "";
+                            objdata.startNote = obj.startNote;
+                            objdata.endNote = obj.endNote;
+                            //   objdata.startAddress = Address(obj.startLat + "," + obj.startLong); 
+                            db.Qr_Employee_Daily_Attendance.Add(objdata);
+                            db.SaveChanges();
+                            result.status = "success";
+                            result.message = "Shift started Successfully";
+                            result.messageMar = "शिफ्ट सुरू";
+                            return result;
+                        }
+                        else
+                        {
+                            result.status = "Error";
+                            result.message = "Contact To Administrator";
+                            result.messageMar = "प्रशासकाशी संपर्क साधा";
+                            return result;
+                        }
                     }
 
                     catch
@@ -10204,6 +10215,11 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                 //{
                                 //    dump.QRCodeImage = obj.QRCodeImage;
                                 //}
+                                if ((string.IsNullOrEmpty(obj.QRCodeImage)) == false)
+                                {
+                                    obj.QRCodeImage = obj.QRCodeImage.Replace("data:image/jpeg;base64,", "");
+                                    dump.BinaryQrCodeImage = Convert.FromBase64String(obj.QRCodeImage);
+                                }
                                 //////////////////////////////////////////////////////////////////
                                 obj.date = DateTime.Now;
                                 obj.ReferanceId = referanceid;
@@ -10273,6 +10289,11 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                 //{
                                 //    dump.QRCodeImage = obj.QRCodeImage;
                                 //}
+                                if ((string.IsNullOrEmpty(obj.QRCodeImage)) == false)
+                                {
+                                    obj.QRCodeImage = obj.QRCodeImage.Replace("data:image/jpeg;base64,", "");
+                                    dump.BinaryQrCodeImage = Convert.FromBase64String(obj.QRCodeImage);
+                                }
                                 //////////////////////////////////////////////////////////////////
                                 obj.date = DateTime.Now;
                                 obj.ReferanceId = referanceid;
@@ -10338,9 +10359,14 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                 {
                                     dump.userId = obj.userId;
                                 }
+                                //if ((string.IsNullOrEmpty(obj.QRCodeImage)) == false)
+                                //{
+                                //    dump.QRCodeImage = obj.QRCodeImage;
+                                //}
                                 if ((string.IsNullOrEmpty(obj.QRCodeImage)) == false)
                                 {
-                                    dump.QRCodeImage = obj.QRCodeImage;
+                                    obj.QRCodeImage = obj.QRCodeImage.Replace("data:image/jpeg;base64,", "");
+                                    dump.BinaryQrCodeImage = Convert.FromBase64String(obj.QRCodeImage);
                                 }
                                 //////////////////////////////////////////////////////////////////
                                 obj.date = DateTime.Now;
@@ -10484,9 +10510,15 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                     house.WasteType = obj.wastetype;
                                 }
 
+                                //if ((string.IsNullOrEmpty(obj.QRCodeImage)) == false)
+                                //{
+                                //    house.QRCodeImage = obj.QRCodeImage;
+                                //}
+
                                 if ((string.IsNullOrEmpty(obj.QRCodeImage)) == false)
                                 {
-                                    house.QRCodeImage = obj.QRCodeImage;
+                                    obj.QRCodeImage = obj.QRCodeImage.Replace("data:image/jpeg;base64,", "");
+                                    house.BinaryQrCodeImage = Convert.FromBase64String(obj.QRCodeImage);
                                 }
 
                                 //////////////////////////////////////////////////////////////////
@@ -10513,7 +10545,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     {
                         result.message = "Your duty is currently off, please start again.. ";
                         result.messageMar = "आपली ड्यूटी सध्या बंद आहे, कृपया पुन्हा सुरू करा..";
-                        result.status = "success";
+                        result.status = "error";
                         return result;
                     }
                     return result;
@@ -10528,6 +10560,15 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 }
             }
 
+            if(result.status == "success")
+            {
+                if (appdetails != null)
+                {
+                    appdetails.FAQ = "1";
+                    dbMain.SaveChanges();
+                }
+                List<AppDetail> AppDetailss = dbMain.Database.SqlQuery<AppDetail>("exec [Update_Trigger]").ToList();
+            }
         }
 
         /// <summary>
