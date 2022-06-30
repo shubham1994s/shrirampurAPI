@@ -1180,18 +1180,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             user.gtFeatures = objmain.NewFeatures;
                             user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
                         }
-                        //if (obj.imoNo2 == imi)
-                        //{
-                        //    user.type = checkNull(obj.Type);
-                        //    user.typeId = checkIntNull(obj.Type);
-                        //    user.userId = obj.userId;
-                        //    user.userLoginId = "";
-                        //    user.userPassword = "";
-                        //    user.imiNo = "";
-                        //    user.EmployeeType = obj.EmployeeType;
-                        //    user.gtFeatures = objmain.NewFeatures;
-                        //    user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
-                        //}
+                    
                         else
                         {
                             user.userId = 0;
@@ -1221,17 +1210,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     user.message = "UserName or Passward not Match.";
                     user.messageMar = "वापरकर्ता नाव किंवा पासवर्ड जुळत नाही.";
                 }
-                //else if (objEmpMst == null)
-                // {
-                //     user.userId = 0;
-                //     user.userLoginId = "";
-                //     user.userPassword = "";
-                //     user.status = "error";
-                //     user.gtFeatures = false;
-                //     user.imiNo = "";
-                //     user.message = "Contact Your Authorized Person.";
-                //     user.messageMar = "आपल्या अधिकृत व्यक्तीशी संपर्क साधा.";
-                // }
+             
                 else if (objEmpMst != null && objEmpMst.qrEmpLoginId == userName && objEmpMst.qrEmpPassword == password)
                 {
 
