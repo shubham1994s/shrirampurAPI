@@ -511,6 +511,11 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 user = CheckUserLoginForStreet(userName, password, imi, AppId, EmpType);
             }
+
+            if (EmpType == "D")
+            {
+                user = CheckUserLoginForDump(userName, password, imi, AppId, EmpType);
+            }
             return user;
         }
 
@@ -1070,6 +1075,194 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             user.userPassword = "";
                             user.imiNo = "";
                             user.EmpType = "S";
+                            user.gtFeatures = objmain.NewFeatures;
+                            user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
+                        }
+                        else
+                        {
+                            user.userId = 0;
+                            user.userLoginId = "";
+                            user.userPassword = "";
+                            user.status = "error";
+                            user.gtFeatures = false;
+                            user.imiNo = "";
+                            user.EmpType = "";
+                            user.message = "User is already login with another mobile.";
+                            user.messageMar = "वापरकर्ता दुसर्या मोबाइलवर आधीपासूनच लॉगिन आहे.";
+
+                        }
+
+                    }
+                }
+
+                else
+                {
+                    user.userId = 0;
+                    user.userLoginId = "";
+                    user.userPassword = "";
+                    user.status = "error";
+                    user.gtFeatures = false;
+                    user.imiNo = "";
+                    user.message = "UserName or Passward not Match.";
+                    user.EmpType = "";
+                    user.messageMar = "वापरकर्ता नाव किंवा पासवर्ड जुळत नाही.";
+                }
+            }
+            return user;
+        }
+
+        public SBUser CheckUserLoginForDump(string userName, string password, string imi, int AppId, string EmpType)
+        {
+            SBUser user = new SBUser();
+            using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
+            {
+                var objmain = dbMain.AppDetails.Where(x => x.AppId == AppId).FirstOrDefault();
+                var AppDetailURL = objmain.baseImageUrlCMS + objmain.basePath + objmain.UserProfile + "/";
+                var obj = db.UserMasters.Where(c => c.userLoginId == userName & c.isActive == true & c.EmployeeType == "D").FirstOrDefault();
+                var objEmpMst = db.QrEmployeeMasters.Where(c => c.qrEmpLoginId == userName & c.isActive == true).FirstOrDefault();
+                if (obj == null)
+                {
+                    user.userId = 0;
+                    user.userLoginId = "";
+                    user.userPassword = "";
+                    user.status = "error";
+                    user.gtFeatures = false;
+                    user.imiNo = "";
+                    user.EmpType = "";
+                    user.message = "Contact Your Authorized Person.";
+                    user.messageMar = "आपल्या अधिकृत व्यक्तीशी संपर्क साधा.";
+                }
+
+
+                if (obj != null && obj.userLoginId == userName && obj.userPassword == password)
+                {
+                    if (obj.imoNo != null)
+                    {
+                        UserMaster us = db.UserMasters.Where(c => c.userId == obj.userId).FirstOrDefault();
+                        us.imoNo2 = imi;
+                        db.SaveChanges();
+
+                        user.type = checkNull(obj.Type);
+                        user.userId = obj.userId;
+                        user.userLoginId = "";
+                        user.userPassword = "";
+                        user.EmpType = obj.EmployeeType;
+                        user.gtFeatures = objmain.NewFeatures;
+                        user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
+                    }
+                    if (obj.imoNo == null || obj.imoNo.Trim() == "")
+                    {
+                        UserMaster us = db.UserMasters.Where(c => c.userId == obj.userId).FirstOrDefault();
+                        us.imoNo = imi;
+                        db.SaveChanges();
+
+                        user.type = checkNull(obj.Type);
+                        user.userId = obj.userId;
+                        user.userLoginId = "";
+                        user.userPassword = "";
+                        user.imiNo = "";
+                        user.EmpType = us.EmployeeType;
+                        user.gtFeatures = objmain.NewFeatures;
+                        user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
+                    }
+
+                    else
+                    {
+                        if (obj.imoNo == imi)
+                        {
+                            user.type = checkNull(obj.Type);
+                            user.typeId = checkIntNull(obj.Type);
+                            user.userId = obj.userId;
+                            user.userLoginId = "";
+                            user.userPassword = "";
+                            user.imiNo = "";
+                            user.EmpType = obj.EmployeeType;
+                            user.gtFeatures = objmain.NewFeatures;
+                            user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
+                        }
+                        //if (obj.imoNo2 == imi)
+                        //{
+                        //    user.type = checkNull(obj.Type);
+                        //    user.typeId = checkIntNull(obj.Type);
+                        //    user.userId = obj.userId;
+                        //    user.userLoginId = "";
+                        //    user.userPassword = "";
+                        //    user.imiNo = "";
+                        //    user.EmployeeType = obj.EmployeeType;
+                        //    user.gtFeatures = objmain.NewFeatures;
+                        //    user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
+                        //}
+                        else
+                        {
+                            user.userId = 0;
+                            user.userLoginId = "";
+                            user.userPassword = "";
+                            user.status = "error";
+                            user.gtFeatures = false;
+                            user.imiNo = "";
+                            user.EmpType = "";
+                            user.message = "User is already login with another mobile.";
+                            user.messageMar = "वापरकर्ता दुसर्या मोबाइलवर आधीपासूनच लॉगिन आहे.";
+
+                        }
+                    }
+
+                }
+
+                else if (obj != null && obj.userLoginId == userName && obj.userPassword != password)
+                {
+                    user.userId = 0;
+                    user.userLoginId = "";
+                    user.userPassword = "";
+                    user.status = "error";
+                    user.gtFeatures = false;
+                    user.imiNo = "";
+                    user.EmpType = "";
+                    user.message = "UserName or Passward not Match.";
+                    user.messageMar = "वापरकर्ता नाव किंवा पासवर्ड जुळत नाही.";
+                }
+                //else if (objEmpMst == null)
+                // {
+                //     user.userId = 0;
+                //     user.userLoginId = "";
+                //     user.userPassword = "";
+                //     user.status = "error";
+                //     user.gtFeatures = false;
+                //     user.imiNo = "";
+                //     user.message = "Contact Your Authorized Person.";
+                //     user.messageMar = "आपल्या अधिकृत व्यक्तीशी संपर्क साधा.";
+                // }
+                else if (objEmpMst != null && objEmpMst.qrEmpLoginId == userName && objEmpMst.qrEmpPassword == password)
+                {
+
+
+                    if (objEmpMst.imoNo == null || objEmpMst.imoNo.Trim() == "")
+                    {
+                        QrEmployeeMaster us = db.QrEmployeeMasters.Where(c => c.qrEmpId == objEmpMst.qrEmpId).FirstOrDefault();
+                        us.imoNo = imi;
+                        db.SaveChanges();
+
+                        user.type = checkNull(objEmpMst.type);
+                        user.typeId = Convert.ToInt32(objEmpMst.typeId);
+                        user.userId = objEmpMst.qrEmpId;
+                        user.userLoginId = "";
+                        user.userPassword = "";
+                        user.imiNo = "";
+                        user.EmpType = obj.EmployeeType;
+                        user.gtFeatures = objmain.NewFeatures;
+                        user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
+                    }
+                    else
+                    {
+                        if (objEmpMst.imoNo == imi || imi == null)
+                        {
+                            user.type = checkNull(objEmpMst.type);
+                            user.typeId = Convert.ToInt32(objEmpMst.typeId);
+                            user.userId = objEmpMst.qrEmpId;
+                            user.userLoginId = "";
+                            user.userPassword = "";
+                            user.imiNo = "";
+                            user.EmpType = "D";
                             user.gtFeatures = objmain.NewFeatures;
                             user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
                         }
