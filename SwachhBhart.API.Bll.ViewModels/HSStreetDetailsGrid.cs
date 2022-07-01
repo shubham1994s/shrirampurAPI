@@ -17,6 +17,10 @@ namespace SwachhBhart.API.Bll.ViewModels
         public string QRCodeImage { get; set; }
         public string modifiedDate { get; set; }
         public int totalRowCount { get; set; }
+
+        public Nullable<bool> QRStatus { get; set; }
+
+        public Nullable<System.DateTime> QRStatusDate { get; set; }
     }
 
 

@@ -212,6 +212,12 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         CollectionQRStatusResult UpdateQRstatus(HSHouseDetailsGrid obj, int AppId);
 
+        CollectionQRStatusResult UpdateQRstatusDump(HSHouseDetailsGrid obj, int AppId);
+
+        CollectionQRStatusResult UpdateQRstatusStreet(HSHouseDetailsGrid obj, int AppId);
+
+        CollectionQRStatusResult UpdateQRstatusLiquid(HSHouseDetailsGrid obj, int AppId);
+
         CollectionSyncResult SaveAddUserRole(UserRoleDetails obj);
 
         #region RFID

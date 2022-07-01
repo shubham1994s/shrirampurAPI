@@ -12659,6 +12659,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     QRCodeImage = x.QRCodeImage,
                     ReferanceId = x.ReferanceId,
                     modifiedDate = x.lastModifiedDate.HasValue ? Convert.ToDateTime(x.lastModifiedDate).ToString("dd/MM/yyyy hh:mm tt") : "",
+                    QRStatus=x.QRStatus,
 
 
                 }).ToList();
@@ -12680,7 +12681,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     QRCodeImage = x.QRCodeImage,
                     ReferanceId = x.ReferanceId,
                     modifiedDate = x.lastModifiedDate.HasValue ? Convert.ToDateTime(x.lastModifiedDate).ToString("dd/MM/yyyy hh:mm tt") : "",
-
+                    QRStatus = x.QRStatus,
 
                 }).ToList();
 
@@ -12701,7 +12702,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     QRCodeImage = x.QRCodeImage,
                     ReferanceId = x.ReferanceId,
                     modifiedDate = x.lastModifiedDate.HasValue ? Convert.ToDateTime(x.lastModifiedDate).ToString("dd/MM/yyyy hh:mm tt") : "",
-
+                    QRStatus = x.QRStatus,
 
                 }).ToList();
 
@@ -12857,6 +12858,156 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         if (model != null)
                         {
                          
+                            model.QRStatus = obj.QRStatus;
+                            model.QRStatusDate = DateTime.Now;
+                            db.SaveChanges();
+                            result.ReferanceId = obj.ReferanceId;
+                            result.status = "success";
+                            result.message = "Record Updated successfully";
+                            result.messageMar = "रेकॉर्ड यशस्वीरित्या अद्यतनित केले";
+                        }
+                        else
+                        {
+                            result.ReferanceId = obj.ReferanceId;
+                            result.message = "This Record Not Available.";
+                            result.messageMar = "रेकॉर्ड उपलब्ध नाही.";
+                            result.status = "error";
+                            return result;
+
+                        }
+
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    result.ReferanceId = obj.ReferanceId;
+                    result.message = "Something is wrong,Try Again.. ";
+                    result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                    result.status = "error";
+                    return result;
+                }
+
+
+            }
+
+            return result;
+        }
+
+        public CollectionQRStatusResult UpdateQRstatusDump(HSHouseDetailsGrid obj, int AppId)
+        {
+            CollectionQRStatusResult result = new CollectionQRStatusResult();
+            HouseMaster objdata = new HouseMaster();
+            using (var db = new DevSwachhBharatNagpurEntities(AppId))
+            {
+                try
+                {
+                    if (obj.ReferanceId != null)
+                    {
+                        var model = db.DumpYardDetails.Where(c => c.ReferanceId == obj.ReferanceId).FirstOrDefault();
+                        if (model != null)
+                        {
+
+                            model.QRStatus = obj.QRStatus;
+                            model.QRStatusDate = DateTime.Now;
+                            db.SaveChanges();
+                            result.ReferanceId = obj.ReferanceId;
+                            result.status = "success";
+                            result.message = "Record Updated successfully";
+                            result.messageMar = "रेकॉर्ड यशस्वीरित्या अद्यतनित केले";
+                        }
+                        else
+                        {
+                            result.ReferanceId = obj.ReferanceId;
+                            result.message = "This Record Not Available.";
+                            result.messageMar = "रेकॉर्ड उपलब्ध नाही.";
+                            result.status = "error";
+                            return result;
+
+                        }
+
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    result.ReferanceId = obj.ReferanceId;
+                    result.message = "Something is wrong,Try Again.. ";
+                    result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                    result.status = "error";
+                    return result;
+                }
+
+
+            }
+
+            return result;
+        }
+
+        public CollectionQRStatusResult UpdateQRstatusStreet(HSHouseDetailsGrid obj, int AppId)
+        {
+            CollectionQRStatusResult result = new CollectionQRStatusResult();
+            HouseMaster objdata = new HouseMaster();
+            using (var db = new DevSwachhBharatNagpurEntities(AppId))
+            {
+                try
+                {
+                    if (obj.ReferanceId != null)
+                    {
+                        var model = db.StreetSweepingDetails.Where(c => c.ReferanceId == obj.ReferanceId).FirstOrDefault();
+                        if (model != null)
+                        {
+
+                            model.QRStatus = obj.QRStatus;
+                            model.QRStatusDate = DateTime.Now;
+                            db.SaveChanges();
+                            result.ReferanceId = obj.ReferanceId;
+                            result.status = "success";
+                            result.message = "Record Updated successfully";
+                            result.messageMar = "रेकॉर्ड यशस्वीरित्या अद्यतनित केले";
+                        }
+                        else
+                        {
+                            result.ReferanceId = obj.ReferanceId;
+                            result.message = "This Record Not Available.";
+                            result.messageMar = "रेकॉर्ड उपलब्ध नाही.";
+                            result.status = "error";
+                            return result;
+
+                        }
+
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    result.ReferanceId = obj.ReferanceId;
+                    result.message = "Something is wrong,Try Again.. ";
+                    result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                    result.status = "error";
+                    return result;
+                }
+
+
+            }
+
+            return result;
+        }
+
+        public CollectionQRStatusResult UpdateQRstatusLiquid(HSHouseDetailsGrid obj, int AppId)
+        {
+            CollectionQRStatusResult result = new CollectionQRStatusResult();
+            HouseMaster objdata = new HouseMaster();
+            using (var db = new DevSwachhBharatNagpurEntities(AppId))
+            {
+                try
+                {
+                    if (obj.ReferanceId != null)
+                    {
+                        var model = db.LiquidWasteDetails.Where(c => c.ReferanceId == obj.ReferanceId).FirstOrDefault();
+                        if (model != null)
+                        {
+
                             model.QRStatus = obj.QRStatus;
                             model.QRStatusDate = DateTime.Now;
                             db.SaveChanges();

@@ -611,5 +611,227 @@ namespace SwachhBharatAPI.Controllers
 
         }
 
+
+        [Route("UpdateQRstatusDump")]
+        [HttpPost]
+        public List<CollectionQRStatusResult> UpdateQRstatusDump(List<HSHouseDetailsGrid> objRaw)
+        {
+
+            objRep = new Repository();
+            HSHouseDetailsGrid gcDetail = new HSHouseDetailsGrid();
+            List<CollectionQRStatusResult> objres = new List<CollectionQRStatusResult>();
+            try
+            {
+
+                IEnumerable<string> headerValue1 = Request.Headers.GetValues("appId");
+                var AppId = Convert.ToInt32(headerValue1.FirstOrDefault());
+
+
+                foreach (var item in objRaw)
+                {
+
+                    gcDetail.QRStatus = item.QRStatus;
+                    gcDetail.ReferanceId = item.ReferanceId;
+                    CollectionQRStatusResult detail = objRep.UpdateQRstatusDump(gcDetail, AppId);
+                    if (detail.message == "")
+                    {
+                        objres.Add(new CollectionQRStatusResult()
+                        {
+                            ReferanceId = detail.ReferanceId,
+                            status = "error",
+                            message = "Record not inserted",
+                            messageMar = "रेकॉर्ड सबमिट केले नाही"
+                        });
+                    }
+
+                    objres.Add(new CollectionQRStatusResult()
+                    {
+                        ReferanceId = detail.ReferanceId,
+                        status = detail.status,
+                        messageMar = detail.messageMar,
+                        message = detail.message
+
+                    });
+
+                    return objres;
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                objres.Add(new CollectionQRStatusResult()
+                {
+                    ReferanceId = "",
+                    status = "error",
+                    message = "Something is wrong,Try Again.. ",
+                    messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..",
+                });
+                return objres;
+
+            }
+
+            objres.Add(new CollectionQRStatusResult()
+            {
+                ReferanceId = "",
+                status = "error",
+                message = "Record not inserted",
+                messageMar = "रेकॉर्ड सबमिट केले नाही",
+            });
+
+            return objres;
+
+        }
+
+
+        [Route("UpdateQRstatusStreet")]
+        [HttpPost]
+        public List<CollectionQRStatusResult> UpdateQRstatusStreet(List<HSHouseDetailsGrid> objRaw)
+        {
+
+            objRep = new Repository();
+            HSHouseDetailsGrid gcDetail = new HSHouseDetailsGrid();
+            List<CollectionQRStatusResult> objres = new List<CollectionQRStatusResult>();
+            try
+            {
+
+                IEnumerable<string> headerValue1 = Request.Headers.GetValues("appId");
+                var AppId = Convert.ToInt32(headerValue1.FirstOrDefault());
+
+
+                foreach (var item in objRaw)
+                {
+
+                    gcDetail.QRStatus = item.QRStatus;
+                    gcDetail.ReferanceId = item.ReferanceId;
+                    CollectionQRStatusResult detail = objRep.UpdateQRstatusStreet(gcDetail, AppId);
+                    if (detail.message == "")
+                    {
+                        objres.Add(new CollectionQRStatusResult()
+                        {
+                            ReferanceId = detail.ReferanceId,
+                            status = "error",
+                            message = "Record not inserted",
+                            messageMar = "रेकॉर्ड सबमिट केले नाही"
+                        });
+                    }
+
+                    objres.Add(new CollectionQRStatusResult()
+                    {
+                        ReferanceId = detail.ReferanceId,
+                        status = detail.status,
+                        messageMar = detail.messageMar,
+                        message = detail.message
+
+                    });
+
+                    return objres;
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                objres.Add(new CollectionQRStatusResult()
+                {
+                    ReferanceId = "",
+                    status = "error",
+                    message = "Something is wrong,Try Again.. ",
+                    messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..",
+                });
+                return objres;
+
+            }
+
+            objres.Add(new CollectionQRStatusResult()
+            {
+                ReferanceId = "",
+                status = "error",
+                message = "Record not inserted",
+                messageMar = "रेकॉर्ड सबमिट केले नाही",
+            });
+
+            return objres;
+
+        }
+
+
+        [Route("UpdateQRstatusLiquid")]
+        [HttpPost]
+        public List<CollectionQRStatusResult> UpdateQRstatusLiquid(List<HSHouseDetailsGrid> objRaw)
+        {
+
+            objRep = new Repository();
+            HSHouseDetailsGrid gcDetail = new HSHouseDetailsGrid();
+            List<CollectionQRStatusResult> objres = new List<CollectionQRStatusResult>();
+            try
+            {
+
+                IEnumerable<string> headerValue1 = Request.Headers.GetValues("appId");
+                var AppId = Convert.ToInt32(headerValue1.FirstOrDefault());
+
+
+                foreach (var item in objRaw)
+                {
+
+                    gcDetail.QRStatus = item.QRStatus;
+                    gcDetail.ReferanceId = item.ReferanceId;
+                    CollectionQRStatusResult detail = objRep.UpdateQRstatusLiquid(gcDetail, AppId);
+                    if (detail.message == "")
+                    {
+                        objres.Add(new CollectionQRStatusResult()
+                        {
+                            ReferanceId = detail.ReferanceId,
+                            status = "error",
+                            message = "Record not inserted",
+                            messageMar = "रेकॉर्ड सबमिट केले नाही"
+                        });
+                    }
+
+                    objres.Add(new CollectionQRStatusResult()
+                    {
+                        ReferanceId = detail.ReferanceId,
+                        status = detail.status,
+                        messageMar = detail.messageMar,
+                        message = detail.message
+
+                    });
+
+                    return objres;
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                objres.Add(new CollectionQRStatusResult()
+                {
+                    ReferanceId = "",
+                    status = "error",
+                    message = "Something is wrong,Try Again.. ",
+                    messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..",
+                });
+                return objres;
+
+            }
+
+            objres.Add(new CollectionQRStatusResult()
+            {
+                ReferanceId = "",
+                status = "error",
+                message = "Record not inserted",
+                messageMar = "रेकॉर्ड सबमिट केले नाही",
+            });
+
+            return objres;
+
+        }
+
     }
 }
