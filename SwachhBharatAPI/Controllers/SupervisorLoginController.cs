@@ -205,7 +205,6 @@ namespace SwachhBharatAPI.Controllers
             IEnumerable<string> headerValue2 = Request.Headers.GetValues("Todate");
             IEnumerable<string> headerValue3 = Request.Headers.GetValues("appId");
             IEnumerable<string> headerValue4 = Request.Headers.GetValues("userId");
-
             IEnumerable<string> headerValue5 = Request.Headers.GetValues("ReferanceId");
 
 
