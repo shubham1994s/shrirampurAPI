@@ -118,6 +118,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         List<CMSBAreaVM> GetAreaList(int appId, string SearchString);
 
         List<CMSBWardZoneVM> GetWardZoneList(int appId);
+        List<SyncResult> CheckHSUserName(int appId, string username);
+        List<SyncResult> CheckHSUserLoginId(int appId, string loginid);
 
         //Added Added By Nishikant (17 May 2019)
         Result SaveState(CMSBStatesVM state);

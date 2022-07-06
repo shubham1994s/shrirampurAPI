@@ -1425,9 +1425,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             return obj;
         }
 
-        [HttpGet]
-        [Route("Get/ActiveEmployeeName")]
-        public List<SyncResult> CheckHSUserName(string userName, int AppId)
+       
+        public List<SyncResult> CheckHSUserName(int AppId, string userName)
         {
          
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
@@ -1440,7 +1439,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     objres.Add(new SyncResult()
                     {
                         status = "Success",
-                        messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..",
+                        messageMar = "",
                         message = ""
                     });
 
@@ -1454,8 +1453,45 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     objres.Add(new SyncResult()
                     {
                         status = "Error",
-                        messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..",
+                        messageMar = "नाव आधीपासून अस्तित्वात आहे..",
                         message = "Name Already Exist"
+                    });
+
+                    return objres;
+                }
+            }
+        }
+
+        public List<SyncResult> CheckHSUserLoginId(int AppId, string loginid)
+        {
+
+            using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
+            {
+                var isrecord = db.QrEmployeeMasters.Where(x => x.qrEmpLoginId == loginid && x.isActive == true).FirstOrDefault();
+                var isrecord1 = db.UserMasters.Where(x => x.userLoginId == loginid && x.isActive == true).FirstOrDefault();
+                if (isrecord == null && isrecord1 == null)
+                {
+                    List<SyncResult> objres = new List<SyncResult>();
+
+                    objres.Add(new SyncResult()
+                    {
+                        status = "Success",
+                        messageMar = "",
+                        message = ""
+                    });
+
+                    return objres;
+                    //return true;
+                }
+                else
+                {
+                    List<SyncResult> objres = new List<SyncResult>();
+
+                    objres.Add(new SyncResult()
+                    {
+                        status = "Error",
+                        messageMar = "हे लॉगिनआयडी आधीच अस्तित्वात आहे !",
+                        message = "This LoginId Is Already Exist !"
                     });
 
                     return objres;
