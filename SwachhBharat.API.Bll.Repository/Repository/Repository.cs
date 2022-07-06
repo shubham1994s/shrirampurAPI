@@ -1425,6 +1425,44 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             return obj;
         }
 
+        [HttpGet]
+        [Route("Get/ActiveEmployeeName")]
+        public List<SyncResult> CheckHSUserName(string userName, int AppId)
+        {
+         
+            using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
+            {
+                var isrecord1 = db.QrEmployeeMasters.Where(x => x.qrEmpName == userName && x.isActive == true).FirstOrDefault();
+                if (isrecord1 == null)
+                {
+                    List<SyncResult> objres = new List<SyncResult>();
+
+                    objres.Add(new SyncResult()
+                    {
+                        status = "Success",
+                        messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..",
+                        message = ""
+                    });
+
+                    return objres;
+                    //return true;
+                }
+                else
+                {
+                    List<SyncResult> objres = new List<SyncResult>();
+
+                    objres.Add(new SyncResult()
+                    {
+                        status = "Error",
+                        messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..",
+                        message = "Name Already Exist"
+                    });
+
+                    return objres;
+                }
+            }
+        }
+
         //public List<SyncResult> SaveUserLocation(List<SBUserLocation> obj, int AppId, string batteryStatus)
         //{
         //    DevSwachhBharatMainEntities dbMain = new DevSwachhBharatMainEntities();
