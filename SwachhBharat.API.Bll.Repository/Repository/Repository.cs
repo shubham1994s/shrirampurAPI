@@ -13562,22 +13562,49 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         var model = db.QrEmployeeMasters.Where(c => c.qrEmpId == obj.qrEmpId).FirstOrDefault();
                         if (model != null)
                         {
-                            model.qrEmpId = obj.qrEmpId;
-                            model.qrEmpName = obj.qrEmpName;
-                            model.qrEmpLoginId = obj.qrEmpLoginId;
-                            model.qrEmpPassword = obj.qrEmpPassword;
-                            model.qrEmpMobileNumber = obj.qrEmpMobileNumber;
-                            model.qrEmpAddress = obj.qrEmpAddress;
-                            model.type = "Employee";
-                            model.typeId = 1;
-                            model.imoNo = obj.imoNo;
-                            model.bloodGroup = "0";
-                            model.isActive = obj.isActive;
 
-                            db.SaveChanges();
-                            result.status = "success";
-                            result.message = "Employee Details Updated successfully";
-                            result.messageMar = "कर्मचारी तपशील यशस्वीरित्या अद्यतनित केले";
+                            var isrecord = db.QrEmployeeMasters.Where(x => x.qrEmpName == obj.qrEmpName && x.isActive == true).FirstOrDefault();
+                            if (isrecord == null)
+                            {
+
+                                var isrecord1 = db.QrEmployeeMasters.Where(x => x.qrEmpLoginId == obj.qrEmpLoginId && x.isActive == true).FirstOrDefault();
+                                var isrecord2 = db.UserMasters.Where(x => x.userLoginId == obj.qrEmpLoginId && x.isActive == true).FirstOrDefault();
+                                if (isrecord1 == null && isrecord2 == null)
+                                {
+
+                                    model.qrEmpId = obj.qrEmpId;
+                                    model.qrEmpName = obj.qrEmpName;
+                                    model.qrEmpLoginId = obj.qrEmpLoginId;
+                                    model.qrEmpPassword = obj.qrEmpPassword;
+                                    model.qrEmpMobileNumber = obj.qrEmpMobileNumber;
+                                    model.qrEmpAddress = obj.qrEmpAddress;
+                                    model.type = "Employee";
+                                    model.typeId = 1;
+                                    model.imoNo = obj.imoNo;
+                                    model.bloodGroup = "0";
+                                    model.isActive = obj.isActive;
+
+                                    db.SaveChanges();
+                                    result.status = "success";
+                                    result.message = "Employee Details Updated successfully";
+                                    result.messageMar = "कर्मचारी तपशील यशस्वीरित्या अद्यतनित केले";
+                                }
+                                else
+                                {
+                                    result.status = "Error";
+                                    result.message = "This LoginId Is Already Exist !";
+                                    result.messageMar = "हे लॉगिनआयडी आधीच अस्तित्वात आहे !";
+                                    return result;
+                                }
+                            }
+                            else
+                            {
+                                result.status = "Error";
+                                result.message = "Name Already Exist";
+                                result.messageMar = "नाव आधीपासून अस्तित्वात आहे..";
+                                return result;
+                            }
+                           
                         }
                         else
                         {

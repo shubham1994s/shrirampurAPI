@@ -18,9 +18,10 @@ namespace SwachhBharatAPI.Dal.DataContexts
     public partial class DevSwachhBharatNagpurEntities : DbContext
     {
         public DevSwachhBharatNagpurEntities(int AppId)
-             : base(SwachhBharatAppConnection.GetConnectionString(AppId))
+              : base(SwachhBharatAppConnection.GetConnectionString(AppId))
         {
         }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -43,7 +44,6 @@ namespace SwachhBharatAPI.Dal.DataContexts
         public virtual DbSet<WM_GarbageCategory> WM_GarbageCategory { get; set; }
         public virtual DbSet<WM_GarbageSubCategory> WM_GarbageSubCategory { get; set; }
         public virtual DbSet<WM_Garbage_Summary> WM_Garbage_Summary { get; set; }
-        public virtual DbSet<SauchalayAddress> SauchalayAddresses { get; set; }
         public virtual DbSet<WM_Garbage_Details> WM_Garbage_Details { get; set; }
         public virtual DbSet<Vw_GetHouseNumber> Vw_GetHouseNumber { get; set; }
         public virtual DbSet<Daily_Attendance> Daily_Attendance { get; set; }
@@ -59,6 +59,7 @@ namespace SwachhBharatAPI.Dal.DataContexts
         public virtual DbSet<DumpYardDetail> DumpYardDetails { get; set; }
         public virtual DbSet<LiquidWasteDetail> LiquidWasteDetails { get; set; }
         public virtual DbSet<StreetSweepingDetail> StreetSweepingDetails { get; set; }
+        public virtual DbSet<SauchalayAddress> SauchalayAddresses { get; set; }
     
         public virtual ObjectResult<sp_area_Result> sp_area()
         {
@@ -462,11 +463,6 @@ namespace SwachhBharatAPI.Dal.DataContexts
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_HouseScanify_Result>("SP_HouseScanify", fdateParameter, tdateParameter, useridParameter);
         }
     
-        public virtual ObjectResult<SP_HouseScanifyDetails_Result> SP_HouseScanifyDetails()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_HouseScanifyDetails_Result>("SP_HouseScanifyDetails");
-        }
-    
         public virtual ObjectResult<SP_HouseDetailsApp_Result> SP_HouseDetailsApp(Nullable<System.DateTime> fdate, Nullable<System.DateTime> tdate, Nullable<int> userid, string referanceId)
         {
             var fdateParameter = fdate.HasValue ?
@@ -537,6 +533,11 @@ namespace SwachhBharatAPI.Dal.DataContexts
                 new ObjectParameter("userid", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_StreetDetailsApp_Result>("SP_StreetDetailsApp", fdateParameter, tdateParameter, useridParameter);
+        }
+    
+        public virtual ObjectResult<SP_HouseScanifyDetails_Result> SP_HouseScanifyDetails()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_HouseScanifyDetails_Result>("SP_HouseScanifyDetails");
         }
     }
 }

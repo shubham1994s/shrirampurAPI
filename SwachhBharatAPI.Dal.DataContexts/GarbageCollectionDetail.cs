@@ -48,5 +48,6 @@ namespace SwachhBharatAPI.Dal.DataContexts
         public Nullable<int> SSId { get; set; }
         public Nullable<int> AreaId { get; set; }
         public Nullable<System.DateTime> gpBeforImageTime { get; set; }
+        public Nullable<int> vqrid { get; set; }
     }
 }
