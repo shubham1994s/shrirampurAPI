@@ -563,5 +563,41 @@ namespace SwachhBharatAPI.Controllers
             return objDetail;
         }
 
+        [HttpGet]
+        [Route("Get/HSEmployeeName")]
+        public List<SyncResult> CheckHSEmployeeName()
+        {
+            objRep = new Repository();
+            IEnumerable<string> headerValue1 = Request.Headers.GetValues("appId");
+            IEnumerable<string> headerValue2 = Request.Headers.GetValues("username");
+
+            var id = headerValue1.FirstOrDefault();
+            int AppId = int.Parse(id);
+            var username = headerValue2.FirstOrDefault().ToString();
+          
+
+            List<SyncResult> objDetail = new List<SyncResult>();
+            objDetail = objRep.CheckHSUserName(AppId, username);
+            return objDetail;
+        }
+
+        [HttpGet]
+        [Route("Get/CheckHSEmployeeLoginId")]
+        public List<SyncResult> CheckHSEmployeeLoginId()
+        {
+            objRep = new Repository();
+            IEnumerable<string> headerValue1 = Request.Headers.GetValues("appId");
+            IEnumerable<string> headerValue2 = Request.Headers.GetValues("loginid");
+
+            var id = headerValue1.FirstOrDefault();
+            int AppId = int.Parse(id);
+            var loginid = headerValue2.FirstOrDefault().ToString();
+
+
+            List<SyncResult> objDetail = new List<SyncResult>();
+            objDetail = objRep.CheckHSUserLoginId(AppId, loginid);
+            return objDetail;
+
+        }
     }
 }

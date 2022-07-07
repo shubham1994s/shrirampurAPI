@@ -1425,6 +1425,80 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             return obj;
         }
 
+       
+        public List<SyncResult> CheckHSUserName(int AppId, string userName)
+        {
+         
+            using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
+            {
+                var isrecord1 = db.QrEmployeeMasters.Where(x => x.qrEmpName == userName && x.isActive == true).FirstOrDefault();
+                if (isrecord1 == null)
+                {
+                    List<SyncResult> objres = new List<SyncResult>();
+
+                    objres.Add(new SyncResult()
+                    {
+                        status = "Success",
+                        messageMar = "",
+                        message = ""
+                    });
+
+                    return objres;
+                    //return true;
+                }
+                else
+                {
+                    List<SyncResult> objres = new List<SyncResult>();
+
+                    objres.Add(new SyncResult()
+                    {
+                        status = "Error",
+                        messageMar = "नाव आधीपासून अस्तित्वात आहे..",
+                        message = "Name Already Exist"
+                    });
+
+                    return objres;
+                }
+            }
+        }
+
+        public List<SyncResult> CheckHSUserLoginId(int AppId, string loginid)
+        {
+
+            using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
+            {
+                var isrecord = db.QrEmployeeMasters.Where(x => x.qrEmpLoginId == loginid && x.isActive == true).FirstOrDefault();
+                var isrecord1 = db.UserMasters.Where(x => x.userLoginId == loginid && x.isActive == true).FirstOrDefault();
+                if (isrecord == null && isrecord1 == null)
+                {
+                    List<SyncResult> objres = new List<SyncResult>();
+
+                    objres.Add(new SyncResult()
+                    {
+                        status = "Success",
+                        messageMar = "",
+                        message = ""
+                    });
+
+                    return objres;
+                    //return true;
+                }
+                else
+                {
+                    List<SyncResult> objres = new List<SyncResult>();
+
+                    objres.Add(new SyncResult()
+                    {
+                        status = "Error",
+                        messageMar = "हे लॉगिनआयडी आधीच अस्तित्वात आहे !",
+                        message = "This LoginId Is Already Exist !"
+                    });
+
+                    return objres;
+                }
+            }
+        }
+
         //public List<SyncResult> SaveUserLocation(List<SBUserLocation> obj, int AppId, string batteryStatus)
         //{
         //    DevSwachhBharatMainEntities dbMain = new DevSwachhBharatMainEntities();
@@ -13316,22 +13390,49 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         var model = db.QrEmployeeMasters.Where(c => c.qrEmpId == obj.qrEmpId).FirstOrDefault();
                         if (model != null)
                         {
-                            model.qrEmpId = obj.qrEmpId;
-                            model.qrEmpName = obj.qrEmpName;
-                            model.qrEmpLoginId = obj.qrEmpLoginId;
-                            model.qrEmpPassword = obj.qrEmpPassword;
-                            model.qrEmpMobileNumber = obj.qrEmpMobileNumber;
-                            model.qrEmpAddress = obj.qrEmpAddress;
-                            model.type = "Employee";
-                            model.typeId = 1;
-                            model.imoNo = obj.imoNo;
-                            model.bloodGroup = "0";
-                            model.isActive = obj.isActive;
 
-                            db.SaveChanges();
-                            result.status = "success";
-                            result.message = "Employee Details Updated successfully";
-                            result.messageMar = "कर्मचारी तपशील यशस्वीरित्या अद्यतनित केले";
+                            var isrecord = db.QrEmployeeMasters.Where(x => x.qrEmpName == obj.qrEmpName && x.isActive == true).FirstOrDefault();
+                            if (isrecord == null)
+                            {
+
+                                var isrecord1 = db.QrEmployeeMasters.Where(x => x.qrEmpLoginId == obj.qrEmpLoginId && x.isActive == true).FirstOrDefault();
+                                var isrecord2 = db.UserMasters.Where(x => x.userLoginId == obj.qrEmpLoginId && x.isActive == true).FirstOrDefault();
+                                if (isrecord1 == null && isrecord2 == null)
+                                {
+
+                                    model.qrEmpId = obj.qrEmpId;
+                                    model.qrEmpName = obj.qrEmpName;
+                                    model.qrEmpLoginId = obj.qrEmpLoginId;
+                                    model.qrEmpPassword = obj.qrEmpPassword;
+                                    model.qrEmpMobileNumber = obj.qrEmpMobileNumber;
+                                    model.qrEmpAddress = obj.qrEmpAddress;
+                                    model.type = "Employee";
+                                    model.typeId = 1;
+                                    model.imoNo = obj.imoNo;
+                                    model.bloodGroup = "0";
+                                    model.isActive = obj.isActive;
+
+                                    db.SaveChanges();
+                                    result.status = "success";
+                                    result.message = "Employee Details Updated successfully";
+                                    result.messageMar = "कर्मचारी तपशील यशस्वीरित्या अद्यतनित केले";
+                                }
+                                else
+                                {
+                                    result.status = "Error";
+                                    result.message = "This LoginId Is Already Exist !";
+                                    result.messageMar = "हे लॉगिनआयडी आधीच अस्तित्वात आहे !";
+                                    return result;
+                                }
+                            }
+                            else
+                            {
+                                result.status = "Error";
+                                result.message = "Name Already Exist";
+                                result.messageMar = "नाव आधीपासून अस्तित्वात आहे..";
+                                return result;
+                            }
+                           
                         }
                         else
                         {
@@ -13345,23 +13446,50 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     }
                     else
                     {
-                        objdata.qrEmpName = obj.qrEmpName;
-                        objdata.qrEmpLoginId = obj.qrEmpLoginId;
-                        objdata.qrEmpPassword = obj.qrEmpPassword;
-                        objdata.qrEmpMobileNumber = obj.qrEmpMobileNumber;
-                        objdata.qrEmpAddress = obj.qrEmpAddress;
-                        objdata.type = "Employee";
-                        objdata.typeId = 1;
-                        objdata.imoNo = obj.imoNo;
-                        objdata.bloodGroup = "0";
-                        objdata.isActive = obj.isActive;
+                        var isrecord = db.QrEmployeeMasters.Where(x => x.qrEmpName == obj.qrEmpName && x.isActive == true).FirstOrDefault();
+                        if(isrecord == null)
+                        {
+                            var isrecord1 = db.QrEmployeeMasters.Where(x => x.qrEmpLoginId == obj.qrEmpLoginId && x.isActive == true).FirstOrDefault();
+                            var isrecord2 = db.UserMasters.Where(x => x.userLoginId == obj.qrEmpLoginId && x.isActive == true).FirstOrDefault();
+                            if (isrecord1 == null && isrecord2 == null)
+                            {
 
-                        db.QrEmployeeMasters.Add(objdata);
-                        db.SaveChanges();
-                        result.status = "success";
-                        result.message = "Employee Details Added successfully";
-                        result.messageMar = "कर्मचारी तपशील यशस्वीरित्या जोडले";
-                        return result;
+
+                                objdata.qrEmpName = obj.qrEmpName;
+                                objdata.qrEmpLoginId = obj.qrEmpLoginId;
+                                objdata.qrEmpPassword = obj.qrEmpPassword;
+                                objdata.qrEmpMobileNumber = obj.qrEmpMobileNumber;
+                                objdata.qrEmpAddress = obj.qrEmpAddress;
+                                objdata.type = "Employee";
+                                objdata.typeId = 1;
+                                objdata.imoNo = obj.imoNo;
+                                objdata.bloodGroup = "0";
+                                objdata.isActive = obj.isActive;
+
+                                db.QrEmployeeMasters.Add(objdata);
+                                db.SaveChanges();
+                                result.status = "success";
+                                result.message = "Employee Details Added successfully";
+                                result.messageMar = "कर्मचारी तपशील यशस्वीरित्या जोडले";
+                                return result;
+                            }
+                            else
+                            {
+                                result.status = "Error";
+                                result.message = "This LoginId Is Already Exist !";
+                                result.messageMar = "हे लॉगिनआयडी आधीच अस्तित्वात आहे !";
+                                return result;
+                            }
+
+
+                        }
+                        else
+                        {
+                            result.status = "Error";
+                            result.message = "Name Already Exist";
+                            result.messageMar = "नाव आधीपासून अस्तित्वात आहे..";
+                            return result;
+                        }
                     }
 
                 }
