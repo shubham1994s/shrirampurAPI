@@ -10927,6 +10927,178 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         }
 
+        public Result SaveSupervisorAttendence(BigVQREmployeeAttendenceVM obj,int type)
+        {
+            Result result = new Result();
+
+            if (type == 0)
+            {
+      
+                HSUR_Daily_Attendance data = dbMain.HSUR_Daily_Attendance.Where(c => c.userId == obj.qrEmpId && (c.endTime == null || c.endTime == "")).FirstOrDefault();
+                if (data != null)
+                {
+                    data.endTime = obj.startTime;
+                    data.daEndDate = obj.startDate;
+                    data.endLat = obj.startLat;
+                    data.endLong = obj.startLong;
+                    data.OutbatteryStatus = obj.batteryStatus;
+                    dbMain.SaveChanges();
+                }
+                try
+                {
+                    HSUR_Daily_Attendance objdata = new HSUR_Daily_Attendance();
+
+                    var isActive = dbMain.EmployeeMasters.Where(c => c.EmpId == obj.qrEmpId && c.isActive == true).FirstOrDefault();
+                    if (isActive != null)
+                    {
+
+                        objdata.userId = obj.qrEmpId;
+                        objdata.daDate = obj.startDate;
+                        objdata.endLat = "";
+                        objdata.startLat = obj.startLat;
+                        objdata.startLong = obj.startLong;
+                        objdata.startTime = obj.startTime;
+                        objdata.endTime = "";
+                        objdata.EmployeeType = obj.EmployeeType;
+                        objdata.batteryStatus= obj.batteryStatus;
+                        dbMain.HSUR_Daily_Attendance.Add(objdata);
+                        UR_Location loc = new UR_Location();
+                        loc.empId = obj.qrEmpId;
+                        loc.datetime = DateTime.Now;
+                        loc.lat = obj.startLat;
+                        loc.@long = obj.startLong;
+                        loc.batteryStatus = obj.batteryStatus;
+                        loc.address = Address(obj.endLat + "," + obj.endLong);
+                        if (loc.address != "")
+                        { loc.area = area(loc.address); }
+                        else
+                        {
+                            loc.area = "";
+                        }
+                        dbMain.UR_Location.Add(loc);
+                        dbMain.SaveChanges();
+                        result.status = "success";
+                        result.message = "Shift started Successfully";
+                        result.messageMar = "शिफ्ट सुरू";
+                        return result;
+                    }
+                    else
+                    {
+                        result.status = "Error";
+                        result.message = "Contact To Administrator";
+                        result.messageMar = "प्रशासकाशी संपर्क साधा";
+                        return result;
+                    }
+                }
+
+                catch
+                {
+
+                    result.status = "error";
+                    result.message = "Something is wrong,Try Again.. ";
+                    result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                    return result;
+                }
+
+
+            }
+            else
+            {
+
+                try
+                {
+                    HSUR_Daily_Attendance objdata = dbMain.HSUR_Daily_Attendance.Where(c => c.daDate == EntityFunctions.TruncateTime(obj.startDate) && c.userId == obj.qrEmpId && (c.endTime == "" || c.endTime == null)).FirstOrDefault();
+                    if (objdata != null)
+                    {
+
+                        objdata.userId = obj.qrEmpId;
+                        objdata.daEndDate = obj.endDate;
+                        objdata.endLat = obj.endLat;
+                        objdata.endLong = obj.endLong;
+                        objdata.endTime = obj.endTime;
+                        objdata.EmployeeType = obj.EmployeeType;
+                        objdata.OutbatteryStatus = obj.batteryStatus;
+                        //objdata.endAddress = Address(objdata.endLat + "," + objdata.endLong);
+
+                        ///////////////////////////////////////////////////////////////////
+
+                        UR_Location loc = new UR_Location();
+                        loc.empId = obj.qrEmpId;
+                        loc.datetime = DateTime.Now;
+                        loc.lat = obj.endLat;
+                        loc.@long = obj.endLong;
+                        loc.batteryStatus = obj.batteryStatus;
+                        loc.address = Address(obj.endLat + "," + obj.endLong);
+                        if (loc.address != "")
+                        { loc.area = area(loc.address); }
+                        else
+                        {
+                            loc.area = "";
+                        }
+                        dbMain.UR_Location.Add(loc);
+
+                        ///////////////////////////////////////////////////////////////////
+
+                        dbMain.SaveChanges();
+                        result.status = "success";
+                        result.message = "Shift ended successfully";
+                        result.messageMar = "शिफ्ट संपले";
+                        return result;
+                    }
+
+
+                    else
+                    {
+                        HSUR_Daily_Attendance objdata2 = dbMain.HSUR_Daily_Attendance.Where(c => c.userId == obj.qrEmpId && (c.endTime == "" || c.endTime == null)).OrderByDescending(c => c.daID).FirstOrDefault();
+                        objdata2.userId = obj.qrEmpId;
+                        objdata2.daEndDate = obj.endDate;
+                        objdata2.endLat = obj.endLat;
+                        objdata2.endLong = obj.endLong;
+                        objdata2.endTime = obj.endTime;
+                        objdata2.EmployeeType = obj.EmployeeType;
+                        objdata2.OutbatteryStatus = obj.batteryStatus;
+
+                        //       objdata.endAddress = Address(objdata.endLat + "," + objdata.endLong);
+
+                        ///////////////////////////////////////////////////////////////////
+
+                        UR_Location loc = new UR_Location();
+                        loc.empId = obj.qrEmpId;
+                        loc.datetime = DateTime.Now;
+                        loc.lat = obj.endLat;
+                        loc.@long = obj.endLong;
+                        loc.batteryStatus = obj.batteryStatus;
+                        loc.address = Address(obj.endLat + "," + obj.endLong);
+                        if (loc.address != "")
+                        { loc.area = area(loc.address); }
+                        else
+                        {
+                            loc.area = "";
+                        }
+                        dbMain.UR_Location.Add(loc);
+
+                        ///////////////////////////////////////////////////////////////////
+
+                        dbMain.SaveChanges();
+                        result.status = "success";
+                        result.message = "Shift ended successfully";
+                        result.messageMar = "शिफ्ट संपले";
+                        return result;
+                    }
+                }
+                catch
+                {
+                    result.status = "error";
+                    result.message = "Something is wrong,Try Again.. ";
+                    result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                   return result;
+                }
+            }
+
+
+
+        }
+        
         public List<SyncResult1> SaveQrEmployeeAttendenceOffline(List<BigVQREmployeeAttendenceVM> obj, int AppId)
         {
             List<SyncResult1> result = new List<SyncResult1>();

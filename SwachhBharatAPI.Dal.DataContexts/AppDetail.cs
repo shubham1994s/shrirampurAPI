@@ -76,5 +76,8 @@ namespace SwachhBharatAPI.Dal.DataContexts
         public Nullable<int> ulb_property { get; set; }
         public Nullable<int> Add_Ulb_Property { get; set; }
         public Nullable<bool> Status { get; set; }
+        public string VehicalQRCode { get; set; }
+        public string AppAreaLatLong { get; set; }
+        public Nullable<bool> IsAreaActive { get; set; }
     }
 }

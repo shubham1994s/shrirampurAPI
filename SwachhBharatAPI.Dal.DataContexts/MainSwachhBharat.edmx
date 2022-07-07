@@ -90,6 +90,9 @@
           <Property Name="ulb_property" Type="int" />
           <Property Name="Add_Ulb_Property" Type="int" />
           <Property Name="Status" Type="bit" />
+          <Property Name="VehicalQRCode" Type="nvarchar" MaxLength="250" />
+          <Property Name="AppAreaLatLong" Type="nvarchar(max)" />
+          <Property Name="IsAreaActive" Type="bit" />
         </EntityType>
         <EntityType Name="AspNetUsers">
           <Key>
@@ -217,6 +220,26 @@
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="GoogleAPI" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="HSUR_Daily_Attendance">
+          <Key>
+            <PropertyRef Name="daID" />
+          </Key>
+          <Property Name="daID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" />
+          <Property Name="startLat" Type="nvarchar" MaxLength="500" />
+          <Property Name="startLong" Type="nvarchar" MaxLength="500" />
+          <Property Name="endLat" Type="nchar" MaxLength="10" />
+          <Property Name="endLong" Type="nchar" MaxLength="10" />
+          <Property Name="startTime" Type="nvarchar" MaxLength="200" />
+          <Property Name="endTime" Type="nvarchar" MaxLength="200" />
+          <Property Name="daDate" Type="date" />
+          <Property Name="daEndDate" Type="date" />
+          <Property Name="batteryStatus" Type="varchar" MaxLength="20" />
+          <Property Name="OutbatteryStatus" Type="varchar" MaxLength="20" />
+          <Property Name="EmployeeType" Type="varchar" MaxLength="10" />
+          <Property Name="ip_address" Type="nvarchar(max)" />
+          <Property Name="login_device" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="RFID_Master">
           <Key>
             <PropertyRef Name="ID" />
@@ -249,6 +272,24 @@
           <Property Name="district" Type="int" />
           <Property Name="IsCheked" Type="bit" />
         </EntityType>
+        <EntityType Name="UR_Location">
+          <Key>
+            <PropertyRef Name="locId" />
+          </Key>
+          <Property Name="locId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="empId" Type="int" />
+          <Property Name="datetime" Type="datetime" />
+          <Property Name="lat" Type="nvarchar" MaxLength="500" />
+          <Property Name="long" Type="nvarchar" MaxLength="500" />
+          <Property Name="address" Type="nvarchar(max)" />
+          <Property Name="area" Type="nvarchar" MaxLength="500" />
+          <Property Name="type" Type="int" />
+          <Property Name="batteryStatus" Type="varchar" MaxLength="20" />
+          <Property Name="Distnace" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="IsOffline" Type="bit" />
+          <Property Name="ReferanceID" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="UserInApps">
           <Key>
             <PropertyRef Name="UserInAppsID" />
@@ -274,9 +315,11 @@
           <EntitySet Name="GamePlayerDetails" EntityType="Self.GamePlayerDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GoogelHitDetails" EntityType="Self.GoogelHitDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GoogleAPIDetails" EntityType="Self.GoogleAPIDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HSUR_Daily_Attendance" EntityType="Self.HSUR_Daily_Attendance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RFID_Master" EntityType="Self.RFID_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="state_districts" EntityType="Self.state_districts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tehsil" EntityType="Self.tehsil" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UR_Location" EntityType="Self.UR_Location" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserInApps" EntityType="Self.UserInApps" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -300,9 +343,11 @@
           <EntitySet Name="RFID_Master" EntityType="DevSwachhBharatMainModel.RFID_Master" />
           <EntitySet Name="AppConnections" EntityType="DevSwachhBharatMainModel.AppConnection" />
           <EntitySet Name="AppDetails" EntityType="DevSwachhBharatMainModel.AppDetail" />
-          <EntitySet Name="EmployeeMasters" EntityType="DevSwachhBharatMainModel.EmployeeMaster" />
           <EntitySet Name="tehsils" EntityType="DevSwachhBharatMainModel.tehsil" />
           <FunctionImport Name="Update_Trigger" ReturnType="Collection(DevSwachhBharatMainModel.Update_Trigger_Result)" />
+          <EntitySet Name="HSUR_Daily_Attendance" EntityType="DevSwachhBharatMainModel.HSUR_Daily_Attendance" />
+          <EntitySet Name="EmployeeMasters" EntityType="DevSwachhBharatMainModel.EmployeeMaster" />
+          <EntitySet Name="UR_Location" EntityType="DevSwachhBharatMainModel.UR_Location" />
         </EntityContainer>
         <EntityType Name="GoogleAPIDetail">
           <Key>
@@ -527,22 +572,9 @@
           <Property Name="ulb_property" Type="Int32" />
           <Property Name="Add_Ulb_Property" Type="Int32" />
           <Property Name="Status" Type="Boolean" />
-        </EntityType>
-        <EntityType Name="EmployeeMaster">
-          <Key>
-            <PropertyRef Name="EmpId" />
-          </Key>
-          <Property Name="EmpId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmpName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="EmpNameMar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="LoginId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="EmpMobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="EmpAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="isActive" Type="Boolean" />
-          <Property Name="isActiveULB" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="lastModifyDateEntry" Type="DateTime" Precision="3" />
+          <Property Name="VehicalQRCode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="AppAreaLatLong" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsAreaActive" Type="Boolean" />
         </EntityType>
         <EntityType Name="tehsil">
           <Key>
@@ -621,6 +653,60 @@
           <Property Type="Int32" Name="Add_Ulb_Property" Nullable="true" />
           <Property Type="Boolean" Name="Status" Nullable="true" />
         </ComplexType>
+        <EntityType Name="HSUR_Daily_Attendance">
+          <Key>
+            <PropertyRef Name="daID" />
+          </Key>
+          <Property Name="daID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="startLat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="startLong" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="endLat" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="endLong" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="startTime" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="endTime" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="daDate" Type="DateTime" Precision="0" />
+          <Property Name="daEndDate" Type="DateTime" Precision="0" />
+          <Property Name="batteryStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="OutbatteryStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ip_address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="login_device" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EmployeeMaster">
+          <Key>
+            <PropertyRef Name="EmpId" />
+          </Key>
+          <Property Name="EmpId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="EmpNameMar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LoginId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EmpMobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="EmpAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="isActive" Type="Boolean" />
+          <Property Name="isActiveULB" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="lastModifyDateEntry" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="UR_Location">
+          <Key>
+            <PropertyRef Name="locId" />
+          </Key>
+          <Property Name="locId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="empId" Type="Int32" />
+          <Property Name="datetime" Type="DateTime" Precision="3" />
+          <Property Name="lat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="long" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="area" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="type" Type="Int32" />
+          <Property Name="batteryStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Distnace" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="IsOffline" Type="Boolean" />
+          <Property Name="ReferanceID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -802,6 +888,9 @@
           <EntitySetMapping Name="AppDetails">
             <EntityTypeMapping TypeName="DevSwachhBharatMainModel.AppDetail">
               <MappingFragment StoreEntitySet="AppDetails">
+                <ScalarProperty Name="IsAreaActive" ColumnName="IsAreaActive" />
+                <ScalarProperty Name="AppAreaLatLong" ColumnName="AppAreaLatLong" />
+                <ScalarProperty Name="VehicalQRCode" ColumnName="VehicalQRCode" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Add_Ulb_Property" ColumnName="Add_Ulb_Property" />
                 <ScalarProperty Name="ulb_property" ColumnName="ulb_property" />
@@ -864,23 +953,6 @@
                 <ScalarProperty Name="AppName_mar" ColumnName="AppName_mar" />
                 <ScalarProperty Name="AppName" ColumnName="AppName" />
                 <ScalarProperty Name="AppId" ColumnName="AppId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="EmployeeMasters">
-            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.EmployeeMaster">
-              <MappingFragment StoreEntitySet="EmployeeMaster">
-                <ScalarProperty Name="lastModifyDateEntry" ColumnName="lastModifyDateEntry" />
-                <ScalarProperty Name="isActiveULB" ColumnName="isActiveULB" />
-                <ScalarProperty Name="isActive" ColumnName="isActive" />
-                <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="EmpAddress" ColumnName="EmpAddress" />
-                <ScalarProperty Name="EmpMobileNumber" ColumnName="EmpMobileNumber" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
-                <ScalarProperty Name="EmpNameMar" ColumnName="EmpNameMar" />
-                <ScalarProperty Name="EmpName" ColumnName="EmpName" />
-                <ScalarProperty Name="EmpId" ColumnName="EmpId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -966,6 +1038,63 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="HSUR_Daily_Attendance">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.HSUR_Daily_Attendance">
+              <MappingFragment StoreEntitySet="HSUR_Daily_Attendance">
+                <ScalarProperty Name="login_device" ColumnName="login_device" />
+                <ScalarProperty Name="ip_address" ColumnName="ip_address" />
+                <ScalarProperty Name="EmployeeType" ColumnName="EmployeeType" />
+                <ScalarProperty Name="OutbatteryStatus" ColumnName="OutbatteryStatus" />
+                <ScalarProperty Name="batteryStatus" ColumnName="batteryStatus" />
+                <ScalarProperty Name="daEndDate" ColumnName="daEndDate" />
+                <ScalarProperty Name="daDate" ColumnName="daDate" />
+                <ScalarProperty Name="endTime" ColumnName="endTime" />
+                <ScalarProperty Name="startTime" ColumnName="startTime" />
+                <ScalarProperty Name="endLong" ColumnName="endLong" />
+                <ScalarProperty Name="endLat" ColumnName="endLat" />
+                <ScalarProperty Name="startLong" ColumnName="startLong" />
+                <ScalarProperty Name="startLat" ColumnName="startLat" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="daID" ColumnName="daID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeMasters">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.EmployeeMaster">
+              <MappingFragment StoreEntitySet="EmployeeMaster">
+                <ScalarProperty Name="lastModifyDateEntry" ColumnName="lastModifyDateEntry" />
+                <ScalarProperty Name="isActiveULB" ColumnName="isActiveULB" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="EmpAddress" ColumnName="EmpAddress" />
+                <ScalarProperty Name="EmpMobileNumber" ColumnName="EmpMobileNumber" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+                <ScalarProperty Name="EmpNameMar" ColumnName="EmpNameMar" />
+                <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+                <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UR_Location">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.UR_Location">
+              <MappingFragment StoreEntitySet="UR_Location">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ReferanceID" ColumnName="ReferanceID" />
+                <ScalarProperty Name="IsOffline" ColumnName="IsOffline" />
+                <ScalarProperty Name="Distnace" ColumnName="Distnace" />
+                <ScalarProperty Name="batteryStatus" ColumnName="batteryStatus" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="long" ColumnName="long" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="empId" ColumnName="empId" />
+                <ScalarProperty Name="locId" ColumnName="locId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

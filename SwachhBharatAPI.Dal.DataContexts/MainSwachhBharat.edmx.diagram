@@ -21,8 +21,10 @@
         <EntityTypeShape EntityType="DevSwachhBharatMainModel.RFID_Master" Width="1.5" PointX="10.375" PointY="3.75" />
         <EntityTypeShape EntityType="DevSwachhBharatMainModel.AppConnection" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="DevSwachhBharatMainModel.AppDetail" Width="1.5" PointX="12.375" PointY="0.75" />
-        <EntityTypeShape EntityType="DevSwachhBharatMainModel.EmployeeMaster" Width="1.5" PointX="3.375" PointY="12.75" />
         <EntityTypeShape EntityType="DevSwachhBharatMainModel.tehsil" Width="1.5" PointX="3.375" PointY="8.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatMainModel.HSUR_Daily_Attendance" Width="1.5" PointX="5.375" PointY="8.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatMainModel.EmployeeMaster" Width="1.5" PointX="0.75" PointY="13.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatMainModel.UR_Location" Width="1.5" PointX="3.375" PointY="13.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

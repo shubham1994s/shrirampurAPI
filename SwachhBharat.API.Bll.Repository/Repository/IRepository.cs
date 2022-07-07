@@ -133,6 +133,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         //Added Added By Saurabh (16 May 2019)
         Result SaveQrEmployeeAttendence(BigVQREmployeeAttendenceVM obj, int AppId, int type);
+        Result SaveSupervisorAttendence(BigVQREmployeeAttendenceVM obj, int type);
 
         List<SyncResult1> SaveQrEmployeeAttendenceOffline(List<BigVQREmployeeAttendenceVM> obj, int AppId);
 
