@@ -29,5 +29,8 @@ namespace SwachhBhart.API.Bll.ViewModels
         public string EmpType { get; set; }
 
         //public int type { get; set; }
+
+        public string ReferanceId { get; set; }
+        public int dyId { get; set; }
     }
 }
