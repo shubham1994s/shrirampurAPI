@@ -13634,7 +13634,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                 objdata.qrEmpAddress = obj.qrEmpAddress;
                                 objdata.type = "Employee";
                                 objdata.typeId = 1;
-                                objdata.imoNo = obj.imoNo;
+                                //objdata.imoNo = obj.imoNo;
+                                objdata.imoNo = null;
                                 objdata.bloodGroup = "0";
                                 objdata.isActive = obj.isActive;
 
