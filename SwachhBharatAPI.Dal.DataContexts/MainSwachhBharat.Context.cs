@@ -43,8 +43,10 @@ namespace SwachhBharatAPI.Dal.DataContexts
         public virtual DbSet<RFID_Master> RFID_Master { get; set; }
         public virtual DbSet<AppConnection> AppConnections { get; set; }
         public virtual DbSet<AppDetail> AppDetails { get; set; }
-        public virtual DbSet<EmployeeMaster> EmployeeMasters { get; set; }
         public virtual DbSet<tehsil> tehsils { get; set; }
+        public virtual DbSet<HSUR_Daily_Attendance> HSUR_Daily_Attendance { get; set; }
+        public virtual DbSet<EmployeeMaster> EmployeeMasters { get; set; }
+        public virtual DbSet<UR_Location> UR_Location { get; set; }
     
         public virtual ObjectResult<Update_Trigger_Result> Update_Trigger()
         {

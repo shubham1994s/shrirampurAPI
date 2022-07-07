@@ -22,6 +22,7 @@ namespace SwachhBhart.API.Bll.ViewModels
         public string endNote { get; set; }
         public string batteryStatus { get; set; }
         public int OfflineId { get; set; }
+        public string EmployeeType { get; set; }
     }
 
 }

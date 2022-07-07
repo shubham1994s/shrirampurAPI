@@ -610,7 +610,26 @@ namespace SwachhBharatAPI.Controllers
             return objres;
 
         }
-       
+
+        [HttpPost]
+        [Route("SupervisorAttendenceIn")]
+        public Result SaveQrEmployeeAttendence(BigVQREmployeeAttendenceVM obj)
+        {
+            objRep = new Repository();
+            Result objDetail = new Result();
+            objDetail = objRep.SaveSupervisorAttendence(obj, 0);
+            return objDetail;
+        }
+
+        [HttpPost]
+        [Route("SupervisorAttendenceOut")]
+        public Result SaveQrEmployeeAttendenceOut(BigVQREmployeeAttendenceVM obj)
+        {
+            objRep = new Repository();
+            Result objDetail = new Result();
+            objDetail = objRep.SaveSupervisorAttendence(obj, 1);
+            return objDetail;
+        }
 
     }
 }
