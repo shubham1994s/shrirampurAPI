@@ -10948,7 +10948,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 {
                     HSUR_Daily_Attendance objdata = new HSUR_Daily_Attendance();
 
-                    var isActive = dbMain.EmployeeMasters.Where(c => c.EmpId == obj.qrEmpId && c.isActive == true).FirstOrDefault();
+                    var isActive = dbMain.EmployeeMasters.Where(c => c.EmpId == obj.qrEmpId && c.isActive == true && c.type=="SA").FirstOrDefault();
                     if (isActive != null)
                     {
 
