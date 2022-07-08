@@ -41,6 +41,8 @@ namespace SwachhBhart.API.Bll.ViewModels
 
         public string EmpType { get; set; }
 
+        public bool IsIn { get; set; }
+
     }
 
     public class SBGarbageCollectionChildView

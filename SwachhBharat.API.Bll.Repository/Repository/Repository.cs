@@ -7762,109 +7762,140 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             string HouseLat = House_Lat.Substring(0, 5);
             string HouseLong = House_Long.Substring(0, 5);
             var house = db.HouseMasters.Where(c => c.ReferanceId == obj.houseId && c.houseLat.Contains(HouseLat) && c.houseLong.Contains(HouseLong)).FirstOrDefault();
-
-            if (obj.IsLocation == false && house != null && appdetails.IsScanNear == true)
+            coordinates p = new coordinates()
             {
-                switch (obj.gcType)
+                lat = Convert.ToDouble(obj.Lat),
+                lng = Convert.ToDouble(obj.Long)
+            };
+            List<List<coordinates>> lstPoly = new List<List<coordinates>>();
+            List<coordinates> poly = new List<coordinates>();
+            AppAreaMapVM ebm = GetEmpBeatMapByUserId(AppId);
+            lstPoly = ebm.AppAreaLatLong;
+            int polyId = 0;
+            if (lstPoly != null && lstPoly.Count > polyId)
+            {
+                poly = lstPoly[polyId];
+            }
+
+
+            obj.IsIn = IsPointInPolygon(poly, p);
+
+
+            if ((obj.IsIn == true && appdetails.IsAreaActive == true) || (appdetails.IsAreaActive == false))
+            {
+                if (obj.IsLocation == false && house != null && appdetails.IsScanNear == true)
                 {
-                    case 1:
-                        result = SaveHouseCollectionSync(obj, AppId, type);
-                        break;
-                    case 2:
-                        result = SavePointCollectionSync(obj, AppId, type);
-                        break;
-                    case 3:
-                        if (obj.EmpType == "N")
-                        {
-                            result = SaveDumpCollectionSyncForNormal(obj, AppId, type);
-                        }
-                        if (obj.EmpType == "L")
-                        {
-                            result = SaveDumpCollectionSyncForLiquid(obj, AppId, type);
-                        }
+                    switch (obj.gcType)
+                    {
+                        case 1:
+                            result = SaveHouseCollectionSync(obj, AppId, type);
+                            break;
+                        case 2:
+                            result = SavePointCollectionSync(obj, AppId, type);
+                            break;
+                        case 3:
+                            if (obj.EmpType == "N")
+                            {
+                                result = SaveDumpCollectionSyncForNormal(obj, AppId, type);
+                            }
+                            if (obj.EmpType == "L")
+                            {
+                                result = SaveDumpCollectionSyncForLiquid(obj, AppId, type);
+                            }
 
-                        if (obj.EmpType == "S")
-                        {
-                            result = SaveDumpCollectionSyncForStreet(obj, AppId, type);
-                        }
+                            if (obj.EmpType == "S")
+                            {
+                                result = SaveDumpCollectionSyncForStreet(obj, AppId, type);
+                            }
 
-                        if (obj.EmpType == "D")
-                        {
-                            result = SaveDumpCollectionSyncForDump(obj, AppId, type);
-                        }
+                            if (obj.EmpType == "D")
+                            {
+                                result = SaveDumpCollectionSyncForDump(obj, AppId, type);
+                            }
 
-                        break;
-                    case 4:
-                        result = SaveLiquidCollectionSync(obj, AppId, type);
-                        break;
-                    case 5:
-                        result = SaveStreetCollectionSync(obj, AppId, type);
-                        break;
+                            break;
+                        case 4:
+                            result = SaveLiquidCollectionSync(obj, AppId, type);
+                            break;
+                        case 5:
+                            result = SaveStreetCollectionSync(obj, AppId, type);
+                            break;
+                    }
                 }
-            }
 
-            else if (obj.IsLocation == false && appdetails.IsScanNear == null)
-            {
-                switch (obj.gcType)
+                else if (obj.IsLocation == false && appdetails.IsScanNear == null)
                 {
-                    case 1:
-                        result = SaveHouseCollectionSync(obj, AppId, type);
-                        break;
-                    case 2:
-                        result = SavePointCollectionSync(obj, AppId, type);
-                        break;
-                    case 3:
-                        if (obj.EmpType == "N")
-                        {
-                            result = SaveDumpCollectionSyncForNormal(obj, AppId, type);
-                        }
-                        if (obj.EmpType == "L")
-                        {
-                            result = SaveDumpCollectionSyncForLiquid(obj, AppId, type);
-                        }
+                    switch (obj.gcType)
+                    {
+                        case 1:
+                            result = SaveHouseCollectionSync(obj, AppId, type);
+                            break;
+                        case 2:
+                            result = SavePointCollectionSync(obj, AppId, type);
+                            break;
+                        case 3:
+                            if (obj.EmpType == "N")
+                            {
+                                result = SaveDumpCollectionSyncForNormal(obj, AppId, type);
+                            }
+                            if (obj.EmpType == "L")
+                            {
+                                result = SaveDumpCollectionSyncForLiquid(obj, AppId, type);
+                            }
 
-                        if (obj.EmpType == "S")
-                        {
-                            result = SaveDumpCollectionSyncForStreet(obj, AppId, type);
-                        }
-                        if (obj.EmpType == "D")
-                        {
-                            result = SaveDumpCollectionSyncForDump(obj, AppId, type);
-                        }
-                        break;
+                            if (obj.EmpType == "S")
+                            {
+                                result = SaveDumpCollectionSyncForStreet(obj, AppId, type);
+                            }
+                            if (obj.EmpType == "D")
+                            {
+                                result = SaveDumpCollectionSyncForDump(obj, AppId, type);
+                            }
+                            break;
 
-                    case 4:
-                        result = SaveLiquidCollectionSync(obj, AppId, type);
-                        break;
-                    case 5:
-                        result = SaveStreetCollectionSync(obj, AppId, type);
-                        break;
+                        case 4:
+                            result = SaveLiquidCollectionSync(obj, AppId, type);
+                            break;
+                        case 5:
+                            result = SaveStreetCollectionSync(obj, AppId, type);
+                            break;
+                    }
                 }
-            }
-            else if (obj.IsLocation == true)
-            {
-                result = SaveUserLocationOfflineSync(obj, AppId, type);
-            }
-            if (obj.IsLocation == false && house == null && appdetails.IsScanNear == true)
-            {
-                result.message = "You Are Not In Nearby.";
-                result.messageMar = "आपण जवळपास नाही.";
+                else if (obj.IsLocation == true)
+                {
+                    result = SaveUserLocationOfflineSync(obj, AppId, type);
+                }
+                if (obj.IsLocation == false && house == null && appdetails.IsScanNear == true)
+                {
+                    result.message = "You Are Not In Nearby.";
+                    result.messageMar = "आपण जवळपास नाही.";
+                }
+
+                if (obj.IsLocation == false && obj.EmpType == "N" && result.status == "success")
+                {
+                    appdetails.Today_Waste_Status = true;
+                }
+                if (obj.IsLocation == false && obj.EmpType == "L" && result.status == "success")
+                {
+                    appdetails.Today_Liquid_Status = true;
+                }
+                if (obj.IsLocation == false && obj.EmpType == "S" && result.status == "success")
+                {
+                    appdetails.Today_Street_Status = true;
+
+                }
+                dbMain.SaveChanges();
+
             }
 
-            if (obj.IsLocation == false && obj.EmpType == "N" && result.status == "success")
+            else
             {
-                appdetails.Today_Waste_Status = true;
+                result.message = "Your outside the area,please go to inside the area.. ";
+                result.messageMar = "तुम्ही क्षेत्राबाहेर आहात.कृपया परिसरात जा..";
+                result.status = "error";
+                return result;
             }
-            if (obj.IsLocation == false && obj.EmpType == "L" && result.status == "success")
-            {
-                appdetails.Today_Liquid_Status = true;
-            }
-            if (obj.IsLocation == false && obj.EmpType == "S" && result.status == "success")
-            {
-                appdetails.Today_Street_Status = true;
 
-            }
-            dbMain.SaveChanges();
             return result;
         }
 
