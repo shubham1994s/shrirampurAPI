@@ -32,9 +32,27 @@ namespace SwachhBhart.API.Bll.ViewModels
 
         public string QRCodeImage { get; set; }
         public DateTime date { get; set; }
-
+       
+        public bool IsIn { get; set; }
+    }
+    public class coordinates
+    {
+        public double? lat { get; set; }
+        public double? lng { get; set; }
     }
 
+    public class AppAreaMapVM
+    {
+        public int AppId { get; set; }
+        public string AppName { get; set; }
+        public string AppLat { get; set; }
+        public string AppLong { get; set; }
+        public Nullable<bool> IsAreaActive { get; set; }
+        public List<List<coordinates>> AppAreaLatLong { get; set; }
+
+
+
+    }
     public class BigVQRHPDVM2
     {
         public int gcId { get; set; }
