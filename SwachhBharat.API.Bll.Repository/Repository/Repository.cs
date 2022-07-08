@@ -11431,7 +11431,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         obj.IsIn = IsPointInPolygon(poly, p);
 
 
-                        if ((obj.IsIn == true && appdetails.IsAreaActive == true) ||(appdetails.IsAreaActive == false))
+                        if ((obj.IsIn == true && appdetails.IsAreaActive == true) || (appdetails.IsAreaActive == false))
                         {
 
                             if (gcType == 5)
