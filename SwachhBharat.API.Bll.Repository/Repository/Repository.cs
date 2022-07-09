@@ -13280,7 +13280,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 {
                     DevSwachhBharatMainEntities dbm = new DevSwachhBharatMainEntities();
                     var appdetails = dbm.AppDetails.Where(c => c.AppId == appId).FirstOrDefault();
-                    var data = db.SP_HouseScanifyDetails().First();
+                    var data = db.SP_HouseScanifyDetails(appId).First();
                     if (data != null)
                     {
                         model.AppId = appdetails.AppId;

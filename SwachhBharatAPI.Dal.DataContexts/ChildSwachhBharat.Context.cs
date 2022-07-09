@@ -18,7 +18,7 @@ namespace SwachhBharatAPI.Dal.DataContexts
     public partial class DevSwachhBharatNagpurEntities : DbContext
     {
         public DevSwachhBharatNagpurEntities(int AppId)
-              : base(SwachhBharatAppConnection.GetConnectionString(AppId))
+             : base(SwachhBharatAppConnection.GetConnectionString(AppId))
         {
         }
 
@@ -308,13 +308,17 @@ namespace SwachhBharatAPI.Dal.DataContexts
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_HouseOnMapDetails_Result>("SP_HouseOnMapDetails", gcDateParameter, userIdParameter, zoneIdParameter, areaIdParameter, wardNoParameter, garbageTypeParameter, filterTypeParameter);
         }
     
-        public virtual ObjectResult<SP_TotalHouseCollection_Count_Result> SP_TotalHouseCollection_Count(Nullable<System.DateTime> gcdate)
+        public virtual ObjectResult<SP_TotalHouseCollection_Count_Result> SP_TotalHouseCollection_Count(Nullable<System.DateTime> gcdate, Nullable<int> appId)
         {
             var gcdateParameter = gcdate.HasValue ?
                 new ObjectParameter("gcdate", gcdate) :
                 new ObjectParameter("gcdate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_TotalHouseCollection_Count_Result>("SP_TotalHouseCollection_Count", gcdateParameter);
+            var appIdParameter = appId.HasValue ?
+                new ObjectParameter("AppId", appId) :
+                new ObjectParameter("AppId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_TotalHouseCollection_Count_Result>("SP_TotalHouseCollection_Count", gcdateParameter, appIdParameter);
         }
     
         public virtual ObjectResult<GetGarbageCountDetailsTotal_Result> GetGarbageCountDetailsTotal(Nullable<int> userId, Nullable<int> year, Nullable<int> month)
@@ -535,9 +539,13 @@ namespace SwachhBharatAPI.Dal.DataContexts
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_StreetDetailsApp_Result>("SP_StreetDetailsApp", fdateParameter, tdateParameter, useridParameter);
         }
     
-        public virtual ObjectResult<SP_HouseScanifyDetails_Result> SP_HouseScanifyDetails()
+        public virtual ObjectResult<SP_HouseScanifyDetails_Result> SP_HouseScanifyDetails(Nullable<int> appid)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_HouseScanifyDetails_Result>("SP_HouseScanifyDetails");
+            var appidParameter = appid.HasValue ?
+                new ObjectParameter("Appid", appid) :
+                new ObjectParameter("Appid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_HouseScanifyDetails_Result>("SP_HouseScanifyDetails", appidParameter);
         }
     }
 }
