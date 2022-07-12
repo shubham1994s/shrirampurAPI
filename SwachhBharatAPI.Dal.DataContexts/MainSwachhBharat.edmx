@@ -299,6 +299,16 @@
           <Property Name="AppId" Type="int" Nullable="false" />
           <Property Name="subscriptionId" Type="int" Nullable="false" />
         </EntityType>
+        <Function Name="SP_DistanceCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sLat" Type="float" Mode="In" />
+          <Parameter Name="sLong" Type="float" Mode="In" />
+          <Parameter Name="dLat" Type="float" Mode="In" />
+          <Parameter Name="dLong" Type="float" Mode="In" />
+        </Function>
+        <Function Name="SP_UserLatLongDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userid" Type="int" Mode="In" />
+          <Parameter Name="typeId" Type="int" Mode="In" />
+        </Function>
         <Function Name="Update_Trigger" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="DevSwachhBharatMainModelStoreContainer">
           <EntitySet Name="AdminContact" EntityType="Self.AdminContact" Schema="dbo" store:Type="Tables" />
@@ -348,6 +358,16 @@
           <EntitySet Name="HSUR_Daily_Attendance" EntityType="DevSwachhBharatMainModel.HSUR_Daily_Attendance" />
           <EntitySet Name="EmployeeMasters" EntityType="DevSwachhBharatMainModel.EmployeeMaster" />
           <EntitySet Name="UR_Location" EntityType="DevSwachhBharatMainModel.UR_Location" />
+          <FunctionImport Name="SP_DistanceCount" ReturnType="Collection(DevSwachhBharatMainModel.SP_DistanceCount_Result)">
+            <Parameter Name="sLat" Mode="In" Type="Double" />
+            <Parameter Name="sLong" Mode="In" Type="Double" />
+            <Parameter Name="dLat" Mode="In" Type="Double" />
+            <Parameter Name="dLong" Mode="In" Type="Double" />
+          </FunctionImport>
+          <FunctionImport Name="SP_UserLatLongDetail" ReturnType="Collection(DevSwachhBharatMainModel.SP_UserLatLongDetail_Result)">
+            <Parameter Name="userid" Mode="In" Type="Int32" />
+            <Parameter Name="typeId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="GoogleAPIDetail">
           <Key>
@@ -707,6 +727,22 @@
           <Property Name="ReferanceID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
         </EntityType>
+        <ComplexType Name="SP_DistanceCount_Result">
+          <Property Type="Decimal" Name="Distance_in_KM" Nullable="true" Precision="10" Scale="4" />
+          <Property Type="Decimal" Name="Distance_in_meters" Nullable="true" Precision="10" Scale="4" />
+        </ComplexType>
+        <ComplexType Name="SP_UserLatLongDetail_Result">
+          <Property Type="Int32" Name="locId" Nullable="false" />
+          <Property Type="Int32" Name="empId" Nullable="true" />
+          <Property Type="DateTime" Name="datetime" Nullable="true" Precision="23" />
+          <Property Type="String" Name="lat" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="long" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="address" Nullable="true" />
+          <Property Type="String" Name="area" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="type" Nullable="true" />
+          <Property Type="String" Name="batteryStatus" Nullable="true" MaxLength="20" />
+          <Property Type="Decimal" Name="Distnace" Nullable="true" Precision="6" Scale="2" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1095,6 +1131,30 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_DistanceCount" FunctionName="DevSwachhBharatMainModel.Store.SP_DistanceCount">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatMainModel.SP_DistanceCount_Result">
+                <ScalarProperty Name="Distance_in_KM" ColumnName="Distance_in_KM" />
+                <ScalarProperty Name="Distance_in_meters" ColumnName="Distance_in_meters" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_UserLatLongDetail" FunctionName="DevSwachhBharatMainModel.Store.SP_UserLatLongDetail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatMainModel.SP_UserLatLongDetail_Result">
+                <ScalarProperty Name="locId" ColumnName="locId" />
+                <ScalarProperty Name="empId" ColumnName="empId" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="long" ColumnName="long" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="batteryStatus" ColumnName="batteryStatus" />
+                <ScalarProperty Name="Distnace" ColumnName="Distnace" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

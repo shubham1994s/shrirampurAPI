@@ -14,7 +14,7 @@ namespace SwachhBharatAPI.Dal.DataContexts
     public partial class SP_UserLatLongDetail_Result
     {
         public int locId { get; set; }
-        public Nullable<int> userId { get; set; }
+        public Nullable<int> empId { get; set; }
         public Nullable<System.DateTime> datetime { get; set; }
         public string lat { get; set; }
         public string @long { get; set; }
