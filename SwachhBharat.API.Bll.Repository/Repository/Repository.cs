@@ -13883,7 +13883,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 return obj;
             }
 
-            return obj;
+            return obj.OrderByDescending(c => c.EmpId).ToList();
         }
 
 
