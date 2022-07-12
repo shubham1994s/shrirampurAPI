@@ -526,7 +526,7 @@ namespace SwachBharat.API.Bll.Services
                     var data = db.SP_Dashboard_Details().First();
 
                     var date = DateTime.Today;
-                    var houseCount = db.SP_TotalHouseCollection_Count(date).FirstOrDefault();
+                    var houseCount = db.SP_TotalHouseCollection_Count(date,AppID).FirstOrDefault();
                     if (data != null)
                     {
                         model.TodayAttandence = data.TodayAttandence;
