@@ -11117,7 +11117,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             if (type == 0)
             {
       
-                HSUR_Daily_Attendance data = dbMain.HSUR_Daily_Attendance.Where(c => c.userId == obj.qrEmpId && (c.endTime == null || c.endTime == "")).FirstOrDefault();
+                HSUR_Daily_Attendance data = dbMain.HSUR_Daily_Attendance.Where(c => c.userId == obj.qrEmpId && c.ip_address==null && c.login_device== null && (c.endTime == null || c.endTime == "")).FirstOrDefault();
                 if (data != null)
                 {
                     data.endTime = obj.startTime;
@@ -11192,7 +11192,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                 try
                 {
-                    HSUR_Daily_Attendance objdata = dbMain.HSUR_Daily_Attendance.Where(c => c.daDate == EntityFunctions.TruncateTime(obj.startDate) && c.userId == obj.qrEmpId && (c.endTime == "" || c.endTime == null)).FirstOrDefault();
+                    HSUR_Daily_Attendance objdata = dbMain.HSUR_Daily_Attendance.Where(c => c.daDate == EntityFunctions.TruncateTime(obj.startDate) && c.userId == obj.qrEmpId && c.ip_address == null && c.login_device == null && (c.endTime == "" || c.endTime == null)).FirstOrDefault();
                     if (objdata != null)
                     {
 
@@ -11237,7 +11237,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                     else
                     {
-                        HSUR_Daily_Attendance objdata2 = dbMain.HSUR_Daily_Attendance.Where(c => c.userId == obj.qrEmpId && (c.endTime == "" || c.endTime == null)).OrderByDescending(c => c.daID).FirstOrDefault();
+                        HSUR_Daily_Attendance objdata2 = dbMain.HSUR_Daily_Attendance.Where(c => c.userId == obj.qrEmpId && c.ip_address == null && c.login_device == null && (c.endTime == "" || c.endTime == null)).OrderByDescending(c => c.daID).FirstOrDefault();
                         objdata2.userId = obj.qrEmpId;
                         objdata2.daEndDate = obj.endDate;
                         objdata2.endLat = obj.endLat;
