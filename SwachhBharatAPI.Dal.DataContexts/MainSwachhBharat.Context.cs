@@ -52,5 +52,39 @@ namespace SwachhBharatAPI.Dal.DataContexts
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Update_Trigger_Result>("Update_Trigger");
         }
+    
+        public virtual ObjectResult<SP_DistanceCount_Result> SP_DistanceCount(Nullable<double> sLat, Nullable<double> sLong, Nullable<double> dLat, Nullable<double> dLong)
+        {
+            var sLatParameter = sLat.HasValue ?
+                new ObjectParameter("sLat", sLat) :
+                new ObjectParameter("sLat", typeof(double));
+    
+            var sLongParameter = sLong.HasValue ?
+                new ObjectParameter("sLong", sLong) :
+                new ObjectParameter("sLong", typeof(double));
+    
+            var dLatParameter = dLat.HasValue ?
+                new ObjectParameter("dLat", dLat) :
+                new ObjectParameter("dLat", typeof(double));
+    
+            var dLongParameter = dLong.HasValue ?
+                new ObjectParameter("dLong", dLong) :
+                new ObjectParameter("dLong", typeof(double));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_DistanceCount_Result>("SP_DistanceCount", sLatParameter, sLongParameter, dLatParameter, dLongParameter);
+        }
+    
+        public virtual ObjectResult<SP_UserLatLongDetail_Result> SP_UserLatLongDetail(Nullable<int> userid, Nullable<int> typeId)
+        {
+            var useridParameter = userid.HasValue ?
+                new ObjectParameter("userid", userid) :
+                new ObjectParameter("userid", typeof(int));
+    
+            var typeIdParameter = typeId.HasValue ?
+                new ObjectParameter("typeId", typeId) :
+                new ObjectParameter("typeId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_UserLatLongDetail_Result>("SP_UserLatLongDetail", useridParameter, typeIdParameter);
+        }
     }
 }

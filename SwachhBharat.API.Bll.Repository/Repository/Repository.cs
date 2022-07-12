@@ -1818,6 +1818,22 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         public List<SyncResult> SaveUserLocation(List<SBUserLocation> obj, int AppId, string batteryStatus, int typeId, string EmpType)
         {
+            List<SyncResult> result = new List<SyncResult>();
+            if(EmpType=="N" || EmpType=="S" || EmpType=="L")
+            {
+                result = SaveUserLocationNSL(obj,AppId,batteryStatus,typeId,EmpType);
+            }
+
+            if (EmpType == "SA")
+            {
+                result = SaveUserLocationSA(obj, AppId, batteryStatus, typeId, EmpType);
+            }
+
+            return result;
+        }
+
+        public List<SyncResult> SaveUserLocationNSL(List<SBUserLocation> obj, int AppId, string batteryStatus, int typeId, string EmpType)
+        {
             DevSwachhBharatMainEntities dbMain = new DevSwachhBharatMainEntities();
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
             {
@@ -2137,6 +2153,140 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             }
 
         }
+
+        public List<SyncResult> SaveUserLocationSA(List<SBUserLocation> obj, int AppId, string batteryStatus, int typeId, string EmpType)
+        {
+       
+            using (DevSwachhBharatMainEntities db = new DevSwachhBharatMainEntities())
+            {
+                try
+                {
+                    List<SyncResult> result = new List<SyncResult>();
+                    var distCount = "";
+
+                
+                        foreach (var x in obj)
+                        {
+                            DateTime Dateeee = Convert.ToDateTime(x.datetime);
+                            DateTime newTime = Dateeee;
+                            DateTime oldTime;
+                            TimeSpan span = TimeSpan.Zero;
+                            var gcd = db.UR_Location.Where(c => c.empId == x.userId && c.type == null && EntityFunctions.TruncateTime(c.datetime) == EntityFunctions.TruncateTime(Dateeee)).OrderByDescending(c => c.locId).FirstOrDefault();
+                            if (gcd != null)
+                            {
+                                oldTime = gcd.datetime.Value;
+                                span = newTime.Subtract(oldTime);
+                            }
+
+                            if (gcd == null || span.Minutes >= 9)
+                            {
+                            
+                                var u = db.EmployeeMasters.Where(c => c.EmpId == x.userId);
+
+                                DateTime Offlinedate = Convert.ToDateTime(x.datetime);
+                             
+
+                                var atten = db.HSUR_Daily_Attendance.Where(c => c.userId == x.userId & c.daDate == EntityFunctions.TruncateTime(Offlinedate)).FirstOrDefault();
+
+                                if (atten == null)
+                                {
+                                    result.Add(new SyncResult()
+                                    {
+                                        ID = Convert.ToInt32(x.OfflineId),
+                                        isAttendenceOff = true,
+                                        status = "error",
+                                        message = "Your duty is currently off, please start again.. ",
+                                        messageMar = "आपली ड्यूटी सध्या बंद आहे, कृपया पुन्हा सुरू करा..",
+                                    });
+
+                                    //return result;
+                                    continue;
+                                }
+
+                                if (u != null & x.userId > 0)
+                                {
+                                    string addr = "", ar = "";
+                                    addr = Address(x.lat + "," + x.@long);
+                                    if (addr != "")
+                                    {
+                                        ar = area(addr);
+                                    }
+
+
+                                  
+                                    var locc = db.SP_UserLatLongDetail(x.userId, typeId).FirstOrDefault();
+
+                                    if (locc == null || locc.lat == "" || locc.@long == "")
+                                    {
+                                        
+
+                                        string a = x.lat;
+                                        string b = x.@long;
+
+                                        var dist = db.SP_DistanceCount(Convert.ToDouble(a), Convert.ToDouble(b), Convert.ToDouble(x.lat), Convert.ToDouble(x.@long)).FirstOrDefault();
+                                        distCount = dist.Distance_in_KM.ToString();
+                                    }
+                                    else
+                                    {
+
+                                        var dist = db.SP_DistanceCount(Convert.ToDouble(locc.lat), Convert.ToDouble(locc.@long), Convert.ToDouble(x.lat), Convert.ToDouble(x.@long)).FirstOrDefault();
+                                        distCount = dist.Distance_in_KM.ToString();
+                                    }
+
+                                
+
+                                    db.UR_Location.Add(new UR_Location()
+                                    {
+                                        empId = x.userId,
+                                        lat = x.lat,
+                                        @long = x.@long,
+                                        datetime = x.datetime,
+                                        address = addr,
+                                        area = ar,
+                                        batteryStatus = batteryStatus,
+                                        Distnace = Convert.ToDecimal(distCount),
+                                        CreatedDate = DateTime.Now,
+                                       // type = EmpType,
+                                    });
+                                    db.SaveChanges();
+                                }
+                            }
+
+                            result.Add(new SyncResult()
+                            {
+                                ID = Convert.ToInt32(x.OfflineId),
+                                status = "success",
+                                message = "Uploaded successfully",
+                                messageMar = "सबमिट यशस्वी",
+                            });
+
+
+                        }
+
+               
+                   
+                    return result;
+                }
+                catch
+                {
+                    throw;
+                    List<SyncResult> objres = new List<SyncResult>();
+                    objres.Add(new SyncResult()
+                    {
+                        ID = 0,
+                        status = "error",
+                        messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..",
+                        message = "Something is wrong,Try Again.. ",
+                    });
+
+
+                    return objres;
+                }
+
+            }
+
+        }
+
         public Result SaveUserAttendence(SBUserAttendence obj, int AppId, int type, string batteryStatus)
         {
             Result result = new Result();
@@ -2156,6 +2306,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 result = SaveUserAttendenceForDump(obj, AppId, type, batteryStatus);
             }
+           
             return result;
 
         }
@@ -2922,6 +3073,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
 
         }
+
+      
 
         //public List<SyncResult> SaveUserAttendence(List<SBUserAttendence> obj, int AppId, int type, string batteryStatus)
         //{
