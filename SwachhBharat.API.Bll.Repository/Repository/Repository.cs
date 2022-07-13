@@ -2179,11 +2179,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             }
 
                             if (gcd == null || span.Minutes >= 9)
-                            {
-                            
-                                var u = db.EmployeeMasters.Where(c => c.EmpId == x.userId);
+                        {
 
-                                DateTime Offlinedate = Convert.ToDateTime(x.datetime);
+                            var u = db.EmployeeMasters.Where(c => c.EmpId == x.userId && c.isActive == true);
+                            DateTime Offlinedate = Convert.ToDateTime(x.datetime);
                              
 
                                 var atten = db.HSUR_Daily_Attendance.Where(c => c.userId == x.userId & c.daDate == EntityFunctions.TruncateTime(Offlinedate)).FirstOrDefault();
@@ -2246,7 +2245,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                         batteryStatus = batteryStatus,
                                         Distnace = Convert.ToDecimal(distCount),
                                         CreatedDate = DateTime.Now,
-                                       // type = EmpType,
+                                        type = null,
                                     });
                                     db.SaveChanges();
                                 }
@@ -2267,7 +2266,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                    
                     return result;
                 }
-                catch
+                catch (Exception ex)
                 {
                     throw;
                     List<SyncResult> objres = new List<SyncResult>();
@@ -11118,7 +11117,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             if (type == 0)
             {
       
-                HSUR_Daily_Attendance data = dbMain.HSUR_Daily_Attendance.Where(c => c.userId == obj.qrEmpId && (c.endTime == null || c.endTime == "")).FirstOrDefault();
+                HSUR_Daily_Attendance data = dbMain.HSUR_Daily_Attendance.Where(c => c.userId == obj.qrEmpId && c.ip_address==null && c.login_device== null && (c.endTime == null || c.endTime == "")).FirstOrDefault();
                 if (data != null)
                 {
                     data.endTime = obj.startTime;
@@ -11152,6 +11151,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         loc.lat = obj.startLat;
                         loc.@long = obj.startLong;
                         loc.batteryStatus = obj.batteryStatus;
+                        loc.type = 1;
                         loc.address = Address(obj.endLat + "," + obj.endLong);
                         if (loc.address != "")
                         { loc.area = area(loc.address); }
@@ -11192,7 +11192,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                 try
                 {
-                    HSUR_Daily_Attendance objdata = dbMain.HSUR_Daily_Attendance.Where(c => c.daDate == EntityFunctions.TruncateTime(obj.startDate) && c.userId == obj.qrEmpId && (c.endTime == "" || c.endTime == null)).FirstOrDefault();
+                    HSUR_Daily_Attendance objdata = dbMain.HSUR_Daily_Attendance.Where(c => c.daDate == EntityFunctions.TruncateTime(obj.startDate) && c.userId == obj.qrEmpId && c.ip_address == null && c.login_device == null && (c.endTime == "" || c.endTime == null)).FirstOrDefault();
                     if (objdata != null)
                     {
 
@@ -11213,6 +11213,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         loc.lat = obj.endLat;
                         loc.@long = obj.endLong;
                         loc.batteryStatus = obj.batteryStatus;
+                        loc.type = 1;
                         loc.address = Address(obj.endLat + "," + obj.endLong);
                         if (loc.address != "")
                         { loc.area = area(loc.address); }
@@ -11236,7 +11237,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                     else
                     {
-                        HSUR_Daily_Attendance objdata2 = dbMain.HSUR_Daily_Attendance.Where(c => c.userId == obj.qrEmpId && (c.endTime == "" || c.endTime == null)).OrderByDescending(c => c.daID).FirstOrDefault();
+                        HSUR_Daily_Attendance objdata2 = dbMain.HSUR_Daily_Attendance.Where(c => c.userId == obj.qrEmpId && c.ip_address == null && c.login_device == null && (c.endTime == "" || c.endTime == null)).OrderByDescending(c => c.daID).FirstOrDefault();
                         objdata2.userId = obj.qrEmpId;
                         objdata2.daEndDate = obj.endDate;
                         objdata2.endLat = obj.endLat;
@@ -11255,6 +11256,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         loc.lat = obj.endLat;
                         loc.@long = obj.endLong;
                         loc.batteryStatus = obj.batteryStatus;
+                        loc.type = 1;
                         loc.address = Address(obj.endLat + "," + obj.endLong);
                         if (loc.address != "")
                         { loc.area = area(loc.address); }
