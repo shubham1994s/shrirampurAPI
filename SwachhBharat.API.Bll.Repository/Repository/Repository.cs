@@ -13306,6 +13306,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             }
             else
             {
+                user.name = "";
                 user.userId = 0;
                 user.userLoginId = "";
                 user.userPassword = "";
@@ -13325,6 +13326,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             var obj = dbMain.EmployeeMasters.Where(c => c.LoginId == userName & c.Password == password & c.isActive == true).FirstOrDefault();
             if (obj == null)
             {
+                user.name = "";
                 user.userId = 0;
                 user.userLoginId = "";
                 user.userPassword = "";
@@ -13338,6 +13340,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             else if (obj != null && obj.LoginId == userName && obj.Password == password)
             {
 
+                user.name = obj.EmpName;
                 user.userId = obj.EmpId;
                 user.userLoginId = obj.LoginId;
                 user.userPassword = obj.Password;

@@ -12,7 +12,7 @@ namespace SwachhBhart.API.Bll.ViewModels
 
         public string userLoginId { get; set; }
          public string userPassword { get; set; }
-        //public string name { get; set; }
+         public string name { get; set; }
         //public string mobileNumber { get; set; }
         //public string address { get; set; }
         //public string profileImage { get; set; }
