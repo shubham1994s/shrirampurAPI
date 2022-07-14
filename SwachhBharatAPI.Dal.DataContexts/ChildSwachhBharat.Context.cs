@@ -18,10 +18,9 @@ namespace SwachhBharatAPI.Dal.DataContexts
     public partial class DevSwachhBharatNagpurEntities : DbContext
     {
         public DevSwachhBharatNagpurEntities(int AppId)
-               : base(SwachhBharatAppConnection.GetConnectionString(AppId))
+                 : base(SwachhBharatAppConnection.GetConnectionString(AppId))
         {
         }
-
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -60,6 +59,7 @@ namespace SwachhBharatAPI.Dal.DataContexts
         public virtual DbSet<StreetSweepingDetail> StreetSweepingDetails { get; set; }
         public virtual DbSet<SauchalayAddress> SauchalayAddresses { get; set; }
         public virtual DbSet<Daily_Attendance> Daily_Attendance { get; set; }
+        public virtual DbSet<Vehical_QR_Master> Vehical_QR_Master { get; set; }
     
         public virtual ObjectResult<sp_area_Result> sp_area()
         {

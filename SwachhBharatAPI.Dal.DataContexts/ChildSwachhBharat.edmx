@@ -385,6 +385,21 @@
           <Property Name="EmployeeType" Type="varchar" MaxLength="10" />
           <Property Name="imoNo2" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="Vehical_QR_Master">
+          <Key>
+            <PropertyRef Name="vqrId" />
+          </Key>
+          <Property Name="vqrId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VehicalNumber" Type="nvarchar" MaxLength="500" />
+          <Property Name="VehicalQRCode" Type="nvarchar(max)" />
+          <Property Name="ReferanceId" Type="nvarchar" MaxLength="350" />
+          <Property Name="modified" Type="datetime" />
+          <Property Name="FCMID" Type="varchar" MaxLength="500" />
+          <Property Name="lastModifiedEntry" Type="datetime" />
+          <Property Name="RFIDTagId" Type="nvarchar" MaxLength="255" />
+          <Property Name="VehicalType" Type="varchar" MaxLength="10" />
+          <Property Name="Property_Type" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="VehicleType">
           <Key>
             <PropertyRef Name="vtId" />
@@ -678,6 +693,7 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <EntitySet Name="StreetSweepingDetails" EntityType="Self.StreetSweepingDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TeritoryMaster" EntityType="Self.TeritoryMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserMaster" EntityType="Self.UserMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vehical_QR_Master" EntityType="Self.Vehical_QR_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VehicleType" EntityType="Self.VehicleType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WardNumber" EntityType="Self.WardNumber" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WM_Garbage_Details" EntityType="Self.WM_Garbage_Details" Schema="dbo" store:Type="Tables" />
@@ -913,6 +929,7 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Parameter Name="Appid" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="Daily_Attendance" EntityType="DevSwachhBharatNagpurModel.Daily_Attendance" />
+          <EntitySet Name="Vehical_QR_Master" EntityType="DevSwachhBharatNagpurModel.Vehical_QR_Master" />
         </EntityContainer>
         <ComplexType Name="sp_area_Result">
           <Property Type="String" Name="area" Nullable="true" MaxLength="500" />
@@ -1782,6 +1799,21 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Name="OutbatteryStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="EmployeeType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="dyid" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Vehical_QR_Master">
+          <Key>
+            <PropertyRef Name="vqrId" />
+          </Key>
+          <Property Name="vqrId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VehicalNumber" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="VehicalQRCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ReferanceId" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="modified" Type="DateTime" Precision="3" />
+          <Property Name="FCMID" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="lastModifiedEntry" Type="DateTime" Precision="3" />
+          <Property Name="RFIDTagId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="VehicalType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Property_Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2806,6 +2838,22 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
                 <ScalarProperty Name="startLat" ColumnName="startLat" />
                 <ScalarProperty Name="userId" ColumnName="userId" />
                 <ScalarProperty Name="daID" ColumnName="daID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vehical_QR_Master">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.Vehical_QR_Master">
+              <MappingFragment StoreEntitySet="Vehical_QR_Master">
+                <ScalarProperty Name="Property_Type" ColumnName="Property_Type" />
+                <ScalarProperty Name="VehicalType" ColumnName="VehicalType" />
+                <ScalarProperty Name="RFIDTagId" ColumnName="RFIDTagId" />
+                <ScalarProperty Name="lastModifiedEntry" ColumnName="lastModifiedEntry" />
+                <ScalarProperty Name="FCMID" ColumnName="FCMID" />
+                <ScalarProperty Name="modified" ColumnName="modified" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="VehicalQRCode" ColumnName="VehicalQRCode" />
+                <ScalarProperty Name="VehicalNumber" ColumnName="VehicalNumber" />
+                <ScalarProperty Name="vqrId" ColumnName="vqrId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

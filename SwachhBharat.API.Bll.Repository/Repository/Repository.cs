@@ -6936,12 +6936,12 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 DateTime newTime = Dateeee;
                 DateTime oldTime;
                 TimeSpan span = TimeSpan.Zero;
-                var dydetails = db.DumpYardDetails.Where(c => c.ReferanceId == obj.dyId).FirstOrDefault();
+                var vrdetails = db.Vehical_QR_Master.Where(c => c.ReferanceId == obj.vqrId).FirstOrDefault();
                 //var dyId = dydetails.dyId; || tdate.AddMinutes(15) >= gcd.gcDate
 
                 try
                 {
-                    var gcd = db.GarbageCollectionDetails.Where(c => c.userId == obj.userId && c.dyId == dydetails.dyId && EntityFunctions.TruncateTime(c.gcDate) == EntityFunctions.TruncateTime(Dateeee)).OrderByDescending(c => c.gcDate).FirstOrDefault();
+                    var gcd = db.GarbageCollectionDetails.Where(c => c.userId == obj.userId && c.vqrid == vrdetails.vqrId && EntityFunctions.TruncateTime(c.gcDate) == EntityFunctions.TruncateTime(Dateeee)).OrderByDescending(c => c.gcDate).FirstOrDefault();
                     if (gcd != null)
                     {
                         oldTime = gcd.gcDate.Value;
@@ -6971,18 +6971,18 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         }
                         else { result.isAttendenceOff = false; }
 
-                        if (obj.dyId != null && obj.dyId != "")
+                        if (obj.vqrId != null && obj.vqrId != "")
                         {
                             try
                             {
-                                var gpdetails = db.DumpYardDetails.Where(c => c.ReferanceId == obj.dyId).FirstOrDefault();
-                                objdata.dyId = gpdetails.dyId;
-                                name = gpdetails.dyName;
-                                nameMar = checkNull(gpdetails.dyNameMar);
+                                var gpdetails = db.Vehical_QR_Master.Where(c => c.ReferanceId == obj.vqrId).FirstOrDefault();
+                                objdata.vqrid = gpdetails.vqrId;
+                                name = gpdetails.VehicalNumber;
+                                nameMar = checkNull(gpdetails.VehicalType);
                                 housemob = "";
-                                addre = checkNull(gpdetails.dyAddress);
+                                addre = checkNull(gpdetails.VehicalNumber);
 
-                                var IsSameDumpRecord = db.GarbageCollectionDetails.Where(a => a.gpId == gpdetails.dyId && a.userId == obj.userId && a.gcDate == Dateeee).FirstOrDefault();
+                                var IsSameDumpRecord = db.GarbageCollectionDetails.Where(a => a.vqrid == gpdetails.vqrId && a.userId == obj.userId && a.gcDate == Dateeee).FirstOrDefault();
 
                                 if (IsSameDumpRecord != null)
                                 {
@@ -6996,7 +6996,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             catch
                             {
                                 result.ID = obj.OfflineID;
-                                result.message = "Invalid dyId"; result.messageMar = "अवैध जीपी आयडी";
+                                result.message = "Invalid Vehicle Id"; result.messageMar = "अवैध वाहन आयडी";
                                 result.status = "error";
                                 return result;
                             }
@@ -7034,6 +7034,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         objdata.locAddresss = addre;
                         objdata.CreatedDate = DateTime.Now;
                         objdata.EmployeeType = "D";
+                        objdata.dyId = atten.dyid;
+                        objdata.vqrid = vrdetails.vqrId;
                         db.GarbageCollectionDetails.Add(objdata);
 
                         Location loc = new Location();
@@ -7107,7 +7109,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             catch
                             {
                                 result.ID = obj.OfflineID;
-                                result.message = "Invalid dyId"; result.messageMar = "अवैध डीवाय आयडी";
+                                result.message = "Invalid Vehicle Id"; result.messageMar = "अवैध वाहन आयडी";
                                 result.status = "error";
                                 return result;
                             }
@@ -7132,6 +7134,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         gcd.totalWetWeight = obj.totalWetWeight;
                         gcd.batteryStatus = obj.batteryStatus;
                         gcd.Distance = Convert.ToDouble(obj.Distance); //Convert.ToDouble(distCount);
+                        gcd.dyId = atten.dyid;
+                        gcd.vqrid = vrdetails.vqrId;
                         gcd.EmployeeType = "D";
 
                         //if (AppId == 1010)
