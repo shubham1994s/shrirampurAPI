@@ -6980,7 +6980,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                 name = gpdetails.VehicalNumber;
                                 nameMar = checkNull(gpdetails.VehicalType);
                                 housemob = "";
-                                addre = checkNull(gpdetails.VehicalNumber);
+                             //   addre = checkNull(gpdetails.VehicalNumber);
 
                                 var IsSameDumpRecord = db.GarbageCollectionDetails.Where(a => a.vqrid == gpdetails.vqrId && a.userId == obj.userId && a.gcDate == Dateeee).FirstOrDefault();
 
@@ -7055,9 +7055,9 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         loc.Distnace = obj.Distance;
                         //loc.IsOffline = obj.IsOffline;
 
-                        if (!string.IsNullOrEmpty(obj.dyId))
+                        if (!string.IsNullOrEmpty(obj.vqrId))
                         {
-                            loc.ReferanceID = obj.dyId;
+                            loc.ReferanceID = obj.vqrId;
                         }
 
                         loc.CreatedDate = DateTime.Now;
@@ -7095,16 +7095,16 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         }
                         else { result.isAttendenceOff = false; }
 
-                        if (obj.dyId != null && obj.dyId != "")
+                        if (obj.vqrId != null && obj.vqrId != "")
                         {
                             try
                             {
-                                var gpdetails = db.DumpYardDetails.Where(c => c.ReferanceId == obj.dyId).FirstOrDefault();
-                                gcd.dyId = gpdetails.dyId;
-                                name = gpdetails.dyName;
-                                nameMar = checkNull(gpdetails.dyNameMar);
+                                var gpdetails = db.Vehical_QR_Master.Where(c => c.ReferanceId == obj.vqrId).FirstOrDefault();
+                                gcd.vqrid = gpdetails.vqrId;
+                                name = gpdetails.VehicalNumber;
+                                nameMar = checkNull(gpdetails.VehicalType);
                                 housemob = "";
-                                addre = checkNull(gpdetails.dyAddress);
+                                addre = checkNull(gpdetails.VehicalNumber);
                             }
                             catch
                             {
@@ -7173,9 +7173,9 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         //loc.IsOffline = obj.IsOffline;
                         loc.Distnace = obj.Distance;
 
-                        if (!string.IsNullOrEmpty(obj.dyId))
+                        if (!string.IsNullOrEmpty(obj.vqrId))
                         {
-                            loc.ReferanceID = obj.dyId;
+                            loc.ReferanceID = obj.vqrId;
                         }
 
                         loc.CreatedDate = DateTime.Now;
@@ -7995,12 +7995,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             if (obj.EmpType == "S")
                             {
                                 result = SaveDumpCollectionSyncForStreet(obj, AppId, type);
-                            }
-
-                            if (obj.EmpType == "D")
-                            {
-                                result = SaveDumpCollectionSyncForDump(obj, AppId, type);
-                            }
+                            }                   
 
                             break;
                         case 4:
@@ -8008,6 +8003,12 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             break;
                         case 5:
                             result = SaveStreetCollectionSync(obj, AppId, type);
+                            break;
+                        case 6:
+                            if (obj.EmpType == "D")
+                            {
+                                result = SaveDumpCollectionSyncForDump(obj, AppId, type);
+                            }
                             break;
                     }
                 }
@@ -8036,10 +8037,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             {
                                 result = SaveDumpCollectionSyncForStreet(obj, AppId, type);
                             }
-                            if (obj.EmpType == "D")
-                            {
-                                result = SaveDumpCollectionSyncForDump(obj, AppId, type);
-                            }
+                          
                             break;
 
                         case 4:
@@ -8047,6 +8045,12 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             break;
                         case 5:
                             result = SaveStreetCollectionSync(obj, AppId, type);
+                            break;
+                        case 6:
+                            if (obj.EmpType == "D")
+                            {
+                                result = SaveDumpCollectionSyncForDump(obj, AppId, type);
+                            }
                             break;
                     }
                 }
