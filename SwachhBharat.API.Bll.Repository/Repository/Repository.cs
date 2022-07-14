@@ -2889,6 +2889,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 var user = db.UserMasters.Where(c => c.userId == obj.userId && c.EmployeeType == "D").FirstOrDefault();
                 var dy= db.DumpYardDetails.Where(x => x.ReferanceId == obj.ReferanceId).FirstOrDefault();
+              
                 if (type == 0)
                 {
                     if (user.isActive == true)
@@ -2904,7 +2905,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             data.batteryStatus = batteryStatus;
                             data.totalKm = obj.totalKm;
                             data.EmployeeType = "D";
-                            data.dyid = dy.dyId;
+                            if(dy!=null)
+                            {
+                                data.dyid = dy.dyId;
+                            }
                             db.SaveChanges();
                         }
                         try
@@ -2927,7 +2931,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             objdata.batteryStatus = batteryStatus;
                             objdata.totalKm = obj.totalKm;
                             objdata.EmployeeType = "D";
-                            data.dyid = dy.dyId;
+                            if (dy != null)
+                            {
+                                objdata.dyid = dy.dyId;
+                            }
                             db.Daily_Attendance.Add(objdata);
                             string Time2 = obj.startTime;
                             DateTime date2 = DateTime.Parse(Time2, System.Globalization.CultureInfo.CurrentCulture);
@@ -2994,7 +3001,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             objdata.batteryStatus = batteryStatus;
                             objdata.totalKm = obj.totalKm;
                             objdata.EmployeeType = "D";
-                            objdata.dyid = dy.dyId;
+                            if (dy != null)
+                            {
+                                objdata.dyid = dy.dyId;
+                            }
                             //       objdata.endAddress = Address(objdata.endLat + "," + objdata.endLong);
 
                             string Time2 = obj.endTime;
@@ -3037,7 +3047,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             objdata2.daEndNote = obj.daEndNote;
                             objdata2.batteryStatus = batteryStatus;
                             objdata2.EmployeeType = "D";
-                            objdata2.dyid = dy.dyId;
+                            if (dy != null)
+                            {
+                                objdata2.dyid = dy.dyId;
+                            }
                             //       objdata.endAddress = Address(objdata.endLat + "," + objdata.endLong);
                             Location loc = new Location();
                             loc.userId = obj.userId;
