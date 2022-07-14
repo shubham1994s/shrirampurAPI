@@ -32,5 +32,6 @@ namespace SwachhBharatAPI.Dal.DataContexts
         public Nullable<int> totalKm { get; set; }
         public string OutbatteryStatus { get; set; }
         public string EmployeeType { get; set; }
+        public Nullable<int> dyid { get; set; }
     }
 }

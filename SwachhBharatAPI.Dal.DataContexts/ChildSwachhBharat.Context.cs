@@ -18,7 +18,7 @@ namespace SwachhBharatAPI.Dal.DataContexts
     public partial class DevSwachhBharatNagpurEntities : DbContext
     {
         public DevSwachhBharatNagpurEntities(int AppId)
-             : base(SwachhBharatAppConnection.GetConnectionString(AppId))
+               : base(SwachhBharatAppConnection.GetConnectionString(AppId))
         {
         }
 
@@ -46,7 +46,6 @@ namespace SwachhBharatAPI.Dal.DataContexts
         public virtual DbSet<WM_Garbage_Summary> WM_Garbage_Summary { get; set; }
         public virtual DbSet<WM_Garbage_Details> WM_Garbage_Details { get; set; }
         public virtual DbSet<Vw_GetHouseNumber> Vw_GetHouseNumber { get; set; }
-        public virtual DbSet<Daily_Attendance> Daily_Attendance { get; set; }
         public virtual DbSet<WM_Garbage_Sales> WM_Garbage_Sales { get; set; }
         public virtual DbSet<UserMaster> UserMasters { get; set; }
         public virtual DbSet<GarbageCollectionDetail> GarbageCollectionDetails { get; set; }
@@ -60,6 +59,7 @@ namespace SwachhBharatAPI.Dal.DataContexts
         public virtual DbSet<LiquidWasteDetail> LiquidWasteDetails { get; set; }
         public virtual DbSet<StreetSweepingDetail> StreetSweepingDetails { get; set; }
         public virtual DbSet<SauchalayAddress> SauchalayAddresses { get; set; }
+        public virtual DbSet<Daily_Attendance> Daily_Attendance { get; set; }
     
         public virtual ObjectResult<sp_area_Result> sp_area()
         {
