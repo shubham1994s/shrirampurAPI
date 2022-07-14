@@ -11,6 +11,8 @@ namespace SwachhBhart.API.Bll.ViewModels
         public string status { get; set; }
         public string message { get; set; }
         public string messageMar { get; set; }
+
+        public bool isAttendenceOn { get; set; }
         public bool isAttendenceOff { get; set; }
 
         public string emptype { get; set; }

@@ -135,6 +135,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         Result SaveQrEmployeeAttendence(BigVQREmployeeAttendenceVM obj, int AppId, int type);
         Result SaveSupervisorAttendence(BigVQREmployeeAttendenceVM obj, int type);
 
+        Result CheckSupervisorAttendence(BigVQREmployeeAttendenceVM obj);
+
         List<SyncResult1> SaveQrEmployeeAttendenceOffline(List<BigVQREmployeeAttendenceVM> obj, int AppId);
 
         Result SaveWard(CMSBWardVM Ward, int AppId);

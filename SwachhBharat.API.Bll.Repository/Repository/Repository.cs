@@ -1180,7 +1180,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             user.gtFeatures = objmain.NewFeatures;
                             user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
                         }
-                    
+
                         else
                         {
                             user.userId = 0;
@@ -1210,7 +1210,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     user.message = "UserName or Passward not Match.";
                     user.messageMar = "वापरकर्ता नाव किंवा पासवर्ड जुळत नाही.";
                 }
-             
+
                 else if (objEmpMst != null && objEmpMst.qrEmpLoginId == userName && objEmpMst.qrEmpPassword == password)
                 {
 
@@ -1425,10 +1425,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             return obj;
         }
 
-       
+
         public List<SyncResult> CheckHSUserName(int AppId, string userName)
         {
-         
+
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
             {
                 var isrecord1 = db.QrEmployeeMasters.Where(x => x.qrEmpName == userName && x.isActive == true).FirstOrDefault();
@@ -1819,9 +1819,9 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         public List<SyncResult> SaveUserLocation(List<SBUserLocation> obj, int AppId, string batteryStatus, int typeId, string EmpType)
         {
             List<SyncResult> result = new List<SyncResult>();
-            if(EmpType=="N" || EmpType=="S" || EmpType=="L")
+            if (EmpType == "N" || EmpType == "S" || EmpType == "L")
             {
-                result = SaveUserLocationNSL(obj,AppId,batteryStatus,typeId,EmpType);
+                result = SaveUserLocationNSL(obj, AppId, batteryStatus, typeId, EmpType);
             }
 
             if (EmpType == "SA")
@@ -2156,7 +2156,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         public List<SyncResult> SaveUserLocationSA(List<SBUserLocation> obj, int AppId, string batteryStatus, int typeId, string EmpType)
         {
-       
+
             using (DevSwachhBharatMainEntities db = new DevSwachhBharatMainEntities())
             {
                 try
@@ -2164,106 +2164,106 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     List<SyncResult> result = new List<SyncResult>();
                     var distCount = "";
 
-                
-                        foreach (var x in obj)
-                        {
-                            DateTime Dateeee = Convert.ToDateTime(x.datetime);
-                            DateTime newTime = Dateeee;
-                            DateTime oldTime;
-                            TimeSpan span = TimeSpan.Zero;
-                            var gcd = db.UR_Location.Where(c => c.empId == x.userId && c.type == null && EntityFunctions.TruncateTime(c.datetime) == EntityFunctions.TruncateTime(Dateeee)).OrderByDescending(c => c.locId).FirstOrDefault();
-                            if (gcd != null)
-                            {
-                                oldTime = gcd.datetime.Value;
-                                span = newTime.Subtract(oldTime);
-                            }
 
-                            if (gcd == null || span.Minutes >= 9)
+                    foreach (var x in obj)
+                    {
+                        DateTime Dateeee = Convert.ToDateTime(x.datetime);
+                        DateTime newTime = Dateeee;
+                        DateTime oldTime;
+                        TimeSpan span = TimeSpan.Zero;
+                        var gcd = db.UR_Location.Where(c => c.empId == x.userId && c.type == null && EntityFunctions.TruncateTime(c.datetime) == EntityFunctions.TruncateTime(Dateeee)).OrderByDescending(c => c.locId).FirstOrDefault();
+                        if (gcd != null)
+                        {
+                            oldTime = gcd.datetime.Value;
+                            span = newTime.Subtract(oldTime);
+                        }
+
+                        if (gcd == null || span.Minutes >= 9)
                         {
 
                             var u = db.EmployeeMasters.Where(c => c.EmpId == x.userId && c.isActive == true);
                             DateTime Offlinedate = Convert.ToDateTime(x.datetime);
-                             
 
-                                var atten = db.HSUR_Daily_Attendance.Where(c => c.userId == x.userId & c.daDate == EntityFunctions.TruncateTime(Offlinedate)).FirstOrDefault();
 
-                                if (atten == null)
+                            var atten = db.HSUR_Daily_Attendance.Where(c => c.userId == x.userId & c.daDate == EntityFunctions.TruncateTime(Offlinedate)).FirstOrDefault();
+
+                            if (atten == null)
+                            {
+                                result.Add(new SyncResult()
                                 {
-                                    result.Add(new SyncResult()
-                                    {
-                                        ID = Convert.ToInt32(x.OfflineId),
-                                        isAttendenceOff = true,
-                                        status = "error",
-                                        message = "Your duty is currently off, please start again.. ",
-                                        messageMar = "आपली ड्यूटी सध्या बंद आहे, कृपया पुन्हा सुरू करा..",
-                                    });
+                                    ID = Convert.ToInt32(x.OfflineId),
+                                    isAttendenceOff = true,
+                                    status = "error",
+                                    message = "Your duty is currently off, please start again.. ",
+                                    messageMar = "आपली ड्यूटी सध्या बंद आहे, कृपया पुन्हा सुरू करा..",
+                                });
 
-                                    //return result;
-                                    continue;
-                                }
-
-                                if (u != null & x.userId > 0)
-                                {
-                                    string addr = "", ar = "";
-                                    addr = Address(x.lat + "," + x.@long);
-                                    if (addr != "")
-                                    {
-                                        ar = area(addr);
-                                    }
-
-
-                                  
-                                    var locc = db.SP_UserLatLongDetail(x.userId, typeId).FirstOrDefault();
-
-                                    if (locc == null || locc.lat == "" || locc.@long == "")
-                                    {
-                                        
-
-                                        string a = x.lat;
-                                        string b = x.@long;
-
-                                        var dist = db.SP_DistanceCount(Convert.ToDouble(a), Convert.ToDouble(b), Convert.ToDouble(x.lat), Convert.ToDouble(x.@long)).FirstOrDefault();
-                                        distCount = dist.Distance_in_KM.ToString();
-                                    }
-                                    else
-                                    {
-
-                                        var dist = db.SP_DistanceCount(Convert.ToDouble(locc.lat), Convert.ToDouble(locc.@long), Convert.ToDouble(x.lat), Convert.ToDouble(x.@long)).FirstOrDefault();
-                                        distCount = dist.Distance_in_KM.ToString();
-                                    }
-
-                                
-
-                                    db.UR_Location.Add(new UR_Location()
-                                    {
-                                        empId = x.userId,
-                                        lat = x.lat,
-                                        @long = x.@long,
-                                        datetime = x.datetime,
-                                        address = addr,
-                                        area = ar,
-                                        batteryStatus = batteryStatus,
-                                        Distnace = Convert.ToDecimal(distCount),
-                                        CreatedDate = DateTime.Now,
-                                        type = null,
-                                    });
-                                    db.SaveChanges();
-                                }
+                                //return result;
+                                continue;
                             }
 
-                            result.Add(new SyncResult()
+                            if (u != null & x.userId > 0)
                             {
-                                ID = Convert.ToInt32(x.OfflineId),
-                                status = "success",
-                                message = "Uploaded successfully",
-                                messageMar = "सबमिट यशस्वी",
-                            });
+                                string addr = "", ar = "";
+                                addr = Address(x.lat + "," + x.@long);
+                                if (addr != "")
+                                {
+                                    ar = area(addr);
+                                }
 
 
+
+                                var locc = db.SP_UserLatLongDetail(x.userId, typeId).FirstOrDefault();
+
+                                if (locc == null || locc.lat == "" || locc.@long == "")
+                                {
+
+
+                                    string a = x.lat;
+                                    string b = x.@long;
+
+                                    var dist = db.SP_DistanceCount(Convert.ToDouble(a), Convert.ToDouble(b), Convert.ToDouble(x.lat), Convert.ToDouble(x.@long)).FirstOrDefault();
+                                    distCount = dist.Distance_in_KM.ToString();
+                                }
+                                else
+                                {
+
+                                    var dist = db.SP_DistanceCount(Convert.ToDouble(locc.lat), Convert.ToDouble(locc.@long), Convert.ToDouble(x.lat), Convert.ToDouble(x.@long)).FirstOrDefault();
+                                    distCount = dist.Distance_in_KM.ToString();
+                                }
+
+
+
+                                db.UR_Location.Add(new UR_Location()
+                                {
+                                    empId = x.userId,
+                                    lat = x.lat,
+                                    @long = x.@long,
+                                    datetime = x.datetime,
+                                    address = addr,
+                                    area = ar,
+                                    batteryStatus = batteryStatus,
+                                    Distnace = Convert.ToDecimal(distCount),
+                                    CreatedDate = DateTime.Now,
+                                    type = null,
+                                });
+                                db.SaveChanges();
+                            }
                         }
 
-               
-                   
+                        result.Add(new SyncResult()
+                        {
+                            ID = Convert.ToInt32(x.OfflineId),
+                            status = "success",
+                            message = "Uploaded successfully",
+                            messageMar = "सबमिट यशस्वी",
+                        });
+
+
+                    }
+
+
+
                     return result;
                 }
                 catch (Exception ex)
@@ -2305,7 +2305,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 result = SaveUserAttendenceForDump(obj, AppId, type, batteryStatus);
             }
-           
+
             return result;
 
         }
@@ -2888,8 +2888,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
             {
                 var user = db.UserMasters.Where(c => c.userId == obj.userId && c.EmployeeType == "D").FirstOrDefault();
-                var dy= db.DumpYardDetails.Where(x => x.ReferanceId == obj.ReferanceId).FirstOrDefault();
-              
+                var dy = db.DumpYardDetails.Where(x => x.ReferanceId == obj.ReferanceId).FirstOrDefault();
+
                 if (type == 0)
                 {
                     if (user.isActive == true)
@@ -2905,7 +2905,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             data.batteryStatus = batteryStatus;
                             data.totalKm = obj.totalKm;
                             data.EmployeeType = "D";
-                            if(dy!=null)
+                            if (dy != null)
                             {
                                 data.dyid = dy.dyId;
                             }
@@ -3090,7 +3090,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         }
 
-      
+
 
         //public List<SyncResult> SaveUserAttendence(List<SBUserAttendence> obj, int AppId, int type, string batteryStatus)
         //{
@@ -4414,7 +4414,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
             {
                 Daily_Attendance attendance = new Daily_Attendance();
-            
+
                 foreach (var x in obj)
                 {
                     var dy = db.DumpYardDetails.Where(c => c.ReferanceId == x.ReferanceId).FirstOrDefault();
@@ -4452,9 +4452,9 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                     objdata.endLong = x.startLong;
                                     objdata.OutbatteryStatus = x.batteryStatus;
                                     objdata.totalKm = x.totalKm;
-                                    if(dy!=null)
-                                    { 
-                                    objdata.dyid = dy.dyId;
+                                    if (dy != null)
+                                    {
+                                        objdata.dyid = dy.dyId;
                                     }
                                     objdata.EmployeeType = "D";
                                     db.SaveChanges();
@@ -4645,7 +4645,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                             db.Daily_Attendance.Add(attendance);
                                         }
                                         _IsInSync = true;
-                                      
+
                                     }
                                     if ((!string.IsNullOrEmpty(x.endLat)) && (!string.IsNullOrEmpty(x.endLong)) && IsSameRecordLocation == null)
                                     {
@@ -5306,7 +5306,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         objdata.Lat = obj.Lat;
                         objdata.Long = obj.Long;
                         //    objdata.garbageType = obj.garbageType;
-                        var atten = db.Daily_Attendance.Where(c => c.userId == obj.userId & c.daDate == EntityFunctions.TruncateTime(Dateeee) ).FirstOrDefault();
+                        var atten = db.Daily_Attendance.Where(c => c.userId == obj.userId & c.daDate == EntityFunctions.TruncateTime(Dateeee)).FirstOrDefault();
 
                         Location loc = new Location();
 
@@ -11019,8 +11019,9 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     {
                         Qr_Employee_Daily_Attendance objdata = new Qr_Employee_Daily_Attendance();
 
-                        var isActive=db.QrEmployeeMasters.Where(c => c.qrEmpId == obj.qrEmpId && c.isActive==true).FirstOrDefault();
-                        if (isActive != null) { 
+                        var isActive = db.QrEmployeeMasters.Where(c => c.qrEmpId == obj.qrEmpId && c.isActive == true).FirstOrDefault();
+                        if (isActive != null)
+                        {
 
                             objdata.qrEmpId = obj.qrEmpId;
                             objdata.startDate = obj.startDate;
@@ -11151,14 +11152,14 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         }
 
-        public Result SaveSupervisorAttendence(BigVQREmployeeAttendenceVM obj,int type)
+        public Result SaveSupervisorAttendence(BigVQREmployeeAttendenceVM obj, int type)
         {
             Result result = new Result();
 
             if (type == 0)
             {
-      
-                HSUR_Daily_Attendance data = dbMain.HSUR_Daily_Attendance.Where(c => c.userId == obj.qrEmpId && c.ip_address==null && c.login_device== null && (c.endTime == null || c.endTime == "")).FirstOrDefault();
+
+                HSUR_Daily_Attendance data = dbMain.HSUR_Daily_Attendance.Where(c => c.userId == obj.qrEmpId && c.ip_address == null && c.login_device == null && (c.endTime == null || c.endTime == "")).FirstOrDefault();
                 if (data != null)
                 {
                     data.endTime = obj.startTime;
@@ -11172,7 +11173,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 {
                     HSUR_Daily_Attendance objdata = new HSUR_Daily_Attendance();
 
-                    var isActive = dbMain.EmployeeMasters.Where(c => c.EmpId == obj.qrEmpId && c.isActive == true && c.type=="SA").FirstOrDefault();
+                    var isActive = dbMain.EmployeeMasters.Where(c => c.EmpId == obj.qrEmpId && c.isActive == true && c.type == "SA").FirstOrDefault();
                     if (isActive != null)
                     {
 
@@ -11184,7 +11185,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         objdata.startTime = obj.startTime;
                         objdata.endTime = "";
                         objdata.EmployeeType = obj.EmployeeType;
-                        objdata.batteryStatus= obj.batteryStatus;
+                        objdata.batteryStatus = obj.batteryStatus;
                         dbMain.HSUR_Daily_Attendance.Add(objdata);
                         UR_Location loc = new UR_Location();
                         loc.empId = obj.qrEmpId;
@@ -11205,6 +11206,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         result.status = "success";
                         result.message = "Shift started Successfully";
                         result.messageMar = "शिफ्ट सुरू";
+                        result.isAttendenceOn = true;
                         result.isAttendenceOff = false;
                         return result;
                     }
@@ -11233,7 +11235,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                 try
                 {
-                    HSUR_Daily_Attendance objdata = dbMain.HSUR_Daily_Attendance.Where(c => c.daDate == EntityFunctions.TruncateTime(obj.startDate) && c.userId == obj.qrEmpId && c.ip_address == null && c.login_device == null && (c.endTime == "" || c.endTime == null)).FirstOrDefault();
+                    HSUR_Daily_Attendance objdata = dbMain.HSUR_Daily_Attendance.Where(c => c.daDate == EntityFunctions.TruncateTime(obj.endDate) && c.userId == obj.qrEmpId && c.ip_address == null && c.login_device == null && (c.endTime == "" || c.endTime == null)).FirstOrDefault();
                     if (objdata != null)
                     {
 
@@ -11270,6 +11272,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         result.status = "success";
                         result.message = "Shift ended successfully";
                         result.messageMar = "शिफ्ट संपले";
+                        result.isAttendenceOn = false;
                         result.isAttendenceOff = true;
 
                         return result;
@@ -11313,6 +11316,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         result.status = "success";
                         result.message = "Shift ended successfully";
                         result.messageMar = "शिफ्ट संपले";
+                        result.isAttendenceOn = false;
                         result.isAttendenceOff = true;
                         return result;
                     }
@@ -11322,14 +11326,14 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     result.status = "error";
                     result.message = "Something is wrong,Try Again.. ";
                     result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
-                   return result;
+                    return result;
                 }
             }
 
 
 
         }
-        
+
         public List<SyncResult1> SaveQrEmployeeAttendenceOffline(List<BigVQREmployeeAttendenceVM> obj, int AppId)
         {
             List<SyncResult1> result = new List<SyncResult1>();
@@ -11626,6 +11630,55 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             //}
 
             return result;
+        }
+
+
+        public Result CheckSupervisorAttendence(BigVQREmployeeAttendenceVM obj)
+        {
+            Result result = new Result();
+            try
+            {
+                HSUR_Daily_Attendance objdata = new HSUR_Daily_Attendance();
+                var isActive = dbMain.EmployeeMasters.Where(c => c.EmpId == obj.qrEmpId && c.isActive == true && c.type == "SA").FirstOrDefault();
+                var AttenIn = dbMain.HSUR_Daily_Attendance.Where(c => c.daDate == EntityFunctions.TruncateTime(obj.startDate) && c.userId == obj.qrEmpId && c.ip_address == null && c.login_device == null && (c.endTime == null || c.endTime == "")).FirstOrDefault();
+                if (isActive != null)
+                {
+                    if (AttenIn != null)
+                    {
+                        result.status = "Success";
+                        result.message = "Shift On";
+                        result.messageMar = "शिफ्ट सुरू";
+                        result.isAttendenceOn = true;
+                        result.isAttendenceOff = false;
+                        return result;
+                    }
+                    else
+                    {
+                        result.status = "Success";
+                        result.message = "Shift Off";
+                        result.messageMar = "शिफ्ट बंद";
+                        result.isAttendenceOn = false;
+                        result.isAttendenceOff = true;
+                        return result;
+                    }
+                }
+                else
+                {
+                    result.status = "Error";
+                    result.message = "Contact To Administrator";
+                    result.messageMar = "प्रशासकाशी संपर्क साधा";
+                    return result;
+                }
+            }
+
+            catch
+            {
+
+                result.status = "error";
+                result.message = "Something is wrong,Try Again.. ";
+                result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                return result;
+            }
         }
 
 
@@ -12067,14 +12120,14 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 }
             }
 
-            if(result.status == "success")
+            if (result.status == "success")
             {
                 if (appdetails != null)
                 {
                     appdetails.FAQ = "1";
                     dbMain.SaveChanges();
                 }
-               // List<AppDetail> AppDetailss = dbMain.Database.SqlQuery<AppDetail>("exec [Update_Trigger]").ToList();
+                // List<AppDetail> AppDetailss = dbMain.Database.SqlQuery<AppDetail>("exec [Update_Trigger]").ToList();
             }
         }
 
@@ -12139,10 +12192,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 try
                 {
-                    
+
                     foreach (var item in obj)
                     {
-                       
+
 
                         if (item.gcType == 5)
                         {
@@ -12611,12 +12664,12 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         }
                         else
                         {
-                           
+
                         }
                     }
                     else
                     {
-                     
+
 
                     }
 
@@ -13188,11 +13241,11 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 if (model != null)
                 {
                     model.houseOwnerMobile = _Mobile;
-                   // db.SaveChanges();
+                    // db.SaveChanges();
                     string msg = "Your OTP is " + otp + ". Do not Share it with anyone by any means. This is confidential and to be used by you only. ICTSBM";
 
                     sendSMS(msg, _Mobile);
-                    if (AppId == 3068 || AppId == 3098 || AppId==3107 || AppId == 3109 || AppId == 3111)
+                    if (AppId == 3068 || AppId == 3098 || AppId == 3107 || AppId == 3109 || AppId == 3111)
                     {
                         sendSMSNgp(msg, _Mobile);
                     }
@@ -13439,7 +13492,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 if (Status == "false")
                 {
-                    var data = dbMain.AppDetails.Where(c => c.IsActive == true && c.AppId !=3088 && c.AppId != 3068).ToList();
+                    var data = dbMain.AppDetails.Where(c => c.IsActive == true && c.AppId != 3088 && c.AppId != 3068).ToList();
                     foreach (var x in data)
                     {
                         obj.Add(new NameULB()
@@ -13546,7 +13599,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         }
 
-        public List<HouseScanifyEmployeeDetails> GetQREmployeeDetailsList(int userId, string EmpType, int appId, int QrEmpID,bool status)
+        public List<HouseScanifyEmployeeDetails> GetQREmployeeDetailsList(int userId, string EmpType, int appId, int QrEmpID, bool status)
         {
             List<HouseScanifyEmployeeDetails> obj = new List<HouseScanifyEmployeeDetails>();
             try
@@ -13603,7 +13656,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                     }
 
-                    return obj.OrderByDescending(c=>c.qrEmpId).ToList();
+                    return obj.OrderByDescending(c => c.qrEmpId).ToList();
                 }
             }
             catch (Exception)
@@ -13619,22 +13672,22 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 List<HouseScanifyDetailsGridRow> obj = new List<HouseScanifyDetailsGridRow>();
                 var data = db.SP_HouseScanify(FromDate, Todate, qrEmpId).ToList();//Select(x => new HouseScanifyDetailsGridRow
-                                                                                 //{
-                                                                                 //    qrEmpId = x.qrEMpId,
-                                                                                 //    qrEmpName = x.qrEmpName,
-                                                                                 //    qrEmpNameMar = x.qrEmpNameMar,
-                                                                                 //    qrEmpMobileNumber = x.qrEmpMobileNumber,
-                                                                                 //    qrEmpAddress = x.qrEmpAddress,
-                                                                                 //    qrEmpLoginId = x.qrEmpLoginId,
-                                                                                 //    qrEmpPassword = x.qrEmpPassword,
-                                                                                 //    isActive = x.isActive,
-                                                                                 //    bloodGroup = x.bloodGroup,
-                                                                                 //    lastModifyDate = x.lastModifyDate,
-                                                                                 //    HouseCount = x.HouseCount,
-                                                                                 //    PointCount = x.PointCount,
-                                                                                 //    DumpCount = x.DumpCount,
-                                                                                 //    LiquidCount = x.LiquidCount,
-                                                                                 //    StreetCount = x.StreetCount,
+                                                                                  //{
+                                                                                  //    qrEmpId = x.qrEMpId,
+                                                                                  //    qrEmpName = x.qrEmpName,
+                                                                                  //    qrEmpNameMar = x.qrEmpNameMar,
+                                                                                  //    qrEmpMobileNumber = x.qrEmpMobileNumber,
+                                                                                  //    qrEmpAddress = x.qrEmpAddress,
+                                                                                  //    qrEmpLoginId = x.qrEmpLoginId,
+                                                                                  //    qrEmpPassword = x.qrEmpPassword,
+                                                                                  //    isActive = x.isActive,
+                                                                                  //    bloodGroup = x.bloodGroup,
+                                                                                  //    lastModifyDate = x.lastModifyDate,
+                                                                                  //    HouseCount = x.HouseCount,
+                                                                                  //    PointCount = x.PointCount,
+                                                                                  //    DumpCount = x.DumpCount,
+                                                                                  //    LiquidCount = x.LiquidCount,
+                                                                                  //    StreetCount = x.StreetCount,
 
 
                 //}).ToList();
@@ -13800,7 +13853,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     QRCodeImage = x.QRCodeImage,
                     ReferanceId = x.ReferanceId,
                     modifiedDate = x.modified.HasValue ? Convert.ToDateTime(x.modified).ToString("dd/MM/yyyy hh:mm tt") : "",
-                    QRStatus=x.QRStatus,
+                    QRStatus = x.QRStatus,
 
 
                 }).ToList();
@@ -13822,7 +13875,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     QRCodeImage = x.QRCodeImage,
                     ReferanceId = x.ReferanceId,
                     modifiedDate = x.lastModifiedDate.HasValue ? Convert.ToDateTime(x.lastModifiedDate).ToString("dd/MM/yyyy hh:mm tt") : "",
-                    QRStatus=x.QRStatus,
+                    QRStatus = x.QRStatus,
 
 
                 }).ToList();
@@ -13949,35 +14002,35 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             //if (isrecord == null)
                             //{
 
-                                //var isrecord1 = db.QrEmployeeMasters.Where(x => x.qrEmpLoginId == obj.qrEmpLoginId && x.isActive == true).FirstOrDefault();
-                                //var isrecord2 = db.UserMasters.Where(x => x.userLoginId == obj.qrEmpLoginId && x.isActive == true).FirstOrDefault();
-                                //if (isrecord1 == null && isrecord2 == null)
-                                //{
+                            //var isrecord1 = db.QrEmployeeMasters.Where(x => x.qrEmpLoginId == obj.qrEmpLoginId && x.isActive == true).FirstOrDefault();
+                            //var isrecord2 = db.UserMasters.Where(x => x.userLoginId == obj.qrEmpLoginId && x.isActive == true).FirstOrDefault();
+                            //if (isrecord1 == null && isrecord2 == null)
+                            //{
 
-                                    model.qrEmpId = obj.qrEmpId;
-                                    model.qrEmpName = obj.qrEmpName;
-                                   // model.qrEmpLoginId = obj.qrEmpLoginId;
-                                    model.qrEmpPassword = obj.qrEmpPassword;
-                                    model.qrEmpMobileNumber = obj.qrEmpMobileNumber;
-                                    model.qrEmpAddress = obj.qrEmpAddress;
-                                    model.type = "Employee";
-                                    model.typeId = 1;
-                                    model.imoNo = obj.imoNo;
-                                    model.bloodGroup = "0";
-                                    model.isActive = obj.isActive;
+                            model.qrEmpId = obj.qrEmpId;
+                            model.qrEmpName = obj.qrEmpName;
+                            // model.qrEmpLoginId = obj.qrEmpLoginId;
+                            model.qrEmpPassword = obj.qrEmpPassword;
+                            model.qrEmpMobileNumber = obj.qrEmpMobileNumber;
+                            model.qrEmpAddress = obj.qrEmpAddress;
+                            model.type = "Employee";
+                            model.typeId = 1;
+                            model.imoNo = obj.imoNo;
+                            model.bloodGroup = "0";
+                            model.isActive = obj.isActive;
 
-                                    db.SaveChanges();
-                                    result.status = "success";
-                                    result.message = "Employee Details Updated successfully";
-                                    result.messageMar = "कर्मचारी तपशील यशस्वीरित्या अद्यतनित केले";
-                                //}
-                                //else
-                                //{
-                                //    result.status = "Error";
-                                //    result.message = "This LoginId Is Already Exist !";
-                                //    result.messageMar = "हे लॉगिनआयडी आधीच अस्तित्वात आहे !";
-                                //    return result;
-                                //}
+                            db.SaveChanges();
+                            result.status = "success";
+                            result.message = "Employee Details Updated successfully";
+                            result.messageMar = "कर्मचारी तपशील यशस्वीरित्या अद्यतनित केले";
+                            //}
+                            //else
+                            //{
+                            //    result.status = "Error";
+                            //    result.message = "This LoginId Is Already Exist !";
+                            //    result.messageMar = "हे लॉगिनआयडी आधीच अस्तित्वात आहे !";
+                            //    return result;
+                            //}
                             //}
                             //else
                             //{
@@ -13986,7 +14039,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             //    result.messageMar = "नाव आधीपासून अस्तित्वात आहे..";
                             //    return result;
                             //}
-                           
+
                         }
                         else
                         {
@@ -14001,7 +14054,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     else
                     {
                         var isrecord = db.QrEmployeeMasters.Where(x => x.qrEmpName == obj.qrEmpName && x.isActive == true).FirstOrDefault();
-                        if(isrecord == null)
+                        if (isrecord == null)
                         {
                             var isrecord1 = db.QrEmployeeMasters.Where(x => x.qrEmpLoginId == obj.qrEmpLoginId && x.isActive == true).FirstOrDefault();
                             var isrecord2 = db.UserMasters.Where(x => x.userLoginId == obj.qrEmpLoginId && x.isActive == true).FirstOrDefault();
@@ -14075,7 +14128,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         var model = db.HouseMasters.Where(c => c.ReferanceId == obj.ReferanceId).FirstOrDefault();
                         if (model != null)
                         {
-                         
+
                             model.QRStatus = obj.QRStatus;
                             model.QRStatusDate = DateTime.Now;
                             db.SaveChanges();
@@ -14142,7 +14195,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                 }
                             }
                         }
-                        
+
 
                     }
 
