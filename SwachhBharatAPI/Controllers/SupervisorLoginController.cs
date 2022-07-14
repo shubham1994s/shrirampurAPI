@@ -631,5 +631,16 @@ namespace SwachhBharatAPI.Controllers
             return objDetail;
         }
 
+
+        [HttpPost]
+        [Route("SupervisorAttendenceCheck")]
+        public Result CheckQrEmployeeAttendence(BigVQREmployeeAttendenceVM obj)
+        {
+            objRep = new Repository();
+            Result objDetail = new Result();
+            objDetail = objRep.CheckSupervisorAttendence(obj);
+            return objDetail;
+        }
+
     }
 }
