@@ -11201,7 +11201,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         result.status = "success";
                         result.message = "Shift started Successfully";
                         result.messageMar = "शिफ्ट सुरू";
-                        result.isAttendenceOff = true;
+                        result.isAttendenceOn = true;
+                        result.isAttendenceOff = false;
                         return result;
                     }
                     else
@@ -11266,7 +11267,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         result.status = "success";
                         result.message = "Shift ended successfully";
                         result.messageMar = "शिफ्ट संपले";
-                        result.isAttendenceOff = false;
+                        result.isAttendenceOn = false;
+                        result.isAttendenceOff = true;
 
                         return result;
                     }
@@ -11309,7 +11311,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         result.status = "success";
                         result.message = "Shift ended successfully";
                         result.messageMar = "शिफ्ट संपले";
-                        result.isAttendenceOff = false;
+                        result.isAttendenceOn = false;
+                        result.isAttendenceOff = true;
                         return result;
                     }
                 }
