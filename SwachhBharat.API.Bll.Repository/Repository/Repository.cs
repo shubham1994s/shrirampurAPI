@@ -4414,10 +4414,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
             {
                 Daily_Attendance attendance = new Daily_Attendance();
-
+            
                 foreach (var x in obj)
                 {
-
+                    var dy = db.DumpYardDetails.Where(c => c.ReferanceId == x.ReferanceId).FirstOrDefault();
                     DateTime Datee = Convert.ToDateTime(cdate);
                     var IsSameRecordLocation = db.Locations.Where(c => c.userId == x.userId && c.datetime == Datee && c.type == null && c.EmployeeType == "D").FirstOrDefault();
                     try
@@ -4452,6 +4452,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                     objdata.endLong = x.startLong;
                                     objdata.OutbatteryStatus = x.batteryStatus;
                                     objdata.totalKm = x.totalKm;
+                                    if(dy!=null)
+                                    { 
+                                    objdata.dyid = dy.dyId;
+                                    }
                                     objdata.EmployeeType = "D";
                                     db.SaveChanges();
                                 }
@@ -4465,6 +4469,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                     objdata.daDate = x.daDate;
                                     objdata.vehicleNumber = x.vehicleNumber;
                                     objdata.vtId = x.vtId;
+                                    if (dy != null)
+                                    {
+                                        objdata.dyid = dy.dyId;
+                                    }
                                     objdata.EmployeeType = "D";
                                     //objdata.daEndDate = x.daEndDate;
 
@@ -4549,6 +4557,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                         OutTime.vehicleNumber = x.vehicleNumber;
                                         OutTime.vtId = x.vtId;
                                         OutTime.EmployeeType = "D";
+                                        if (dy != null)
+                                        {
+                                            OutTime.dyid = dy.dyId;
+                                        }
                                         if (x.daEndDate.Equals(DateTime.MinValue))
                                         {
                                             OutTime.daEndDate = null;
@@ -4623,6 +4635,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                                 db.Daily_Attendance.Add(attendance);
                                             }
                                             OutTime.endTime = (string.IsNullOrEmpty(x.endTime) ? "" : x.endTime);
+                                        }
+                                        if (dy != null)
+                                        {
+                                            attendance.dyid = dy.dyId;
                                         }
                                         if (OutTime == null)
                                         {
