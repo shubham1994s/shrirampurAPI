@@ -24,6 +24,7 @@ namespace SwachhBhart.API.Bll.ViewModels
         public int garbageType { get; set; }
         public string dyId { get; set; }
 
+        public string vqrId { get; set; }
         public string LWId { get; set; }
 
         public string SSId { get; set; }
