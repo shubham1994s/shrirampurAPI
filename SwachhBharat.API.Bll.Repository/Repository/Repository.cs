@@ -11164,7 +11164,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         result.status = "success";
                         result.message = "Shift started Successfully";
                         result.messageMar = "शिफ्ट सुरू";
-                        result.isAttendenceOff = false;
+                        result.isAttendenceOff = true;
                         return result;
                     }
                     else
@@ -11192,7 +11192,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                 try
                 {
-                    HSUR_Daily_Attendance objdata = dbMain.HSUR_Daily_Attendance.Where(c => c.daDate == EntityFunctions.TruncateTime(obj.startDate) && c.userId == obj.qrEmpId && c.ip_address == null && c.login_device == null && (c.endTime == "" || c.endTime == null)).FirstOrDefault();
+                    HSUR_Daily_Attendance objdata = dbMain.HSUR_Daily_Attendance.Where(c => c.daEndDate == EntityFunctions.TruncateTime(obj.endDate) && c.userId == obj.qrEmpId && c.ip_address == null && c.login_device == null && (c.endTime == "" || c.endTime == null)).FirstOrDefault();
                     if (objdata != null)
                     {
 
@@ -11229,7 +11229,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         result.status = "success";
                         result.message = "Shift ended successfully";
                         result.messageMar = "शिफ्ट संपले";
-                        result.isAttendenceOff = true;
+                        result.isAttendenceOff = false;
 
                         return result;
                     }
@@ -11272,7 +11272,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         result.status = "success";
                         result.message = "Shift ended successfully";
                         result.messageMar = "शिफ्ट संपले";
-                        result.isAttendenceOff = true;
+                        result.isAttendenceOff = false;
                         return result;
                     }
                 }
