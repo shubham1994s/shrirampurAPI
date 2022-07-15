@@ -9344,11 +9344,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     foreach (var x in data)
                     {
                         string HouseN = "";
-                        //if (x.houseNumber == null || x.houseNumber == "")
-                        //{
-                        //    HouseN = x.ReferanceId;
-                        //}
-                        //else { HouseN = x.houseNumber; }
+                     
                         obj.Add(new HouseDetailsVM()
                         {
                             houseid = x.ReferanceId,
