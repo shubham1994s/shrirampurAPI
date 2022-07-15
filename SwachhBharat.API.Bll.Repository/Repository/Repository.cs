@@ -9197,6 +9197,12 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 obj = GetAreaHousForStreet(AppId, areaId);
             }
 
+            if (EmpType == "D")
+            {
+                obj = GetDumpList(AppId);
+            }
+
+
             return obj;
 
         }
@@ -9322,6 +9328,35 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         });
                     }
                 }
+
+            }
+            return obj;
+        }
+
+        public List<HouseDetailsVM> GetDumpList(int AppId)
+        {
+            List<HouseDetailsVM> obj = new List<HouseDetailsVM>();
+            using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
+            {
+                var data = db.DumpYardDetails.ToList();
+              
+
+                    foreach (var x in data)
+                    {
+                        string HouseN = "";
+                        //if (x.houseNumber == null || x.houseNumber == "")
+                        //{
+                        //    HouseN = x.ReferanceId;
+                        //}
+                        //else { HouseN = x.houseNumber; }
+                        obj.Add(new HouseDetailsVM()
+                        {
+                            houseid = x.ReferanceId,
+                            houseNumber = x.ReferanceId,
+
+                        });
+                    }
+              
 
             }
             return obj;
