@@ -9343,8 +9343,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                     foreach (var x in data)
                     {
-                        string HouseN = "";
-                     
+                        
                         obj.Add(new HouseDetailsVM()
                         {
                             houseid = x.ReferanceId,
