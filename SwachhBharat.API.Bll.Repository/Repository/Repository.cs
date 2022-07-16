@@ -2889,7 +2889,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 var user = db.UserMasters.Where(c => c.userId == obj.userId && c.EmployeeType == "D").FirstOrDefault();
                 var dy = db.DumpYardDetails.Where(x => x.ReferanceId == obj.ReferanceId).FirstOrDefault();
-
+                if(dy!=null)
+                { 
                 if (type == 0)
                 {
                     if (user.isActive == true)
@@ -2905,6 +2906,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             data.batteryStatus = batteryStatus;
                             data.totalKm = obj.totalKm;
                             data.EmployeeType = "D";
+                            data.vtId = "1";
+                            data.vehicleNumber = "1";
                             if (dy != null)
                             {
                                 data.dyid = dy.dyId;
@@ -2935,6 +2938,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             {
                                 objdata.dyid = dy.dyId;
                             }
+                            objdata.vtId = "1";
+                            objdata.vehicleNumber = "1";
                             db.Daily_Attendance.Add(objdata);
                             string Time2 = obj.startTime;
                             DateTime date2 = DateTime.Parse(Time2, System.Globalization.CultureInfo.CurrentCulture);
@@ -3001,6 +3006,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             objdata.batteryStatus = batteryStatus;
                             objdata.totalKm = obj.totalKm;
                             objdata.EmployeeType = "D";
+                            objdata.vtId = "1";
+                            objdata.vehicleNumber = "1";
                             if (dy != null)
                             {
                                 objdata.dyid = dy.dyId;
@@ -3047,6 +3054,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             objdata2.daEndNote = obj.daEndNote;
                             objdata2.batteryStatus = batteryStatus;
                             objdata2.EmployeeType = "D";
+                            objdata2.vtId = "1";
+                            objdata2.vehicleNumber = "1";
                             if (dy != null)
                             {
                                 objdata2.dyid = dy.dyId;
@@ -3084,6 +3093,16 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         result.emptype = "D";
                         return result;
                     }
+                }
+                }
+
+                else
+                {
+                    result.status = "error";
+                    result.message = "Inavlid Dumpyard Id.. ";
+                    result.messageMar = "अवैध डम्पयार्ड आयडी..";
+                    result.emptype = "D";
+                    return result;
                 }
             }
 
