@@ -2212,8 +2212,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                 }
 
 
-
                                 var locc = db.SP_UserLatLongDetail(x.userId, typeId).FirstOrDefault();
+                             
 
                                 if (locc == null || locc.lat == "" || locc.@long == "")
                                 {
