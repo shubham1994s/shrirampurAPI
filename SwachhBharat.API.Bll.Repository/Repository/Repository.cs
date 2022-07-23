@@ -11217,6 +11217,19 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
                         return result;
                     }
+
+
+                    var darecord = db.Qr_Employee_Daily_Attendance.Where(c => c.startDate == EntityFunctions.TruncateTime(DateTime.Now) && (c.endTime == "" || c.endTime == null)).FirstOrDefault();
+                    var appdetails = dbMain.AppDetails.Where(x => x.AppId == AppId).FirstOrDefault();
+                    if (darecord == null && appdetails.FAQ!= "0")
+                    {
+                      
+                        if (appdetails != null)
+                        {
+                            appdetails.FAQ = "2";
+                            dbMain.SaveChanges();
+                        }
+                    }
                 }
             }
 
