@@ -46,6 +46,12 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         List<SBAUserlocation> GetUserLocation(int appId);
         List<SBArea> GetCollectionArea(int appId, int type, string EmpType);
         List<HouseDetailsVM> GetAreaHouse(int appId, int type, string EmpType);
+
+        List<HouseDetailsVM> GetHouseList(int appId,string EmpType);
+
+        List<HSHouseDetailsGrid> GetHDSLList(int appId, string EmpType,string ReferanceId);
+
+        
         List<GarbagePointDetailsVM> GetAreaPoint(int appId, int type);
 
         // Added Byu Saurabh (26 Apr 2019)

@@ -9248,6 +9248,395 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         }
 
+        public List<HouseDetailsVM> GetHouseList(int appId, string EmpType)
+         {
+            List<HouseDetailsVM> obj = new List<HouseDetailsVM>();
+            if(EmpType == "H")
+            {
+                obj = GetHouseForNormal(appId);
+             }
+            if (EmpType == "L")
+            {
+                obj = GetListForLiquid(appId);
+            }
+           if (EmpType == "S")
+           {
+            obj = GetListForStreet(appId);
+            }
+
+           if (EmpType == "D")
+            {
+           obj = GetListForDump(appId);
+           }
+
+
+              return obj;
+
+        }
+
+        public List<HSHouseDetailsGrid> GetHDSLList(int appId, string EmpType,string ReferanceId)
+        {
+            List<HSHouseDetailsGrid> objDetail = new List<HSHouseDetailsGrid>();
+            if (EmpType == "H")
+            {
+                objDetail = GetHouseDetailsById(appId, ReferanceId);
+            }
+            if (EmpType == "L")
+            {
+                objDetail = GetLiquidDetailsById(appId, ReferanceId);
+            }
+            if (EmpType == "S")
+            {
+                objDetail = GetStreetDetailsById(appId,ReferanceId);
+            }
+
+            if (EmpType == "D")
+            {
+                objDetail = GetDumpYardDetailsById(appId,ReferanceId);
+            }
+          
+
+            return objDetail;
+
+        }
+
+
+        public List<HSHouseDetailsGrid> GetHouseDetailsById( int appId, string ReferanceId)
+        {
+            using (var db = new DevSwachhBharatNagpurEntities(appId))
+            {
+                var data = db.HouseMasters.Where(x => x.ReferanceId == ReferanceId).ToList();
+                List<HSHouseDetailsGrid> obj = new List<HSHouseDetailsGrid>();
+                
+                foreach (var x in data)
+                {
+                    var name = db.QrEmployeeMasters.Where(c => c.qrEmpId == x.userId).Select(c => new { c.qrEmpName }).FirstOrDefault();
+                    if (name != null)
+                    {
+                        string QRCodeImage = "";
+                        var BQI = db.HouseMasters.Where(c => c.ReferanceId == ReferanceId).Select(c => new { c.BinaryQrCodeImage }).FirstOrDefault();
+                        if (BQI.BinaryQrCodeImage != null)
+                        {
+                            QRCodeImage = Convert.ToBase64String(x.BinaryQrCodeImage);
+                        }
+                        if (string.IsNullOrEmpty(QRCodeImage))
+                        {
+                            QRCodeImage = "/Images/default_not_upload.png";
+                        }
+                        else
+                        {
+                            QRCodeImage = "data:image/jpeg;base64," + QRCodeImage;
+                        }
+                        obj.Add(new HSHouseDetailsGrid()
+                        {
+                            houseId = x.houseId,
+                            Name = name.qrEmpName,
+                            Lat = x.houseLat,
+                            Long = x.houseLong,
+                            QRCodeImage = QRCodeImage,
+                            ReferanceId = x.ReferanceId,
+                            modifiedDate = x.modified.HasValue ? Convert.ToDateTime(x.modified).ToString("dd/MM/yyyy hh:mm tt") : "",
+                            QRStatus = x.QRStatus,
+
+
+                        });
+                    }
+                    else
+                    {
+                        obj.Add(new HSHouseDetailsGrid()
+                        {
+                            houseId = x.houseId,
+                            Name = "",
+                            Lat = x.houseLat,
+                            Long = x.houseLong,
+                            QRCodeImage = "",
+                            ReferanceId = x.ReferanceId,
+                            modifiedDate = x.modified.HasValue ? Convert.ToDateTime(x.modified).ToString("dd/MM/yyyy hh:mm tt") : "",
+                            QRStatus = x.QRStatus,
+                        });
+                    }
+
+                }
+                return obj;
+            }
+        }
+
+        public List<HSHouseDetailsGrid> GetDumpYardDetailsById(int appId, string ReferanceId)
+        {
+            using (var db = new DevSwachhBharatNagpurEntities(appId))
+            {
+                var data = db.DumpYardDetails.Where(x => x.ReferanceId == ReferanceId).ToList();
+                List<HSHouseDetailsGrid> obj = new List<HSHouseDetailsGrid>();
+
+                foreach (var x in data)
+                {
+                    var name = db.QrEmployeeMasters.Where(c => c.qrEmpId == x.userId).Select(c => new { c.qrEmpName }).FirstOrDefault();
+                    if (name != null)
+                    {
+                        string QRCodeImage = "";
+                    var BQI = db.DumpYardDetails.Where(c => c.ReferanceId == ReferanceId).Select(c => new { c.BinaryQrCodeImage }).FirstOrDefault();
+                    if (BQI.BinaryQrCodeImage != null)
+                    {
+                        QRCodeImage = Convert.ToBase64String(x.BinaryQrCodeImage);
+                    }
+                    if (string.IsNullOrEmpty(QRCodeImage))
+                    {
+                        QRCodeImage = "/Images/default_not_upload.png";
+                    }
+                    else
+                    {
+                        QRCodeImage = "data:image/jpeg;base64," + QRCodeImage;
+                    }
+                    obj.Add(new HSHouseDetailsGrid()
+                    {           
+                        houseId = x.dyId,
+                        Name = name.qrEmpName,
+                        Lat = x.dyLat,
+                        Long = x.dyLong,
+                        QRCodeImage = QRCodeImage,
+                        ReferanceId = x.ReferanceId,
+                        modifiedDate = x.lastModifiedDate.HasValue ? Convert.ToDateTime(x.lastModifiedDate).ToString("dd/MM/yyyy hh:mm tt") : "",
+                        QRStatus = x.QRStatus,
+
+                    });
+                    }
+                    else
+                    {
+                        obj.Add(new HSHouseDetailsGrid()
+                        {
+                            houseId = x.dyId,
+                            Name = "",
+                            Lat = x.dyLat,
+                            Long = x.dyLong,
+                            QRCodeImage = "",
+                            ReferanceId = x.ReferanceId,
+                            modifiedDate = x.lastModifiedDate.HasValue ? Convert.ToDateTime(x.lastModifiedDate).ToString("dd/MM/yyyy hh:mm tt") : "",
+                            QRStatus = x.QRStatus,
+                        });
+                    }
+                }
+                return obj;
+            }
+        }
+
+        public List<HSHouseDetailsGrid> GetLiquidDetailsById(int appId, string ReferanceId)
+        {
+            using (var db = new DevSwachhBharatNagpurEntities(appId))
+            {
+             
+                var data = db.LiquidWasteDetails.Where(x => x.ReferanceId == ReferanceId).ToList();
+                List<HSHouseDetailsGrid> obj = new List<HSHouseDetailsGrid>();
+
+                foreach (var x in data)
+                {
+                    var name = db.QrEmployeeMasters.Where(c => c.qrEmpId == x.userId).Select(c => new { c.qrEmpName }).FirstOrDefault();
+                        if (name != null)
+                        {
+                            string QRCodeImage = "";
+                    var BQI = db.LiquidWasteDetails.Where(c => c.ReferanceId == ReferanceId).Select(c => new { c.BinaryQrCodeImage }).FirstOrDefault();
+                    if (BQI.BinaryQrCodeImage != null)
+                    {
+                        QRCodeImage = Convert.ToBase64String(x.BinaryQrCodeImage);
+                    }
+                    if (string.IsNullOrEmpty(QRCodeImage))
+                    {
+                        QRCodeImage = "/Images/default_not_upload.png";
+                    }
+                    else
+                    {
+                        QRCodeImage = "data:image/jpeg;base64," + QRCodeImage;
+                    }
+                    obj.Add(new HSHouseDetailsGrid()
+                    {
+                        houseId = x.LWId,
+                        Name = name.qrEmpName,
+                        Lat = x.LWLat,
+                        Long = x.LWLong,
+                        QRCodeImage = QRCodeImage,
+                        ReferanceId = x.ReferanceId,
+                        modifiedDate = x.lastModifiedDate.HasValue ? Convert.ToDateTime(x.lastModifiedDate).ToString("dd/MM/yyyy hh:mm tt") : "",
+                        QRStatus = x.QRStatus,
+                    });
+                    }
+                    else
+                    {
+                        obj.Add(new HSHouseDetailsGrid()
+                        {
+                            houseId = x.LWId,
+                            Name = "",
+                            Lat = x.LWLat,
+                            Long = x.LWLong,
+                            QRCodeImage = "",
+                            ReferanceId = x.ReferanceId,
+                            modifiedDate = x.lastModifiedDate.HasValue ? Convert.ToDateTime(x.lastModifiedDate).ToString("dd/MM/yyyy hh:mm tt") : "",
+                            QRStatus = x.QRStatus,
+                        });
+                    }
+                }
+                return obj;
+            }
+        }
+
+        public List<HSHouseDetailsGrid> GetStreetDetailsById(int appId, string ReferanceId)
+        {
+            using (var db = new DevSwachhBharatNagpurEntities(appId))
+            {
+               
+                var data = db.StreetSweepingDetails.Where(x => x.ReferanceId == ReferanceId).ToList();
+                List<HSHouseDetailsGrid> obj = new List<HSHouseDetailsGrid>();
+
+                foreach (var x in data)
+                {
+                    var name = db.QrEmployeeMasters.Where(c => c.qrEmpId == x.userId).Select(c => new { c.qrEmpName }).FirstOrDefault();
+                    if (name != null)
+                            {
+                                string QRCodeImage = "";
+                    var BQI = db.StreetSweepingDetails.Where(c => c.ReferanceId == ReferanceId).Select(c => new { c.BinaryQrCodeImage }).FirstOrDefault();
+                    if (BQI.BinaryQrCodeImage != null)
+                    {
+                        QRCodeImage = Convert.ToBase64String(x.BinaryQrCodeImage);
+                    }
+                    if (string.IsNullOrEmpty(QRCodeImage))
+                    {
+                        QRCodeImage = "/Images/default_not_upload.png";
+                    }
+                    else
+                    {
+                        QRCodeImage = "data:image/jpeg;base64," + QRCodeImage;
+                    }
+                    obj.Add(new HSHouseDetailsGrid()
+                    {
+                        houseId = x.SSId,
+                        Name = name.qrEmpName,
+                        Lat = x.SSLat,
+                        Long = x.SSLong,
+                        QRCodeImage = QRCodeImage,
+                        ReferanceId = x.ReferanceId,
+                        modifiedDate = x.lastModifiedDate.HasValue ? Convert.ToDateTime(x.lastModifiedDate).ToString("dd/MM/yyyy hh:mm tt") : "",
+                        QRStatus = x.QRStatus,
+                    });
+                    }
+                    else
+                    {
+                        obj.Add(new HSHouseDetailsGrid()
+                        {
+                            houseId = x.SSId,
+                            Name = "",
+                            Lat = x.SSLat,
+                            Long = x.SSLong,
+                            QRCodeImage = "",
+                            ReferanceId = x.ReferanceId,
+                            modifiedDate = x.lastModifiedDate.HasValue ? Convert.ToDateTime(x.lastModifiedDate).ToString("dd/MM/yyyy hh:mm tt") : "",
+                            QRStatus = x.QRStatus,
+                        });
+                    }
+                }
+                return obj;
+            }
+        }
+
+        public List<HouseDetailsVM> GetHouseForNormal(int AppId)
+        {
+            List<HouseDetailsVM> obj = new List<HouseDetailsVM>();
+            using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
+            {
+                var data = db.HouseMasters.Select(x=> new { x.ReferanceId, x.houseNumber }).ToList();
+           
+              
+
+                    foreach (var x in data)
+                    {
+                        string HouseN = "";
+                        if (x.houseNumber == null || x.houseNumber == "")
+                        {
+                            HouseN = x.ReferanceId;
+                        }
+                        else { HouseN = x.houseNumber; }
+                        obj.Add(new HouseDetailsVM()
+                        {
+                            houseid = x.ReferanceId,
+                            houseNumber = HouseN,
+
+                        });
+                    }
+             
+
+            }
+            return obj;
+        }
+
+
+        public List<HouseDetailsVM> GetListForLiquid(int AppId)
+        {
+            List<HouseDetailsVM> obj = new List<HouseDetailsVM>();
+            using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
+            {
+                var data = db.LiquidWasteDetails.Select(x => new { x.ReferanceId }).ToList();
+              
+
+                    foreach (var x in data)
+                    {
+                       
+                        obj.Add(new HouseDetailsVM()
+                        {
+                            houseid = x.ReferanceId,
+                            houseNumber = x.ReferanceId,
+
+                        });
+                    }
+            }
+
+           
+            return obj;
+        }
+
+        public List<HouseDetailsVM> GetListForStreet(int AppId)
+        {
+            List<HouseDetailsVM> obj = new List<HouseDetailsVM>();
+            using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
+            {
+                var data = db.StreetSweepingDetails.Select(x => new { x.ReferanceId }).ToList();
+              
+                    foreach (var x in data)
+                    {
+                      
+                        obj.Add(new HouseDetailsVM()
+                        {
+                            houseid = x.ReferanceId,
+                            houseNumber = x.ReferanceId,
+
+                        });
+                    }
+             
+
+            }
+            return obj;
+        }
+
+        public List<HouseDetailsVM> GetListForDump(int AppId)
+        {
+            List<HouseDetailsVM> obj = new List<HouseDetailsVM>();
+            using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
+            {
+                var data = db.DumpYardDetails.Select(x => new { x.ReferanceId }).ToList();
+
+
+                foreach (var x in data)
+                {
+
+                    obj.Add(new HouseDetailsVM()
+                    {
+                        houseid = x.ReferanceId,
+                        houseNumber = x.ReferanceId,
+
+                    });
+                }
+
+
+            }
+            return obj;
+        }
+
         public List<HouseDetailsVM> GetAreaHouseForNormal(int AppId, int areaId)
         {
             List<HouseDetailsVM> obj = new List<HouseDetailsVM>();

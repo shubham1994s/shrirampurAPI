@@ -642,5 +642,40 @@ namespace SwachhBharatAPI.Controllers
             return objDetail;
         }
 
+
+        [HttpGet]
+        [Route("GetHouseList")]
+        public List<HouseDetailsVM> GetHouseWise()
+        {
+            List<HouseDetailsVM> objDetail = new List<HouseDetailsVM>();
+            objRep = new Repository();
+            IEnumerable<string> headerValue1 = Request.Headers.GetValues("appId");
+            IEnumerable<string> headerValue3 = Request.Headers.GetValues("ListType");
+            var id = headerValue1.FirstOrDefault();
+            int AppId = int.Parse(id);           
+            var EType = headerValue3.FirstOrDefault();
+            var EmpType = EType.Substring(0, 1);      
+            objDetail = objRep.GetHouseList(AppId ,EmpType);
+            return objDetail;
+
+        }
+
+        [HttpGet]
+        [Route("GetAllHDSLDetails")]
+        public List<HSHouseDetailsGrid> GetHouseListById()
+        {           
+            objRep = new Repository();
+            IEnumerable<string> headerValue1 = Request.Headers.GetValues("appId");
+            IEnumerable<string> headerValue3 = Request.Headers.GetValues("ReferanceId");
+            var id = headerValue1.FirstOrDefault();
+            int AppId = int.Parse(id);
+            var EType = headerValue3.FirstOrDefault();
+            var EmpType = EType.Substring(0, 1);
+            var ReferanceId = headerValue3.FirstOrDefault();
+            List<HSHouseDetailsGrid> objDetail = new List<HSHouseDetailsGrid>();
+            objDetail = objRep.GetHDSLList(AppId, EmpType,ReferanceId);
+            return objDetail;
+
+        }
     }
 }
