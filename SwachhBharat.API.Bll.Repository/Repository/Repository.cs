@@ -2191,7 +2191,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             {
                                 result.Add(new SyncResult()
                                 {
-                                    ID = Convert.ToInt32(x.OfflineId),
+                                    OfflineId = Convert.ToInt32(x.OfflineId),
                                     isAttendenceOff = true,
                                     status = "error",
                                     message = "Your duty is currently off, please start again.. ",
@@ -2253,7 +2253,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                         result.Add(new SyncResult()
                         {
-                            ID = Convert.ToInt32(x.OfflineId),
+                            OfflineId = Convert.ToInt32(x.OfflineId),
                             status = "success",
                             message = "Uploaded successfully",
                             messageMar = "सबमिट यशस्वी",
@@ -2272,7 +2272,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     List<SyncResult> objres = new List<SyncResult>();
                     objres.Add(new SyncResult()
                     {
-                        ID = 0,
+                        OfflineId = 0,
                         status = "error",
                         messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..",
                         message = "Something is wrong,Try Again.. ",
@@ -9251,26 +9251,11 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         public List<HouseDetailsVM> GetHouseList(int appId, string EmpType)
          {
             List<HouseDetailsVM> obj = new List<HouseDetailsVM>();
-            if(EmpType == "H")
-            {
-                obj = GetHouseForNormal(appId);
-             }
-            if (EmpType == "L")
-            {
-                obj = GetListForLiquid(appId);
-            }
-           if (EmpType == "S")
-           {
-            obj = GetListForStreet(appId);
-            }
-
-           if (EmpType == "D")
-            {
-           obj = GetListForDump(appId);
-           }
+            obj = GetHouseForNormal(appId, EmpType);
+           
 
 
-              return obj;
+            return obj;
 
         }
 
@@ -9349,7 +9334,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             Name = "",
                             Lat = x.houseLat,
                             Long = x.houseLong,
-                            QRCodeImage = "",
+                            QRCodeImage = "/Images/default_not_upload.png",
                             ReferanceId = x.ReferanceId,
                             modifiedDate = x.modified.HasValue ? Convert.ToDateTime(x.modified).ToString("dd/MM/yyyy hh:mm tt") : "",
                             QRStatus = x.QRStatus,
@@ -9408,7 +9393,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             Name = "",
                             Lat = x.dyLat,
                             Long = x.dyLong,
-                            QRCodeImage = "",
+                            QRCodeImage = "/Images/default_not_upload.png",
                             ReferanceId = x.ReferanceId,
                             modifiedDate = x.lastModifiedDate.HasValue ? Convert.ToDateTime(x.lastModifiedDate).ToString("dd/MM/yyyy hh:mm tt") : "",
                             QRStatus = x.QRStatus,
@@ -9466,7 +9451,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             Name = "",
                             Lat = x.LWLat,
                             Long = x.LWLong,
-                            QRCodeImage = "",
+                            QRCodeImage = "/Images/default_not_upload.png",
                             ReferanceId = x.ReferanceId,
                             modifiedDate = x.lastModifiedDate.HasValue ? Convert.ToDateTime(x.lastModifiedDate).ToString("dd/MM/yyyy hh:mm tt") : "",
                             QRStatus = x.QRStatus,
@@ -9524,7 +9509,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             Name = "",
                             Lat = x.SSLat,
                             Long = x.SSLong,
-                            QRCodeImage = "",
+                            QRCodeImage = "/Images/default_not_upload.png",
                             ReferanceId = x.ReferanceId,
                             modifiedDate = x.lastModifiedDate.HasValue ? Convert.ToDateTime(x.lastModifiedDate).ToString("dd/MM/yyyy hh:mm tt") : "",
                             QRStatus = x.QRStatus,
@@ -9535,16 +9520,13 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             }
         }
 
-        public List<HouseDetailsVM> GetHouseForNormal(int AppId)
+        public List<HouseDetailsVM> GetHouseForNormal(int AppId,string EmpType)
         {
             List<HouseDetailsVM> obj = new List<HouseDetailsVM>();
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
             {
-                var data = db.HouseMasters.Select(x=> new { x.ReferanceId, x.houseNumber }).ToList();
-           
-              
-
-                    foreach (var x in data)
+                   var house = db.HouseMasters.Where(x => x.ReferanceId.Contains(EmpType)).Select(x=> new { x.ReferanceId, x.houseNumber }).ToList();
+                    foreach (var x in house)
                     {
                         string HouseN = "";
                         if (x.houseNumber == null || x.houseNumber == "")
@@ -9559,71 +9541,33 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                         });
                     }
-             
 
-            }
-            return obj;
-        }
-
-
-        public List<HouseDetailsVM> GetListForLiquid(int AppId)
-        {
-            List<HouseDetailsVM> obj = new List<HouseDetailsVM>();
-            using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
-            {
-                var data = db.LiquidWasteDetails.Select(x => new { x.ReferanceId }).ToList();
-              
-
-                    foreach (var x in data)
-                    {
-                       
-                        obj.Add(new HouseDetailsVM()
-                        {
-                            houseid = x.ReferanceId,
-                            houseNumber = x.ReferanceId,
-
-                        });
-                    }
-            }
-
-           
-            return obj;
-        }
-
-        public List<HouseDetailsVM> GetListForStreet(int AppId)
-        {
-            List<HouseDetailsVM> obj = new List<HouseDetailsVM>();
-            using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
-            {
-                var data = db.StreetSweepingDetails.Select(x => new { x.ReferanceId }).ToList();
-              
-                    foreach (var x in data)
-                    {
-                      
-                        obj.Add(new HouseDetailsVM()
-                        {
-                            houseid = x.ReferanceId,
-                            houseNumber = x.ReferanceId,
-
-                        });
-                    }
-             
-
-            }
-            return obj;
-        }
-
-        public List<HouseDetailsVM> GetListForDump(int AppId)
-        {
-            List<HouseDetailsVM> obj = new List<HouseDetailsVM>();
-            using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
-            {
-                var data = db.DumpYardDetails.Select(x => new { x.ReferanceId }).ToList();
-
-
-                foreach (var x in data)
+                var dump = db.DumpYardDetails.Where(x => x.ReferanceId.Contains(EmpType)).Select(x => new { x.ReferanceId }).ToList();
+                foreach (var x in dump)
                 {
+                   
+                    obj.Add(new HouseDetailsVM()
+                    {
+                        houseid = x.ReferanceId,
+                        houseNumber = x.ReferanceId,
 
+                    });
+                }
+
+                var LW = db.LiquidWasteDetails.Where(x => x.ReferanceId.Contains(EmpType)).Select(x => new { x.ReferanceId }).ToList();
+                foreach (var x in LW)
+                {
+                    obj.Add(new HouseDetailsVM()
+                    {
+                        houseid = x.ReferanceId,
+                        houseNumber = x.ReferanceId,
+
+                    });
+                }
+                var SSD = db.StreetSweepingDetails.Where(x => x.ReferanceId.Contains(EmpType)).Select(x => new { x.ReferanceId }).ToList();
+                foreach (var x in SSD)
+                {
+                  
                     obj.Add(new HouseDetailsVM()
                     {
                         houseid = x.ReferanceId,

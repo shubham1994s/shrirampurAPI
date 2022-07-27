@@ -653,9 +653,8 @@ namespace SwachhBharatAPI.Controllers
             IEnumerable<string> headerValue3 = Request.Headers.GetValues("ListType");
             var id = headerValue1.FirstOrDefault();
             int AppId = int.Parse(id);           
-            var EType = headerValue3.FirstOrDefault();
-            var EmpType = EType.Substring(0, 1);      
-            objDetail = objRep.GetHouseList(AppId ,EmpType);
+            var ListType = headerValue3.FirstOrDefault();     
+            objDetail = objRep.GetHouseList(AppId , ListType);
             return objDetail;
 
         }
