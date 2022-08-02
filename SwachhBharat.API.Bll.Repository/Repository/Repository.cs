@@ -5338,13 +5338,13 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
 
             var appdetails = dbMain.AppDetails.Where(c => c.AppId == AppId).FirstOrDefault();
-            using (new TransactionScope(
-                     TransactionScopeOption.Required,
-                     new TransactionOptions
-                     {
-                         IsolationLevel = IsolationLevel.ReadUncommitted
-                     }))
-            {
+            //using (new TransactionScope(
+            //         TransactionScopeOption.Required,
+            //         new TransactionOptions
+            //         {
+            //             IsolationLevel = IsolationLevel.ReadUncommitted
+            //         }))
+            //{
                 using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
                 {
                     string name = "", housemob = "", nameMar = "", addre = "";
@@ -5877,7 +5877,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         return result;
                     }
                 }
-            }
+            //}
         }
 
 
@@ -5890,13 +5890,13 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             HouseMaster dbHouse = new HouseMaster();
 
             var appdetails = dbMain.AppDetails.Where(c => c.AppId == AppId).FirstOrDefault();
-            using (new TransactionScope(
-                     TransactionScopeOption.Required,
-                     new TransactionOptions
-                     {
-                         IsolationLevel = IsolationLevel.ReadUncommitted
-                     }))
-            {
+            //using (new TransactionScope(
+            //         TransactionScopeOption.Required,
+            //         new TransactionOptions
+            //         {
+            //             IsolationLevel = IsolationLevel.ReadUncommitted
+            //         }))
+            //{
                 using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
                 {
                     string name = "", housemob = "", nameMar = "", addre = "";
@@ -6130,7 +6130,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         return result;
                     }
                 }
-            }
+            //}
         }
 
 
@@ -6139,13 +6139,13 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
             CollectionSyncResult result = new CollectionSyncResult();
             var appdetails = dbMain.AppDetails.Where(c => c.AppId == AppId).FirstOrDefault();
-            using (new TransactionScope(
-                     TransactionScopeOption.Required,
-                     new TransactionOptions
-                     {
-                         IsolationLevel = IsolationLevel.ReadUncommitted
-                     }))
-            {
+            //using (new TransactionScope(
+            //         TransactionScopeOption.Required,
+            //         new TransactionOptions
+            //         {
+            //             IsolationLevel = IsolationLevel.ReadUncommitted
+            //         }))
+            //{
                 using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
                 {
                     // GarbageCollectionDetail gcd = new GarbageCollectionDetail();
@@ -6422,7 +6422,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     }
 
                 }
-            }
+            //}
         }
 
 
@@ -6431,13 +6431,13 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
             CollectionSyncResult result = new CollectionSyncResult();
             var appdetails = dbMain.AppDetails.Where(c => c.AppId == AppId).FirstOrDefault();
-            using (new TransactionScope(
-                     TransactionScopeOption.Required,
-                     new TransactionOptions
-                     {
-                         IsolationLevel = IsolationLevel.ReadUncommitted
-                     }))
-            {
+            //using (new TransactionScope(
+            //         TransactionScopeOption.Required,
+            //         new TransactionOptions
+            //         {
+            //             IsolationLevel = IsolationLevel.ReadUncommitted
+            //         }))
+            //{
                 using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
                 {
                     // GarbageCollectionDetail gcd = new GarbageCollectionDetail();
@@ -6717,7 +6717,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     }
 
                 }
-            }
+            //}
         }
 
         private CollectionSyncResult SaveDumpCollectionSyncForStreet(SBGarbageCollectionView obj, int AppId, int type)
@@ -6725,13 +6725,13 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
             CollectionSyncResult result = new CollectionSyncResult();
             var appdetails = dbMain.AppDetails.Where(c => c.AppId == AppId).FirstOrDefault();
-            using (new TransactionScope(
-                     TransactionScopeOption.Required,
-                     new TransactionOptions
-                     {
-                         IsolationLevel = IsolationLevel.ReadUncommitted
-                     }))
-            {
+            //using (new TransactionScope(
+            //         TransactionScopeOption.Required,
+            //         new TransactionOptions
+            //         {
+            //             IsolationLevel = IsolationLevel.ReadUncommitted
+            //         }))
+            //{
                 using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
                 {
                     // GarbageCollectionDetail gcd = new GarbageCollectionDetail();
@@ -7011,7 +7011,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     }
 
                 }
-            }
+            //}
         }
 
         private CollectionSyncResult SaveDumpCollectionSyncForDump(SBGarbageCollectionView obj, int AppId, int type)
@@ -7019,13 +7019,13 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
             CollectionSyncResult result = new CollectionSyncResult();
             var appdetails = dbMain.AppDetails.Where(c => c.AppId == AppId).FirstOrDefault();
-            using (new TransactionScope(
-                     TransactionScopeOption.Required,
-                     new TransactionOptions
-                     {
-                         IsolationLevel = IsolationLevel.ReadUncommitted
-                     }))
-            {
+            //using (new TransactionScope(
+            //         TransactionScopeOption.Required,
+            //         new TransactionOptions
+            //         {
+            //             IsolationLevel = IsolationLevel.ReadUncommitted
+            //         }))
+            //{
                 using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
                 {
                     // GarbageCollectionDetail gcd = new GarbageCollectionDetail();
@@ -7057,7 +7057,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                             //var atten = db.Daily_Attendance.Where(c => c.userId == obj.userId & c.endTime == "" & c.daDate == EntityFunctions.TruncateTime(Dateeee)).FirstOrDefault();
 
-                            var atten = db.Daily_Attendance.Where(c => c.userId == obj.userId & c.daDate == EntityFunctions.TruncateTime(Dateeee)).FirstOrDefault();
+                            var atten = db.Daily_Attendance.Where(c => c.userId == obj.userId & c.daDate == EntityFunctions.TruncateTime(Dateeee) && c.endTime=="").FirstOrDefault();
 
                             if (atten == null)
                             {
@@ -7181,7 +7181,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             gcd.gcDate = Dateeee;
                             gcd.Lat = obj.Lat;
                             gcd.Long = obj.Long;
-                            var atten = db.Daily_Attendance.Where(c => c.userId == obj.userId & c.daDate == EntityFunctions.TruncateTime(Dateeee)).FirstOrDefault();
+                            var atten = db.Daily_Attendance.Where(c => c.userId == obj.userId & c.daDate == EntityFunctions.TruncateTime(Dateeee) && c.endTime=="").FirstOrDefault();
 
                             if (atten == null)
                             {
@@ -7309,7 +7309,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     }
 
                 }
-            }
+            //}
         }
 
         private CollectionSyncResult SaveLiquidCollectionSync(SBGarbageCollectionView obj, int AppId, int type)
@@ -7317,13 +7317,13 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
             CollectionSyncResult result = new CollectionSyncResult();
             var appdetails = dbMain.AppDetails.Where(c => c.AppId == AppId).FirstOrDefault();
-            using (new TransactionScope(
-                     TransactionScopeOption.Required,
-                     new TransactionOptions
-                     {
-                         IsolationLevel = IsolationLevel.ReadUncommitted
-                     }))
-            {
+            //using (new TransactionScope(
+            //         TransactionScopeOption.Required,
+            //         new TransactionOptions
+            //         {
+            //             IsolationLevel = IsolationLevel.ReadUncommitted
+            //         }))
+            //{
                 using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
                 {
                     // GarbageCollectionDetail gcd = new GarbageCollectionDetail();
@@ -7587,7 +7587,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     }
 
                 }
-            }
+            //}
         }
 
         private CollectionSyncResult SaveStreetCollectionSync(SBGarbageCollectionView obj, int AppId, int type)
@@ -7595,13 +7595,13 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             int i = 0;
             CollectionSyncResult result = new CollectionSyncResult();
             var appdetails = dbMain.AppDetails.Where(c => c.AppId == AppId).FirstOrDefault();
-            using (new TransactionScope(
-                     TransactionScopeOption.Required,
-                     new TransactionOptions
-                     {
-                         IsolationLevel = IsolationLevel.ReadUncommitted
-                     }))
-            {
+            //using (new TransactionScope(
+            //         TransactionScopeOption.Required,
+            //         new TransactionOptions
+            //         {
+            //             IsolationLevel = IsolationLevel.ReadUncommitted
+            //         }))
+            //{
                 using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
                 {
                     // GarbageCollectionDetail gcd = new GarbageCollectionDetail();
@@ -7891,7 +7891,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     }
 
                 }
-            }
+            //}
         }
         public CollectionSyncResult SaveUserLocationOfflineSync(SBGarbageCollectionView obj, int AppId, int typeId)
         {
@@ -12179,13 +12179,13 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         {
             Result result = new Result();
             var appdetails = dbMain.AppDetails.Where(c => c.AppId == AppId).FirstOrDefault();
-            using (new TransactionScope(
-                   TransactionScopeOption.Required,
-                   new TransactionOptions
-                   {
-                       IsolationLevel = IsolationLevel.ReadUncommitted
-                   }))
-            {
+            //using (new TransactionScope(
+            //       TransactionScopeOption.Required,
+            //       new TransactionOptions
+            //       {
+            //           IsolationLevel = IsolationLevel.ReadUncommitted
+            //       }))
+            //{
                 using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
                 {
                     try
@@ -12618,7 +12618,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         return result;
                     }
                 }
-            }
+            //}
 
             if (result.status == "success")
             {
