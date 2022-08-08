@@ -179,5 +179,25 @@ namespace SwachhBharatAPI.Controllers
 
         }
 
+        //Bind Vehicle List
+        [HttpGet]
+        [Route("Get/Vehicles")]
+        public List<VehicleList> VehicleList()
+        {
+            objRep = new Repository();
+            IEnumerable<string> headerValue1 = Request.Headers.GetValues("appId");
+            IEnumerable<string> headerValue2 = Request.Headers.GetValues("vehicleTypeId");
+
+            var id = headerValue1.FirstOrDefault();
+            int AppId = int.Parse(id);
+
+            var Vtid = headerValue2.FirstOrDefault();
+            int VehicleTypeId = int.Parse(Vtid);
+
+            List<VehicleList> objDetail = new List<VehicleList>();
+            objDetail = objRep.GetVehicleList(AppId,VehicleTypeId).ToList();
+            return objDetail;
+        }
+
     }
 }

@@ -14789,6 +14789,39 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             return result;
         }
 
+
+        public List<VehicleList> GetVehicleList(int appId, int VehicleTypeId)
+        {
+            List<VehicleList> obj = new List<VehicleList>();
+            try
+            {
+                using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(appId))
+                {
+                    {
+                        var data = db.VehicleRegistrations.Where(c => c.isActive == true && c.vehicleType== VehicleTypeId).ToList();
+                        foreach (var x in data)
+                        {
+                            obj.Add(new VehicleList()
+                            {
+                                VehicleNo = (x.vehicleNo.ToString()),
+                                VehicleId = (x.vehicleId),
+                                TypeId = (x.vehicleType),
+                               
+                            });
+                        }
+                    }
+
+                    return obj.OrderBy(c => c.VehicleId).ToList();
+                }
+            }
+            catch (Exception)
+            {
+                return obj;
+            }
+
+        }
+
+
         #region RFID 
         public Result SaveRfidDetails(string ReaderId, string TagId, string Lat, string Long, string Type, string DT)
         {

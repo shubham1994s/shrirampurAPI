@@ -225,6 +225,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         CollectionSyncResult SaveAddUserRole(UserRoleDetails obj);
 
+        List<VehicleList> GetVehicleList(int appId, int VehicleTypeId);
+
         #region RFID
         Result SaveRfidDetails(string ReaderId, string TagId, string Lat, string Long, string Type, string DT);
         #endregion
