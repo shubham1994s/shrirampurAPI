@@ -16,6 +16,10 @@ namespace SwachhBhart.API.Bll.ViewModels
         public int LiquidCollection { get; set; }
         public int StreetCollection { get; set; }
 
+        public int DumpYardPlantCollection { get; set; }
+
+
+
 
     }
 }

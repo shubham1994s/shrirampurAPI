@@ -18,7 +18,7 @@ namespace SwachhBharatAPI.Dal.DataContexts
     public partial class DevSwachhBharatNagpurEntities : DbContext
     {
         public DevSwachhBharatNagpurEntities(int AppId)
-             : base(SwachhBharatAppConnection.GetConnectionString(AppId))
+               : base(SwachhBharatAppConnection.GetConnectionString(AppId))
         {
         }
 
@@ -547,6 +547,23 @@ namespace SwachhBharatAPI.Dal.DataContexts
                 new ObjectParameter("Appid", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_HouseScanifyDetails_Result>("SP_HouseScanifyDetails", appidParameter);
+        }
+    
+        public virtual ObjectResult<GetAttendenceDetailsTotalDump_Result> GetAttendenceDetailsTotalDump(Nullable<int> userId, Nullable<int> year, Nullable<int> month)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(int));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("month", month) :
+                new ObjectParameter("month", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAttendenceDetailsTotalDump_Result>("GetAttendenceDetailsTotalDump", userIdParameter, yearParameter, monthParameter);
         }
     }
 }

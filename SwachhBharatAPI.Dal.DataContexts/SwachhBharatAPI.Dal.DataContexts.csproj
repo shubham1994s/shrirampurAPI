@@ -140,6 +140,9 @@
     <Compile Include="GarbagePointDetail.cs">
       <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetAttendenceDetailsTotalDump_Result.cs">
+      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetAttendenceDetailsTotalLiquid_Result.cs">
       <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
     </Compile>

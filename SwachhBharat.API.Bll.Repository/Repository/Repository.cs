@@ -8677,6 +8677,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 obj = GetUserWorkForStreet(userId, year, month, appId);
             }
+            if (EmpType == "D")
+            {
+                obj = GetUserWorkForDump(userId, year, month, appId);
+            }
             return obj;
         }
 
@@ -8747,6 +8751,26 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             return obj;
         }
 
+
+        public List<SBWorkDetails> GetUserWorkForDump(int userId, int year, int month, int appId)
+        {
+            List<SBWorkDetails> obj = new List<SBWorkDetails>();
+            using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(appId))
+            {
+                var data = db.GetAttendenceDetailsTotalDump(userId, year, month).ToList();
+                foreach (var x in data)
+                {
+                    obj.Add(new SBWorkDetails()
+                    {
+                        date = Convert.ToDateTime(x.day).ToString("MM-dd-yyy"),
+                        DumpYardPlantCollection = checkIntNull(x.DumpYardPlantCollection.ToString()),
+                    });
+                }
+
+            }
+            return obj;
+        }
+
         public List<SBWorkDetailsHistory> GetUserWorkDetails(DateTime date, int appId, int userId, int languageId)
         {
 
@@ -8756,7 +8780,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 var data = db.GarbageCollectionDetails.Where(c => EntityFunctions.TruncateTime(c.gcDate) == EntityFunctions.TruncateTime(date) && c.userId == userId).OrderByDescending(c => c.gcDate).ToList();
                 foreach (var x in data)
                 {
-                    string housnum = "", area = "", Name = "";
+                    string housnum = "", area = "", Name = "",vNumber = "";
                     var att = db.Daily_Attendance.Where(c => c.daDate == EntityFunctions.TruncateTime(date) && c.userId == userId).FirstOrDefault();
                     if (x.gcType == 1)
                     {
@@ -8893,15 +8917,60 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                     }
 
+                    if (x.gcType == 6)
+                    {
+                        try
+                        {
+                            var vehical = db.Vehical_QR_Master.Where(c => c.vqrId == x.vqrid).FirstOrDefault();
+                            housnum = vehical.ReferanceId;
+                            if (languageId == 1)
+                            {
+                               Name = checkNull(vehical.VehicalType);
+                                //   area = db.TeritoryMasters.Where(c => c.Id == Street.areaId).FirstOrDefault().Area;
+                             //   area= checkNull(vehical.VehicalNumber);
+                                vNumber = checkNull(vehical.VehicalNumber);
+                                // housnum = point.gpId.ToString();
+                            }
+                            else
+                            {
+                                Name = checkNull(vehical.VehicalNumber);
+                             //   area = db.TeritoryMasters.Where(c => c.Id == Street.areaId).FirstOrDefault().AreaMar;
+                                area = checkNull(vehical.VehicalNumber);
+                                //       housnum = point.gpId.ToString();
+                            }
+                        }
+                        catch
+                        {
+                            //housnum = "";
+                            //area = "";
+                        }
+
+                    }
+                    if (x.gcType == 6)
+                    {
+                        obj.Add(new SBWorkDetailsHistory()
+                        {
+                            time = Convert.ToDateTime(x.gcDate).ToString("hh:mm tt"),
+                            Refid = housnum,
+                            name = Name,
+                            vehicleNumber = vNumber,
+                            areaName = area,
+                            type = Convert.ToInt32(x.gcType),
+                        });
+                    }
+                    else
+                    {                 
                     obj.Add(new SBWorkDetailsHistory()
                     {
                         time = Convert.ToDateTime(x.gcDate).ToString("hh:mm tt"),
                         Refid = housnum,
-                        name = Name,
+                        name = Name,                    
                         vehicleNumber = checkNull(x.vehicleNumber),
                         areaName = area,
                         type = Convert.ToInt32(x.gcType),
                     });
+                    }
+
                 }
 
             }
