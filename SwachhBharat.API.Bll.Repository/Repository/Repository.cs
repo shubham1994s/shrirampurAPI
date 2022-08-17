@@ -9387,6 +9387,11 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 obj = GetDumpList(AppId);
             }
 
+            if (EmpType == "V")
+            {
+                obj = GetVehicleList(AppId);
+            }
+
 
             return obj;
 
@@ -9870,6 +9875,30 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         });
                     }
               
+
+            }
+            return obj;
+        }
+
+        public List<HouseDetailsVM> GetVehicleList(int AppId)
+        {
+            List<HouseDetailsVM> obj = new List<HouseDetailsVM>();
+            using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
+            {
+                var data = db.Vehical_QR_Master.ToList();
+
+
+                foreach (var x in data)
+                {
+
+                    obj.Add(new HouseDetailsVM()
+                    {
+                        houseid = x.ReferanceId,
+                        houseNumber = x.ReferanceId,
+
+                    });
+                }
+
 
             }
             return obj;
