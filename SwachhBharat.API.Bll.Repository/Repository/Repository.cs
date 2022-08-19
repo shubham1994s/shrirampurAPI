@@ -14896,14 +14896,14 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(appId))
                 {
                     {
-                        var data = db.VehicleRegistrations.Where(c => c.isActive == true && c.vehicleType== VehicleTypeId).ToList();
+                        var data = db.Vehical_QR_Master.Where(c => c.VehicalType== VehicleTypeId.ToString()).ToList();
                         foreach (var x in data)
                         {
                             obj.Add(new VehicleList()
                             {
-                                VehicleNo = (x.vehicleNo.ToString()),
-                                VehicleId = (x.vehicleId),
-                                TypeId = (x.vehicleType),
+                                VehicleNo = (x.VehicalNumber.ToString()),
+                                VehicleId = (x.vqrId),
+                                TypeId = Convert.ToInt32(x.VehicalType),
                                
                             });
                         }
