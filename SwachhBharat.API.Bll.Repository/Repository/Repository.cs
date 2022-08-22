@@ -14090,7 +14090,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 if (Status == "false")
                 {
-                    var data = dbMain.AppDetails.Where(c => c.IsActive == true && c.AppId != 3088 && c.AppId != 3068).ToList();
+                    var data = dbMain.AppDetails.Where(c => c.IsActive == true && c.AppId != 3088).ToList();
                     foreach (var x in data)
                     {
                         obj.Add(new NameULB()
@@ -14103,7 +14103,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 }
                 else if (Status == "true")
                 {
-                    var data = dbMain.AppDetails.Where(c => c.IsActive == true && c.FAQ != "0" && c.AppId != 3088 && c.AppId != 3068).ToList();
+                    var data = dbMain.AppDetails.Where(c => c.IsActive == true && c.FAQ != "0" && c.AppId != 3088).ToList();
                     foreach (var x in data)
                     {
                         obj.Add(new NameULB()
