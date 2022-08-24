@@ -8086,7 +8086,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             obj.IsIn = IsPointInPolygon(poly, p);
 
 
-            if ((obj.IsIn == true && appdetails.IsAreaActive == true) || (appdetails.IsAreaActive == false))
+            if ((obj.IsIn == true && appdetails.IsAreaActive == true) || (obj.IsIn == false && appdetails.IsAreaActive == false) ||  (obj.IsIn == true && appdetails.IsAreaActive == false))
             {
                 if (obj.IsLocation == false && house != null && appdetails.IsScanNear == true)
                 {
@@ -8199,6 +8199,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
             else
             {
+                result.ID = obj.OfflineID;
                 result.message = "Your outside the area,please go to inside the area.. ";
                 result.messageMar = "तुम्ही क्षेत्राबाहेर आहात.कृपया परिसरात जा..";
                 result.status = "error";
