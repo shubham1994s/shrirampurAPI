@@ -11952,6 +11952,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
             {
                 Qr_Employee_Daily_Attendance attendance = new Qr_Employee_Daily_Attendance();
+
                 foreach (var x in obj)
                 {
                     try
@@ -12807,7 +12808,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         {
             List<CollectionSyncResult> result = new List<CollectionSyncResult>();
             var appdetails = dbMain.AppDetails.Where(c => c.AppId == AppId).FirstOrDefault();
-
+           
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
             {
                 try
@@ -12815,8 +12816,26 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                     foreach (var item in obj)
                     {
+                        coordinates p = new coordinates()
+                        {
+                            lat = Convert.ToDouble(item.Lat),
+                            lng = Convert.ToDouble(item.Long)
+                        };
+                        List<List<coordinates>> lstPoly = new List<List<coordinates>>();
+                        List<coordinates> poly = new List<coordinates>();
+                        AppAreaMapVM ebm = GetEmpBeatMapByUserId(AppId);
+                        lstPoly = ebm.AppAreaLatLong;
+                        int polyId = 0;
+                        if (lstPoly != null && lstPoly.Count > polyId)
+                        {
+                            poly = lstPoly[polyId];
+                        }
 
 
+                        item.IsIn = IsPointInPolygon(poly, p);
+
+                        if((item.IsIn==true && appdetails.IsAreaActive==true) || appdetails.IsAreaActive==false)
+                        { 
                         if (item.gcType == 5)
                         {
                             var dump = db.StreetSweepingDetails.Where(x => x.ReferanceId == item.ReferanceId).FirstOrDefault();
@@ -13204,6 +13223,17 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                 });
                             }
 
+                        }
+                        }
+                        else
+                        {
+                            result.Add(new CollectionSyncResult()
+                            {
+                               ID = Convert.ToInt32(item.OfflineId),
+                               status = "Error",
+                               message = "Your outside the area,please go to inside the area.. ",
+                               messageMar = "तुम्ही क्षेत्राबाहेर आहात.कृपया परिसरात जा.."
+                        });
                         }
                     }
 
