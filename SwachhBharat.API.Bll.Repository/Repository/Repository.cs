@@ -8178,19 +8178,23 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 {
                     result.message = "You Are Not In Nearby.";
                     result.messageMar = "आपण जवळपास नाही.";
+                    result.AppAreaLatLong = appdetails.AppAreaLatLong;
                 }
 
                 if (obj.IsLocation == false && obj.EmpType == "N" && result.status == "success")
                 {
                     appdetails.Today_Waste_Status = true;
+                    result.AppAreaLatLong = appdetails.AppAreaLatLong;
                 }
                 if (obj.IsLocation == false && obj.EmpType == "L" && result.status == "success")
                 {
                     appdetails.Today_Liquid_Status = true;
+                    result.AppAreaLatLong = appdetails.AppAreaLatLong;
                 }
                 if (obj.IsLocation == false && obj.EmpType == "S" && result.status == "success")
                 {
                     appdetails.Today_Street_Status = true;
+                    result.AppAreaLatLong = appdetails.AppAreaLatLong;
 
                 }
                 dbMain.SaveChanges();
@@ -8203,6 +8207,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 result.message = "Your outside the area,please go to inside the area.. ";
                 result.messageMar = "तुम्ही क्षेत्राबाहेर आहात.कृपया परिसरात जा..";
                 result.status = "error";
+                result.AppAreaLatLong = appdetails.AppAreaLatLong;
                 return result;
             }
 
