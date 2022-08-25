@@ -25,7 +25,7 @@ namespace SwachhBhart.API.Bll.ViewModels
         public string messageMar { get; set; }
         public bool isAttendenceOff { get; set; }
 
-        public string AppAreaLatLong { get; set; }
+       
 
     }
 
@@ -37,4 +37,10 @@ namespace SwachhBhart.API.Bll.ViewModels
         public string messageMar { get; set; }
     }
 
+    public class CollectionAppAreaLatLong
+    {
+        public int AppId { get; set; }
+        public string AppAreaLatLong { get; set; }
+       
+    }
 }

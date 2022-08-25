@@ -25,7 +25,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         List<SBAAttendenceSettingsGridRow> SaveAttendenceSettingsDetail(int AppId, string hour);
         List<SBUserAttendenceView> GetUserAttendence(DateTime fdate, int appId, int userId);
-
+        CollectionAppAreaLatLong GetAppAreaLatLong(int appId);
+        
         SyncResult2 GetUserMobileIdentification(int appId, int userId, bool isSync, int batteryStatus, string imeinos);
 
         List<SBWorkDetails> GetUserWork(int userid, int year, int month, int appId, string EmpType);
