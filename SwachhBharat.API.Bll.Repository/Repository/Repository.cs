@@ -8632,7 +8632,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 var data = db.AppDetails.Where(c => c.AppId == appId).FirstOrDefault();
 
                 obj.AppId = appId;
-                obj.AppAreaLatLong = data.AppAreaLatLong;            
+                obj.AppAreaLatLong = data.AppAreaLatLong;
+                obj.IsAreaActive= data.IsAreaActive;
                    
             }
             return obj;

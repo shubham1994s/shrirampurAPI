@@ -41,6 +41,9 @@ namespace SwachhBhart.API.Bll.ViewModels
     {
         public int AppId { get; set; }
         public string AppAreaLatLong { get; set; }
-       
+
+        public bool ? IsAreaActive { get; set; }
+
+
     }
 }
