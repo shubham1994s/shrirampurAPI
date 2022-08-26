@@ -316,9 +316,6 @@
     <Compile Include="Vehical_QR_Master.cs">
       <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
     </Compile>
-    <Compile Include="VehicleRegistration.cs">
-      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
-    </Compile>
     <Compile Include="VehicleType.cs">
       <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
     </Compile>

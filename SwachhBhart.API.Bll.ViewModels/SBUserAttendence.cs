@@ -31,11 +31,13 @@ namespace SwachhBhart.API.Bll.ViewModels
         //public int type { get; set; }
 
         public string ReferanceId { get; set; }
-        public int dyId { get; set; }
+  
 
         public string BinaryQrCodeImage { get; set; }
 
-        public int Houseid { get; set; }
+        public string QrCodeImage { get; set; }
+
+      
 
 
     }

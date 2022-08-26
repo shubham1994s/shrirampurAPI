@@ -3344,7 +3344,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 
                 foreach (var x in obj)
                 {
-                    var housedetail = db.HouseMasters.Where(c => c.ReferanceId == x.ReferanceId).FirstOrDefault();
+                    var Vehicaldetail = db.Vehical_QR_Master.Where(c => c.ReferanceId == x.ReferanceId).FirstOrDefault();
                     DateTime Datee = Convert.ToDateTime(cdate);
                     var IsSameRecordLocation = db.Locations.Where(c => c.userId == x.userId && c.datetime == Datee && c.type == null && c.EmployeeType == null).FirstOrDefault();
                     try
@@ -3371,7 +3371,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             {
 
                                 var objdata = db.Daily_Attendance.Where(c => c.daDate == EntityFunctions.TruncateTime(x.daDate) && c.userId == x.userId && (c.endTime == "" || c.endTime == null) && c.EmployeeType == null).FirstOrDefault();
-                                if (objdata != null && x.endTime == null)
+                                if (objdata != null && string.IsNullOrEmpty(x.endTime))
                                 {
                                     objdata.endTime = x.startTime;
                                     objdata.daEndDate = x.daDate;
@@ -3380,14 +3380,14 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                     objdata.OutbatteryStatus = x.batteryStatus;
                                     objdata.totalKm = x.totalKm;
                                     objdata.EmployeeType = null;
-                                    if ((string.IsNullOrEmpty(objdata.QrCodeImage)) == false)
+                                    if ((string.IsNullOrEmpty(x.QrCodeImage)) == false)
                                     {
-                                        objdata.QrCodeImage = objdata.QrCodeImage.Replace("data:image/jpeg;base64,", "");
-                                        objdata.BinaryQrCodeImage = Convert.FromBase64String(objdata.QrCodeImage);
+                                        x.QrCodeImage = x.QrCodeImage.Replace("data:image/jpeg;base64,", "");
+                                        objdata.BinaryQrCodeImage = Convert.FromBase64String(x.QrCodeImage);
                                     }
-                                    if(housedetail != null)
+                                    if(Vehicaldetail != null)
                                     {
-                                        objdata.Houseid = housedetail.houseId;
+                                        objdata.VQRId = Vehicaldetail.vqrId;
                                     }
                                    
                                     db.SaveChanges();
@@ -3400,8 +3400,12 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                     objdata.startLong = x.startLong;
                                     objdata.startTime = x.startTime;
                                     objdata.daDate = x.daDate;
-                                    objdata.vehicleNumber = x.vehicleNumber;
-                                    objdata.vtId = x.vtId;
+                                   
+                                    if (Vehicaldetail != null)
+                                    {
+                                        objdata.vehicleNumber = Vehicaldetail.VehicalNumber;
+                                        objdata.vtId = Vehicaldetail.VehicalType;
+                                    }
                                     objdata.EmployeeType = null;
                                   
                                     //objdata.daEndDate = x.daEndDate;
@@ -3433,23 +3437,23 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                     objdata.daEndNote = x.daEndNote;
                                     objdata.OutbatteryStatus = x.batteryStatus;
                                     //  objdata.batteryStatus = x.batteryStatus;
-                                    if (objdata != null && x.endTime == null)
+                                    if (objdata != null && string.IsNullOrEmpty(x.endTime))
                                     {
-                                        if ((string.IsNullOrEmpty(objdata.QrCodeImage)) == false)
+                                        if ((string.IsNullOrEmpty(x.QrCodeImage)) == false)
                                         {
-                                            objdata.QrCodeImage = objdata.QrCodeImage.Replace("data:image/jpeg;base64,", "");
-                                            objdata.BinaryQrCodeImage = Convert.FromBase64String(objdata.QrCodeImage);
+                                            x.QrCodeImage = x.QrCodeImage.Replace("data:image/jpeg;base64,", "");
+                                            objdata.BinaryQrCodeImage = Convert.FromBase64String(x.QrCodeImage);
                                         }
-                                        if (housedetail != null)
+                                        if (Vehicaldetail != null)
                                         {
-                                            objdata.Houseid = housedetail.houseId;
+                                            objdata.VQRId = Vehicaldetail.vqrId;
                                         }
 
                                         db.Daily_Attendance.Add(objdata);
                                     }
                                     _IsInSync = true;
 
-                                    if (x.endLat != null && x.endLong != null && IsSameRecordLocation == null)
+                                    if ((!string.IsNullOrEmpty(x.endLat)) && (!string.IsNullOrEmpty(x.endLong)) && IsSameRecordLocation == null)
                                     {
                                         string Time2 = x.endTime;
                                         DateTime date2 = DateTime.Parse(Time2, System.Globalization.CultureInfo.CurrentCulture);
@@ -3536,18 +3540,22 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                         attendance.startLong = x.startLong;
                                         attendance.startTime = x.startTime;
                                         attendance.daDate = x.daDate;
-                                        attendance.vehicleNumber = x.vehicleNumber;
-                                        attendance.vtId = x.vtId;
+                                      
+                                        if (Vehicaldetail != null)
+                                        {
+                                            attendance.vtId = Vehicaldetail.VehicalType;
+                                            attendance.vehicleNumber = Vehicaldetail.VehicalNumber;
+                                        }
                                         attendance.EmployeeType = null;
 
-                                        if ((string.IsNullOrEmpty(attendance.QrCodeImage)) == false)
+                                        if ((string.IsNullOrEmpty(x.QrCodeImage)) == false)
                                         {
-                                            attendance.QrCodeImage = attendance.QrCodeImage.Replace("data:image/jpeg;base64,", "");
-                                            attendance.BinaryQrCodeImage = Convert.FromBase64String(attendance.QrCodeImage);
+                                            x.QrCodeImage = x.QrCodeImage.Replace("data:image/jpeg;base64,", "");
+                                            attendance.BinaryQrCodeImage = Convert.FromBase64String(x.QrCodeImage);
                                         }
-                                        if (housedetail != null)
+                                        if (Vehicaldetail != null)
                                         {
-                                            attendance.Houseid = housedetail.houseId;
+                                            attendance.VQRId = Vehicaldetail.vqrId;
                                         }
                                         if (x.daEndDate.Equals(DateTime.MinValue))
                                         {
