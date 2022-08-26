@@ -33,5 +33,15 @@ namespace SwachhBharatAPI.Dal.DataContexts
         public string OutbatteryStatus { get; set; }
         public string EmployeeType { get; set; }
         public Nullable<int> dyid { get; set; }
+
+        public Nullable<int> Houseid { get; set; }
+
+        public byte[] BinaryQrCodeImage { get; set; }
+
+
+        public string QrCodeImage { get; set; }
+
+
+
     }
 }

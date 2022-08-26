@@ -200,8 +200,8 @@
           <Property Name="QRCodeImage" Type="nvarchar(max)" />
           <Property Name="OccupancyStatus" Type="nvarchar(max)" />
           <Property Name="Property_Type" Type="nvarchar(max)" />
+          <Property Name="QRStatus" Type="nvarchar" MaxLength="50" />
           <Property Name="QRStatusDate" Type="datetime" />
-          <Property Name="QRStatus" Type="bit" />
           <Property Name="BinaryQrCodeImage" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="LiquidWasteDetails">
@@ -305,6 +305,8 @@
           <Property Name="target" Type="varchar" MaxLength="250" />
           <Property Name="lastModifyDate" Type="datetime" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.SauchalayAddress' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="SauchalayAddress">
           <Key>
             <PropertyRef Name="Id" />
@@ -400,16 +402,6 @@
           <Property Name="RFIDTagId" Type="nvarchar" MaxLength="255" />
           <Property Name="VehicalType" Type="varchar" MaxLength="10" />
           <Property Name="Property_Type" Type="nvarchar(max)" />
-        </EntityType>
-        <EntityType Name="VehicleRegistration">
-          <Key>
-            <PropertyRef Name="vehicleId" />
-          </Key>
-          <Property Name="vehicleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="vehicleType" Type="int" />
-          <Property Name="vehicleNo" Type="nvarchar" MaxLength="300" />
-          <Property Name="areaId" Type="int" />
-          <Property Name="isActive" Type="bit" />
         </EntityType>
         <EntityType Name="VehicleType">
           <Key>
@@ -544,6 +536,8 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Name="bloodGroup" Type="nvarchar" MaxLength="250" />
           <Property Name="isActive" Type="bit" />
           <Property Name="gcTarget" Type="varchar" MaxLength="250" />
+          <Property Name="EmployeeType" Type="varchar" MaxLength="10" />
+          <Property Name="imoNo2" Type="nvarchar(max)" />
         </EntityType>
         <Function Name="CollecctionArea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="type" Type="int" Mode="In" />
@@ -559,11 +553,6 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Parameter Name="UserId" Type="int" Mode="In" />
         </Function>
         <Function Name="GetAttendenceDetailsTotal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="userId" Type="int" Mode="In" />
-          <Parameter Name="year" Type="int" Mode="In" />
-          <Parameter Name="month" Type="int" Mode="In" />
-        </Function>
-        <Function Name="GetAttendenceDetailsTotalDump" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userId" Type="int" Mode="In" />
           <Parameter Name="year" Type="int" Mode="In" />
           <Parameter Name="month" Type="int" Mode="In" />
@@ -704,13 +693,11 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <EntitySet Name="Qr_Employee_Daily_Attendance" EntityType="Self.Qr_Employee_Daily_Attendance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Qr_Location" EntityType="Self.Qr_Location" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QrEmployeeMaster" EntityType="Self.QrEmployeeMaster" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SauchalayAddress" EntityType="Self.SauchalayAddress" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StreetSweepingBeat" EntityType="Self.StreetSweepingBeat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StreetSweepingDetails" EntityType="Self.StreetSweepingDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TeritoryMaster" EntityType="Self.TeritoryMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserMaster" EntityType="Self.UserMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vehical_QR_Master" EntityType="Self.Vehical_QR_Master" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="VehicleRegistration" EntityType="Self.VehicleRegistration" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VehicleType" EntityType="Self.VehicleType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WardNumber" EntityType="Self.WardNumber" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WM_Garbage_Details" EntityType="Self.WM_Garbage_Details" Schema="dbo" store:Type="Tables" />
@@ -719,6 +706,20 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <EntitySet Name="WM_GarbageCategory" EntityType="Self.WM_GarbageCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WM_GarbageSubCategory" EntityType="Self.WM_GarbageSubCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ZoneMaster" EntityType="Self.ZoneMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SauchalayAddress" EntityType="Self.SauchalayAddress" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SauchalayAddress].[Id] AS [Id], 
+    [SauchalayAddress].[SauchalayID] AS [SauchalayID], 
+    [SauchalayAddress].[Address] AS [Address], 
+    [SauchalayAddress].[CreatedDate] AS [CreatedDate], 
+    [SauchalayAddress].[Lat] AS [Lat], 
+    [SauchalayAddress].[Long] AS [Long], 
+    [SauchalayAddress].[Name] AS [Name], 
+    [SauchalayAddress].[ImageUrl] AS [ImageUrl], 
+    [SauchalayAddress].[QrImageUrl] AS [QrImageUrl], 
+    [SauchalayAddress].[Mobile] AS [Mobile]
+    FROM [dbo].[SauchalayAddress] AS [SauchalayAddress]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Vw_BitCount" EntityType="Self.Vw_BitCount" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Vw_BitCount].[BeatId] AS [BeatId], 
@@ -763,7 +764,9 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
     [Vw_MsgNotification].[imoNo] AS [imoNo], 
     [Vw_MsgNotification].[bloodGroup] AS [bloodGroup], 
     [Vw_MsgNotification].[isActive] AS [isActive], 
-    [Vw_MsgNotification].[gcTarget] AS [gcTarget]
+    [Vw_MsgNotification].[gcTarget] AS [gcTarget], 
+    [Vw_MsgNotification].[EmployeeType] AS [EmployeeType], 
+    [Vw_MsgNotification].[imoNo2] AS [imoNo2]
     FROM [dbo].[Vw_MsgNotification] AS [Vw_MsgNotification]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
@@ -945,7 +948,6 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <FunctionImport Name="SP_HouseScanifyDetails" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_HouseScanifyDetails_Result)">
           <Parameter Name="Appid" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="Daily_Attendance" EntityType="DevSwachhBharatNagpurModel.Daily_Attendance" />
           <EntitySet Name="Vehical_QR_Master" EntityType="DevSwachhBharatNagpurModel.Vehical_QR_Master" />
           <EntitySet Name="VehicleRegistrations" EntityType="DevSwachhBharatNagpurModel.VehicleRegistration" />
           <FunctionImport Name="GetAttendenceDetailsTotalDump" ReturnType="Collection(DevSwachhBharatNagpurModel.GetAttendenceDetailsTotalDump_Result)">
@@ -953,6 +955,7 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
             <Parameter Name="year" Mode="In" Type="Int32" />
             <Parameter Name="month" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Daily_Attendance" EntityType="DevSwachhBharatNagpurModel.Daily_Attendance" />
         </EntityContainer>
         <ComplexType Name="sp_area_Result">
           <Property Type="String" Name="area" Nullable="true" MaxLength="500" />
@@ -1656,6 +1659,8 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Name="bloodGroup" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="isActive" Type="Boolean" />
           <Property Name="gcTarget" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="imoNo2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="DumpYardDetail">
           <Key>
@@ -1800,30 +1805,6 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Type="Int32" Name="TotalStreetUpdated" Nullable="true" />
           <Property Type="Int32" Name="TotalStreetUpdated_CurrentDay" Nullable="true" />
         </ComplexType>
-        <EntityType Name="Daily_Attendance">
-          <Key>
-            <PropertyRef Name="daID" />
-          </Key>
-          <Property Name="daID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="userId" Type="Int32" />
-          <Property Name="startLat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="startLong" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="endLat" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="endLong" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="startTime" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="endTime" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="daDate" Type="DateTime" Precision="0" />
-          <Property Name="daEndDate" Type="DateTime" Precision="0" />
-          <Property Name="vtId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="daStartNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="daEndNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="vehicleNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="batteryStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="totalKm" Type="Int32" />
-          <Property Name="OutbatteryStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="EmployeeType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="dyid" Type="Int32" />
-        </EntityType>
         <EntityType Name="Vehical_QR_Master">
           <Key>
             <PropertyRef Name="vqrId" />
@@ -1854,6 +1835,30 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Type="Int32" Name="userid" Nullable="true" />
           <Property Type="Int32" Name="DumpYardPlantCollection" Nullable="true" />
         </ComplexType>
+        <EntityType Name="Daily_Attendance">
+          <Key>
+            <PropertyRef Name="daID" />
+          </Key>
+          <Property Name="daID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="startLat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="startLong" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="endLat" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="endLong" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="startTime" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="endTime" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="daDate" Type="DateTime" Precision="0" />
+          <Property Name="daEndDate" Type="DateTime" Precision="0" />
+          <Property Name="vtId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="daStartNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="daEndNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="vehicleNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="batteryStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="totalKm" Type="Int32" />
+          <Property Name="OutbatteryStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="dyid" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2671,6 +2676,8 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <EntitySetMapping Name="Vw_MsgNotification">
             <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.Vw_MsgNotification">
               <MappingFragment StoreEntitySet="Vw_MsgNotification">
+                <ScalarProperty Name="imoNo2" ColumnName="imoNo2" />
+                <ScalarProperty Name="EmployeeType" ColumnName="EmployeeType" />
                 <ScalarProperty Name="gcTarget" ColumnName="gcTarget" />
                 <ScalarProperty Name="isActive" ColumnName="isActive" />
                 <ScalarProperty Name="bloodGroup" ColumnName="bloodGroup" />
@@ -2856,6 +2863,22 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Vehical_QR_Master">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.Vehical_QR_Master">
+              <MappingFragment StoreEntitySet="Vehical_QR_Master">
+                <ScalarProperty Name="Property_Type" ColumnName="Property_Type" />
+                <ScalarProperty Name="VehicalType" ColumnName="VehicalType" />
+                <ScalarProperty Name="RFIDTagId" ColumnName="RFIDTagId" />
+                <ScalarProperty Name="lastModifiedEntry" ColumnName="lastModifiedEntry" />
+                <ScalarProperty Name="FCMID" ColumnName="FCMID" />
+                <ScalarProperty Name="modified" ColumnName="modified" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="VehicalQRCode" ColumnName="VehicalQRCode" />
+                <ScalarProperty Name="VehicalNumber" ColumnName="VehicalNumber" />
+                <ScalarProperty Name="vqrId" ColumnName="vqrId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Daily_Attendance">
             <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.Daily_Attendance">
               <MappingFragment StoreEntitySet="Daily_Attendance">
@@ -2881,42 +2904,6 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Vehical_QR_Master">
-            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.Vehical_QR_Master">
-              <MappingFragment StoreEntitySet="Vehical_QR_Master">
-                <ScalarProperty Name="Property_Type" ColumnName="Property_Type" />
-                <ScalarProperty Name="VehicalType" ColumnName="VehicalType" />
-                <ScalarProperty Name="RFIDTagId" ColumnName="RFIDTagId" />
-                <ScalarProperty Name="lastModifiedEntry" ColumnName="lastModifiedEntry" />
-                <ScalarProperty Name="FCMID" ColumnName="FCMID" />
-                <ScalarProperty Name="modified" ColumnName="modified" />
-                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
-                <ScalarProperty Name="VehicalQRCode" ColumnName="VehicalQRCode" />
-                <ScalarProperty Name="VehicalNumber" ColumnName="VehicalNumber" />
-                <ScalarProperty Name="vqrId" ColumnName="vqrId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="VehicleRegistrations">
-            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.VehicleRegistration">
-              <MappingFragment StoreEntitySet="VehicleRegistration">
-                <ScalarProperty Name="isActive" ColumnName="isActive" />
-                <ScalarProperty Name="areaId" ColumnName="areaId" />
-                <ScalarProperty Name="vehicleNo" ColumnName="vehicleNo" />
-                <ScalarProperty Name="vehicleType" ColumnName="vehicleType" />
-                <ScalarProperty Name="vehicleId" ColumnName="vehicleId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GetAttendenceDetailsTotalDump" FunctionName="DevSwachhBharatNagpurModel.Store.GetAttendenceDetailsTotalDump">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.GetAttendenceDetailsTotalDump_Result">
-                <ScalarProperty Name="day" ColumnName="day" />
-                <ScalarProperty Name="userid" ColumnName="userid" />
-                <ScalarProperty Name="DumpYardPlantCollection" ColumnName="DumpYardPlantCollection" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

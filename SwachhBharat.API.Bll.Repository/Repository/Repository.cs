@@ -3341,10 +3341,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
             {
                 Daily_Attendance attendance = new Daily_Attendance();
-
+                
                 foreach (var x in obj)
                 {
-
+                    var housedetail = db.HouseMasters.Where(c => c.ReferanceId == x.ReferanceId).FirstOrDefault();
                     DateTime Datee = Convert.ToDateTime(cdate);
                     var IsSameRecordLocation = db.Locations.Where(c => c.userId == x.userId && c.datetime == Datee && c.type == null && c.EmployeeType == null).FirstOrDefault();
                     try
@@ -3380,6 +3380,16 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                     objdata.OutbatteryStatus = x.batteryStatus;
                                     objdata.totalKm = x.totalKm;
                                     objdata.EmployeeType = null;
+                                    if ((string.IsNullOrEmpty(objdata.QrCodeImage)) == false)
+                                    {
+                                        objdata.QrCodeImage = objdata.QrCodeImage.Replace("data:image/jpeg;base64,", "");
+                                        objdata.BinaryQrCodeImage = Convert.FromBase64String(objdata.QrCodeImage);
+                                    }
+                                    if(housedetail != null)
+                                    {
+                                        objdata.Houseid = housedetail.houseId;
+                                    }
+                                   
                                     db.SaveChanges();
                                 }
                                 if (objdata != null)
@@ -3393,6 +3403,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                     objdata.vehicleNumber = x.vehicleNumber;
                                     objdata.vtId = x.vtId;
                                     objdata.EmployeeType = null;
+                                  
                                     //objdata.daEndDate = x.daEndDate;
 
                                     if (x.daEndDate.Equals(DateTime.MinValue))
@@ -3424,6 +3435,16 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                     //  objdata.batteryStatus = x.batteryStatus;
                                     if (objdata != null && x.endTime == null)
                                     {
+                                        if ((string.IsNullOrEmpty(objdata.QrCodeImage)) == false)
+                                        {
+                                            objdata.QrCodeImage = objdata.QrCodeImage.Replace("data:image/jpeg;base64,", "");
+                                            objdata.BinaryQrCodeImage = Convert.FromBase64String(objdata.QrCodeImage);
+                                        }
+                                        if (housedetail != null)
+                                        {
+                                            objdata.Houseid = housedetail.houseId;
+                                        }
+
                                         db.Daily_Attendance.Add(objdata);
                                     }
                                     _IsInSync = true;
@@ -3476,6 +3497,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                         OutTime.vehicleNumber = x.vehicleNumber;
                                         OutTime.vtId = x.vtId;
                                         OutTime.EmployeeType = null;
+
                                         if (x.daEndDate.Equals(DateTime.MinValue))
                                         {
                                             OutTime.daEndDate = null;
@@ -3517,6 +3539,16 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                         attendance.vehicleNumber = x.vehicleNumber;
                                         attendance.vtId = x.vtId;
                                         attendance.EmployeeType = null;
+
+                                        if ((string.IsNullOrEmpty(attendance.QrCodeImage)) == false)
+                                        {
+                                            attendance.QrCodeImage = attendance.QrCodeImage.Replace("data:image/jpeg;base64,", "");
+                                            attendance.BinaryQrCodeImage = Convert.FromBase64String(attendance.QrCodeImage);
+                                        }
+                                        if (housedetail != null)
+                                        {
+                                            attendance.Houseid = housedetail.houseId;
+                                        }
                                         if (x.daEndDate.Equals(DateTime.MinValue))
                                         {
                                             attendance.daEndDate = null;

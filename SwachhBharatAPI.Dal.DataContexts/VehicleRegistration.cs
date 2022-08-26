@@ -15,7 +15,7 @@ namespace SwachhBharatAPI.Dal.DataContexts
     public partial class VehicleRegistration
     {
         public int vehicleId { get; set; }
-        public int vehicleType { get; set; }
+        public Nullable<int> vehicleType { get; set; }
         public string vehicleNo { get; set; }
         public Nullable<int> areaId { get; set; }
         public Nullable<bool> isActive { get; set; }
