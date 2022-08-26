@@ -2329,7 +2329,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
             {
                 var user = db.UserMasters.Where(c => c.userId == obj.userId && c.EmployeeType == null).FirstOrDefault();
-
+                var Vehicaldetail = db.Vehical_QR_Master.FirstOrDefault();
                 if (type == 0)
                 {
                     if (user.isActive == true)
@@ -2345,6 +2345,21 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             data.batteryStatus = batteryStatus;
                             data.totalKm = obj.totalKm;
                             data.EmployeeType = null;
+                            if ((string.IsNullOrEmpty(obj.QrCodeImage)) == false)
+                            {
+                                obj.QrCodeImage = obj.QrCodeImage.Replace("data:image/jpeg;base64,", "");
+                                data.BinaryQrCodeImage = Convert.FromBase64String(obj.QrCodeImage);
+                            }
+                            if (Vehicaldetail != null)
+                            {
+                                data.VQRId = Vehicaldetail.vqrId;
+                            }
+                            if (Vehicaldetail != null)
+                            {
+                                data.vehicleNumber = Vehicaldetail.VehicalNumber;
+                            }
+
+
                             db.SaveChanges();
                         }
                         try
@@ -2367,6 +2382,19 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             objdata.batteryStatus = batteryStatus;
                             objdata.totalKm = obj.totalKm;
                             objdata.EmployeeType = null;
+                            if ((string.IsNullOrEmpty(obj.QrCodeImage)) == false)
+                            {
+                                obj.QrCodeImage = obj.QrCodeImage.Replace("data:image/jpeg;base64,", "");
+                                data.BinaryQrCodeImage = Convert.FromBase64String(obj.QrCodeImage);
+                            }
+                            if (Vehicaldetail != null)
+                            {
+                                data.VQRId = Vehicaldetail.vqrId;
+                            }
+                            if (Vehicaldetail != null)
+                            {
+                                data.vehicleNumber = Vehicaldetail.VehicalNumber;
+                            }
                             db.Daily_Attendance.Add(objdata);
                             string Time2 = obj.startTime;
                             DateTime date2 = DateTime.Parse(Time2, System.Globalization.CultureInfo.CurrentCulture);
@@ -2433,6 +2461,19 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             objdata.batteryStatus = batteryStatus;
                             objdata.totalKm = obj.totalKm;
                             objdata.EmployeeType = null;
+                            if ((string.IsNullOrEmpty(obj.QrCodeImage)) == false)
+                            {
+                                obj.QrCodeImage = obj.QrCodeImage.Replace("data:image/jpeg;base64,", "");
+                                objdata.BinaryQrCodeImage = Convert.FromBase64String(obj.QrCodeImage);
+                            }
+                            if (Vehicaldetail != null)
+                            {
+                                objdata.VQRId = Vehicaldetail.vqrId;
+                            }
+                            if (Vehicaldetail != null)
+                            {
+                                objdata.vehicleNumber = Vehicaldetail.VehicalNumber;
+                            }
                             //       objdata.endAddress = Address(objdata.endLat + "," + objdata.endLong);
 
                             string Time2 = obj.endTime;
@@ -2475,6 +2516,19 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             objdata2.daEndNote = obj.daEndNote;
                             objdata2.batteryStatus = batteryStatus;
                             objdata2.EmployeeType = null;
+                            if ((string.IsNullOrEmpty(obj.QrCodeImage)) == false)
+                            {
+                                obj.QrCodeImage = obj.QrCodeImage.Replace("data:image/jpeg;base64,", "");
+                                objdata2.BinaryQrCodeImage = Convert.FromBase64String(obj.QrCodeImage);
+                            }
+                            if (Vehicaldetail != null)
+                            {
+                                objdata2.VQRId = Vehicaldetail.vqrId;
+                            }
+                            if (Vehicaldetail != null)
+                            {
+                                objdata2.vehicleNumber = Vehicaldetail.VehicalNumber;
+                            }
                             //       objdata.endAddress = Address(objdata.endLat + "," + objdata.endLong);
                             Location loc = new Location();
                             loc.userId = obj.userId;
