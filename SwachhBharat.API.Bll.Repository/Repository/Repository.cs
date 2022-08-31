@@ -3414,7 +3414,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 
                 foreach (var x in obj)
                 {
-                    var Vehicaldetail = db.Vehical_QR_Master.Where(c => c.ReferanceId == x.ReferanceId).FirstOrDefault();
+                    var Vehicaldetail = db.Vehical_QR_Master.Where(c => c.ReferanceId == x.ReferanceId && c.VehicalType!=null && c.VehicalNumber!=null).FirstOrDefault();
                     DateTime Datee = Convert.ToDateTime(cdate);
                     var IsSameRecordLocation = db.Locations.Where(c => c.userId == x.userId && c.datetime == Datee && c.type == null && c.EmployeeType == null).FirstOrDefault();
                     try
@@ -3459,7 +3459,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                     {
                                         objdata.VQRId = Vehicaldetail.vqrId;
                                     }
-                                   
+                                   else
+                                    {
+                                        objdata.VQRId = null;
+                                    }
                                     db.SaveChanges();
                                 }
                                 if (objdata != null)
@@ -3475,6 +3478,11 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                     {
                                         objdata.vehicleNumber = Vehicaldetail.VehicalNumber;
                                         objdata.vtId = Vehicaldetail.VehicalType;
+                                    }
+                                    else
+                                    {
+                                        objdata.vehicleNumber = x.vehicleNumber;
+                                        objdata.vtId = x.vtId;
                                     }
                                     objdata.EmployeeType = null;
                                   
@@ -3518,7 +3526,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                         {
                                             objdata.VQRId = Vehicaldetail.vqrId;
                                         }
-
+                                        else
+                                        {
+                                            objdata.VQRId = null;
+                                        }
                                         db.Daily_Attendance.Add(objdata);
                                     }
                                     _IsInSync = true;
@@ -3616,6 +3627,11 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                             attendance.vtId = Vehicaldetail.VehicalType;
                                             attendance.vehicleNumber = Vehicaldetail.VehicalNumber;
                                         }
+                                        else
+                                        {
+                                            attendance.vtId = x.vtId;
+                                            attendance.vehicleNumber = x.vehicleNumber;
+                                        }
                                         attendance.EmployeeType = null;
 
                                         if ((string.IsNullOrEmpty(x.QrCodeImage)) == false)
@@ -3626,6 +3642,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                         if (Vehicaldetail != null)
                                         {
                                             attendance.VQRId = Vehicaldetail.vqrId;
+                                        }
+                                        else
+                                        {
+                                            attendance.VQRId = null;
                                         }
                                         if (x.daEndDate.Equals(DateTime.MinValue))
                                         {
