@@ -2353,15 +2353,14 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             if (Vehicaldetail != null)
                             {
                                 data.VQRId = Vehicaldetail.vqrId;
-                            }
-                            if (Vehicaldetail != null)
-                            {
                                 data.vehicleNumber = Vehicaldetail.VehicalNumber;
-                            }
-
-                            if (Vehicaldetail != null)
-                            {
                                 data.vtId = Vehicaldetail.VehicalType;
+                            }
+                           else
+                            {
+                                data.VQRId = null;
+                                data.vehicleNumber = obj.vehicleNumber;
+                                data.vtId = obj.vtId;
                             }
 
                             db.SaveChanges();
@@ -2394,14 +2393,14 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             if (Vehicaldetail != null)
                             {
                                 objdata.VQRId = Vehicaldetail.vqrId;
-                            }
-                            if (Vehicaldetail != null)
-                            {
                                 objdata.vehicleNumber = Vehicaldetail.VehicalNumber;
-                            }
-                            if (Vehicaldetail != null)
-                            {
                                 objdata.vtId = Vehicaldetail.VehicalType;
+                            }
+                          else
+                            {
+                                objdata.VQRId = null;
+                                objdata.vehicleNumber = obj.vehicleNumber;
+                                objdata.vtId = obj.vtId;
                             }
                             db.Daily_Attendance.Add(objdata);
                             string Time2 = obj.startTime;
@@ -2477,14 +2476,14 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             if (Vehicaldetail != null)
                             {
                                 objdata.VQRId = Vehicaldetail.vqrId;
-                            }
-                            if (Vehicaldetail != null)
-                            {
                                 objdata.vehicleNumber = Vehicaldetail.VehicalNumber;
-                            }
-                            if (Vehicaldetail != null)
-                            {
                                 objdata.vtId = Vehicaldetail.VehicalType;
+                            }
+                           else
+                            {
+                                objdata.VQRId = null;
+                                objdata.vehicleNumber = obj.vehicleNumber;
+                                objdata.vtId = obj.vtId;
                             }
                             //       objdata.endAddress = Address(objdata.endLat + "," + objdata.endLong);
 
@@ -2536,15 +2535,16 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             if (Vehicaldetail != null)
                             {
                                 objdata2.VQRId = Vehicaldetail.vqrId;
-                            }
-                            if (Vehicaldetail != null)
-                            {
                                 objdata2.vehicleNumber = Vehicaldetail.VehicalNumber;
-                            }
-                            if (Vehicaldetail != null)
-                            {
                                 objdata2.vtId = Vehicaldetail.VehicalType;
                             }
+                            else
+                            {
+                                objdata2.VQRId = null;
+                                objdata2.vehicleNumber = obj.vehicleNumber;
+                                objdata2.vtId = obj.vtId;
+                            }
+                           
                             //       objdata.endAddress = Address(objdata.endLat + "," + objdata.endLong);
                             Location loc = new Location();
                             loc.userId = obj.userId;
