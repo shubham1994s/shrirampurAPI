@@ -2329,7 +2329,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
             {
                 var user = db.UserMasters.Where(c => c.userId == obj.userId && c.EmployeeType == null).FirstOrDefault();
-                var Vehicaldetail = db.Vehical_QR_Master.FirstOrDefault();
+                var Vehicaldetail = db.Vehical_QR_Master.Where(c=>c.ReferanceId== obj.ReferanceId && c.VehicalNumber!=null && c.VehicalType!=null).FirstOrDefault();
                 if (type == 0)
                 {
                     if (user.isActive == true)
@@ -2359,6 +2359,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                 data.vehicleNumber = Vehicaldetail.VehicalNumber;
                             }
 
+                            if (Vehicaldetail != null)
+                            {
+                                data.vtId = Vehicaldetail.VehicalType;
+                            }
 
                             db.SaveChanges();
                         }
@@ -2385,15 +2389,19 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             if ((string.IsNullOrEmpty(obj.QrCodeImage)) == false)
                             {
                                 obj.QrCodeImage = obj.QrCodeImage.Replace("data:image/jpeg;base64,", "");
-                                data.BinaryQrCodeImage = Convert.FromBase64String(obj.QrCodeImage);
+                                objdata.BinaryQrCodeImage = Convert.FromBase64String(obj.QrCodeImage);
                             }
                             if (Vehicaldetail != null)
                             {
-                                data.VQRId = Vehicaldetail.vqrId;
+                                objdata.VQRId = Vehicaldetail.vqrId;
                             }
                             if (Vehicaldetail != null)
                             {
-                                data.vehicleNumber = Vehicaldetail.VehicalNumber;
+                                objdata.vehicleNumber = Vehicaldetail.VehicalNumber;
+                            }
+                            if (Vehicaldetail != null)
+                            {
+                                objdata.vtId = Vehicaldetail.VehicalType;
                             }
                             db.Daily_Attendance.Add(objdata);
                             string Time2 = obj.startTime;
@@ -2474,6 +2482,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             {
                                 objdata.vehicleNumber = Vehicaldetail.VehicalNumber;
                             }
+                            if (Vehicaldetail != null)
+                            {
+                                objdata.vtId = Vehicaldetail.VehicalType;
+                            }
                             //       objdata.endAddress = Address(objdata.endLat + "," + objdata.endLong);
 
                             string Time2 = obj.endTime;
@@ -2528,6 +2540,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             if (Vehicaldetail != null)
                             {
                                 objdata2.vehicleNumber = Vehicaldetail.VehicalNumber;
+                            }
+                            if (Vehicaldetail != null)
+                            {
+                                objdata2.vtId = Vehicaldetail.VehicalType;
                             }
                             //       objdata.endAddress = Address(objdata.endLat + "," + objdata.endLong);
                             Location loc = new Location();
@@ -10001,12 +10017,12 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             List<HouseDetailsVM> obj = new List<HouseDetailsVM>();
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
             {
-                var data = db.Vehical_QR_Master.ToList();
+                var data = db.Vehical_QR_Master.Where(c=>c.VehicalType!=null && c.VehicalNumber != null).ToList();
 
 
                 foreach (var x in data)
                 {
-
+                    
                     obj.Add(new HouseDetailsVM()
                     {
                         houseid = x.ReferanceId,
