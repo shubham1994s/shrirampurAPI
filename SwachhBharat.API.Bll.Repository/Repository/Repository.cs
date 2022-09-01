@@ -4587,7 +4587,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         {
                             bool _IsInSync = false, _IsOutSync = false;
                             var user = db.UserMasters.Where(c => c.userId == x.userId && c.EmployeeType == "D" || c.EmployeeType == null).FirstOrDefault();
-                            if (user.EmployeeType == "D" && AppId >= 3123)
+                            if ((user.EmployeeType == "D" && AppId >= 3123 ) || (user.EmployeeType == "D" && AppId == 3098)) 
                             {
                                 if (user.isActive == true)
                                 {
