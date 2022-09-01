@@ -12768,7 +12768,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     {
                        
 
-                        if (AppId <= 3124)  // This Condition Only For Old App Only
+                        if ( AppId <= 3123 && AppId!=3098 )  // This Condition Only For Old App Only
                         {
                             obj.IsIn = true;
                             appdetails.IsAreaActive = true;
