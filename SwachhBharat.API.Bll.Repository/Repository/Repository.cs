@@ -720,18 +720,65 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                     }
                 }
-
+                //else if (objEmpMst.isActive == false)
+                //{
+                //    user.userId = 0;
+                //    user.userLoginId = "";
+                //    user.userPassword = "";
+                //    user.status = "error";
+                //    user.gtFeatures = false;
+                //    user.imiNo = "";
+                //    user.EmpType = "";
+                //    user.message = "Contact To Administrator.";
+                //    user.messageMar = "प्रशासकाशी संपर्क साधा.";
+                //}
                 else
                 {
-                    user.userId = 0;
-                    user.userLoginId = "";
-                    user.userPassword = "";
-                    user.status = "error";
-                    user.gtFeatures = false;
-                    user.imiNo = "";
-                    user.message = "UserName or Passward not Match.";
-                    user.EmpType = "";
-                    user.messageMar = "वापरकर्ता नाव किंवा पासवर्ड जुळत नाही.";
+                    var objEmpMst1 = db.QrEmployeeMasters.Where(c => c.qrEmpLoginId == userName & c.qrEmpPassword == password).FirstOrDefault();
+                    var objEmpMst2 = db.UserMasters.Where(c => c.userLoginId == userName & c.userPassword == password).FirstOrDefault();
+                    if (objEmpMst1 != null)
+                    {
+                        if (objEmpMst1.isActive == false)
+                        {
+                            user.userId = 0;
+                            user.userLoginId = "";
+                            user.userPassword = "";
+                            user.status = "error";
+                            user.gtFeatures = false;
+                            user.imiNo = "";
+                            user.EmpType = "";
+                            user.message = "Contact To Administrator.";
+                            user.messageMar = "प्रशासकाशी संपर्क साधा.";
+                        }
+                    }
+                    else if (objEmpMst2 != null)
+                    {
+                        if (objEmpMst2.isActive == false)
+                        {
+                            user.userId = 0;
+                            user.userLoginId = "";
+                            user.userPassword = "";
+                            user.status = "error";
+                            user.gtFeatures = false;
+                            user.imiNo = "";
+                            user.EmpType = "";
+                            user.message = "Contact To Administrator.";
+                            user.messageMar = "प्रशासकाशी संपर्क साधा.";
+                        }
+                    }
+                    else
+                    {
+                        user.userId = 0;
+                        user.userLoginId = "";
+                        user.userPassword = "";
+                        user.status = "error";
+                        user.gtFeatures = false;
+                        user.imiNo = "";
+                        user.message = "UserName or Passward not Match.";
+                        user.EmpType = "";
+                        user.messageMar = "वापरकर्ता नाव किंवा पासवर्ड जुळत नाही.";
+                    }
+
                 }
             }
             return user;
@@ -912,6 +959,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                 else
                 {
+
                     user.userId = 0;
                     user.userLoginId = "";
                     user.userPassword = "";
@@ -4587,7 +4635,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         {
                             bool _IsInSync = false, _IsOutSync = false;
                             var user = db.UserMasters.Where(c => c.userId == x.userId && c.EmployeeType == "D" || c.EmployeeType == null).FirstOrDefault();
-                            if ((user.EmployeeType == "D" && AppId >= 3123 ) || (user.EmployeeType == "D" && AppId == 3098)) 
+                            if ((user.EmployeeType == "D" && AppId >= 3123) || (user.EmployeeType == "D" && AppId == 3098))
                             {
                                 if (user.isActive == true)
                                 {
@@ -8537,7 +8585,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
 
             //  if ((obj.IsIn == true && appdetails.IsAreaActive == true) || (obj.IsIn == false && appdetails.IsAreaActive == false) ||  (obj.IsIn == true && appdetails.IsAreaActive == false))
-            if (appdetails.IsAreaActive == true || appdetails.IsAreaActive == false || appdetails.IsAreaActive==null)
+            if (appdetails.IsAreaActive == true || appdetails.IsAreaActive == false || appdetails.IsAreaActive == null)
             {
                 if (obj.IsLocation == false && house != null && appdetails.IsScanNear == true)
                 {
@@ -12763,12 +12811,17 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 {
                     DateTime Dateeee = DateTime.Now;
                     var atten = db.Qr_Employee_Daily_Attendance.Where(c => c.qrEmpId == obj.userId & c.startDate == EntityFunctions.TruncateTime(Dateeee)).FirstOrDefault();
-
-                    if (atten != null)
+                    var Activeuser = db.QrEmployeeMasters.Where(c => c.qrEmpId == obj.userId).FirstOrDefault();
+                    if (Activeuser.isActive==false)
                     {
-                       
-
-                        if ( AppId <= 3123 && AppId!=3098 )  // This Condition Only For Old App Only
+                        result.message = "Contact To Administrator";
+                        result.messageMar = "प्रशासकाशी संपर्क साधा.";
+                        result.status = "error";
+                        return result;
+                    }
+                    else if (atten != null)
+                    {
+                        if (AppId <= 3123 && AppId != 3098)  // This Condition Only For Old App Only
                         {
                             obj.IsIn = true;
                             appdetails.IsAreaActive = true;
@@ -12791,7 +12844,6 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             }
                             obj.IsIn = IsPointInPolygon(poly, p);
                         }
-
 
                         if ((obj.IsIn == true && appdetails.IsAreaActive == true) || (appdetails.IsAreaActive == false))
                         {
@@ -13274,23 +13326,31 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                     foreach (var item in obj)
                     {
-                        coordinates p = new coordinates()
+                        if (AppId <= 3123 && AppId != 3098)  // This Condition Only For Old App Only
                         {
-                            lat = Convert.ToDouble(item.Lat),
-                            lng = Convert.ToDouble(item.Long)
-                        };
-                        List<List<coordinates>> lstPoly = new List<List<coordinates>>();
-                        List<coordinates> poly = new List<coordinates>();
-                        AppAreaMapVM ebm = GetEmpBeatMapByUserId(AppId);
-                        lstPoly = ebm.AppAreaLatLong;
-                        int polyId = 0;
-                        if (lstPoly != null && lstPoly.Count > polyId)
+                            item.IsIn = true;
+                            appdetails.IsAreaActive = true;
+                        }
+                        else
                         {
-                            poly = lstPoly[polyId];
+                            coordinates p = new coordinates()
+                            {
+                                lat = Convert.ToDouble(item.Lat),
+                                lng = Convert.ToDouble(item.Long)
+                            };
+                            List<List<coordinates>> lstPoly = new List<List<coordinates>>();
+                            List<coordinates> poly = new List<coordinates>();
+                            AppAreaMapVM ebm = GetEmpBeatMapByUserId(AppId);
+                            lstPoly = ebm.AppAreaLatLong;
+                            int polyId = 0;
+                            if (lstPoly != null && lstPoly.Count > polyId)
+                            {
+                                poly = lstPoly[polyId];
+                            }
+                            item.IsIn = IsPointInPolygon(poly, p);
                         }
 
 
-                        item.IsIn = IsPointInPolygon(poly, p);
 
                         if ((item.IsIn == true && appdetails.IsAreaActive == true) || appdetails.IsAreaActive == false)
                         {
