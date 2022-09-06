@@ -77,6 +77,7 @@
           <Property Name="QRStatus" Type="bit" />
           <Property Name="QRStatusDate" Type="datetime" />
           <Property Name="BinaryQrCodeImage" Type="varbinary(max)" />
+          <Property Name="DataEntryDate" Type="datetime" />
         </EntityType>
         <EntityType Name="GamePlayerDetails">
           <Key>
@@ -227,6 +228,7 @@
           <Property Name="QRStatus" Type="bit" />
           <Property Name="QRStatusDate" Type="datetime" />
           <Property Name="BinaryQrCodeImage" Type="varbinary(max)" />
+          <Property Name="DataEntryDate" Type="datetime" />
         </EntityType>
         <EntityType Name="Location">
           <Key>
@@ -355,6 +357,7 @@
           <Property Name="QRStatus" Type="bit" />
           <Property Name="QRStatusDate" Type="datetime" />
           <Property Name="BinaryQrCodeImage" Type="varbinary(max)" />
+          <Property Name="DataEntryDate" Type="datetime" />
         </EntityType>
         <EntityType Name="TeritoryMaster">
           <Key>
@@ -551,6 +554,11 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Parameter Name="UserId" Type="int" Mode="In" />
         </Function>
         <Function Name="GetAttendenceDetailsTotal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="int" Mode="In" />
+          <Parameter Name="year" Type="int" Mode="In" />
+          <Parameter Name="month" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetAttendenceDetailsTotalDump" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userId" Type="int" Mode="In" />
           <Parameter Name="year" Type="int" Mode="In" />
           <Parameter Name="month" Type="int" Mode="In" />
@@ -930,14 +938,14 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <FunctionImport Name="SP_HouseScanifyDetails" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_HouseScanifyDetails_Result)">
           <Parameter Name="Appid" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Daily_Attendance" EntityType="DevSwachhBharatNagpurModel.Daily_Attendance" />
+          <EntitySet Name="Vehical_QR_Master" EntityType="DevSwachhBharatNagpurModel.Vehical_QR_Master" />
+          <EntitySet Name="Vw_MsgNotification" EntityType="DevSwachhBharatNagpurModel.Vw_MsgNotification" />
           <FunctionImport Name="GetAttendenceDetailsTotalDump" ReturnType="Collection(DevSwachhBharatNagpurModel.GetAttendenceDetailsTotalDump_Result)">
             <Parameter Name="userId" Mode="In" Type="Int32" />
             <Parameter Name="year" Mode="In" Type="Int32" />
             <Parameter Name="month" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="Daily_Attendance" EntityType="DevSwachhBharatNagpurModel.Daily_Attendance" />
-          <EntitySet Name="Vehical_QR_Master" EntityType="DevSwachhBharatNagpurModel.Vehical_QR_Master" />
-          <EntitySet Name="Vw_MsgNotification" EntityType="DevSwachhBharatNagpurModel.Vw_MsgNotification" />
         </EntityContainer>
         <ComplexType Name="sp_area_Result">
           <Property Type="String" Name="area" Nullable="true" MaxLength="500" />
@@ -1644,6 +1652,7 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Name="QRStatus" Type="Boolean" />
           <Property Name="QRStatusDate" Type="DateTime" Precision="3" />
           <Property Name="BinaryQrCodeImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="DataEntryDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="LiquidWasteDetail">
           <Key>
@@ -1666,6 +1675,7 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Name="QRStatus" Type="Boolean" />
           <Property Name="QRStatusDate" Type="DateTime" Precision="3" />
           <Property Name="BinaryQrCodeImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="DataEntryDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="StreetSweepingDetail">
           <Key>
@@ -1688,6 +1698,7 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Name="QRStatus" Type="Boolean" />
           <Property Name="QRStatusDate" Type="DateTime" Precision="3" />
           <Property Name="BinaryQrCodeImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="DataEntryDate" Type="DateTime" Precision="3" />
         </EntityType>
         <ComplexType Name="SP_HouseDetailsApp_Result">
           <Property Type="Int32" Name="userId" Nullable="true" />
@@ -1765,11 +1776,6 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Type="Int32" Name="TotalStreetUpdated" Nullable="true" />
           <Property Type="Int32" Name="TotalStreetUpdated_CurrentDay" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="GetAttendenceDetailsTotalDump_Result">
-          <Property Type="DateTime" Name="day" Nullable="true" />
-          <Property Type="Int32" Name="userid" Nullable="true" />
-          <Property Type="Int32" Name="DumpYardPlantCollection" Nullable="true" />
-        </ComplexType>
         <EntityType Name="Daily_Attendance">
           <Key>
             <PropertyRef Name="daID" />
@@ -1831,6 +1837,11 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Name="isActive" Type="Boolean" />
           <Property Name="gcTarget" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
         </EntityType>
+        <ComplexType Name="GetAttendenceDetailsTotalDump_Result">
+          <Property Type="DateTime" Name="day" Nullable="true" />
+          <Property Type="Int32" Name="userid" Nullable="true" />
+          <Property Type="Int32" Name="DumpYardPlantCollection" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2648,6 +2659,7 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <EntitySetMapping Name="DumpYardDetails">
             <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.DumpYardDetail">
               <MappingFragment StoreEntitySet="DumpYardDetails">
+                <ScalarProperty Name="DataEntryDate" ColumnName="DataEntryDate" />
                 <ScalarProperty Name="BinaryQrCodeImage" ColumnName="BinaryQrCodeImage" />
                 <ScalarProperty Name="QRStatusDate" ColumnName="QRStatusDate" />
                 <ScalarProperty Name="QRStatus" ColumnName="QRStatus" />
@@ -2672,6 +2684,7 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <EntitySetMapping Name="LiquidWasteDetails">
             <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.LiquidWasteDetail">
               <MappingFragment StoreEntitySet="LiquidWasteDetails">
+                <ScalarProperty Name="DataEntryDate" ColumnName="DataEntryDate" />
                 <ScalarProperty Name="BinaryQrCodeImage" ColumnName="BinaryQrCodeImage" />
                 <ScalarProperty Name="QRStatusDate" ColumnName="QRStatusDate" />
                 <ScalarProperty Name="QRStatus" ColumnName="QRStatus" />
@@ -2695,6 +2708,7 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <EntitySetMapping Name="StreetSweepingDetails">
             <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.StreetSweepingDetail">
               <MappingFragment StoreEntitySet="StreetSweepingDetails">
+                <ScalarProperty Name="DataEntryDate" ColumnName="DataEntryDate" />
                 <ScalarProperty Name="BinaryQrCodeImage" ColumnName="BinaryQrCodeImage" />
                 <ScalarProperty Name="QRStatusDate" ColumnName="QRStatusDate" />
                 <ScalarProperty Name="QRStatus" ColumnName="QRStatus" />
@@ -2876,6 +2890,15 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetAttendenceDetailsTotalDump" FunctionName="DevSwachhBharatNagpurModel.Store.GetAttendenceDetailsTotalDump">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.GetAttendenceDetailsTotalDump_Result">
+                <ScalarProperty Name="day" ColumnName="day" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="DumpYardPlantCollection" ColumnName="DumpYardPlantCollection" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

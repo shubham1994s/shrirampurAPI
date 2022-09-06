@@ -18,10 +18,9 @@ namespace SwachhBharatAPI.Dal.DataContexts
     public partial class DevSwachhBharatNagpurEntities : DbContext
     {
         public DevSwachhBharatNagpurEntities(int AppId)
-                : base(SwachhBharatAppConnection.GetConnectionString(AppId))
+             : base(SwachhBharatAppConnection.GetConnectionString(AppId))
         {
         }
-
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

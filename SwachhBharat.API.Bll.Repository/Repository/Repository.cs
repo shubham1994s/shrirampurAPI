@@ -9441,11 +9441,15 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     {
                         try
                         {
+                            int vtype = 0;
                             var vehical = db.Vehical_QR_Master.Where(c => c.vqrId == x.vqrid).FirstOrDefault();
                             housnum = vehical.ReferanceId;
                             if (languageId == 1)
                             {
-                                Name = checkNull(vehical.VehicalType);
+                               
+                                vtype = Convert.ToInt32(vehical.VehicalType);
+                                var vehicleType = db.VehicleTypes.Where(c => c.vtId == vtype).FirstOrDefault();
+                                Name = checkNull(vehicleType.description);
                                 //   area = db.TeritoryMasters.Where(c => c.Id == Street.areaId).FirstOrDefault().Area;
                                 //   area= checkNull(vehical.VehicalNumber);
                                 vNumber = checkNull(vehical.VehicalNumber);
@@ -9453,13 +9457,15 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             }
                             else
                             {
-                                Name = checkNull(vehical.VehicalNumber);
+                                vtype = Convert.ToInt32(vehical.VehicalType);
+                                var vehicleType = db.VehicleTypes.Where(c => c.vtId == vtype).FirstOrDefault();
+                                Name = checkNull(vehicleType.description);
                                 //   area = db.TeritoryMasters.Where(c => c.Id == Street.areaId).FirstOrDefault().AreaMar;
                                 area = checkNull(vehical.VehicalNumber);
                                 //       housnum = point.gpId.ToString();
                             }
                         }
-                        catch
+                        catch (Exception ex)
                         {
                             //housnum = "";
                             //area = "";
