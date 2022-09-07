@@ -22,6 +22,7 @@ namespace SwachhBharatAPI.Dal.DataContexts
         {
         }
 
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -260,19 +261,6 @@ namespace SwachhBharatAPI.Dal.DataContexts
                 new ObjectParameter("ReferanceId", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HouseDetails_ReferanceId_Result>("HouseDetails_ReferanceId", referanceIdParameter);
-        }
-    
-        public virtual ObjectResult<SP_UserLatLongDetail_Result> SP_UserLatLongDetail(Nullable<int> userid, Nullable<int> typeId)
-        {
-            var useridParameter = userid.HasValue ?
-                new ObjectParameter("userid", userid) :
-                new ObjectParameter("userid", typeof(int));
-    
-            var typeIdParameter = typeId.HasValue ?
-                new ObjectParameter("typeId", typeId) :
-                new ObjectParameter("typeId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_UserLatLongDetail_Result>("SP_UserLatLongDetail", useridParameter, typeIdParameter);
         }
     
         public virtual ObjectResult<SP_HouseOnMapDetails_Result> SP_HouseOnMapDetails(Nullable<System.DateTime> gcDate, Nullable<int> userId, Nullable<int> zoneId, Nullable<int> areaId, Nullable<int> wardNo, Nullable<int> garbageType, Nullable<int> filterType)
@@ -563,6 +551,19 @@ namespace SwachhBharatAPI.Dal.DataContexts
                 new ObjectParameter("month", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAttendenceDetailsTotalDump_Result>("GetAttendenceDetailsTotalDump", userIdParameter, yearParameter, monthParameter);
+        }
+    
+        public virtual ObjectResult<SP_UserLatLongDetail_Result> SP_UserLatLongDetail(Nullable<int> userid, Nullable<int> typeId)
+        {
+            var useridParameter = userid.HasValue ?
+                new ObjectParameter("userid", userid) :
+                new ObjectParameter("userid", typeof(int));
+    
+            var typeIdParameter = typeId.HasValue ?
+                new ObjectParameter("typeId", typeId) :
+                new ObjectParameter("typeId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_UserLatLongDetail_Result>("SP_UserLatLongDetail", useridParameter, typeIdParameter);
         }
     }
 }

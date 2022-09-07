@@ -834,10 +834,6 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           </FunctionImport>
           <EntitySet Name="DeviceDetails" EntityType="DevSwachhBharatNagpurModel.DeviceDetail" />
           <EntitySet Name="Qr_Location" EntityType="DevSwachhBharatNagpurModel.Qr_Location" />
-          <FunctionImport Name="SP_UserLatLongDetail" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_UserLatLongDetail_Result)">
-            <Parameter Name="userid" Mode="In" Type="Int32" />
-            <Parameter Name="typeId" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="SP_HouseOnMapDetails" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_HouseOnMapDetails_Result)">
             <Parameter Name="gcDate" Mode="In" Type="DateTime" />
             <Parameter Name="UserId" Mode="In" Type="Int32" />
@@ -945,6 +941,10 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
             <Parameter Name="userId" Mode="In" Type="Int32" />
             <Parameter Name="year" Mode="In" Type="Int32" />
             <Parameter Name="month" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_UserLatLongDetail" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_UserLatLongDetail_Result)">
+            <Parameter Name="userid" Mode="In" Type="Int32" />
+            <Parameter Name="typeId" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_area_Result">
@@ -1277,18 +1277,6 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Name="ReferanceID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
         </EntityType>
-        <ComplexType Name="SP_UserLatLongDetail_Result">
-          <Property Type="Int32" Name="locId" Nullable="false" />
-          <Property Type="Int32" Name="userId" Nullable="true" />
-          <Property Type="DateTime" Name="datetime" Nullable="true" Precision="23" />
-          <Property Type="String" Name="lat" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="long" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="address" Nullable="true" />
-          <Property Type="String" Name="area" Nullable="true" MaxLength="500" />
-          <Property Type="Int32" Name="type" Nullable="true" />
-          <Property Type="String" Name="batteryStatus" Nullable="true" MaxLength="20" />
-          <Property Type="Decimal" Name="Distnace" Nullable="true" Precision="6" Scale="2" />
-        </ComplexType>
         <ComplexType Name="SP_HouseOnMapDetails_Result">
           <Property Type="Int32" Name="houseId" Nullable="false" />
           <Property Type="String" Name="ReferanceId" Nullable="true" MaxLength="350" />
@@ -1842,6 +1830,18 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Type="Int32" Name="userid" Nullable="true" />
           <Property Type="Int32" Name="DumpYardPlantCollection" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="SP_UserLatLongDetail_Result">
+          <Property Type="Int32" Name="locId" Nullable="false" />
+          <Property Type="Int32" Name="userId" Nullable="true" />
+          <Property Type="DateTime" Name="datetime" Nullable="true" Precision="23" />
+          <Property Type="String" Name="lat" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="long" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="address" Nullable="true" />
+          <Property Type="String" Name="area" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="type" Nullable="true" />
+          <Property Type="String" Name="batteryStatus" Nullable="true" MaxLength="20" />
+          <Property Type="Decimal" Name="Distnace" Nullable="true" Precision="6" Scale="2" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2257,22 +2257,6 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="SP_UserLatLongDetail" FunctionName="DevSwachhBharatNagpurModel.Store.SP_UserLatLongDetail">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_UserLatLongDetail_Result">
-                <ScalarProperty Name="locId" ColumnName="locId" />
-                <ScalarProperty Name="userId" ColumnName="userId" />
-                <ScalarProperty Name="datetime" ColumnName="datetime" />
-                <ScalarProperty Name="lat" ColumnName="lat" />
-                <ScalarProperty Name="long" ColumnName="long" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="area" ColumnName="area" />
-                <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="batteryStatus" ColumnName="batteryStatus" />
-                <ScalarProperty Name="Distnace" ColumnName="Distnace" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="SP_HouseOnMapDetails" FunctionName="DevSwachhBharatNagpurModel.Store.SP_HouseOnMapDetails">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_HouseOnMapDetails_Result">
@@ -2896,6 +2880,22 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
                 <ScalarProperty Name="day" ColumnName="day" />
                 <ScalarProperty Name="userid" ColumnName="userid" />
                 <ScalarProperty Name="DumpYardPlantCollection" ColumnName="DumpYardPlantCollection" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_UserLatLongDetail" FunctionName="DevSwachhBharatNagpurModel.Store.SP_UserLatLongDetail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_UserLatLongDetail_Result">
+                <ScalarProperty Name="locId" ColumnName="locId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="long" ColumnName="long" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="batteryStatus" ColumnName="batteryStatus" />
+                <ScalarProperty Name="Distnace" ColumnName="Distnace" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
