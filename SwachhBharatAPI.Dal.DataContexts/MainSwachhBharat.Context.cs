@@ -86,5 +86,18 @@ namespace SwachhBharatAPI.Dal.DataContexts
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_UserLatLongDetail_Result>("SP_UserLatLongDetail", useridParameter, typeIdParameter);
         }
+    
+        public virtual ObjectResult<SP_UserLatLongDetailMain_Result> SP_UserLatLongDetailMain(Nullable<int> userid, Nullable<int> typeId)
+        {
+            var useridParameter = userid.HasValue ?
+                new ObjectParameter("userid", userid) :
+                new ObjectParameter("userid", typeof(int));
+    
+            var typeIdParameter = typeId.HasValue ?
+                new ObjectParameter("typeId", typeId) :
+                new ObjectParameter("typeId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_UserLatLongDetailMain_Result>("SP_UserLatLongDetailMain", useridParameter, typeIdParameter);
+        }
     }
 }

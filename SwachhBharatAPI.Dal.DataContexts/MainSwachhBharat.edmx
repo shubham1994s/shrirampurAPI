@@ -310,6 +310,10 @@
           <Parameter Name="userid" Type="int" Mode="In" />
           <Parameter Name="typeId" Type="int" Mode="In" />
         </Function>
+        <Function Name="SP_UserLatLongDetailMain" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userid" Type="int" Mode="In" />
+          <Parameter Name="typeId" Type="int" Mode="In" />
+        </Function>
         <Function Name="Update_Trigger" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="DevSwachhBharatMainModelStoreContainer">
           <EntitySet Name="AdminContact" EntityType="Self.AdminContact" Schema="dbo" store:Type="Tables" />
@@ -366,6 +370,10 @@
             <Parameter Name="dLong" Mode="In" Type="Double" />
           </FunctionImport>
           <FunctionImport Name="SP_UserLatLongDetail" ReturnType="Collection(DevSwachhBharatMainModel.SP_UserLatLongDetail_Result)">
+            <Parameter Name="userid" Mode="In" Type="Int32" />
+            <Parameter Name="typeId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_UserLatLongDetailMain" ReturnType="Collection(DevSwachhBharatMainModel.SP_UserLatLongDetailMain_Result)">
             <Parameter Name="userid" Mode="In" Type="Int32" />
             <Parameter Name="typeId" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -734,6 +742,18 @@
           <Property Type="Decimal" Name="Distance_in_meters" Nullable="true" Precision="10" Scale="4" />
         </ComplexType>
         <ComplexType Name="SP_UserLatLongDetail_Result">
+          <Property Type="Int32" Name="locId" Nullable="false" />
+          <Property Type="Int32" Name="empId" Nullable="true" />
+          <Property Type="DateTime" Name="datetime" Nullable="true" Precision="23" />
+          <Property Type="String" Name="lat" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="long" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="address" Nullable="true" />
+          <Property Type="String" Name="area" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="type" Nullable="true" />
+          <Property Type="String" Name="batteryStatus" Nullable="true" MaxLength="20" />
+          <Property Type="Decimal" Name="Distnace" Nullable="true" Precision="6" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="SP_UserLatLongDetailMain_Result">
           <Property Type="Int32" Name="locId" Nullable="false" />
           <Property Type="Int32" Name="empId" Nullable="true" />
           <Property Type="DateTime" Name="datetime" Nullable="true" Precision="23" />
@@ -1145,6 +1165,22 @@
           <FunctionImportMapping FunctionImportName="SP_UserLatLongDetail" FunctionName="DevSwachhBharatMainModel.Store.SP_UserLatLongDetail">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DevSwachhBharatMainModel.SP_UserLatLongDetail_Result">
+                <ScalarProperty Name="locId" ColumnName="locId" />
+                <ScalarProperty Name="empId" ColumnName="empId" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="long" ColumnName="long" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="batteryStatus" ColumnName="batteryStatus" />
+                <ScalarProperty Name="Distnace" ColumnName="Distnace" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_UserLatLongDetailMain" FunctionName="DevSwachhBharatMainModel.Store.SP_UserLatLongDetailMain">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatMainModel.SP_UserLatLongDetailMain_Result">
                 <ScalarProperty Name="locId" ColumnName="locId" />
                 <ScalarProperty Name="empId" ColumnName="empId" />
                 <ScalarProperty Name="datetime" ColumnName="datetime" />

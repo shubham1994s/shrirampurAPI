@@ -21,8 +21,6 @@ namespace SwachhBharatAPI.Dal.DataContexts
              : base(SwachhBharatAppConnection.GetConnectionString(AppId))
         {
         }
-
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
