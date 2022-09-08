@@ -93,6 +93,12 @@
           <Property Name="VehicalQRCode" Type="nvarchar" MaxLength="250" />
           <Property Name="AppAreaLatLong" Type="nvarchar(max)" />
           <Property Name="IsAreaActive" Type="bit" />
+          <Property Name="Today_HouseScanCount" Type="int" />
+          <Property Name="Today_LiquidScanCount" Type="int" />
+          <Property Name="Today_StreetScanCount" Type="int" />
+          <Property Name="Total_HouseCount" Type="int" />
+          <Property Name="Total_LiquidCount" Type="int" />
+          <Property Name="Total_StreetCount" Type="int" />
         </EntityType>
         <EntityType Name="AspNetUsers">
           <Key>
@@ -300,6 +306,9 @@
           <Property Name="AppId" Type="int" Nullable="false" />
           <Property Name="subscriptionId" Type="int" Nullable="false" />
         </EntityType>
+        <Function Name="DailyScanCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Ulbappid" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="SP_DistanceCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="sLat" Type="float" Mode="In" />
           <Parameter Name="sLong" Type="float" Mode="In" />
@@ -376,6 +385,9 @@
           <FunctionImport Name="SP_UserLatLongDetailMain" ReturnType="Collection(DevSwachhBharatMainModel.SP_UserLatLongDetailMain_Result)">
             <Parameter Name="userid" Mode="In" Type="Int32" />
             <Parameter Name="typeId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DailyScanCount" ReturnType="Collection(Int32)">
+            <Parameter Name="Ulbappid" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="GoogleAPIDetail">
@@ -604,6 +616,12 @@
           <Property Name="VehicalQRCode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="AppAreaLatLong" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsAreaActive" Type="Boolean" />
+          <Property Name="Today_HouseScanCount" Type="Int32" />
+          <Property Name="Today_LiquidScanCount" Type="Int32" />
+          <Property Name="Today_StreetScanCount" Type="Int32" />
+          <Property Name="Total_HouseCount" Type="Int32" />
+          <Property Name="Total_LiquidCount" Type="Int32" />
+          <Property Name="Total_StreetCount" Type="Int32" />
         </EntityType>
         <EntityType Name="tehsil">
           <Key>
@@ -946,6 +964,12 @@
           <EntitySetMapping Name="AppDetails">
             <EntityTypeMapping TypeName="DevSwachhBharatMainModel.AppDetail">
               <MappingFragment StoreEntitySet="AppDetails">
+                <ScalarProperty Name="Total_StreetCount" ColumnName="Total_StreetCount" />
+                <ScalarProperty Name="Total_LiquidCount" ColumnName="Total_LiquidCount" />
+                <ScalarProperty Name="Total_HouseCount" ColumnName="Total_HouseCount" />
+                <ScalarProperty Name="Today_StreetScanCount" ColumnName="Today_StreetScanCount" />
+                <ScalarProperty Name="Today_LiquidScanCount" ColumnName="Today_LiquidScanCount" />
+                <ScalarProperty Name="Today_HouseScanCount" ColumnName="Today_HouseScanCount" />
                 <ScalarProperty Name="IsAreaActive" ColumnName="IsAreaActive" />
                 <ScalarProperty Name="AppAreaLatLong" ColumnName="AppAreaLatLong" />
                 <ScalarProperty Name="VehicalQRCode" ColumnName="VehicalQRCode" />
@@ -1194,6 +1218,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DailyScanCount" FunctionName="DevSwachhBharatMainModel.Store.DailyScanCount" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

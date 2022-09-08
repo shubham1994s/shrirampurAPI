@@ -99,5 +99,14 @@ namespace SwachhBharatAPI.Dal.DataContexts
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_UserLatLongDetailMain_Result>("SP_UserLatLongDetailMain", useridParameter, typeIdParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> DailyScanCount(string ulbappid)
+        {
+            var ulbappidParameter = ulbappid != null ?
+                new ObjectParameter("Ulbappid", ulbappid) :
+                new ObjectParameter("Ulbappid", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("DailyScanCount", ulbappidParameter);
+        }
     }
 }

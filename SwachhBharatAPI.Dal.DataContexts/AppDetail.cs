@@ -79,5 +79,11 @@ namespace SwachhBharatAPI.Dal.DataContexts
         public string VehicalQRCode { get; set; }
         public string AppAreaLatLong { get; set; }
         public Nullable<bool> IsAreaActive { get; set; }
+        public Nullable<int> Today_HouseScanCount { get; set; }
+        public Nullable<int> Today_LiquidScanCount { get; set; }
+        public Nullable<int> Today_StreetScanCount { get; set; }
+        public Nullable<int> Total_HouseCount { get; set; }
+        public Nullable<int> Total_LiquidCount { get; set; }
+        public Nullable<int> Total_StreetCount { get; set; }
     }
 }

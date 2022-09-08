@@ -6352,6 +6352,22 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                             }
                         }
+
+                        //Update House Count ,Liquid Count, Street Count
+                        if (result.status== "success")
+                        {
+                            try
+                            {
+                                // Update code
+                                var updateappdetails = dbMain.DailyScanCount(AppId.ToString());
+
+                            }
+                            catch(Exception ex)
+                            {
+
+                            }
+                        }
+
                         return result;
                     }
 
@@ -6372,6 +6388,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     result.status = "success";
                     result.message = "Uploaded successfully";
                     result.messageMar = "सबमिट यशस्वी";
+
                     return result;
                 }
             }
@@ -8072,6 +8089,21 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         //    sendSMS(mes, housemob);
                         //}
                     }
+
+                    if (result.status == "success")
+                    {
+                        try
+                        {
+                            // Update code
+                            var updateappdetails = dbMain.DailyScanCount(AppId.ToString());
+
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+
                     return result;
 
                 }
@@ -8375,6 +8407,20 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         result.status = "success";
                         result.message = "Street Sweeping Partially Completed";
                         result.messageMar = "सबमिट यशस्वी";
+                    }
+
+                    if (result.status == "success")
+                    {
+                        try
+                        {
+                            // Update code
+                            var updateappdetails = dbMain.DailyScanCount(AppId.ToString());
+
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
                     }
                     return result;
 
