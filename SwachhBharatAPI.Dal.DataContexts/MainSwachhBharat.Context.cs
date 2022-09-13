@@ -87,6 +87,15 @@ namespace SwachhBharatAPI.Dal.DataContexts
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_UserLatLongDetail_Result>("SP_UserLatLongDetail", useridParameter, typeIdParameter);
         }
     
+        public virtual ObjectResult<Nullable<int>> DailyScanCount(string ulbappid)
+        {
+            var ulbappidParameter = ulbappid != null ?
+                new ObjectParameter("Ulbappid", ulbappid) :
+                new ObjectParameter("Ulbappid", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("DailyScanCount", ulbappidParameter);
+        }
+    
         public virtual ObjectResult<SP_UserLatLongDetailMain_Result> SP_UserLatLongDetailMain(Nullable<int> userid, Nullable<int> typeId)
         {
             var useridParameter = userid.HasValue ?
@@ -98,15 +107,6 @@ namespace SwachhBharatAPI.Dal.DataContexts
                 new ObjectParameter("typeId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_UserLatLongDetailMain_Result>("SP_UserLatLongDetailMain", useridParameter, typeIdParameter);
-        }
-    
-        public virtual ObjectResult<Nullable<int>> DailyScanCount(string ulbappid)
-        {
-            var ulbappidParameter = ulbappid != null ?
-                new ObjectParameter("Ulbappid", ulbappid) :
-                new ObjectParameter("Ulbappid", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("DailyScanCount", ulbappidParameter);
         }
     }
 }

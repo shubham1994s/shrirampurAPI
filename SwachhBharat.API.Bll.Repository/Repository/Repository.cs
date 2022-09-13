@@ -1951,7 +1951,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                     //objdata.gcDate = DateTime.Now;
                                     //objdata.Lat = obj.Lat;
                                     //    Location loc = new Location();
-                                    var locc = db.SP_UserLatLongDetail(x.userId, typeId).FirstOrDefault();
+                                    var locc = db.SP_UserLatLongDetail(x.userId, 0).FirstOrDefault();
 
                                     if (locc == null || locc.lat == "" || locc.@long == "")
                                     {
@@ -13329,7 +13329,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             Qr_Location loc = new Qr_Location();
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
             {
-                var locc = db.SP_UserLatLongDetail(obj.userId, 1).FirstOrDefault();
+                var locc = dbMain.SP_UserLatLongDetailMain(obj.userId, 0).FirstOrDefault();
 
                 if (locc == null || locc.lat == "" || locc.@long == "")
                 {
