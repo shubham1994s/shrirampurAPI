@@ -35,7 +35,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         IMainService MainService;
         public DevSwachhBharatMainEntities dbMain = new DevSwachhBharatMainEntities();
         #endregion
-
+        
         #region CommonMethod
         public int checkIntNull(string str)
         {
@@ -8616,18 +8616,22 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 lat = Convert.ToDouble(obj.Lat),
                 lng = Convert.ToDouble(obj.Long)
             };
-            List<List<coordinates>> lstPoly = new List<List<coordinates>>();
-            List<coordinates> poly = new List<coordinates>();
-            AppAreaMapVM ebm = GetEmpBeatMapByUserId(AppId);
-            lstPoly = ebm.AppAreaLatLong;
-            int polyId = 0;
-            if (lstPoly != null && lstPoly.Count > polyId)
+            if (appdetails.AppAreaLatLong!=null)
             {
-                poly = lstPoly[polyId];
+                List<List<coordinates>> lstPoly = new List<List<coordinates>>();
+                List<coordinates> poly = new List<coordinates>();
+                AppAreaMapVM ebm = GetEmpBeatMapByUserId(AppId);
+                lstPoly = ebm.AppAreaLatLong;
+                int polyId = 0;
+                if (lstPoly != null && lstPoly.Count > polyId)
+                {
+                    poly = lstPoly[polyId];
+                }
+
+
+                obj.IsIn = IsPointInPolygon(poly, p);
             }
-
-
-            obj.IsIn = IsPointInPolygon(poly, p);
+            
 
 
             //  if ((obj.IsIn == true && appdetails.IsAreaActive == true) || (obj.IsIn == false && appdetails.IsAreaActive == false) ||  (obj.IsIn == true && appdetails.IsAreaActive == false))
