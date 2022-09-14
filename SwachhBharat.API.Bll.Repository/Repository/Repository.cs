@@ -2170,7 +2170,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                         app.FAQ = "1";
                                     }
                                     dbMain.SaveChanges();
-                                    //List<AppDetail> AppDetailss = dbMain.Database.SqlQuery<AppDetail>("exec [Update_Trigger]").ToList();
+                                    List<AppDetail> AppDetailss = dbMain.Database.SqlQuery<AppDetail>("exec [Update_Trigger]").ToList();
                                 }
                             }
 
@@ -4635,7 +4635,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         {
                             bool _IsInSync = false, _IsOutSync = false;
                             var user = db.UserMasters.Where(c => c.userId == x.userId && c.EmployeeType == "D" || c.EmployeeType == null).FirstOrDefault();
-                            if ((user.EmployeeType == "D" && AppId >= 3123) || (user.EmployeeType == "D" && AppId == 3098))
+                            if ((user.EmployeeType == "D" && AppId >= 4000) || (user.EmployeeType == "D" && AppId == 3098))
                             {
                                 if (user.isActive == true)
                                 {
@@ -12877,7 +12877,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     }
                     else if (atten != null)
                     {
-                        if (AppId <= 3123 && AppId != 3098)  // This Condition Only For Old App Only
+                        if (AppId <= 4000 && AppId != 3098)  // This Condition Only For Old App Only
                         {
                             obj.IsIn = true;
                             appdetails.IsAreaActive = true;
@@ -13314,7 +13314,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     appdetails.FAQ = "1";
                     dbMain.SaveChanges();
                 }
-                // List<AppDetail> AppDetailss = dbMain.Database.SqlQuery<AppDetail>("exec [Update_Trigger]").ToList();
+                 List<AppDetail> AppDetailss = dbMain.Database.SqlQuery<AppDetail>("exec [Update_Trigger]").ToList();
             }
         }
 
@@ -13382,7 +13382,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                     foreach (var item in obj)
                     {
-                        if (AppId <= 3123 && AppId != 3098)  // This Condition Only For Old App Only
+                        if (AppId <= 4000 && AppId != 3098)  // This Condition Only For Old App Only
                         {
                             item.IsIn = true;
                             appdetails.IsAreaActive = true;
