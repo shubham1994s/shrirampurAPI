@@ -684,6 +684,9 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Parameter Name="userid" Type="int" Mode="In" />
           <Parameter Name="typeId" Type="int" Mode="In" />
         </Function>
+        <Function Name="VehicleList_TypeWise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="VehicleType" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="DevSwachhBharatNagpurModelStoreContainer">
           <EntitySet Name="BinLatLong" EntityType="Self.BinLatLong" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Daily_Attendance" EntityType="Self.Daily_Attendance" Schema="dbo" store:Type="Tables" />
@@ -945,6 +948,9 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <FunctionImport Name="SP_UserLatLongDetail" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_UserLatLongDetail_Result)">
             <Parameter Name="userid" Mode="In" Type="Int32" />
             <Parameter Name="typeId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="VehicleList_TypeWise" ReturnType="Collection(DevSwachhBharatNagpurModel.VehicleList_TypeWise_Result)">
+            <Parameter Name="VehicleType" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_area_Result">
@@ -1841,6 +1847,11 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Type="Int32" Name="type" Nullable="true" />
           <Property Type="String" Name="batteryStatus" Nullable="true" MaxLength="20" />
           <Property Type="Decimal" Name="Distnace" Nullable="true" Precision="6" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="VehicleList_TypeWise_Result">
+          <Property Type="String" Name="VehicalNumber" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="vqrId" Nullable="false" />
+          <Property Type="String" Name="VehicalType" Nullable="true" MaxLength="10" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2896,6 +2907,15 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
                 <ScalarProperty Name="type" ColumnName="type" />
                 <ScalarProperty Name="batteryStatus" ColumnName="batteryStatus" />
                 <ScalarProperty Name="Distnace" ColumnName="Distnace" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="VehicleList_TypeWise" FunctionName="DevSwachhBharatNagpurModel.Store.VehicleList_TypeWise">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.VehicleList_TypeWise_Result">
+                <ScalarProperty Name="VehicalNumber" ColumnName="VehicalNumber" />
+                <ScalarProperty Name="vqrId" ColumnName="vqrId" />
+                <ScalarProperty Name="VehicalType" ColumnName="VehicalType" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

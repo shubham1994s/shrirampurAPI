@@ -15522,7 +15522,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(appId))
                 {
                     {
-                        var data = db.Vehical_QR_Master.Where(c => c.VehicalType == VehicleTypeId.ToString()).ToList();
+                        //var data = db.Vehical_QR_Master.Where(c => c.VehicalType == VehicleTypeId.ToString()).ToList();
+                        var data = db.VehicleList_TypeWise(VehicleTypeId).ToList();
                         foreach (var x in data)
                         {
                             obj.Add(new VehicleList()
@@ -15538,7 +15539,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     return obj.OrderBy(c => c.VehicleId).ToList();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return obj;
             }
