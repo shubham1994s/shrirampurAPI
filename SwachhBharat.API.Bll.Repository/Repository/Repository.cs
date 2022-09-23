@@ -10328,6 +10328,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 obj = GetUserWorkForDump(userId, year, month, appId);
             }
+            if (EmpType == "CT")
+            {
+                obj = GetUserWorkForCTPT(userId, year, month, appId);
+            }
             return obj;
         }
 
@@ -10375,8 +10379,6 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             }
             return obj;
         }
-
-
         public List<SBWorkDetails> GetUserWorkForStreet(int userId, int year, int month, int appId)
         {
             List<SBWorkDetails> obj = new List<SBWorkDetails>();
@@ -10398,7 +10400,6 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             return obj;
         }
 
-
         public List<SBWorkDetails> GetUserWorkForDump(int userId, int year, int month, int appId)
         {
             List<SBWorkDetails> obj = new List<SBWorkDetails>();
@@ -10411,6 +10412,27 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     {
                         date = Convert.ToDateTime(x.day).ToString("MM-dd-yyy"),
                         DumpYardPlantCollection = checkIntNull(x.DumpYardPlantCollection.ToString()),
+                    });
+                }
+
+            }
+            return obj;
+        }
+
+        public List<SBWorkDetails> GetUserWorkForCTPT(int userId, int year, int month, int appId)
+        {
+            List<SBWorkDetails> obj = new List<SBWorkDetails>();
+            using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(appId))
+            {
+                var data = db.GetAttendenceDetailsTotalCTPT(userId, year, month).ToList();
+                foreach (var x in data)
+                {
+
+                    obj.Add(new SBWorkDetails()
+                    {
+                        date = Convert.ToDateTime(x.day).ToString("MM-dd-yyy"),
+                        CTPTCollection = checkIntNull(x.CTPTCollection.ToString()),
+                        DumpYardCollection = checkIntNull(x.DumpYardCollection.ToString()),
                     });
                 }
 
@@ -10611,6 +10633,47 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             type = Convert.ToInt32(x.gcType),
                         });
                     }
+
+
+                    if (x.gcType == 10)
+                    {
+                        try
+                        {
+                            var CTPT = db.SauchalayAddresses.Where(c => c.Id == x.CTPTId).FirstOrDefault();
+                            housnum = CTPT.SauchalayID;
+                            if (languageId == 1)
+                            {
+                                Name = checkNull(CTPT.Name);
+                                area = db.TeritoryMasters.Where(c => c.Id == CTPT.AreaId).FirstOrDefault().Area;
+                                // housnum = point.gpId.ToString();
+                            }
+                            else
+                            {
+                                Name = checkNull(CTPT.Name);
+                                area = db.TeritoryMasters.Where(c => c.Id == CTPT.AreaId).FirstOrDefault().AreaMar;
+                                //       housnum = point.gpId.ToString();
+                            }
+                        }
+                        catch
+                        {
+                            //housnum = "";
+                            //area = "";
+                        }
+
+                    }
+                    if (x.gcType == 10)
+                    {
+                        obj.Add(new SBWorkDetailsHistory()
+                        {
+                            time = Convert.ToDateTime(x.gcDate).ToString("hh:mm tt"),
+                            Refid = housnum,
+                            name = Name,
+                            vehicleNumber = vNumber,
+                            areaName = area,
+                            type = Convert.ToInt32(x.gcType),
+                        });
+                    }
+
                     else
                     {
                         obj.Add(new SBWorkDetailsHistory()
@@ -11025,7 +11088,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             List<SBArea> obj = new List<SBArea>();
             using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
             {
-                var data = db.CollecctionAreaForStreet(type).ToList();
+                var data = db.CollecctionAreaForCTPT(type).ToList();
 
                 foreach (var x in data)
                 {

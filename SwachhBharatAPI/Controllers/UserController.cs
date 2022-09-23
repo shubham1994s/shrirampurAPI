@@ -243,7 +243,7 @@ namespace SwachhBharatAPI.Controllers
             IEnumerable<string> headerValue2 = Request.Headers.GetValues("userId");
             IEnumerable<string> headerValue3 = Request.Headers.GetValues("year");
             IEnumerable<string> headerValue4 = Request.Headers.GetValues("month");
-            IEnumerable<string> headerValue5 = Request.Headers.GetValues("EmpType");
+            IEnumerable<string> headerValue5 = Request.Headers.GetValues("empType");
             var id = headerValue1.FirstOrDefault();
             int AppId = int.Parse(id);
             var u = headerValue2.FirstOrDefault();

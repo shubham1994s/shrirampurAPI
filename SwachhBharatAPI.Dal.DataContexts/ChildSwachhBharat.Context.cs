@@ -58,8 +58,8 @@ namespace SwachhBharatAPI.Dal.DataContexts
         public virtual DbSet<SauchalayAddress> SauchalayAddresses { get; set; }
         public virtual DbSet<Vehical_QR_Master> Vehical_QR_Master { get; set; }
         public virtual DbSet<Vw_MsgNotification> Vw_MsgNotification { get; set; }
-        public virtual DbSet<Daily_Attendance> Daily_Attendance { get; set; }
         public virtual DbSet<GarbageCollectionDetail> GarbageCollectionDetails { get; set; }
+        public virtual DbSet<Daily_Attendance> Daily_Attendance { get; set; }
     
         public virtual ObjectResult<sp_area_Result> sp_area()
         {
@@ -572,6 +572,32 @@ namespace SwachhBharatAPI.Dal.DataContexts
                 new ObjectParameter("VehicleType", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<VehicleList_TypeWise_Result>("VehicleList_TypeWise", vehicleTypeParameter);
+        }
+    
+        public virtual ObjectResult<CollecctionAreaForCTPT_Result> CollecctionAreaForCTPT(Nullable<int> type)
+        {
+            var typeParameter = type.HasValue ?
+                new ObjectParameter("type", type) :
+                new ObjectParameter("type", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CollecctionAreaForCTPT_Result>("CollecctionAreaForCTPT", typeParameter);
+        }
+    
+        public virtual ObjectResult<GetAttendenceDetailsTotalCTPT_Result> GetAttendenceDetailsTotalCTPT(Nullable<int> userId, Nullable<int> year, Nullable<int> month)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(int));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("month", month) :
+                new ObjectParameter("month", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAttendenceDetailsTotalCTPT_Result>("GetAttendenceDetailsTotalCTPT", userIdParameter, yearParameter, monthParameter);
         }
     }
 }

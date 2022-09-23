@@ -18,6 +18,8 @@ namespace SwachhBhart.API.Bll.ViewModels
 
         public int DumpYardPlantCollection { get; set; }
 
+        public int CTPTCollection { get; set; }
+
 
 
 
