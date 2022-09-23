@@ -44,6 +44,10 @@ namespace SwachhBhart.API.Bll.ViewModels
 
         public bool IsIn { get; set; }
 
+        public string CTPTId { get; set; }
+        public string gpBeforImageTime { get; set; }
+        public string gpAfterImageTime { get; set; }
+
     }
 
     public class SBGarbageCollectionChildView

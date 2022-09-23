@@ -320,6 +320,16 @@ namespace SwachhBharatAPI.Controllers
                             gcDetail.totalWetWeight = item.totalWetWeight;
                             gcDetail.EmpType = item.EmpType;
                             break;
+                        case 10:
+                            gcDetail.CTPTId = item.ReferenceID;
+                            gcDetail.gcType = item.gcType;
+                            gcDetail.totalGcWeight = item.totalGcWeight;
+                            gcDetail.totalDryWeight = item.totalDryWeight;
+                            gcDetail.totalWetWeight = item.totalWetWeight;
+                            gcDetail.gpBeforImageTime = item.gpBeforImageTime;
+                            gcDetail.EmpType = item.EmpType;
+                      
+                            break;
                         default:
                             gcDetail.houseId = "";
                             gcDetail.gpId = "";

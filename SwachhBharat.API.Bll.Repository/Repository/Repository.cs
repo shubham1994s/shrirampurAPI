@@ -519,6 +519,11 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 user = CheckUserLoginForDump(userName, password, imi, AppId, EmpType);
             }
+            if (EmpType == "CT")
+            {
+                user = CheckUserLoginForCTPT(userName, password, imi, AppId, EmpType);
+            }
+
             return user;
         }
 
@@ -1329,6 +1334,184 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             return user;
         }
 
+        public SBUser CheckUserLoginForCTPT(string userName, string password, string imi, int AppId, string EmpType)
+        {
+            SBUser user = new SBUser();
+            using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
+            {
+                var objmain = dbMain.AppDetails.Where(x => x.AppId == AppId).FirstOrDefault();
+                var AppDetailURL = objmain.baseImageUrlCMS + objmain.basePath + objmain.UserProfile + "/";
+                var obj = db.UserMasters.Where(c => c.userLoginId == userName & c.isActive == true & c.EmployeeType == "CT").FirstOrDefault();
+                var objEmpMst = db.QrEmployeeMasters.Where(c => c.qrEmpLoginId == userName & c.isActive == true).FirstOrDefault();
+                if (obj == null)
+                {
+                    user.userId = 0;
+                    user.userLoginId = "";
+                    user.userPassword = "";
+                    user.status = "error";
+                    user.gtFeatures = false;
+                    user.imiNo = "";
+                    user.EmpType = "";
+                    user.message = "Contact Your Authorized Person.";
+                    user.messageMar = "आपल्या अधिकृत व्यक्तीशी संपर्क साधा.";
+                }
+
+
+                if (obj != null && obj.userLoginId == userName && obj.userPassword == password)
+                {
+                    if (obj.imoNo != null)
+                    {
+                        UserMaster us = db.UserMasters.Where(c => c.userId == obj.userId).FirstOrDefault();
+                        us.imoNo2 = imi;
+                        db.SaveChanges();
+
+                        user.type = checkNull(obj.Type);
+                        user.userId = obj.userId;
+                        user.userLoginId = "";
+                        user.userPassword = "";
+                        user.EmpType = "CT";
+                        user.gtFeatures = objmain.NewFeatures;
+                        user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
+                    }
+                    if (obj.imoNo == null || obj.imoNo.Trim() == "")
+                    {
+                        UserMaster us = db.UserMasters.Where(c => c.userId == obj.userId).FirstOrDefault();
+                        us.imoNo = imi;
+                        db.SaveChanges();
+
+                        user.type = checkNull(obj.Type);
+                        user.userId = obj.userId;
+                        user.userLoginId = "";
+                        user.userPassword = "";
+                        user.imiNo = "";
+                        user.EmpType = "CT";
+                        user.gtFeatures = objmain.NewFeatures;
+                        user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
+                    }
+
+                    else
+                    {
+                        if (obj.imoNo == imi)
+                        {
+                            user.type = checkNull(obj.Type);
+                            user.typeId = checkIntNull(obj.Type);
+                            user.userId = obj.userId;
+                            user.userLoginId = "";
+                            user.userPassword = "";
+                            user.imiNo = "";
+                            user.EmpType = "CT";
+                            user.gtFeatures = objmain.NewFeatures;
+                            user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
+                        }
+                        //if (obj.imoNo2 == imi)
+                        //{
+                        //    user.type = checkNull(obj.Type);
+                        //    user.typeId = checkIntNull(obj.Type);
+                        //    user.userId = obj.userId;
+                        //    user.userLoginId = "";
+                        //    user.userPassword = "";
+                        //    user.imiNo = "";
+                        //    user.EmployeeType = obj.EmployeeType;
+                        //    user.gtFeatures = objmain.NewFeatures;
+                        //    user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
+                        //}
+                        else
+                        {
+                            user.userId = 0;
+                            user.userLoginId = "";
+                            user.userPassword = "";
+                            user.status = "error";
+                            user.gtFeatures = false;
+                            user.imiNo = "";
+                            user.EmpType = "";
+                            user.message = "User is already login with another mobile.";
+                            user.messageMar = "वापरकर्ता दुसर्या मोबाइलवर आधीपासूनच लॉगिन आहे.";
+
+                        }
+                    }
+
+                }
+
+                else if (obj != null && obj.userLoginId == userName && obj.userPassword != password)
+                {
+                    user.userId = 0;
+                    user.userLoginId = "";
+                    user.userPassword = "";
+                    user.status = "error";
+                    user.gtFeatures = false;
+                    user.imiNo = "";
+                    user.EmpType = "";
+                    user.message = "UserName or Passward not Match.";
+                    user.messageMar = "वापरकर्ता नाव किंवा पासवर्ड जुळत नाही.";
+                }
+
+                else if (objEmpMst != null && objEmpMst.qrEmpLoginId == userName && objEmpMst.qrEmpPassword == password)
+                {
+
+
+                    if (objEmpMst.imoNo == null || objEmpMst.imoNo.Trim() == "")
+                    {
+                        QrEmployeeMaster us = db.QrEmployeeMasters.Where(c => c.qrEmpId == objEmpMst.qrEmpId).FirstOrDefault();
+                        us.imoNo = imi;
+                        db.SaveChanges();
+
+                        user.type = checkNull(objEmpMst.type);
+                        user.typeId = Convert.ToInt32(objEmpMst.typeId);
+                        user.userId = objEmpMst.qrEmpId;
+                        user.userLoginId = "";
+                        user.userPassword = "";
+                        user.imiNo = "";
+                        user.EmpType = "CT";
+                        user.gtFeatures = objmain.NewFeatures;
+                        user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
+                    }
+                    else
+                    {
+                        if (objEmpMst.imoNo == imi || imi == null)
+                        {
+                            user.type = checkNull(objEmpMst.type);
+                            user.typeId = Convert.ToInt32(objEmpMst.typeId);
+                            user.userId = objEmpMst.qrEmpId;
+                            user.userLoginId = "";
+                            user.userPassword = "";
+                            user.imiNo = "";
+                            user.EmpType = "CT";
+                            user.gtFeatures = objmain.NewFeatures;
+                            user.status = "success"; user.message = "Login Successfully"; user.messageMar = "लॉगिन यशस्वी";
+                        }
+                        else
+                        {
+                            user.userId = 0;
+                            user.userLoginId = "";
+                            user.userPassword = "";
+                            user.status = "error";
+                            user.gtFeatures = false;
+                            user.imiNo = "";
+                            user.EmpType = "";
+                            user.message = "User is already login with another mobile.";
+                            user.messageMar = "वापरकर्ता दुसर्या मोबाइलवर आधीपासूनच लॉगिन आहे.";
+
+                        }
+
+                    }
+                }
+
+                else
+                {
+                    user.userId = 0;
+                    user.userLoginId = "";
+                    user.userPassword = "";
+                    user.status = "error";
+                    user.gtFeatures = false;
+                    user.imiNo = "";
+                    user.message = "UserName or Passward not Match.";
+                    user.EmpType = "";
+                    user.messageMar = "वापरकर्ता नाव किंवा पासवर्ड जुळत नाही.";
+                }
+            }
+            return user;
+        }
+
         public SBAdmin CheckAdminLogin(string userName, string password)
         {
             SBAdmin admin = new SBAdmin();
@@ -1870,7 +2053,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         public List<SyncResult> SaveUserLocation(List<SBUserLocation> obj, int AppId, string batteryStatus, int typeId, string EmpType)
         {
             List<SyncResult> result = new List<SyncResult>();
-            if (EmpType == "N" || EmpType == "S" || EmpType == "L")
+            if (EmpType == "N" || EmpType == "S" || EmpType == "L" || EmpType == "CT")
             {
                 result = SaveUserLocationNSL(obj, AppId, batteryStatus, typeId, EmpType);
             }
@@ -2365,6 +2548,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 result = SaveUserAttendenceForDump(obj, AppId, type, batteryStatus);
             }
+            if (obj.EmpType == "CT")
+            {
+                result = SaveUserAttendenceForCTPT(obj, AppId, type, batteryStatus);
+            }
 
             return result;
 
@@ -2400,13 +2587,13 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             }
                             if (Vehicaldetail != null)
                             {
-                                data.VQRId = Vehicaldetail.vqrId;
+                                data.VQRID = Vehicaldetail.vqrId;
                                 data.vehicleNumber = Vehicaldetail.VehicalNumber;
                                 data.vtId = Vehicaldetail.VehicalType;
                             }
                             else
                             {
-                                data.VQRId = null;
+                                data.VQRID = null;
                                 data.vehicleNumber = obj.vehicleNumber;
                                 data.vtId = obj.vtId;
                             }
@@ -2440,13 +2627,13 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             }
                             if (Vehicaldetail != null)
                             {
-                                objdata.VQRId = Vehicaldetail.vqrId;
+                                objdata.VQRID = Vehicaldetail.vqrId;
                                 objdata.vehicleNumber = Vehicaldetail.VehicalNumber;
                                 objdata.vtId = Vehicaldetail.VehicalType;
                             }
                             else
                             {
-                                objdata.VQRId = null;
+                                objdata.VQRID = null;
                                 objdata.vehicleNumber = obj.vehicleNumber;
                                 objdata.vtId = obj.vtId;
                             }
@@ -2523,13 +2710,13 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             }
                             if (Vehicaldetail != null)
                             {
-                                objdata.VQRId = Vehicaldetail.vqrId;
+                                objdata.VQRID = Vehicaldetail.vqrId;
                                 objdata.vehicleNumber = Vehicaldetail.VehicalNumber;
                                 objdata.vtId = Vehicaldetail.VehicalType;
                             }
                             else
                             {
-                                objdata.VQRId = null;
+                                objdata.VQRID = null;
                                 objdata.vehicleNumber = obj.vehicleNumber;
                                 objdata.vtId = obj.vtId;
                             }
@@ -2582,13 +2769,13 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             }
                             if (Vehicaldetail != null)
                             {
-                                objdata2.VQRId = Vehicaldetail.vqrId;
+                                objdata2.VQRID = Vehicaldetail.vqrId;
                                 objdata2.vehicleNumber = Vehicaldetail.VehicalNumber;
                                 objdata2.vtId = Vehicaldetail.VehicalType;
                             }
                             else
                             {
-                                objdata2.VQRId = null;
+                                objdata2.VQRID = null;
                                 objdata2.vehicleNumber = obj.vehicleNumber;
                                 objdata2.vtId = obj.vtId;
                             }
@@ -3240,6 +3427,268 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         }
 
 
+        public Result SaveUserAttendenceForCTPT(SBUserAttendence obj, int AppId, int type, string batteryStatus)
+        {
+            Result result = new Result();
+            using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
+            {
+                var user = db.UserMasters.Where(c => c.userId == obj.userId && c.EmployeeType == "CT").FirstOrDefault();
+                var Vehicaldetail = db.Vehical_QR_Master.Where(c => c.ReferanceId == obj.ReferanceId && c.VehicalNumber != null && c.VehicalType != null).FirstOrDefault();
+                if (type == 0)
+                {
+                    if (user.isActive == true)
+                    {
+                        //Daily_Attendance data = db.Daily_Attendance.Where(c => c.daDate == EntityFunctions.TruncateTime(obj.daDate) && c.userId == obj.userId && (c.endTime == null || c.endTime == "")).FirstOrDefault();
+                        Daily_Attendance data = db.Daily_Attendance.Where(c => c.userId == obj.userId && (c.endTime == null || c.endTime == "") && c.EmployeeType == "CT").FirstOrDefault();
+                        if (data != null)
+                        {
+                            data.endTime = obj.startTime;
+                            data.daEndDate = obj.daDate;
+                            data.endLat = obj.startLat;
+                            data.endLong = obj.startLong;
+                            data.batteryStatus = batteryStatus;
+                            data.totalKm = obj.totalKm;
+                            data.EmployeeType = "CT";
+                            if ((string.IsNullOrEmpty(obj.QrCodeImage)) == false)
+                            {
+                                obj.QrCodeImage = obj.QrCodeImage.Replace("data:image/jpeg;base64,", "");
+                                data.BinaryQrCodeImage = Convert.FromBase64String(obj.QrCodeImage);
+                            }
+                            if (Vehicaldetail != null)
+                            {
+                                data.VQRID = Vehicaldetail.vqrId;
+                                data.vehicleNumber = Vehicaldetail.VehicalNumber;
+                                data.vtId = Vehicaldetail.VehicalType;
+                            }
+                            else
+                            {
+                                data.VQRID = null;
+                                data.vehicleNumber = obj.vehicleNumber;
+                                data.vtId = obj.vtId;
+                            }
+
+                            db.SaveChanges();
+                        }
+                        try
+                        {
+                            Daily_Attendance objdata = new Daily_Attendance();
+
+                            objdata.userId = obj.userId;
+                            objdata.daDate = obj.daDate;
+                            objdata.endLat = "";
+                            objdata.startLat = obj.startLat;
+                            objdata.startLong = obj.startLong;
+                            objdata.startTime = obj.startTime;
+                            objdata.endTime = "";
+                            objdata.vtId = obj.vtId;
+                            obj.vehicleNumber = obj.vehicleNumber;
+                            objdata.daStartNote = obj.daStartNote;
+                            objdata.daEndNote = obj.daEndNote;
+                            objdata.vehicleNumber = obj.vehicleNumber;
+                            //   objdata.startAddress = Address(obj.startLat + "," + obj.startLong); 
+                            objdata.batteryStatus = batteryStatus;
+                            objdata.totalKm = obj.totalKm;
+                            objdata.EmployeeType = "CT";
+                            if ((string.IsNullOrEmpty(obj.QrCodeImage)) == false)
+                            {
+                                obj.QrCodeImage = obj.QrCodeImage.Replace("data:image/jpeg;base64,", "");
+                                objdata.BinaryQrCodeImage = Convert.FromBase64String(obj.QrCodeImage);
+                            }
+                            if (Vehicaldetail != null)
+                            {
+                                objdata.VQRID = Vehicaldetail.vqrId;
+                                objdata.vehicleNumber = Vehicaldetail.VehicalNumber;
+                                objdata.vtId = Vehicaldetail.VehicalType;
+                            }
+                            else
+                            {
+                                objdata.VQRID = null;
+                                objdata.vehicleNumber = obj.vehicleNumber;
+                                objdata.vtId = obj.vtId;
+                            }
+                            db.Daily_Attendance.Add(objdata);
+                            string Time2 = obj.startTime;
+                            DateTime date2 = DateTime.Parse(Time2, System.Globalization.CultureInfo.CurrentCulture);
+                            string t2 = date2.ToString("hh:mm:ss tt");
+                            string dt2 = Convert.ToDateTime(obj.daDate).ToString("MM/dd/yyyy");
+                            DateTime? sdate = Convert.ToDateTime(dt2 + " " + t2);
+                            Location loc = new Location();
+                            loc.userId = obj.userId;
+                            loc.datetime = sdate;
+                            loc.lat = obj.startLat;
+                            loc.@long = obj.startLong;
+                            loc.batteryStatus = batteryStatus;
+                            loc.EmployeeType = "CT";
+                            loc.address = Address(obj.startLat + "," + obj.startLong);
+                            if (loc.address != "")
+                            { loc.area = area(loc.address); }
+                            else
+                            {
+                                loc.area = "";
+                            }
+                            loc.CreatedDate = DateTime.Now;
+                            db.Locations.Add(loc);
+                            db.SaveChanges();
+                            result.status = "success";
+                            result.message = "Shift started Successfully";
+                            result.messageMar = "शिफ्ट सुरू";
+                            result.emptype = "CT";
+                            return result;
+                        }
+
+                        catch
+                        {
+
+                            result.status = "error";
+                            result.message = "Something is wrong,Try Again.. ";
+                            result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                            result.emptype = "CT";
+                            return result;
+                        }
+                    }
+
+                    result.status = "error";
+                    result.message = "Please contact your administrator.. ";
+                    result.messageMar = "कृपया आपल्या ऍडमिनिस्ट्रेटरशी संपर्क साधा..";
+                    result.emptype = "CT";
+                    return result;
+
+                }
+                else
+                {
+
+                    try
+                    {
+                        Daily_Attendance objdata = db.Daily_Attendance.Where(c => c.daDate == EntityFunctions.TruncateTime(obj.daDate) && c.userId == obj.userId && (c.endTime == "" || c.endTime == null) && c.EmployeeType == "CT").FirstOrDefault();
+                        if (objdata != null)
+                        {
+
+                            objdata.userId = obj.userId;
+                            objdata.daEndDate = obj.daDate;
+                            objdata.endLat = obj.endLat;
+                            objdata.endLong = obj.endLong;
+                            objdata.endTime = obj.endTime;
+                            objdata.daEndNote = obj.daEndNote;
+                            objdata.batteryStatus = batteryStatus;
+                            objdata.totalKm = obj.totalKm;
+                            objdata.EmployeeType = "CT";
+                            if ((string.IsNullOrEmpty(obj.QrCodeImage)) == false)
+                            {
+                                obj.QrCodeImage = obj.QrCodeImage.Replace("data:image/jpeg;base64,", "");
+                                objdata.BinaryQrCodeImage = Convert.FromBase64String(obj.QrCodeImage);
+                            }
+                            if (Vehicaldetail != null)
+                            {
+                                objdata.VQRID = Vehicaldetail.vqrId;
+                                objdata.vehicleNumber = Vehicaldetail.VehicalNumber;
+                                objdata.vtId = Vehicaldetail.VehicalType;
+                            }
+                            else
+                            {
+                                objdata.VQRID = null;
+                                objdata.vehicleNumber = obj.vehicleNumber;
+                                objdata.vtId = obj.vtId;
+                            }
+                            //       objdata.endAddress = Address(objdata.endLat + "," + objdata.endLong);
+
+                            string Time2 = obj.endTime;
+                            DateTime date2 = DateTime.Parse(Time2, System.Globalization.CultureInfo.CurrentCulture);
+                            string t2 = date2.ToString("hh:mm:ss tt");
+                            string dt2 = Convert.ToDateTime(obj.daDate).ToString("MM/dd/yyyy");
+                            DateTime? edate = Convert.ToDateTime(dt2 + " " + t2);
+                            Location loc = new Location();
+                            loc.userId = obj.userId;
+                            loc.datetime = edate;
+                            loc.lat = obj.endLat;
+                            loc.@long = obj.endLong;
+                            loc.batteryStatus = batteryStatus;
+                            loc.address = Address(obj.endLat + "," + obj.endLong);
+                            if (loc.address != "")
+                            { loc.area = area(loc.address); }
+                            else
+                            {
+                                loc.area = "";
+                            }
+                            loc.CreatedDate = DateTime.Now;
+                            loc.EmployeeType = "CT";
+                            db.Locations.Add(loc);
+                            db.SaveChanges();
+                            result.status = "success";
+                            result.message = "Shift ended successfully";
+                            result.messageMar = "शिफ्ट संपले";
+                            result.isAttendenceOff = true;
+                            result.emptype = "CT";
+                            return result;
+                        }
+                        else
+                        {
+                            Daily_Attendance objdata2 = db.Daily_Attendance.Where(c => c.userId == obj.userId && (c.endTime == "" || c.endTime == null) && c.EmployeeType == "CT").OrderByDescending(c => c.daID).FirstOrDefault();
+                            objdata2.userId = obj.userId;
+                            objdata2.daEndDate = DateTime.Now;
+                            objdata2.endLat = obj.endLat;
+                            objdata2.endLong = obj.endLong;
+                            objdata2.endTime = obj.endTime;
+                            objdata2.daEndNote = obj.daEndNote;
+                            objdata2.batteryStatus = batteryStatus;
+                            objdata2.EmployeeType = "CT";
+                            if ((string.IsNullOrEmpty(obj.QrCodeImage)) == false)
+                            {
+                                obj.QrCodeImage = obj.QrCodeImage.Replace("data:image/jpeg;base64,", "");
+                                objdata2.BinaryQrCodeImage = Convert.FromBase64String(obj.QrCodeImage);
+                            }
+                            if (Vehicaldetail != null)
+                            {
+                                objdata2.VQRID = Vehicaldetail.vqrId;
+                                objdata2.vehicleNumber = Vehicaldetail.VehicalNumber;
+                                objdata2.vtId = Vehicaldetail.VehicalType;
+                            }
+                            else
+                            {
+                                objdata2.VQRID = null;
+                                objdata2.vehicleNumber = obj.vehicleNumber;
+                                objdata2.vtId = obj.vtId;
+                            }
+
+                            //       objdata.endAddress = Address(objdata.endLat + "," + objdata.endLong);
+                            Location loc = new Location();
+                            loc.userId = obj.userId;
+                            loc.datetime = DateTime.Now;
+                            loc.lat = obj.endLat;
+                            loc.@long = obj.endLong;
+                            loc.address = Address(obj.endLat + "," + obj.endLong);
+                            if (loc.address != "")
+                            { loc.area = area(loc.address); }
+                            else
+                            {
+                                loc.area = "";
+                            }
+                            loc.EmployeeType = "CT";
+                            loc.CreatedDate = DateTime.Now;
+                            db.Locations.Add(loc);
+                            db.SaveChanges();
+                            result.status = "success";
+                            result.message = "Shift ended successfully";
+                            result.messageMar = "शिफ्ट संपले";
+                            result.isAttendenceOff = true;
+                            result.emptype = "CT";
+                            return result;
+                        }
+                    }
+                    catch
+                    {
+                        result.status = "error";
+                        result.message = "Something is wrong,Try Again.. ";
+                        result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                        result.emptype = "CT";
+                        return result;
+                    }
+                }
+            }
+
+
+        }
+
+
 
         //public List<SyncResult> SaveUserAttendence(List<SBUserAttendence> obj, int AppId, int type, string batteryStatus)
         //{
@@ -3448,6 +3897,11 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 result = SaveUserAttendenceOfflineForDump(obj, AppId, cdate, EmpType);
             }
+            if (EmpType == "CT")
+            {
+                result = SaveUserAttendenceOfflineForCTPT(obj, AppId, cdate, EmpType);
+            }
+
             return result;
 
 
@@ -3505,11 +3959,11 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                     }
                                     if (Vehicaldetail != null)
                                     {
-                                        objdata.VQRId = Vehicaldetail.vqrId;
+                                        objdata.VQRID = Vehicaldetail.vqrId;
                                     }
                                     else
                                     {
-                                        objdata.VQRId = null;
+                                        objdata.VQRID = null;
                                     }
                                     db.SaveChanges();
                                 }
@@ -3572,11 +4026,11 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                         }
                                         if (Vehicaldetail != null)
                                         {
-                                            objdata.VQRId = Vehicaldetail.vqrId;
+                                            objdata.VQRID = Vehicaldetail.vqrId;
                                         }
                                         else
                                         {
-                                            objdata.VQRId = null;
+                                            objdata.VQRID = null;
                                         }
                                         db.Daily_Attendance.Add(objdata);
                                     }
@@ -3689,11 +4143,11 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                         }
                                         if (Vehicaldetail != null)
                                         {
-                                            attendance.VQRId = Vehicaldetail.vqrId;
+                                            attendance.VQRID = Vehicaldetail.vqrId;
                                         }
                                         else
                                         {
-                                            attendance.VQRId = null;
+                                            attendance.VQRID = null;
                                         }
                                         if (x.daEndDate.Equals(DateTime.MinValue))
                                         {
@@ -5309,6 +5763,436 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             }
             return result;
         }
+
+
+        public List<SyncResult1> SaveUserAttendenceOfflineForCTPT(List<SBUserAttendence> obj, int AppId, string cdate, string EmpType)
+        {
+            List<SyncResult1> result = new List<SyncResult1>();
+            using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
+            {
+                Daily_Attendance attendance = new Daily_Attendance();
+
+                foreach (var x in obj)
+                {
+                    var Vehicaldetail = db.Vehical_QR_Master.Where(c => c.ReferanceId == x.ReferanceId && c.VehicalType != null && c.VehicalNumber != null).FirstOrDefault();
+                    DateTime Datee = Convert.ToDateTime(cdate);
+                    var IsSameRecordLocation = db.Locations.Where(c => c.userId == x.userId && c.datetime == Datee && c.type == null && c.EmployeeType == "CT").FirstOrDefault();
+                    try
+                    {
+                        bool _IsInSync = false, _IsOutSync = false;
+                        var user = db.UserMasters.Where(c => c.userId == x.userId && c.EmployeeType == "CT").FirstOrDefault();
+
+                        if (user.isActive == true)
+                        {
+
+                            var IsSameRecord = db.Daily_Attendance.Where(
+                                   c => c.userId == x.userId &&
+                                   //c.startLat == x.startLat &&
+                                   //c.startLong == x.startLong &&
+                                   //c.endLat == x.endLat &&
+                                   //c.endLong == x.endLong &&
+                                   c.startTime == x.startTime &&
+                                   c.endTime == x.endTime &&
+                                   c.daDate == EntityFunctions.TruncateTime(x.daDate) &&
+                                   c.daEndDate == EntityFunctions.TruncateTime(x.daEndDate) && c.EmployeeType == "CT"
+                                 ).FirstOrDefault();
+
+                            if (IsSameRecord == null)
+                            {
+
+                                var objdata = db.Daily_Attendance.Where(c => c.daDate == EntityFunctions.TruncateTime(x.daDate) && c.userId == x.userId && (c.endTime == "" || c.endTime == null) && c.EmployeeType == "CT").FirstOrDefault();
+                                if (objdata != null && string.IsNullOrEmpty(x.endTime))
+                                {
+                                    objdata.endTime = x.startTime;
+                                    objdata.daEndDate = x.daDate;
+                                    objdata.endLat = x.startLat;
+                                    objdata.endLong = x.startLong;
+                                    objdata.OutbatteryStatus = x.batteryStatus;
+                                    objdata.totalKm = x.totalKm;
+                                    objdata.EmployeeType = "CT";
+                                    if ((string.IsNullOrEmpty(x.QrCodeImage)) == false)
+                                    {
+                                        x.QrCodeImage = x.QrCodeImage.Replace("data:image/jpeg;base64,", "");
+                                        objdata.BinaryQrCodeImage = Convert.FromBase64String(x.QrCodeImage);
+                                    }
+                                    if (Vehicaldetail != null)
+                                    {
+                                        objdata.VQRID = Vehicaldetail.vqrId;
+                                    }
+                                    else
+                                    {
+                                        objdata.VQRID = null;
+                                    }
+                                    db.SaveChanges();
+                                }
+                                if (objdata != null)
+                                {
+
+                                    objdata.userId = x.userId;
+                                    objdata.startLat = x.startLat;
+                                    objdata.startLong = x.startLong;
+                                    objdata.startTime = x.startTime;
+                                    objdata.daDate = x.daDate;
+
+                                    if (Vehicaldetail != null)
+                                    {
+                                        objdata.vehicleNumber = Vehicaldetail.VehicalNumber;
+                                        objdata.vtId = Vehicaldetail.VehicalType;
+                                    }
+                                    else
+                                    {
+                                        objdata.vehicleNumber = x.vehicleNumber;
+                                        objdata.vtId = x.vtId;
+                                    }
+                                    objdata.EmployeeType = null;
+
+                                    //objdata.daEndDate = x.daEndDate;
+
+                                    if (x.daEndDate.Equals(DateTime.MinValue))
+                                    {
+                                        objdata.daEndDate = null;
+                                        objdata.endTime = (string.IsNullOrEmpty(x.endTime) ? "" : x.endTime);
+                                    }
+                                    else
+                                    {
+                                        //objdata.daEndDate = x.daEndDate;
+                                        if (x.daEndDate == x.daDate)
+                                        {
+                                            objdata.daEndDate = x.daEndDate;
+                                            objdata.endTime = (string.IsNullOrEmpty(x.endTime) ? "" : x.endTime);
+                                        }
+                                        else
+                                        {
+                                            objdata.daEndDate = x.daDate;
+                                            objdata.endTime = "11:50 PM";
+                                        }
+                                    }
+
+                                    objdata.endLat = x.endLat;
+                                    objdata.endLong = x.endLong;
+                                    //objdata.endTime = (string.IsNullOrEmpty(x.endTime) ? "" : x.endTime); //x.endTime;
+                                    objdata.daStartNote = x.daStartNote;
+                                    objdata.daEndNote = x.daEndNote;
+                                    objdata.OutbatteryStatus = x.batteryStatus;
+                                    //  objdata.batteryStatus = x.batteryStatus;
+                                    if (objdata != null && string.IsNullOrEmpty(x.endTime))
+                                    {
+                                        if ((string.IsNullOrEmpty(x.QrCodeImage)) == false)
+                                        {
+                                            x.QrCodeImage = x.QrCodeImage.Replace("data:image/jpeg;base64,", "");
+                                            objdata.BinaryQrCodeImage = Convert.FromBase64String(x.QrCodeImage);
+                                        }
+                                        if (Vehicaldetail != null)
+                                        {
+                                            objdata.VQRID = Vehicaldetail.vqrId;
+                                        }
+                                        else
+                                        {
+                                            objdata.VQRID = null;
+                                        }
+                                        db.Daily_Attendance.Add(objdata);
+                                    }
+                                    _IsInSync = true;
+
+                                    if ((!string.IsNullOrEmpty(x.endLat)) && (!string.IsNullOrEmpty(x.endLong)) && IsSameRecordLocation == null)
+                                    {
+                                        string Time2 = x.endTime;
+                                        DateTime date2 = DateTime.Parse(Time2, System.Globalization.CultureInfo.CurrentCulture);
+                                        string t2 = date2.ToString("hh:mm:ss tt");
+                                        string dt2 = Convert.ToDateTime(x.daEndDate).ToString("MM/dd/yyyy");
+                                        DateTime? edate = Convert.ToDateTime(dt2 + " " + t2);
+
+                                        Location loc = new Location();
+                                        loc.userId = x.userId;
+                                        loc.datetime = edate;
+                                        loc.lat = x.endLat;
+                                        loc.@long = x.endLong;
+                                        loc.batteryStatus = x.batteryStatus;
+                                        loc.address = Address(x.endLat + "," + x.endLong);
+                                        if (loc.address != "")
+                                        {
+                                            loc.area = area(loc.address);
+                                        }
+                                        else
+                                        {
+                                            loc.area = "";
+                                        }
+
+                                        loc.IsOffline = true;
+                                        loc.CreatedDate = DateTime.Now;
+                                        loc.EmployeeType = null;
+                                        db.Locations.Add(loc);
+                                        _IsOutSync = true;
+                                        _IsInSync = false;
+                                    }
+
+                                    db.SaveChanges();
+                                }
+                                else
+                                {
+                                    var OutTime = db.Daily_Attendance.Where(a => a.userId == x.userId && a.startTime == x.startTime && a.daDate == x.daDate && a.EmployeeType == "CT").OrderByDescending(m => m.daID).FirstOrDefault();
+
+                                    if (OutTime != null && OutTime.endTime == "11:50 PM")
+                                    {
+                                        OutTime.userId = x.userId;
+                                        OutTime.startLat = x.startLat;
+                                        OutTime.startLong = x.startLong;
+                                        OutTime.startTime = x.startTime;
+                                        OutTime.daDate = x.daDate;
+                                        OutTime.vehicleNumber = x.vehicleNumber;
+                                        OutTime.vtId = x.vtId;
+                                        OutTime.EmployeeType = "CT";
+
+                                        if (x.daEndDate.Equals(DateTime.MinValue))
+                                        {
+                                            OutTime.daEndDate = null;
+                                            OutTime.endTime = (string.IsNullOrEmpty(x.endTime) ? "" : x.endTime);
+                                        }
+                                        else
+                                        {
+                                            if (x.daEndDate == x.daDate)
+                                            {
+                                                OutTime.daEndDate = x.daEndDate;
+                                                OutTime.endTime = (string.IsNullOrEmpty(x.endTime) ? "" : x.endTime);
+                                            }
+                                            else
+                                            {
+                                                OutTime.daEndDate = x.daDate;
+                                                OutTime.endTime = "11:50 PM";
+                                            }
+
+                                        }
+
+                                        OutTime.endLat = x.endLat;
+                                        OutTime.endLong = x.endLong;
+                                        //OutTime.endTime = (string.IsNullOrEmpty(x.endTime) ? "" : x.endTime); //x.endTime;
+                                        OutTime.daStartNote = x.daStartNote;
+                                        OutTime.daEndNote = x.daEndNote;
+                                        OutTime.batteryStatus = x.batteryStatus;
+
+                                        //db.Daily_Attendance.Add(attendance);
+                                        _IsInSync = true;
+
+                                    }
+                                    else
+                                    {
+                                        attendance.userId = x.userId;
+                                        attendance.startLat = x.startLat;
+                                        attendance.startLong = x.startLong;
+                                        attendance.startTime = x.startTime;
+                                        attendance.daDate = x.daDate;
+
+                                        if (Vehicaldetail != null)
+                                        {
+                                            attendance.vtId = Vehicaldetail.VehicalType;
+                                            attendance.vehicleNumber = Vehicaldetail.VehicalNumber;
+                                        }
+                                        else
+                                        {
+                                            attendance.vtId = x.vtId;
+                                            attendance.vehicleNumber = x.vehicleNumber;
+                                        }
+                                        attendance.EmployeeType = null;
+
+                                        if ((string.IsNullOrEmpty(x.QrCodeImage)) == false)
+                                        {
+                                            x.QrCodeImage = x.QrCodeImage.Replace("data:image/jpeg;base64,", "");
+                                            attendance.BinaryQrCodeImage = Convert.FromBase64String(x.QrCodeImage);
+                                        }
+                                        if (Vehicaldetail != null)
+                                        {
+                                            attendance.VQRID = Vehicaldetail.vqrId;
+                                        }
+                                        else
+                                        {
+                                            attendance.VQRID = null;
+                                        }
+                                        if (x.daEndDate.Equals(DateTime.MinValue))
+                                        {
+                                            attendance.daEndDate = null;
+                                            attendance.endTime = (string.IsNullOrEmpty(x.endTime) ? "" : x.endTime);
+                                        }
+                                        else
+                                        {
+                                            if (x.daEndDate == x.daDate)
+                                            {
+                                                attendance.daEndDate = x.daEndDate;
+                                                attendance.endTime = (string.IsNullOrEmpty(x.endTime) ? "" : x.endTime);
+
+                                            }
+                                            else
+                                            {
+                                                attendance.daEndDate = x.daDate;
+                                                attendance.endTime = "11:50 PM";
+                                            }
+                                        }
+
+                                        attendance.endLat = x.endLat;
+                                        attendance.endLong = x.endLong;
+                                        //attendance.endTime = (string.IsNullOrEmpty(x.endTime) ? "" : x.endTime); //x.endTime;
+                                        attendance.daStartNote = x.daStartNote;
+                                        attendance.daEndNote = x.daEndNote;
+                                        attendance.batteryStatus = x.batteryStatus;
+                                        if (OutTime != null)
+                                        {
+                                            if (OutTime.endTime == "" || OutTime.endTime == null)
+                                            {
+                                                db.Daily_Attendance.Add(attendance);
+                                            }
+                                            OutTime.endTime = (string.IsNullOrEmpty(x.endTime) ? "" : x.endTime);
+                                        }
+                                        if (OutTime == null)
+                                        {
+                                            db.Daily_Attendance.Add(attendance);
+                                        }
+                                        _IsInSync = true;
+                                        //  db.SaveChanges();
+                                        //if ((!string.IsNullOrEmpty(x.endLat))  && (!string.IsNullOrEmpty(x.endLong)))
+                                        //{
+                                        //    string Time2 = x.endTime;
+                                        //    DateTime date2 = DateTime.Parse(Time2, System.Globalization.CultureInfo.CurrentCulture);
+                                        //    string t2 = date2.ToString("hh:mm:ss tt");
+                                        //    string dt2 = Convert.ToDateTime(x.daEndDate).ToString("MM/dd/yyyy");
+                                        //    DateTime? edate = Convert.ToDateTime(dt2 + " " + t2);
+
+                                        //    Location loc = new Location();
+                                        //    loc.userId = x.userId;
+                                        //    loc.datetime = edate;
+                                        //    loc.lat = x.endLat;
+                                        //    loc.@long = x.endLong;
+                                        //    loc.batteryStatus = x.batteryStatus;
+                                        //    loc.address = Address(x.endLat + "," + x.endLong);
+                                        //    if (loc.address != "")
+                                        //    {
+                                        //        loc.area = area(loc.address);
+                                        //    }
+                                        //    else
+                                        //    {
+                                        //        loc.area = "";
+                                        //    }
+
+                                        //    loc.IsOffline = true;
+                                        //    loc.CreatedDate = DateTime.Now;
+
+                                        //    db.Locations.Add(loc);
+                                        //    _IsOutSync = true;
+                                        //}
+
+                                        //db.SaveChanges();
+
+                                    }
+                                    if ((!string.IsNullOrEmpty(x.endLat)) && (!string.IsNullOrEmpty(x.endLong)) && IsSameRecordLocation == null)
+                                    {
+                                        string Time2 = x.endTime;
+                                        DateTime date2 = DateTime.Parse(Time2, System.Globalization.CultureInfo.CurrentCulture);
+                                        string t2 = date2.ToString("hh:mm:ss tt");
+                                        string dt2 = Convert.ToDateTime(x.daEndDate).ToString("MM/dd/yyyy");
+                                        DateTime? edate = Convert.ToDateTime(dt2 + " " + t2);
+
+                                        Location loc = new Location();
+                                        loc.userId = x.userId;
+                                        loc.datetime = edate;
+                                        loc.lat = x.endLat;
+                                        loc.@long = x.endLong;
+                                        loc.batteryStatus = x.batteryStatus;
+                                        loc.address = Address(x.endLat + "," + x.endLong);
+                                        if (loc.address != "")
+                                        {
+                                            loc.area = area(loc.address);
+                                        }
+                                        else
+                                        {
+                                            loc.area = "";
+                                        }
+
+                                        loc.IsOffline = true;
+                                        loc.CreatedDate = DateTime.Now;
+                                        loc.EmployeeType = "CT";
+                                        db.Locations.Add(loc);
+                                        _IsOutSync = true;
+                                    }
+
+                                    if ((!string.IsNullOrEmpty(x.startLat)) && (!string.IsNullOrEmpty(x.startLong)) && IsSameRecordLocation == null)
+                                    {
+                                        string Time2 = x.startTime;
+                                        DateTime date2 = DateTime.Parse(Time2, System.Globalization.CultureInfo.CurrentCulture);
+                                        string t2 = date2.ToString("hh:mm:ss tt");
+                                        string dt2 = Convert.ToDateTime(x.daDate).ToString("MM/dd/yyyy");
+                                        DateTime? sdate = Convert.ToDateTime(dt2 + " " + t2);
+
+                                        Location loc = new Location();
+                                        loc.userId = x.userId;
+                                        loc.datetime = sdate;
+                                        loc.lat = x.startLat;
+                                        loc.@long = x.startLong;
+                                        loc.batteryStatus = x.batteryStatus;
+                                        loc.address = Address(x.startLat + "," + x.startLong);
+                                        if (loc.address != "")
+                                        {
+                                            loc.area = area(loc.address);
+                                        }
+                                        else
+                                        {
+                                            loc.area = "";
+                                        }
+
+                                        loc.IsOffline = true;
+                                        loc.CreatedDate = DateTime.Now;
+                                        loc.EmployeeType = "CT";
+                                        db.Locations.Add(loc);
+                                        _IsOutSync = false;
+                                    }
+                                    db.SaveChanges();
+                                }
+
+                                result.Add(new SyncResult1()
+                                {
+                                    ID = x.OfflineID,
+                                    status = "success",
+                                    message = "Shift started Successfully",
+                                    messageMar = "शिफ्ट सुरू",
+                                    IsInSync = _IsInSync,
+                                    IsOutSync = _IsOutSync,
+                                    EmpType = "CT",
+
+                                });
+                            }
+                            else
+                            {
+                                result.Add(new SyncResult1()
+                                {
+                                    ID = x.OfflineID,
+                                    status = "success",
+                                    message = "Shift started Successfully",
+                                    messageMar = "शिफ्ट सुरू",
+                                    IsInSync = true,
+                                    IsOutSync = true,
+                                    EmpType = "CT",
+                                });
+                            }
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        result.Add(new SyncResult1()
+                        {
+                            ID = x.OfflineID,
+                            status = "error",
+                            message = "Something is wrong,Try Again.. ",
+                            messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..",
+                            IsInSync = false,
+                            IsOutSync = false,
+                            EmpType = "CT",
+                        });
+                        return result;
+                    }
+                }
+
+            }
+            return result;
+        }
+
 
         //public void SaveAttendenceSettingsDetail(int AppID, string hour)
         //{
@@ -8437,6 +9321,192 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             }
             //}
         }
+
+        private CollectionSyncResult SaveCTPTCollectionSync(SBGarbageCollectionView obj, int AppId, int type)
+        {
+            int locType = 0;
+            string mes = string.Empty;
+            CollectionSyncResult result = new CollectionSyncResult();
+            HouseMaster dbHouse = new HouseMaster();
+
+
+
+            var appdetails = dbMain.AppDetails.Where(c => c.AppId == AppId).FirstOrDefault();
+            using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
+            {
+                string name = "", housemob = "", nameMar = "", addre = "";
+
+                var house = db.SauchalayAddresses.Where(c => c.SauchalayID == obj.CTPTId).FirstOrDefault();
+                bool IsExist = false;
+                DateTime Dateeee = Convert.ToDateTime(obj.gcDate);
+                DateTime BeforeDateeee = Convert.ToDateTime(obj.gpBeforImageTime);
+                DateTime AfterDateeee = Convert.ToDateTime(obj.gpAfterImageTime);
+
+                DateTime startDateTime = new DateTime(Dateeee.Year, Dateeee.Month, Dateeee.Day, 00, 00, 00, 000);
+                DateTime endDateTime = new DateTime(Dateeee.Year, Dateeee.Month, Dateeee.Day, 23, 59, 59, 999);
+                var IsSameHouseRecord = db.GarbageCollectionDetails.Where(c => c.userId == obj.userId && c.CTPTId == house.Id && c.gcDate == Dateeee).FirstOrDefault();
+
+                //var userPrabhag = db.UserMasters.Where(c => c.userId == obj.userId).Select(s => s.userId).FirstOrDefault();
+                //var ctptPrabhag = db.SauchalayAddresses.Where(c => c.SauchalayID == (obj.CTPTId)).Select(s => s.SauchalayID).FirstOrDefault();
+                //if (userPrabhag == ctptPrabhag || userPrabhag != ctptPrabhag)
+                //{
+                    if (IsSameHouseRecord == null)
+                    {
+
+                        try
+                        {
+                            GarbageCollectionDetail objdata = new GarbageCollectionDetail();
+                            objdata.userId = obj.userId;
+                            objdata.gcDate = Dateeee;
+                            objdata.Lat = obj.Lat;
+                            objdata.Long = obj.Long;
+                            //    objdata.garbageType = obj.garbageType;
+                            var atten = db.Daily_Attendance.Where(c => c.userId == obj.userId & c.daDate == EntityFunctions.TruncateTime(Dateeee) & c.endTime=="").FirstOrDefault();
+
+                            Location loc = new Location();
+
+                            if (atten == null)
+                            {
+                                result.isAttendenceOff = true;
+                                result.ID = obj.OfflineID;
+                                result.message = "Your duty is currently off, please start again.. ";
+                                result.messageMar = "आपली ड्यूटी सध्या बंद आहे, कृपया पुन्हा सुरू करा..";
+                                result.status = "success";
+                                return result;
+                            }
+                            else { result.isAttendenceOff = false; }
+                            if (obj.CTPTId != null && obj.CTPTId != "")
+                            {
+                                try
+                                {
+                                    locType = 1;
+                                    objdata.CTPTId = house.Id;
+                                    name = house.Name;
+                                    nameMar = checkNull(house.Name);
+                                    addre = checkNull(house.Address);
+                                    housemob = house.Mobile;
+
+
+                                    IsExist = (from p in db.GarbageCollectionDetails where p.CTPTId == objdata.CTPTId && p.gcDate >= startDateTime && p.gcDate <= endDateTime select p).Count() > 0;
+
+
+                                }
+                                catch (Exception ex)
+                                {
+                                    result.ID = obj.OfflineID;
+                                    result.message = "Invalid CTPT Id"; result.messageMar = "अवैध CTPT आयडी";
+                                    result.status = "error";
+                                    return result;
+                                }
+
+                            }
+
+
+
+                            if (house != null)
+                            {
+                                if (house.Lat == null && house.Long == null)
+                                {
+                                    house.Lat = obj.Lat;
+                                    house.Long = obj.Long;
+                                }
+                            }
+
+                            objdata.gcType = obj.gcType;
+                            objdata.gpBeforImage = obj.gpBeforImage;
+                            objdata.gpAfterImage = obj.gpAfterImage;
+
+                            objdata.gpBeforImageTime = BeforeDateeee;
+                            // objdata.gpAfterImageTime = AfterDateeee;
+
+                            objdata.note = checkNull(obj.note);
+                            objdata.garbageType = checkIntNull(obj.garbageType.ToString());
+                            objdata.vehicleNumber = checkNull(obj.vehicleNumber);
+                            loc.Distnace = obj.Distance; // Convert.ToDecimal(distCount);
+                            objdata.batteryStatus = obj.batteryStatus;
+                            objdata.userId = obj.userId;
+                            //objdata.LOS = obj.LevelOS;
+                            //objdata.TNS = house.Tns;
+                            //objdata.TOT = house.Tot;
+                            objdata.CTPTId = house.Id;
+
+                            objdata.locAddresss = addre;
+                            objdata.CreatedDate = DateTime.Now;
+                            objdata.WasteType = obj.wastetype;
+
+                            var Pn = db.UserMasters.Where(x => x.userId == obj.userId).FirstOrDefault();
+                           // objdata.PrabhagId = Pn.PrabhagId;
+                            objdata.EmployeeType = Pn.EmployeeType;
+                            db.GarbageCollectionDetails.Add(objdata);
+
+                            loc.datetime = Dateeee;
+                            loc.lat = objdata.Lat;
+                            loc.@long = objdata.Long;
+                            loc.address = objdata.locAddresss;
+                            loc.batteryStatus = obj.batteryStatus;
+                            if (objdata.locAddresss != "")
+                            { loc.area = area(loc.address); }
+                            else
+                            {
+                                loc.area = "";
+                            }
+                            loc.userId = objdata.userId;
+                            loc.type = 1;
+                            loc.Distnace = obj.Distance;
+                            loc.IsOffline = obj.IsOffline;
+                            if (!string.IsNullOrEmpty(obj.CTPTId))
+                            {
+                                loc.ReferanceID = obj.CTPTId;
+                            }
+                            loc.CreatedDate = DateTime.Now;
+
+                            db.Locations.Add(loc);
+                            db.SaveChanges();
+
+                            // }
+
+                            result.ID = obj.OfflineID;
+                            result.status = "success";
+                            result.message = "Uploaded successfully";
+                            result.messageMar = "सबमिट यशस्वी";
+
+                            return result;
+                        }
+
+                        catch (Exception ex)
+                        {
+                            result.ID = obj.OfflineID;
+                            result.message = "Something is wrong,Try Again.. ";
+                            result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                            result.status = "error";
+                            return result;
+                        }
+
+                    }
+
+                    else
+                    {
+                        result.ID = obj.OfflineID;
+                        result.status = "success";
+                        result.message = "Uploaded successfully";
+                        result.messageMar = "सबमिट यशस्वी";
+
+                        return result;
+                    }
+
+                //}
+                //else
+                //{
+                //    result.ID = obj.OfflineID;
+                //    result.status = "Error";
+                //    result.message = "This QR Code Not In Your Prabhag";
+                //    result.messageMar = "हा QR कोड तुमच्या प्रभागात नाही";
+                //    return result;
+                //}
+
+            }
+        }
+
         public CollectionSyncResult SaveUserLocationOfflineSync(SBGarbageCollectionView obj, int AppId, int typeId)
         {
             DevSwachhBharatMainEntities dbMain = new DevSwachhBharatMainEntities();
@@ -8675,6 +9745,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                 result = SaveDumpCollectionSyncForDump(obj, AppId, type);
                             }
                             break;
+
+                        case 10:
+                            result = SaveCTPTCollectionSync(obj, AppId, type);
+                            break;
                     }
                 }
 
@@ -8716,6 +9790,9 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             {
                                 result = SaveDumpCollectionSyncForDump(obj, AppId, type);
                             }
+                            break;
+                        case 10:
+                            result = SaveCTPTCollectionSync(obj, AppId, type);
                             break;
                     }
                 }
@@ -9868,6 +10945,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 obj = GetCollectionAreaForStreet(AppId, type);
             }
+            if (EmpType == "CT")
+            {
+                obj = GetCollectionAreaForCTPT(AppId, type);
+            }
             return obj;
 
         }
@@ -9939,6 +11020,27 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             return obj;
         }
 
+        public List<SBArea> GetCollectionAreaForCTPT(int AppId, int type)
+        {
+            List<SBArea> obj = new List<SBArea>();
+            using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
+            {
+                var data = db.CollecctionAreaForStreet(type).ToList();
+
+                foreach (var x in data)
+                {
+
+                    obj.Add(new SBArea()
+                    {
+                        id = x.Id,
+                        area = checkNull(x.Area).Trim(),
+                        areaMar = checkNull(x.AreaMar).Trim()
+                    });
+                }
+
+            }
+            return obj;
+        }
 
 
         public List<HouseDetailsVM> GetAreaHouse(int AppId, int areaId, string EmpType)
