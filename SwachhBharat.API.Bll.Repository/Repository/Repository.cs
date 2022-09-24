@@ -2368,7 +2368,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     }
                     return result;
                 }
-                catch
+                catch (Exception ex)
                 {
                     throw;
                     List<SyncResult> objres = new List<SyncResult>();
@@ -11133,6 +11133,11 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 obj = GetVehicleList(AppId);
             }
 
+            if (EmpType == "CT")
+            {
+                obj = GetCTPTList(AppId);
+            }
+
 
             return obj;
 
@@ -11612,6 +11617,30 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     {
                         houseid = x.ReferanceId,
                         houseNumber = x.ReferanceId,
+
+                    });
+                }
+
+
+            }
+            return obj;
+        }
+
+        public List<HouseDetailsVM> GetCTPTList(int AppId)
+        {
+            List<HouseDetailsVM> obj = new List<HouseDetailsVM>();
+            using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
+            {
+                var data = db.SauchalayAddresses.ToList();
+
+
+                foreach (var x in data)
+                {
+
+                    obj.Add(new HouseDetailsVM()
+                    {
+                        houseid = x.SauchalayID,
+                        houseNumber = x.SauchalayID,
 
                     });
                 }
