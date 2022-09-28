@@ -6727,7 +6727,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             //             IsolationLevel = IsolationLevel.ReadUncommitted
             //         }))
             //{
-            using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
+                using (DevSwachhBharatNagpurEntities db = new DevSwachhBharatNagpurEntities(AppId))
             {
                 string name = "", housemob = "", nameMar = "", addre = "";
 
@@ -9810,7 +9810,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 if (obj.IsLocation == false && obj.EmpType == "N" && result.status == "success")
                 {
                     appdetails.Today_Waste_Status = true;
-
+                    db.BunchListAutoupdate(obj.userId, obj.houseId, Convert.ToDateTime(obj.gcDate));
+                    db.SaveChanges();
                 }
                 if (obj.IsLocation == false && obj.EmpType == "L" && result.status == "success")
                 {
@@ -9823,8 +9824,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
 
                 }
-                dbMain.SaveChanges();
-
+              DevSwachhBharatMainEntities dbMain2 = new DevSwachhBharatMainEntities();
+              dbMain2.SaveChanges();
             }
 
             else

@@ -18,9 +18,10 @@ namespace SwachhBharatAPI.Dal.DataContexts
     public partial class DevSwachhBharatNagpurEntities : DbContext
     {
         public DevSwachhBharatNagpurEntities(int AppId)
-             : base(SwachhBharatAppConnection.GetConnectionString(AppId))
+              : base(SwachhBharatAppConnection.GetConnectionString(AppId))
         {
         }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -598,6 +599,23 @@ namespace SwachhBharatAPI.Dal.DataContexts
                 new ObjectParameter("month", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAttendenceDetailsTotalCTPT_Result>("GetAttendenceDetailsTotalCTPT", userIdParameter, yearParameter, monthParameter);
+        }
+    
+        public virtual int BunchListAutoupdate(Nullable<int> userid, string refferanceID, Nullable<System.DateTime> gcdate)
+        {
+            var useridParameter = userid.HasValue ?
+                new ObjectParameter("userid", userid) :
+                new ObjectParameter("userid", typeof(int));
+    
+            var refferanceIDParameter = refferanceID != null ?
+                new ObjectParameter("RefferanceID", refferanceID) :
+                new ObjectParameter("RefferanceID", typeof(string));
+    
+            var gcdateParameter = gcdate.HasValue ?
+                new ObjectParameter("gcdate", gcdate) :
+                new ObjectParameter("gcdate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("BunchListAutoupdate", useridParameter, refferanceIDParameter, gcdateParameter);
         }
     }
 }

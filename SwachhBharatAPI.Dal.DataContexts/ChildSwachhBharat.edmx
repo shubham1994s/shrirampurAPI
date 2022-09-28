@@ -554,6 +554,11 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
           <Property Name="imoNo2" Type="nvarchar(max)" />
           <Property Name="shiftIds" Type="nvarchar" MaxLength="500" />
         </EntityType>
+        <Function Name="BunchListAutoupdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userid" Type="int" Mode="In" />
+          <Parameter Name="RefferanceID" Type="nvarchar" Mode="In" />
+          <Parameter Name="gcdate" Type="date" Mode="In" />
+        </Function>
         <Function Name="CollecctionArea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="type" Type="int" Mode="In" />
         </Function>
@@ -1022,6 +1027,11 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
             <Parameter Name="month" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="Daily_Attendance" EntityType="DevSwachhBharatNagpurModel.Daily_Attendance" />
+          <FunctionImport Name="BunchListAutoupdate">
+            <Parameter Name="userid" Mode="In" Type="Int32" />
+            <Parameter Name="RefferanceID" Mode="In" Type="String" />
+            <Parameter Name="gcdate" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_area_Result">
           <Property Type="String" Name="area" Nullable="true" MaxLength="500" />
@@ -3032,6 +3042,7 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="BunchListAutoupdate" FunctionName="DevSwachhBharatNagpurModel.Store.BunchListAutoupdate" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
