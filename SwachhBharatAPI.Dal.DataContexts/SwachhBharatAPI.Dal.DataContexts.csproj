@@ -73,9 +73,6 @@
     <Compile Include="BinMaster.cs">
       <DependentUpon>MainSwachhBharat.tt</DependentUpon>
     </Compile>
-    <Compile Include="BunchListAutoupdate_Result.cs">
-      <DependentUpon>ChildSwachhBharat.tt</DependentUpon>
-    </Compile>
     <Compile Include="ChildSwachhBharat.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

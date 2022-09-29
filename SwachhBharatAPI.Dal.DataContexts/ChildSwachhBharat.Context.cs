@@ -18,10 +18,9 @@ namespace SwachhBharatAPI.Dal.DataContexts
     public partial class DevSwachhBharatNagpurEntities : DbContext
     {
         public DevSwachhBharatNagpurEntities(int AppId)
-                : base(SwachhBharatAppConnection.GetConnectionString(AppId))
+              : base(SwachhBharatAppConnection.GetConnectionString(AppId))
         {
         }
-
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -601,7 +600,7 @@ namespace SwachhBharatAPI.Dal.DataContexts
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAttendenceDetailsTotalCTPT_Result>("GetAttendenceDetailsTotalCTPT", userIdParameter, yearParameter, monthParameter);
         }
     
-        public virtual ObjectResult<BunchListAutoupdate_Result> BunchListAutoupdate(Nullable<int> userid, string refferanceID, Nullable<System.DateTime> gcdate, Nullable<bool> isUpdate)
+        public virtual int BunchListAutoupdate(Nullable<int> userid, string refferanceID, Nullable<System.DateTime> gcdate, Nullable<bool> isUpdate)
         {
             var useridParameter = userid.HasValue ?
                 new ObjectParameter("userid", userid) :
@@ -619,7 +618,7 @@ namespace SwachhBharatAPI.Dal.DataContexts
                 new ObjectParameter("IsUpdate", isUpdate) :
                 new ObjectParameter("IsUpdate", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BunchListAutoupdate_Result>("BunchListAutoupdate", useridParameter, refferanceIDParameter, gcdateParameter, isUpdateParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("BunchListAutoupdate", useridParameter, refferanceIDParameter, gcdateParameter, isUpdateParameter);
         }
     }
 }

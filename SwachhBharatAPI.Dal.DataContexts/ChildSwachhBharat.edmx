@@ -1028,7 +1028,7 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
             <Parameter Name="month" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="Daily_Attendance" EntityType="DevSwachhBharatNagpurModel.Daily_Attendance" />
-          <FunctionImport Name="BunchListAutoupdate" ReturnType="Collection(DevSwachhBharatNagpurModel.BunchListAutoupdate_Result)">
+          <FunctionImport Name="BunchListAutoupdate">
             <Parameter Name="userid" Mode="In" Type="Int32" />
             <Parameter Name="RefferanceID" Mode="In" Type="String" />
             <Parameter Name="gcdate" Mode="In" Type="DateTime" />
@@ -1957,12 +1957,6 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
           <Property Name="BinaryQrCodeImage" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="VQRID" Type="Int32" />
         </EntityType>
-        <ComplexType Name="BunchListAutoupdate_Result">
-          <Property Type="Int32" Name="MasterId" Nullable="false" />
-          <Property Type="Int32" Name="HouseBunchId" Nullable="true" />
-          <Property Type="String" Name="QRList" Nullable="true" />
-          <Property Type="Boolean" Name="ISActive" Nullable="true" />
-        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3050,16 +3044,7 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="BunchListAutoupdate" FunctionName="DevSwachhBharatNagpurModel.Store.BunchListAutoupdate">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.BunchListAutoupdate_Result">
-                <ScalarProperty Name="MasterId" ColumnName="MasterId" />
-                <ScalarProperty Name="HouseBunchId" ColumnName="HouseBunchId" />
-                <ScalarProperty Name="QRList" ColumnName="QRList" />
-                <ScalarProperty Name="ISActive" ColumnName="ISActive" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="BunchListAutoupdate" FunctionName="DevSwachhBharatNagpurModel.Store.BunchListAutoupdate" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
