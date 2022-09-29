@@ -7241,10 +7241,12 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         //Update House Count ,Liquid Count, Street Count
                         if (result.status== "success")
                         {
+                              DevSwachhBharatMainEntities dbMain2 = new DevSwachhBharatMainEntities();
                             try
                             {
                                 // Update code
-                                var updateappdetails = dbMain.DailyScanCount(AppId.ToString());
+
+                                var updateappdetails = dbMain2.DailyScanCount(AppId.ToString());
 
                             }
                             catch(Exception ex)
