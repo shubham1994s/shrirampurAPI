@@ -17,11 +17,12 @@ namespace SwachhBharatAPI.Dal.DataContexts
     
     public partial class DevSwachhBharatNagpurEntities : DbContext
     {
-        public DevSwachhBharatNagpurEntities()
-            : base("name=DevSwachhBharatNagpurEntities")
+        public DevSwachhBharatNagpurEntities(int AppId)
+               : base(SwachhBharatAppConnection.GetConnectionString(AppId))
         {
         }
-    
+
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
