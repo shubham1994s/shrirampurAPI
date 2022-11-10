@@ -17,11 +17,11 @@ namespace SwachhBharatAPI.Dal.DataContexts
     
     public partial class DevSwachhBharatNagpurEntities : DbContext
     {
-        public DevSwachhBharatNagpurEntities(int AppId)
-              : base(SwachhBharatAppConnection.GetConnectionString(AppId))
+        public DevSwachhBharatNagpurEntities()
+            : base("name=DevSwachhBharatNagpurEntities")
         {
         }
-
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -51,15 +51,15 @@ namespace SwachhBharatAPI.Dal.DataContexts
         public virtual DbSet<Vw_GetStreetNumber> Vw_GetStreetNumber { get; set; }
         public virtual DbSet<StreetSweepingBeat> StreetSweepingBeats { get; set; }
         public virtual DbSet<Vw_BitCount> Vw_BitCount { get; set; }
-        public virtual DbSet<HouseMaster> HouseMasters { get; set; }
         public virtual DbSet<DumpYardDetail> DumpYardDetails { get; set; }
-        public virtual DbSet<LiquidWasteDetail> LiquidWasteDetails { get; set; }
-        public virtual DbSet<StreetSweepingDetail> StreetSweepingDetails { get; set; }
         public virtual DbSet<SauchalayAddress> SauchalayAddresses { get; set; }
         public virtual DbSet<Vehical_QR_Master> Vehical_QR_Master { get; set; }
         public virtual DbSet<Vw_MsgNotification> Vw_MsgNotification { get; set; }
         public virtual DbSet<GarbageCollectionDetail> GarbageCollectionDetails { get; set; }
         public virtual DbSet<Daily_Attendance> Daily_Attendance { get; set; }
+        public virtual DbSet<HouseMaster> HouseMasters { get; set; }
+        public virtual DbSet<LiquidWasteDetail> LiquidWasteDetails { get; set; }
+        public virtual DbSet<StreetSweepingDetail> StreetSweepingDetails { get; set; }
     
         public virtual ObjectResult<sp_area_Result> sp_area()
         {
