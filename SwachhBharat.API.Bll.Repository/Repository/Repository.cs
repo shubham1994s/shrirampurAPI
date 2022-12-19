@@ -9347,32 +9347,36 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     var gc = db.GarbageCollectionDetails.Where(c => c.userId == obj.userId && c.SSId == dydetails.SSId && EntityFunctions.TruncateTime(c.gcDate) == EntityFunctions.TruncateTime(Dateeee)).OrderByDescending(c => c.gcDate).FirstOrDefault();
                     var sd = db.StreetSweepingDetails.Where(x => x.SSId == gc.SSId).FirstOrDefault();
                     var sbeatcount = db.StreetSweepingBeats.Where(x => x.ReferanceId1 == sd.ReferanceId || x.ReferanceId2 == sd.ReferanceId || x.ReferanceId3 == sd.ReferanceId || x.ReferanceId4 == sd.ReferanceId || x.ReferanceId5 == sd.ReferanceId).FirstOrDefault();
-                    var beatcount = db.Vw_BitCount.Where(x => x.BeatId == sbeatcount.BeatId).FirstOrDefault();
-                    var sd1 = db.StreetSweepingDetails.Where(z => z.ReferanceId == sbeatcount.ReferanceId1 || z.ReferanceId == sbeatcount.ReferanceId2 || z.ReferanceId == sbeatcount.ReferanceId3 || z.ReferanceId == sbeatcount.ReferanceId4 || z.ReferanceId == sbeatcount.ReferanceId5).ToList();
-                    foreach (var x in sd1)
+                    if (sbeatcount != null)
                     {
-                        var sgcd = db.GarbageCollectionDetails.Where(c => c.userId == obj.userId && c.SSId == x.SSId && EntityFunctions.TruncateTime(c.gcDate) == EntityFunctions.TruncateTime(Dateeee)).OrderByDescending(c => c.gcDate).FirstOrDefault();
-                        if (sgcd != null)
+                        var beatcount = db.Vw_BitCount.Where(x => x.BeatId == sbeatcount.BeatId).FirstOrDefault();
+                        var sd1 = db.StreetSweepingDetails.Where(z => z.ReferanceId == sbeatcount.ReferanceId1 || z.ReferanceId == sbeatcount.ReferanceId2 || z.ReferanceId == sbeatcount.ReferanceId3 || z.ReferanceId == sbeatcount.ReferanceId4 || z.ReferanceId == sbeatcount.ReferanceId5).ToList();
+                        foreach (var x in sd1)
                         {
-                            i++;
+                            var sgcd = db.GarbageCollectionDetails.Where(c => c.userId == obj.userId && c.SSId == x.SSId && EntityFunctions.TruncateTime(c.gcDate) == EntityFunctions.TruncateTime(Dateeee)).OrderByDescending(c => c.gcDate).FirstOrDefault();
+                            if (sgcd != null)
+                            {
+                                i++;
+                            }
+
                         }
 
+                        if (beatcount.BitCount == i)
+                        {
+                            result.ID = obj.OfflineID;
+                            result.status = "success";
+                            result.message = "Street Sweeping Completed Successfully";
+                            result.messageMar = "सबमिट यशस्वी";
+                        }
+                        else
+                        {
+                            result.ID = obj.OfflineID;
+                            result.status = "success";
+                            result.message = "Street Sweeping Partially Completed";
+                            result.messageMar = "सबमिट यशस्वी";
+                        }
                     }
-
-                    if (beatcount.BitCount == i)
-                    {
-                        result.ID = obj.OfflineID;
-                        result.status = "success";
-                        result.message = "Street Sweeping Completed Successfully";
-                        result.messageMar = "सबमिट यशस्वी";
-                    }
-                    else
-                    {
-                        result.ID = obj.OfflineID;
-                        result.status = "success";
-                        result.message = "Street Sweeping Partially Completed";
-                        result.messageMar = "सबमिट यशस्वी";
-                    }
+                    
 
                     if (result.status == "success")
                     {

@@ -239,6 +239,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\SwachhBharatAPI.dll" />
+    <Content Include="bin\SwachhBharatAPI.pdb" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
