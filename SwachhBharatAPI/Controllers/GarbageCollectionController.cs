@@ -186,8 +186,8 @@ namespace SwachhBharatAPI.Controllers
                 objres.nameMar = "";
                 objres.name = "";
                 objres.status = "error";
-                objres.message = "Something is wrong,Try Again.. ";
-                objres.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                objres.message = "Please ON The Duty and Scan Again.. ";
+                objres.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
             }
             objres.mobile = "";
             objres.nameMar = "";
@@ -426,8 +426,8 @@ namespace SwachhBharatAPI.Controllers
                 {
                     ID = 0,
                     status = "error",
-                    message = "Something is wrong,Try Again.. ",
-                    messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..",
+                    message = "Please ON The Duty and Scan Again.. ",
+                    messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..",
                 });
                 return objres;
 

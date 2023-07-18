@@ -1757,8 +1757,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         //                            ID = x.OfflineId,
         //                            isAttendenceOff = true,
         //                            status = "error",
-        //                            messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..",
-        //                            message = "Something is wrong,Try Again.. "
+        //                            messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..",
+        //                            message = "Please ON The Duty and Scan Again.. "
         //                        });
 
         //                        continue;
@@ -1841,8 +1841,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         //            objres.Add(new SyncResult()
         //            {
         //                status = "error",
-        //                messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..",
-        //                message = "Something is wrong,Try Again.. "
+        //                messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..",
+        //                message = "Please ON The Duty and Scan Again.. "
         //            });
 
         //            return objres;
@@ -2038,8 +2038,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         //            {
         //                ID = 0 ,
         //                status = "error",
-        //                messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..",
-        //                message = "Something is wrong,Try Again.. ",
+        //                messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..",
+        //                message = "Please ON The Duty and Scan Again.. ",
         //            });
 
         //            return objres;
@@ -2376,8 +2376,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     {
                         ID = 0,
                         status = "error",
-                        messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..",
-                        message = "Something is wrong,Try Again.. ",
+                        messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..",
+                        message = "Please ON The Duty and Scan Again.. ",
                     });
 
 
@@ -2516,8 +2516,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         {
                             OfflineId = 0,
                             status = "error",
-                            messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..",
-                            message = "Something is wrong,Try Again.. ",
+                            messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..",
+                            message = "Please ON The Duty and Scan Again.. ",
                         });
 
 
@@ -2708,8 +2708,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         {
 
                             result.status = "error";
-                            result.message = "Something is wrong,Try Again.. ";
-                            result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                            result.message = "Please ON The Duty and Scan Again.. ";
+                            result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                             result.emptype = "N";
                             return result;
                         }
@@ -2845,8 +2845,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     catch
                     {
                         result.status = "error";
-                        result.message = "Something is wrong,Try Again.. ";
-                        result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                        result.message = "Please ON The Duty and Scan Again.. ";
+                        result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                         result.emptype = "N";
                         return result;
                     }
@@ -2951,8 +2951,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         {
 
                             result.status = "error";
-                            result.message = "Something is wrong,Try Again.. ";
-                            result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                            result.message = "Please ON The Duty and Scan Again.. ";
+                            result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                             result.emptype = "L";
                             return result;
                         }
@@ -3053,8 +3053,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     catch
                     {
                         result.status = "error";
-                        result.message = "Something is wrong,Try Again.. ";
-                        result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                        result.message = "Please ON The Duty and Scan Again.. ";
+                        result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                         result.emptype = "L";
                         return result;
                     }
@@ -3158,8 +3158,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         {
 
                             result.status = "error";
-                            result.message = "Something is wrong,Try Again.. ";
-                            result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                            result.message = "Please ON The Duty and Scan Again.. ";
+                            result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                             result.emptype = "S";
                             return result;
                         }
@@ -3260,8 +3260,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     catch
                     {
                         result.status = "error";
-                        result.message = "Something is wrong,Try Again.. ";
-                        result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                        result.message = "Please ON The Duty and Scan Again.. ";
+                        result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                         result.emptype = "S";
                         return result;
                     }
@@ -3362,8 +3362,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             {
 
                                 result.status = "error";
-                                result.message = "Something is wrong,Try Again.. ";
-                                result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                                result.message = "Please ON The Duty and Scan Again.. ";
+                                result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                                 result.emptype = "D";
                                 return result;
                             }
@@ -3476,8 +3476,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         catch
                         {
                             result.status = "error";
-                            result.message = "Something is wrong,Try Again.. ";
-                            result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                            result.message = "Please ON The Duty and Scan Again.. ";
+                            result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                             result.emptype = "D";
                             return result;
                         }
@@ -3611,8 +3611,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         {
 
                             result.status = "error";
-                            result.message = "Something is wrong,Try Again.. ";
-                            result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                            result.message = "Please ON The Duty and Scan Again.. ";
+                            result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                             result.emptype = "CT";
                             return result;
                         }
@@ -3748,8 +3748,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     catch
                     {
                         result.status = "error";
-                        result.message = "Something is wrong,Try Again.. ";
-                        result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                        result.message = "Please ON The Duty and Scan Again.. ";
+                        result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                         result.emptype = "CT";
                         return result;
                     }
@@ -3824,8 +3824,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         //                        {
         //                            ID = x.OfflineID,
         //                            status = "error",
-        //                            message = "Something is wrong,Try Again.. ",
-        //                            messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..",
+        //                            message = "Please ON The Duty and Scan Again.. ",
+        //                            messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..",
         //                        });
 
         //                    }
@@ -3931,8 +3931,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
         //                    {
         //                        ID = x.OfflineID,
         //                        status = "error",
-        //                        message = "Something is wrong,Try Again.. ",
-        //                        messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..",
+        //                        message = "Please ON The Duty and Scan Again.. ",
+        //                        messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..",
         //                    });
         //                    return result;
         //                }
@@ -4392,8 +4392,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         {
                             ID = x.OfflineID,
                             status = "error",
-                            message = "Something is wrong,Try Again.. ",
-                            messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..",
+                            message = "Please ON The Duty and Scan Again.. ",
+                            messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..",
                             IsInSync = false,
                             IsOutSync = false,
                             EmpType = "N",
@@ -4760,8 +4760,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         {
                             ID = x.OfflineID,
                             status = "error",
-                            message = "Something is wrong,Try Again.. ",
-                            messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..",
+                            message = "Please ON The Duty and Scan Again.. ",
+                            messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..",
                             IsInSync = false,
                             IsOutSync = false,
                             EmpType = "L",
@@ -5128,8 +5128,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         {
                             ID = x.OfflineID,
                             status = "error",
-                            message = "Something is wrong,Try Again.. ",
-                            messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..",
+                            message = "Please ON The Duty and Scan Again.. ",
+                            messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..",
                             IsInSync = false,
                             IsOutSync = false,
                             EmpType = "S",
@@ -5805,8 +5805,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             {
                                 ID = x.OfflineID,
                                 status = "error",
-                                message = "Something is wrong,Try Again.. ",
-                                messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..",
+                                message = "Please ON The Duty and Scan Again.. ",
+                                messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..",
                                 IsInSync = false,
                                 IsOutSync = false,
                                 EmpType = "D",
@@ -6250,8 +6250,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         {
                             ID = x.OfflineID,
                             status = "error",
-                            message = "Something is wrong,Try Again.. ",
-                            messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..",
+                            message = "Please ON The Duty and Scan Again.. ",
+                            messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..",
                             IsInSync = false,
                             IsOutSync = false,
                             EmpType = "CT",
@@ -6752,8 +6752,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                 catch (Exception ex)
                 {
-                    result.message = "Something is wrong,Try Again.. ";
-                    result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                    result.message = "Please ON The Duty and Scan Again.. ";
+                    result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                     result.name = "";
                     result.status = "error";
                     return result;
@@ -7338,8 +7338,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         catch (Exception ex)
                         {
                             result.ID = obj.OfflineID;
-                            result.message = "Something is wrong,Try Again.. ";
-                            result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                            result.message = "Please ON The Duty and Scan Again.. ";
+                            result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                             result.status = "error";
                             return result;
                         }
@@ -7604,8 +7604,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 catch (Exception ex)
                 {
                     result.ID = obj.OfflineID;
-                    result.message = "Something is wrong,Try Again.. ";
-                    result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                    result.message = "Please ON The Duty and Scan Again.. ";
+                    result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                     result.status = "error";
                     return result;
                 }
@@ -7895,8 +7895,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                 catch (Exception ex)
                 {
-                    result.message = "Something is wrong,Try Again.. ";
-                    result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                    result.message = "Please ON The Duty and Scan Again.. ";
+                    result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                     result.status = "error";
                     return result;
                 }
@@ -8190,8 +8190,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                 catch (Exception ex)
                 {
-                    result.message = "Something is wrong,Try Again.. ";
-                    result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                    result.message = "Please ON The Duty and Scan Again.. ";
+                    result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                     result.status = "error";
                     return result;
                 }
@@ -8484,8 +8484,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                 catch (Exception ex)
                 {
-                    result.message = "Something is wrong,Try Again.. ";
-                    result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                    result.message = "Please ON The Duty and Scan Again.. ";
+                    result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                     result.status = "error";
                     return result;
                 }
@@ -8782,8 +8782,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                 catch (Exception ex)
                 {
-                    result.message = "Something is wrong,Try Again.. ";
-                    result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                    result.message = "Please ON The Duty and Scan Again.. ";
+                    result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                     result.status = "error";
                     return result;
                 }
@@ -9075,8 +9075,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                 catch (Exception ex)
                 {
-                    result.message = "Something is wrong,Try Again.. ";
-                    result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                    result.message = "Please ON The Duty and Scan Again.. ";
+                    result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                     result.status = "error";
                     return result;
                 }
@@ -9397,8 +9397,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                 catch (Exception ex)
                 {
-                    result.message = "Something is wrong,Try Again.. ";
-                    result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                    result.message = "Please ON The Duty and Scan Again.. ";
+                    result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                     result.status = "error";
                     return result;
                 }
@@ -9561,8 +9561,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     catch (Exception ex)
                     {
                         result.ID = obj.OfflineID;
-                        result.message = "Something is wrong,Try Again.. ";
-                        result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                        result.message = "Please ON The Duty and Scan Again.. ";
+                        result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                         result.status = "error";
                         return result;
                     }
@@ -9745,8 +9745,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     CollectionSyncResult result = new CollectionSyncResult();
                     result.ID = 0;
                     result.status = "error";
-                    result.message = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
-                    result.messageMar = "Something is wrong,Try Again.. ";
+                    result.message = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
+                    result.messageMar = "Please ON The Duty and Scan Again.. ";
 
                     return result;
                 }
@@ -10271,8 +10271,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
         //        catch (Exception ex)
         //        {
-        //            result.message = "Something is wrong,Try Again.. ";
-        //            result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+        //            result.message = "Please ON The Duty and Scan Again.. ";
+        //            result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
         //            result.name = "";
         //            result.status = "error";
         //            return result;
@@ -12451,8 +12451,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
 
                 catch (Exception ex)
                 {
-                    result.message = "Something is wrong,Try Again.. ";
-                    result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                    result.message = "Please ON The Duty and Scan Again.. ";
+                    result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                     result.name = "";
                     result.status = "error";
                     return result;
@@ -13486,8 +13486,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     {
 
                         result.status = "error";
-                        result.message = "Something is wrong,Try Again.. ";
-                        result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                        result.message = "Please ON The Duty and Scan Again.. ";
+                        result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                         return result;
                     }
 
@@ -13575,8 +13575,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     catch
                     {
                         result.status = "error";
-                        result.message = "Something is wrong,Try Again.. ";
-                        result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                        result.message = "Please ON The Duty and Scan Again.. ";
+                        result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                         return result;
                     }
 
@@ -13669,8 +13669,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 {
 
                     result.status = "error";
-                    result.message = "Something is wrong,Try Again.. ";
-                    result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                    result.message = "Please ON The Duty and Scan Again.. ";
+                    result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                     return result;
                 }
 
@@ -13770,8 +13770,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 catch
                 {
                     result.status = "error";
-                    result.message = "Something is wrong,Try Again.. ";
-                    result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                    result.message = "Please ON The Duty and Scan Again.. ";
+                    result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                     return result;
                 }
             }
@@ -13931,8 +13931,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                         {
                             ID = x.OfflineId,
                             status = "error",
-                            message = "Something is wrong,Try Again.. ",
-                            messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..",
+                            message = "Please ON The Duty and Scan Again.. ",
+                            messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..",
                             IsInSync = false,
                             IsOutSync = false,
                         });
@@ -13981,8 +13981,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             //    {
 
             //        result.status = "error";
-            //        result.message = "Something is wrong,Try Again.. ";
-            //        result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+            //        result.message = "Please ON The Duty and Scan Again.. ";
+            //        result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
             //        return result;
             //    }
 
@@ -14070,8 +14070,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             //    catch
             //    {
             //        result.status = "error";
-            //        result.message = "Something is wrong,Try Again.. ";
-            //        result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+            //        result.message = "Please ON The Duty and Scan Again.. ";
+            //        result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
             //        return result;
             //    }
             //}
@@ -14122,8 +14122,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
 
                 result.status = "error";
-                result.message = "Something is wrong,Try Again.. ";
-                result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                result.message = "Please ON The Duty and Scan Again.. ";
+                result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                 return result;
             }
         }
@@ -14578,8 +14578,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 }
                 catch (Exception ex)
                 {
-                    result.message = "Something is wrong,Try Again.. ";
-                    result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                    result.message = "Please ON The Duty and Scan Again.. ";
+                    result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                     //result.name = "";
                     result.status = "error";
                     return result;
@@ -15100,8 +15100,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     result.Add(new CollectionSyncResult()
                     {
                         ID = 0,
-                        message = "Something is wrong,Try Again.. ",
-                        messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..",
+                        message = "Please ON The Duty and Scan Again.. ",
+                        messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..",
                         status = "error",
                     });
                     return result;
@@ -15593,8 +15593,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 catch
                 {
                     result.status = "error";
-                    result.message = "Something is wrong,Try Again.. ";
-                    result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                    result.message = "Please ON The Duty and Scan Again.. ";
+                    result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                     return result;
                 }
                 return result;
@@ -16607,8 +16607,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 }
                 catch (Exception ex)
                 {
-                    result.message = "Something is wrong,Try Again.. ";
-                    result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                    result.message = "Please ON The Duty and Scan Again.. ";
+                    result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                     result.status = "error";
                     return result;
                 }
@@ -16707,8 +16707,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 catch (Exception ex)
                 {
                     result.ReferanceId = obj.ReferanceId;
-                    result.message = "Something is wrong,Try Again.. ";
-                    result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                    result.message = "Please ON The Duty and Scan Again.. ";
+                    result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                     result.status = "error";
                     return result;
                 }
@@ -16783,8 +16783,8 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             }
             catch (Exception ex)
             {
-                result.message = "Something is wrong,Try Again.. ";
-                result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                result.message = "Please ON The Duty and Scan Again.. ";
+                result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                 result.status = "error";
                 return result;
             }
@@ -16896,14 +16896,14 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                     else
                     {
                         result.status = "error";
-                        result.message = "Something is wrong,Try Again.. ";
+                        result.message = "Please ON The Duty and Scan Again.. ";
                     }
                 }
                 catch (Exception ex)
                 {
                     result.status = "error";
-                    result.message = "Something is wrong,Try Again.. ";
-                    result.messageMar = "काहीतरी चुकीचे आहे, पुन्हा प्रयत्न करा..";
+                    result.message = "Please ON The Duty and Scan Again.. ";
+                    result.messageMar = "कृपया ड्युटी ऑन करून पुन्हा स्कॅन करा..";
                     return result;
                 }
                 return result;
